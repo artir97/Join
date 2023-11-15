@@ -8,4 +8,5 @@ function loadimg(){
     img.style.top = '10%';
     img.style.left = '5%';
     container.style.backgroundColor = "white"; 
+    document.getElementById('login-container').style.display = 'flex';
 }
