@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Join Sing Up </title>
+</head>
+<body>
+
+    <style>
+        .singUpContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #005DFF;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .singUpImage{
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+
+        .singUpInputContainer{
+            background: white;
+            height: 65%;
+            border-radius: 30px;
+        }
+
+        .singUp{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            width: 650px;
+            /* border: 0.5px solid black; */
+            box-shadow: rgba(149, 157, 165, 0.6) 0px 8px 24px;
+            border-radius: 30px;
+        }
+
+        .singUp h1 {
+            /* border-bottom: 3px solid #4589ff; */
+            position: relative;
+            text-decoration: none;   
+            font-size: 46px;
+        }
+        
+        .singUp h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 110%;
+            border-bottom: 3px solid #4589ff;
+        }
+
+    </style>
+    
+    
+    <div class="singUpContainer">
+        <img id="logo-img" class="singUpImage" src="assets/img/Capa2.png" alt="">        
+        <div class="singUpInputContainer">
+            <div class="singUp">
+                    <h1>Sing Up</h1>
+                    <input id="login" class="loginInput" type="text" placeholder="Name">
+                    <input id="login" class="loginInput" type="text" placeholder="Email">
+                    <input id="password" class="loginInput" type="text" placeholder="Password">
+                    <input id="password" class="loginInput" type="text" placeholder="Confirm Password">
+                    <div id="remember-div">
+                        <input type="checkbox" name="RememberMe" id="remember">
+                        <label for="remember">I accept the <a href="">Privacy policy</a></label>
+                    </div>
+                        
+                    <div class="buttons">
+                        <button>Log in</button>
+                    </div>
+                </div>
+        </div>
+    </div>    
+</body>
+</html>
