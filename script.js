@@ -1,5 +1,5 @@
 function init(){
-    setTimeout(loadimg, 1000);
+    setTimeout(loadimg, 800);
 }
 function loadimg(){
     let container = document.getElementById('logo-container');
