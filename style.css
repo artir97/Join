@@ -288,11 +288,8 @@ button {
 
 
 /* DESKTOP NAVBAR  */
-body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-}
 
+/* TOP */
 header {
     background-color: #4589FF;
     color: #fff;
@@ -339,3 +336,49 @@ header {
     text-decoration: none;
     color: white;
 }
+
+/* SIDE */
+
+.sidenav {
+    height: calc(100% - 100px);
+    margin-top: 100px;
+    width: 240px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    overflow-x: hidden;
+    padding-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .sidenav a {
+    padding: 15px 0px 15px 45px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: flex;
+    align-items: center;
+  }
+
+  
+  .sidenav a:hover {
+    background-color: #E3EEFF;
+  }
+
+  
+  .sidenav a img {
+    padding-right: 10px;
+  }
+
+  .sidenav .legal {
+    margin-bottom: 50px;
+  }
+
+  .sidenav .legal a:hover {
+    background-color: #fff;
+    color: #4589FF;
+  }
