@@ -127,6 +127,12 @@ button {
     padding-right: 30px;
 }
 
+.buttons button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+
+}
+
 .buttons button:first-child {
     border: 1px solid #4589ff;
     background-color: #4589ff;
