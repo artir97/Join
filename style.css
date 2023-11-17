@@ -409,3 +409,45 @@ header {
     background-color: #fff;
     color: #4589FF;
   }
+
+
+
+  /* SUMMARY */
+
+  .box-container {
+    width: 600px;
+  }
+
+  .summary-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .summary-bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .summary-container {
+    background-color: lightblue;
+    margin-left: 240px;
+    height: calc(100vh - 100px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summary-big-box {
+    width: 430px;
+    height: 100px;
+    background-color: #005DFF;
+  }
+
+  .summary-small-box {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+  }
