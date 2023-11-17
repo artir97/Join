@@ -32,9 +32,13 @@ body{
     width: 100%;
 }
 #sign-up{
+    display: flex;
     position: absolute;
-    right: 30px;
+    right: 100px;
     top: 40px;
+    gap: 40px;
+    font-size: 30px;
+    align-items: center;
 }
 .login{
     display: flex;
@@ -94,6 +98,16 @@ body{
     background-image: url(assets/img/lock.png);
     background-repeat: no-repeat;
     background-position: right;
+}
+.signUpBtn button{
+    font-size: 30px;
+    cursor: pointer;
+    background-color: #4589FF;
+    border: unset;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: light;
 }
 .buttons{
     display: flex;
