@@ -165,6 +165,63 @@ button {
 
 
 
+/* Board Styling */
+.board-container{
+    margin-left: 240px;
+   height: 215px;
+   padding: 72px 0px 16px 0px;
+   gap: 48px;
+    display: block;
+}
+.boardHeader{ 
+    display: flex;
+    width: 1078px;
+    height: 51px;
+    gap: 35px;
+    padding: 0px 64px 0px 64px;
+
+}
+.addTask-container{
+    display: flex;
+    /* justify-content: center; */
+
+}
+#findTask {
+    background-image: url(assets/img/searchbuttonimg.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 312px;
+    border-radius: 10px;
+    border: 1px solid rgb(212,212,212);
+    padding: 8px 16px 8px 16px;
+    gap: 10px;
+}
+.addTaskBtn{
+    color: white;
+    background-color: #4589FF;
+}
+.columnTitles{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 64px 0px 64px;
+
+}
+.columnTitles img{
+    width: 24px;
+    height: 24px;
+}
+.columnTitles h1{
+    font-size: 23px;
+    color: rgba(66, 82, 110, 1);
+    display: flex;
+    justify-content: space-between;
+    width: 244px;
+}
+/* Board Styling Ende */
+
+/* Contacts Styling */
+
+/* Contacs Styling End  */
 
 
 
