@@ -219,9 +219,45 @@ button {
 }
 /* Board Styling Ende */
 
-/* Contacts Styling */
 
-/* Contacs Styling End  */
+/* Contacts Styling */
+.contacts-container{
+    display: flex;
+    flex-direction: column;
+    width: 456px;
+    /* overflow-y: scroll; */
+    position: relative;
+    left: 232px;
+    top: 96px;
+}
+.addContact{
+    display: flex;
+    width: 456px;
+    padding: 32px 24px 16px 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.addContactBtn{
+    color: white;
+    background: rgba(69, 137, 255, 1);;
+    width: 357px;
+    height: 56px;
+    border: 1px solid rgba(69, 137, 255, 1);
+    border-radius: 10px;
+    padding: 16px 10px 16px 10px;
+    gap: 10px;
+    font-size: 23px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.contactsList{
+    overflow-y: scroll;
+}
+/* Contacts Styling End  */
 
 
 
@@ -428,7 +464,7 @@ header {
 .sidenav {
     height: calc(100% - 100px);
     margin-top: 100px;
-    width: 240px;
+    width: 232px;
     position: fixed;
     top: 0;
     left: 0;

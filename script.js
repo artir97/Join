@@ -1,3 +1,48 @@
+let contacts = [
+    {
+        'name': 'Anton Mayer',
+        'email': 'anton@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Anja Schulz',
+        'email': 'schulz@hotmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Benedikt Ziegler',
+        'email': 'benedikt@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'David Eisenberg',
+        'email': 'davidberg@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Eva Fischer',
+        'email': 'eva@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Emmanuel Mauer',
+        'email': 'emmanuelma@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Marcel Bauer',
+        'email': 'bauer@gmail.com',
+        'phone': 49111111111
+    },
+    {
+        'name': 'Tatjana Wolf',
+        'email': 'wolf@gmail.com',
+        'phone': 49111111111
+    },
+]
+
+
+
 async function init(){
     await includeHTML();
     setTimeout(loadimg, 800);
@@ -26,4 +71,7 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
+}
+function addNewContact(){
+
 }
