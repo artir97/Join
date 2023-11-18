@@ -109,6 +109,10 @@ body{
     color: white;
     font-weight: light;
 }
+.signUpBtn button:hover{
+    background-color: #005eff;
+    
+}
 .buttons{
     display: flex;
     gap: 40px;
@@ -130,7 +134,6 @@ button {
 .buttons button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease; 
-
 }
 
 .buttons button:first-child {
@@ -151,7 +154,9 @@ button {
 
 .buttons button:last-child:hover {
     color: #4589ff;
-    border-color: #4589ff;
+    border: 2px solid #005DFF;
+
+    /* border-color: #4589ff; */
 }
 
 #guest-log-in-btn {
