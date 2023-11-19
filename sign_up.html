@@ -24,13 +24,13 @@
             /* height: 100px; */
             width: 100px;
             position: absolute;
-            top: 30px;
-            left: 30px;
+            top: 80px;
+            left: 77px;
         }
 
         .singUpInputContainer{
             background: white;
-            height: 65%;
+            height: 60%;
             border-radius: 30px;
         }
 
@@ -53,6 +53,20 @@
             font-size: 46px;
         }
         
+        .singUpInput{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-color: rgba(149, 157, 165, 0.5);
+            font-size: 18px;
+            padding-left: 20px;
+            padding-right: 200px;
+        }
+
+        .singUpInput::placeholder{
+            color: rgba(149, 157, 165, 0.5);
+        }
+
         .singUp h1::after {
             content: '';
             position: absolute;
@@ -60,6 +74,43 @@
             bottom: -10px;
             width: 110%;
             border-bottom: 3px solid #4589ff;
+        }
+
+        .singUpForm{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+            width: 650px;
+            border-radius: 30px;
+        }
+
+        #name{
+            background-image: url(assets/img/person.png);
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        .policy{
+            text-decoration: none;
+            color: 005DFF;
+        }
+
+        .acceptCheckBox{
+            border-color: #005DFF;
+            border: 1px solid #005DFF;
+        }
+
+        .policys{
+            display: flex;
+            position: absolute;
+            bottom: 50px;
+            gap: 30px;
+        }
+
+        .white{
+            color: white;
         }
 
     </style>
@@ -70,19 +121,25 @@
         <div class="singUpInputContainer">
             <div class="singUp">
                     <h1>Sing Up</h1>
-                    <input id="login" class="loginInput" type="text" placeholder="Name">
-                    <input id="login" class="loginInput" type="text" placeholder="Email">
-                    <input id="password" class="loginInput" type="text" placeholder="Password">
-                    <input id="password" class="loginInput" type="text" placeholder="Confirm Password">
+                <form class="singUpForm" action="">
+                    <input required id="name" class="singUpInput" type="text" placeholder="Name">
+                    <input required id="login" class="singUpInput" type="email" placeholder="Email">
+                    <input required id="password" class="singUpInput" type="password" placeholder="Password">
+                    <input required id="password" class="singUpInput" type="password" placeholder="Confirm Password">
                     <div id="remember-div">
-                        <input type="checkbox" name="RememberMe" id="remember">
-                        <label for="remember">I accept the <a href="">Privacy policy</a></label>
+                        <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox">
+                        <label for="acceptCheckBox">I accept the <a class="policy" href="#">Privacy policy</a></label>
                     </div>
                         
-                    <div class="buttons">
-                        <button>Log in</button>
+                    <div class="signUpBtn">
+                        <button disabled>Sing Up</button>
                     </div>
-                </div>
+                </form>
+            </div>
+        </div>
+        <div class="policys">
+            <a class="policy white" href="privacy_policy.html">Privacy Policy</a>
+            <a class="policy white" href="legal_notice.html">Legal Notice</a>
         </div>
     </div>    
 </body>
