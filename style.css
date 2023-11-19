@@ -599,3 +599,35 @@ header {
     background: var(--white, #FFF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   }
+
+  .summary-small-box-content {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+  }
+
+  .summary-small-box-content-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summary-small-box-number {
+    color: var(--black, #000);
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Open Sans; */
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .summary-small-box-content span {
+    text-align: center;
+    color: #005DFF;
+  }
+
+  .summary-small-box-content-img {
+    height: 70px;
+  }
