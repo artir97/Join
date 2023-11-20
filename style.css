@@ -564,6 +564,9 @@ header {
   }
 
   .summary-big-box {
+
+    cursor: pointer;
+    
     display: flex;
     width: 350px;
     height: 72px;
@@ -576,16 +579,45 @@ header {
     border-radius: 30px;
     background: var(--version-2-main-color, #4589FF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    color: #fff;
+    transition: transform 0.3s ease;
 
     /* width: 430px;
     height: 100px;
     background-color: #005DFF; */
   }
 
+
+  .summary-big-box:hover {
+    transform: scale(1.1); /* Scale the entire box on hover */
+    background-color: #fff;
+    color: #4589FF;
+}
+
+.summary-big-box span,
+.summary-big-box .summary-big-box-left,
+.summary-big-box .summary-big-box-right {
+    transition: transform 0.3s ease; /* Apply the same duration and easing to all elements */
+}
+
+.summary-big-box:hover .summary-big-box-left {
+    transform: scale(1.4);
+}
+
+.summary-big-box:hover span {
+    transform: scale(1.1);
+}
+
+.summary-big-box:hover .summary-big-box-right {
+    transform: scale(1.1);
+}
+
   .summary-small-box {
     /* width: 100px;
     height: 100px;
     background-color: #fff; */
+
+    cursor: pointer;
 
     display: flex;
     width: 52px;
@@ -632,10 +664,24 @@ header {
     height: 50px;
     border: 3px solid #fff;
     border-radius: 100%;
+    margin-bottom: 10px;
   }
 
-  .summary-big-box {
-    color: #fff;
+  .summary-big-box span {
+    transition: transform 0.3 ease;
+  }
+
+  .summary-big-box:hover .summary-big-box-left{
+    transform: scale(1.4);
+  }
+    
+  .summary-big-box:hover span{
+    transform: scale(1.1);
+  }
+
+
+  .summary-big-box:hover .summary-big-box-right{
+    transform: scale(1.1);
   }
 
   .summary-big-box-left {
@@ -651,7 +697,12 @@ header {
   .summary-big-box-hr {
     height: 100px;
     border: 1px solid #fff;
-  }
+    transition: border-color 0.3s ease; 
+}
+
+.summary-big-box:hover .summary-big-box-hr {
+    border-color: #005DFF; 
+}
 
   .summary-big-box-right .date {
     text-align: center;
@@ -662,7 +713,7 @@ header {
     font-weight: 700;  }
 
   .summary-big-box-number {
-    color: #fff;
+    /* color: #fff */
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     /* font-family: Open Sans; */
