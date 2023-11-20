@@ -592,6 +592,7 @@ header {
     transform: scale(1.1); /* Scale the entire box on hover */
     background-color: #fff;
     color: #4589FF;
+    border-radius: 0px 30px 30px 30px;
 }
 
 .summary-big-box span,
@@ -630,6 +631,24 @@ header {
     border-radius: 30px;
     background: var(--white, #FFF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  }
+
+  .summary-small-box:hover {
+    background-color: #005DFF;
+}
+
+.summary-small-box:hover .summary-small-box-number,
+.summary-small-box:hover span {
+    color: #fff;
+}
+
+
+  .todo {
+    background-color: #D2E3FF;
+  }
+
+  .todo .summary-small-box-content-img {
+    border: unset;
   }
 
   .summary-small-box-content {
