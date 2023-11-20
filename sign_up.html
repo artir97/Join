@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js"></script>
+    <script src="singUp.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Join Sing Up </title>
 </head>
@@ -41,13 +42,11 @@
             flex-direction: column;
             height: 100%;
             width: 650px;
-            /* border: 0.5px solid black; */
             box-shadow: rgba(149, 157, 165, 0.6) 0px 8px 24px;
             border-radius: 30px;
         }
 
         .singUp h1 {
-            /* border-bottom: 3px solid #4589ff; */
             position: relative;
             text-decoration: none;   
             font-size: 46px;
@@ -97,6 +96,18 @@
             color: 005DFF;
         }
 
+        .policyButton{
+            text-decoration: none;
+            border: none;
+            background-color: #005DFF;
+            color: var(--white, #FFF);
+            font-family: Open Sans;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+        }
+
         .acceptCheckBox{
             border-color: #005DFF;
             border: 1px solid #005DFF;
@@ -107,10 +118,6 @@
             position: absolute;
             bottom: 50px;
             gap: 30px;
-        }
-
-        .white{
-            color: white;
         }
 
     </style>
@@ -138,9 +145,11 @@
             </div>
         </div>
         <div class="policys">
-            <a class="policy white" href="privacy_policy.html">Privacy Policy</a>
-            <a class="policy white" href="legal_notice.html">Legal Notice</a>
+            <button onclick="openPage('privacy_policy.html')" class="policyButton white">Privacy Policy</button>
+            <button onclick="openPage('legal_notice.html')" class="policyButton white">Legal Notice</button>
         </div>
-    </div>    
+    </div>   
+    
+
 </body>
 </html>
