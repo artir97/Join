@@ -629,5 +629,44 @@ header {
   }
 
   .summary-small-box-content-img {
-    height: 70px;
+    height: 50px;
+    border: 3px solid #fff;
+    border-radius: 100%;
+  }
+
+  .summary-big-box {
+    color: #fff;
+  }
+
+  .summary-big-box-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summary-big-box-left div {
+    padding-left: 10px;
+  }
+
+  .summary-big-box-hr {
+    height: 100px;
+    border: 1px solid #fff;
+  }
+
+  .summary-big-box-right .date {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Open Sans; */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;  }
+
+  .summary-big-box-number {
+    color: #fff;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Open Sans; */
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
   }
