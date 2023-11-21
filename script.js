@@ -86,33 +86,33 @@ function contactsListRender(){
 
 function contactList(contact){
     let firstLetter = contact['name'].charAt(0).toUpperCase();
+    let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
+    const uppercaseLetter = uppercaseLetters(contact['name']).join('');
     if (contactList.lastFirstLetter === undefined || contactList.lastFirstLetter !== firstLetter) {
         contactList.lastFirstLetter = firstLetter;
         return `
             <div class="firstLetter">${firstLetter}</div>
-            ${contactInfo(contact, firstLetter)}
+            ${contactInfo(contact, uppercaseLetter)}
         `;
     } else {
         return `
-            ${contactInfo(contact, firstLetter)}
+            ${contactInfo(contact, uppercaseLetter)}
         `;
     }
 }
 
-function contactInfo(contact){
-    let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
-    const uppercaseLetter = uppercaseLetters(contact['name']).join('');
+function contactInfo(contact, uppercaseLetter){
     return `
         <div class="spacer">
         <svg xmlns="http://www.w3.org/2000/svg" width="353" height="2" viewBox="0 0 353 2" fill="none">
         <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
         </svg>
         </div>
-        <div class="contactInfo">
-        <div class"profileBadge">
-            ${uppercaseLetter}
+        <div class="contactInfo" onclick="openContactInfo()">
+        <div class="profileBadge">
                 <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
-                    T<circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
+                    <circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
+                    <text font-size="12px" text-anchor="middle" x="50%" y="50%" fill="white" stroke-width="0.1px" dy=".3em">${uppercaseLetter}</text>
                 </svg>
                 </div>
                 <h2>${contact['name']} <p>${contact['email']}</p></h2>

@@ -1,0 +1,57 @@
+.policy::-webkit-scrollbar {
+    display: none; 
+} 
+
+.policy{
+    position: absolute;
+    left: 320px;
+    top: 168px;
+    padding-bottom: 50px;
+    padding-right: 100px;
+    overflow-y: scroll;
+    bottom: 0px;            
+}
+
+h1{
+    color: var(--black, #000);
+    font-family: Open Sans;
+    font-size: 61px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+h2{
+    width: 346px;
+    color: var(--version-2-main-color, #4589FF);
+    font-family: Open Sans;
+    font-size: 33px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
+}
+
+h3{
+    color: var(--Ligth-blue, #005DFF);
+    font-family: Open Sans;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; 
+}
+
+.button{
+    background-color: aqua;
+}
+
+button:active {
+    background-color: red;
+}
+
+.clickable-div {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
