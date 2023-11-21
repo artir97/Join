@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join add task</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="add_task.css">
+</head>
+<body onload="init()">
+    <div w3-include-html="assets/templates/desktop_template.html"></div>
+    <div class="add-task-container">
+        <div class="add-task-container-content">
+            <h2>Contact Form & Imprint</h2>
+
+            <input class="pointer" type="text" placeholder="Enter a title">
+    
+            <label for="add-task-description">Description (optional)</label>
+            <input class="pointer" type="text" name="add-task-description" id="add-task-description" placeholder="Enter a description">
+    
+            <label for="add-task-date">Due date (optional)</label>
+            <input class="pointer" type="date" name="add-task-date" id="add-task-date">
+    
+            <label for="add-task-priority">Priority (optional)</label>
+            <div id="add-task-priority">
+                <div class="add-task-priority-box pointer">
+                    <div>Urgent</div>
+                    <img src="/assets/img/Prio urgent.png" alt="">
+                </div>
+                <div class="add-task-priority-box pointer">
+                    <div>Medium</div>
+                    <img src="/assets/img/Prio medium.png" alt="">
+                </div>
+                <div class="add-task-priority-box pointer">
+                    <div>Low</div>
+                    <img src="/assets/img/Prio low.png" alt="">
+                </div>
+            </div>
+    
+            <label for="add-task-assigne">Assgigned to (optional)</label>
+            <select class="pointer" name="assigne" id="add-task-assigne">
+                <option value="" disabled selected>Select contacts to assgin</option>
+                <option value="guest1">Guest1</option>
+                <option value="guest2">Guest2</option>
+                <option value="guest3">Guest3</option>
+                <option value="guest4">Guest4</option>
+                <option value="guest5">Guest5</option>
+            </select>
+    
+            <label for="add-task-category">Category</label>
+            <select class="pointer" name="category" id="add-task-category">
+                <option value="" disabled selected>Select task category</option>
+                <option value="technical-task">Technical Task</option>
+                <option value="user-story">User Story</option>
+            </select>
+    
+            <label for="add-task-subtask">Subtask (optional)</label>
+            <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask">
+            
+    
+        </div>
+      
+    </div>
+</body>
+</html>
