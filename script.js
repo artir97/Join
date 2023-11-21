@@ -108,7 +108,7 @@ function contactInfo(contact, uppercaseLetter){
         <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
         </svg>
         </div>
-        <div class="contactInfo">
+        <div class="contactInfo" onclick="openContactInfo()">
         <div class="profileBadge">
                 <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
                     <circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
