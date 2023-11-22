@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join add task</title>
     <script src="script.js"></script>
+    <script src="/js/add_task.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="add_task.css">
 </head>
@@ -17,22 +18,22 @@
             <input class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
     
             <label for="add-task-description">Description (optional)</label>
-            <input class="pointer" type="text" name="add-task-description" id="add-task-description" placeholder="Enter a description">
+            <textarea  class="pointer" type="text" name="add-task-description" id="add-task-description" placeholder="Enter a description"></textarea>
     
             <label for="add-task-date">Due date (optional)</label>
             <input class="pointer" type="date" name="add-task-date" id="add-task-date">
     
             <label for="add-task-priority">Priority (optional)</label>
             <div id="add-task-priority">
-                <div class="add-task-priority-box pointer">
+                <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
                     <div>Urgent</div>
                     <img src="/assets/img/Prio urgent.png" alt="">
                 </div>
-                <div class="add-task-priority-box pointer">
+                <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
                     <div>Medium</div>
                     <img src="/assets/img/Prio medium.png" alt="">
                 </div>
-                <div class="add-task-priority-box pointer">
+                <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
                     <div>Low</div>
                     <img src="/assets/img/Prio low.png" alt="">
                 </div>
