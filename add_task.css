@@ -1,19 +1,84 @@
+
+/* edit scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+    margin-bottom: 550px; 
+}
+
+::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 0px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a0a0a0;
+  border-radius: 10px;
+}
+
+
+
 .add-task-container {
     margin-left: 233px;
     height: calc(100vh - 100px);
 
     width: 35%;
-    background-color: aliceblue;
-
+    /* background-color: aliceblue; */ 
 }
 
-.add-task-container-content {
-
-    
+.add-task-container-content {   
     display: flex;
     flex-direction: column;
     width: 90%;
     margin-left: 5%;
+    gap: 20px;
+    height: calc(100vh - 100px);
+    overflow: auto;
+}
+
+.add-task-container-content label {
+    color: #42526E;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 200%;
+}
+
+#add-task-title, 
+#add-task-description,
+#add-task-date,
+#add-task-assigne,
+#add-task-category,
+#add-task-subtask {
+    border: unset;
+    height: 30px;
+    border-bottom: 1px solid #D1D1D1;
+    font-size: 30px;
+    padding: 5px;
+}
+
+#add-task-date {
+    min-height: 30px;
+}
+
+#add-task-assigne,
+#add-task-category {
+    font-size: 16px;
+}
+
+#add-task-subtask {
+    padding-bottom: 50px;
+}
+
+#add-task-title::placeholder,
+#add-task-description::placeholder,
+#add-task-date::placeholder,
+#add-task-subtask::placeholder {
+    color: #D1D1D1;
 }
 
 #add-task-priority {
