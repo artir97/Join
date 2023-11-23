@@ -16,6 +16,18 @@ function changePriority(priority) {
 }
 
 
+function showAndHideContacts(){
+    let contactBox = document.getElementById('add-task-contacts-to-assigne');
+
+    if(contactBox.classList.contains('d-none')){
+        contactBox.classList.remove('d-none');
+        contactBox.classList.add('d-block');
+    } else if(contactBox.classList.contains('d-block')) {
+        contactBox.classList.remove('d-block');
+        contactBox.classList.add('d-none');
+    }
+}
+
 function clearForm(){
     document.getElementById('add-task-title').value = '';
     document.getElementById('add-task-description').value = '';
