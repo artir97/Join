@@ -27,14 +27,23 @@
         </div>
 
         <label for="add-task-assigne">Assgigned to (optional)</label>
-        <select class="pointer" name="assigne" id="add-task-assigne">
+        <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
+            <div>Select contacts to assgin</div>  
+            <img src="/assets/img/arrow_drop_down.png" alt="">
+        </div>
+        <div class="d-none" id="add-task-contacts-to-assigne">
+            <div>contact1</div>
+            <div>contact2</div>
+            <div>contact3</div>
+        </div>
+        <!-- <select class="pointer" name="assigne" id="add-task-assigne">
             <option value="" disabled selected>Select contacts to assgin</option>
             <option value="guest1">Guest1</option>
             <option value="guest2">Guest2</option>
             <option value="guest3">Guest3</option>
             <option value="guest4">Guest4</option>
             <option value="guest5">Guest5</option>
-        </select>
+        </select> -->
 
         <label for="add-task-category">Category</label>
         <select class="pointer" name="category" id="add-task-category">
