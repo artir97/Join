@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
     <script src="script.js"></script>
+    <script src="/js/add_task.js"></script>
     <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="add_task.css"> -->
+    <link rel="stylesheet" href="board.css">
 </head>
 <body onload="init()">
     <div w3-include-html="assets/templates/desktop_template.html"></div>
@@ -23,6 +26,11 @@
             </div>
         </div>
         <div></div>
+    </div>
+
+    <div id="slide-form-add-task">
+        <div w3-include-html="assets/templates/task_form.html"></div>
+
     </div>
 </body>
 </html>
