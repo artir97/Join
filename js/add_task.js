@@ -1,5 +1,3 @@
-console.log('test');
-
 function changePriority(priority) {
 
     switch (priority) {
@@ -14,14 +12,19 @@ function changePriority(priority) {
             break;
 
     }
-    // document.getElementById('add-task-urgent').style.backgroundColor = 'red';
-    // document.getElementById('add-task-medium').style.backgroundColor = 'yellow';
-    // document.getElementById('add-task-low').style.backgroundColor = 'green';
+
+}
+
+
+function clearForm(){
+    document.getElementById('add-task-title').value = '';
+    document.getElementById('add-task-description').value = '';
+    document.getElementById('add-task-date').value = '';
+    document.getElementById('add-task-subtask').value = '';
 }
 
 
 function changeColorUrgent() {
-    
     document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
     document.getElementById('add-task-urgent').style.color = '#fff';
     document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent white.png'
@@ -34,6 +37,7 @@ function changeColorUrgent() {
     document.getElementById('add-task-low').style.color = '#000';
     document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png'
 }
+
 
 function changeColorMedium() {
     document.getElementById('add-task-medium').style.backgroundColor = '#FFA800';
@@ -49,6 +53,7 @@ function changeColorMedium() {
     document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png'
 }
 
+
 function changeColorLow() {
     document.getElementById('add-task-low').style.backgroundColor = '#7AE229';
     document.getElementById('add-task-low').style.color = '#fff';
@@ -63,6 +68,4 @@ function changeColorLow() {
     document.getElementById('add-task-medium').style.backgroundColor = '#fff';
     document.getElementById('add-task-medium').style.color = '#000';
     document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png'
-
-
 }
