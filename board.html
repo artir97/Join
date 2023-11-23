@@ -6,6 +6,7 @@
     <title>Contacts</title>
     <script src="script.js"></script>
     <script src="/js/add_task.js"></script>
+    <script src="/js/board.js"></script>
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="add_task.css"> -->
     <link rel="stylesheet" href="board.css">
@@ -16,7 +17,7 @@
         <div class="addTask-container">
             <di class="boardHeader">
                 <input type="text" name="" id="findTask" placeholder="Find Task">
-                <button onclick="" class="addTaskBtn">Add task +</button>
+                <button onclick="openAddTaskForm()" class="addTaskBtn">Add task +</button>
             </div>
             <div class="columnTitles">
                 <h1>To do<img src="assets/img/plus_button.png" alt=""></h1>
@@ -29,6 +30,9 @@
     </div>
 
     <div id="slide-form-add-task">
+        <div id="slide-form-close-btn" onclick="closeAddTaskForm()">
+            <img src="/assets/img/close.png" alt="">
+        </div>
         <div w3-include-html="assets/templates/task_form.html"></div>
 
     </div>
