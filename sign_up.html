@@ -21,6 +21,13 @@
             width: 100vw;
         }
 
+        .singUpHeader{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+        }
+
         .singUpImage{
             /* height: 100px; */
             width: 100px;
@@ -85,6 +92,11 @@
             border-radius: 30px;
         }
 
+        .arrow{
+            width: 32px;
+            height: 32px;
+        }
+
         #name{
             background-image: url(assets/img/person.png);
             background-repeat: no-repeat;
@@ -93,7 +105,12 @@
 
         .policy{
             text-decoration: none;
-            color: 005DFF;
+            color: var(--Ligth-blue, #005DFF);
+            font-family: Open Sans;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%; 
         }
 
         .policyButton{
@@ -120,6 +137,16 @@
             gap: 30px;
         }
 
+        .policy_link{
+            text-decoration: none;            
+            color: var(--white, #FFF);
+            font-family: Open Sans;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+        }
+
     </style>
     
     
@@ -127,7 +154,11 @@
         <img id="logo-img" class="singUpImage" src="assets/img/Capa2.png" alt="">        
         <div class="singUpInputContainer">
             <div class="singUp">
+                <div class="singUpHeader">
+                    <a class="arrow" href="index.html"><img src="assets/img/arrow-left-line.png" alt=""></a>
                     <h1>Sing Up</h1>
+                    <div style="width: 32px;"></div>
+                </div>
                 <form class="singUpForm" action="">
                     <input required id="name" class="singUpInput" type="text" placeholder="Name">
                     <input required id="login" class="singUpInput" type="email" placeholder="Email">
@@ -135,7 +166,7 @@
                     <input required id="password" class="singUpInput" type="password" placeholder="Confirm Password">
                     <div id="remember-div">
                         <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox">
-                        <label for="acceptCheckBox">I accept the <a class="policy" href="#">Privacy policy</a></label>
+                        <label for="acceptCheckBox">I accept the <a class="policy" target=”_blank” href="plain_privacy_policy.html">Privacy policy</a></label>
                     </div>
                         
                     <div class="signUpBtn">
@@ -145,8 +176,8 @@
             </div>
         </div>
         <div class="policys">
-            <button type="button" onclick="openPage('privacy_policy.html')" class="policyButton white button">Privacy Policy</button>
-            <button type="button" onclick="openPage('legal_notice.html')" class="policyButton white">Legal Notice</button>
+            <a class="policy_link" target=”_blank” href="plain_privacy_policy.html">Privacy Policy</a>
+            <a class="policy_link" target=”_blank” href="plain_legal_notice.html">Legal Notice</a>            
         </div>
     </div>   
     

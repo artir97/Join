@@ -9,7 +9,8 @@
     padding-bottom: 50px;
     padding-right: 100px;
     overflow-y: scroll;
-    bottom: 0px;            
+    bottom: 0px;   
+    width: 85%;         
 }
 
 h1{
@@ -55,3 +56,15 @@ button:active {
     cursor: pointer;
     margin-bottom: 20px;
   }
+
+  .plain_sidenav {
+    justify-content: flex-end !important;
+    
+  }
+
+  .singUpHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+}
