@@ -345,13 +345,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.contact-view{
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 21px;
 }
 
 /* Contacts Styling End  */
