@@ -119,3 +119,7 @@ function contactInfo(contact, uppercaseLetter){
             </div>
     `
 }
+
+function openContactView(){
+    
+}
