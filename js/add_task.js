@@ -17,7 +17,19 @@ function changePriority(priority) {
 
 
 function showAndHideContacts(){
+    console.log('in showAndHideContacts()');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
+
+
+    // if (contactBox.style.height) {
+    //     contactBox.style.height = null;
+    //     contactBox.style.opacity = 0;
+    // } else {
+    //     contactBox.style.height = '200px'; // Adjust the value based on your content height
+    //     contactBox.style.opacity = 1;
+    // }
+
+    // contactBox.classList.toggle('show-contacts');
 
     if(contactBox.classList.contains('d-none')){
         contactBox.classList.remove('d-none');

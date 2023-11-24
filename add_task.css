@@ -110,8 +110,64 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
 }
 
 #add-task-contacts-to-assigne {
-    background-color: #4589FF;
+    /* margin-top: 5px; */
+    /* background-color: #D2E3FF; */
+
+    /* background-color: gray; */
+    /* max-height: 0; */
+    /* overflow: hidden; */
+    /* transition: max-height 0.5s ease-in; */
+
 }
+
+#add-task-contacts-to-assigne:hover {
+    /* background-color: #D2E3FF; */
+}
+
+.add-task-contacts-to-assigne-list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.add-task-contacts-to-assigne-list-item:hover {
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #D2E3FF;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.name-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF3D00;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    color: #fff;
+}
+
+
+.add-task-contacts-to-assigne-list-item .name {
+    width: 80%;
+}
+
+/* #add-task-contacts-to-assigne.show-contacts {
+    max-height: 100%;
+    overflow-y: auto;
+} */
+
 
 #add-task-subtask {
     padding-bottom: 50px;
