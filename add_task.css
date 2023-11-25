@@ -271,3 +271,7 @@ transition: background-color 0.3 ease-in-out!important;
 .d-block {
     display: block;
 }
+
+.green {
+    background-color: green;
+}
