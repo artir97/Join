@@ -1,8 +1,11 @@
 @font-face {
   font-family: OpenSans;
-  src: url(font/OpenSans-VariableFont_wdth\,wght.ttf);
+  src: url(font/OpenSans-VariableFont_wdth\wght.ttf);
 }
-h1, h2, h3, h4{
+h1,
+h2,
+h3,
+h4 {
   font-family: OpenSans !important;
 }
 html {
@@ -221,6 +224,10 @@ button {
 /* Board Styling Ende */
 
 /* Contacts Styling */
+.contacts {
+  display: flex;
+  flex-direction: row;
+}
 .contacts-container {
   display: flex;
   flex-direction: column;
@@ -245,7 +252,7 @@ button {
   overflow-y: scroll;
   overflow-x: hidden;
 }
-.btnContainer{
+.btnContainer {
   background: white;
   width: 408px;
   display: flex;
@@ -275,8 +282,8 @@ button {
   font-size: 23px;
   font-weight: 400;
 }
-.addContactBtn:hover{
-  background-color: rgb(0,93,255);
+.addContactBtn:hover {
+  background-color: rgb(0, 93, 255);
 }
 
 .contactList {
@@ -290,7 +297,7 @@ button {
   padding: 32px 24px;
   z-index: 1;
 }
-.contactInfo{
+.contactInfo {
   display: flex;
   width: 304px;
   padding: 15px 24px;
@@ -299,9 +306,8 @@ button {
   border-radius: 10px;
   cursor: pointer;
 }
-.contactInfo:hover{
-  background-color: rgb(210,227,255);
-  
+.contactInfo:hover {
+  background-color: rgb(210, 227, 255);
 }
 .firstLetter {
   width: 280px;
@@ -318,7 +324,7 @@ button {
   font-weight: 400;
   line-height: 120%;
 }
-.contactInfo h2{
+.contactInfo h2 {
   color: #000;
   font-size: 19px;
   font-style: normal;
@@ -331,21 +337,119 @@ button {
   margin-block-end: 0;
   margin-block-start: 0;
 }
-.contactInfo h2 p{
+.contactInfo h2 p {
   font-size: 16px;
   text-decoration: underline;
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
-  color: #4589FF;
+  color: #4589ff;
   margin-block-end: 0;
   margin-block-start: 0;
 }
-.profileBadge{
+.profileBadge {
   display: flex;
   align-items: center;
   justify-content: center;
-
+}
+.contactViewBadge {
+  width: 120px;
+  height: 120px;
+}
+.contact-view {
+  /* hier Contact-View popup*/
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 21px;
+  position: relative;
+  left: 332px;
+  top: 68px;
+}
+.contacts-top {
+  display: flex;
+  gap: 54px;
+  align-items: center;
+  flex-direction: row;
+}
+.contact-view h2 {
+  color: #000;
+  font-family: Open Sans;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 27.6px */
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.contact-view h3 {
+  margin-block-end: 0;
+  margin-block-start: 0;
+  color: #000;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 19.2px */
+}
+#profileEmail {
+  color: #005dff;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 19.2px */
+}
+#profilePhone {
+  color: #000;
+  font-family: Open Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 19.2px */
+}
+.profileName {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.profileName h1 {
+  color: #000;
+  font-family: OpenSans; /* muss Inter*/
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 56.4px */
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.profileActions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+}
+.profileActions button {
+  border: none;
+  background-color: unset;
+  color: black;
+}
+.profileActions img {
+  width: 24px;
+  height: 24px;
+}
+.profileEdit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+.profileDel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 /* Contacts Styling End  */
@@ -456,10 +560,6 @@ header {
 }
 
 /* SUMMARY */
-
-.box-container {
-  /* width: 600px; */
-}
 
 #summary-headline {
   color: #2a3647;

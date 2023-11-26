@@ -1,37 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts</title>
     <script src="script.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body onload="init()">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="init()">
     <div w3-include-html="assets/templates/desktop_template.html"></div>
-    <div class="contacts-container">
-            <div class="btnContainer"><button onclick="addNewContact()" class="addContactBtn">Add new contact <img src="assets/img/person_add.png" alt="Add new contact"></button></div>
-            <div class="contactList" id="contacts">
-            </div>
-       
-    </div>
-    <div class="contact-view">
-        <div class="profileBadge">
-            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
-                <circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
-                <text font-size="12px" text-anchor="middle" x="50%" y="50%" fill="white" stroke-width="0.1px" dy=".3em">${uppercaseLetter}</text>
-            </svg>
+    <div class="contacts">
+      <div class="contacts-container">
+        <div class="btnContainer">
+          <button onclick="addNewContact()" class="addContactBtn">
+            Add new contact
+            <img src="assets/img/person_add.png" alt="Add new contact" />
+          </button>
         </div>
-        <div class="profileName">
-            <h1>${contact['name']}</h1>
-            <div class="profileActions">
-                <button onclick="editContact(i)"><img src="assets/img/edit.svg" alt=""> Edit</button>
-                <button onclick="editContact(i)"><img src="assets/img/delete.svg" alt=""> Delete</button>
-            </div>
-        </div>
-        
+        <div class="contactList" id="contacts"></div>
+      </div>
+      <div class="contact-view" id="contactView">
+      
+      </div>
     </div>
-    
-    
-</body>
+  </body>
 </html>

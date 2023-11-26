@@ -80,11 +80,11 @@ function contactsListRender(){
     contacts.sort((a, b) => a.name.localeCompare(b.name));
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
-        contactsList.innerHTML += contactList(contact);
+        contactsList.innerHTML += contactList(contact, i);
     }
 }
 
-function contactList(contact){
+function contactList(contact, i){
     let firstLetter = contact['name'].charAt(0).toUpperCase();
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contact['name']).join('');
@@ -92,23 +92,23 @@ function contactList(contact){
         contactList.lastFirstLetter = firstLetter;
         return `
             <div class="firstLetter">${firstLetter}</div>
-            ${contactInfo(contact, uppercaseLetter)}
+            ${contactInfo(contact, uppercaseLetter, i)}
         `;
     } else {
         return `
-            ${contactInfo(contact, uppercaseLetter)}
+            ${contactInfo(contact, uppercaseLetter, i)}
         `;
     }
 }
 
-function contactInfo(contact, uppercaseLetter){
+function contactInfo(contact, uppercaseLetter, i){
     return `
         <div class="spacer">
         <svg xmlns="http://www.w3.org/2000/svg" width="353" height="2" viewBox="0 0 353 2" fill="none">
         <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
         </svg>
         </div>
-        <div class="contactInfo" onclick="openContactInfo()">
+        <div class="contactInfo" onclick="openContactView(${i})">
         <div class="profileBadge">
                 <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
                     <circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
@@ -120,6 +120,72 @@ function contactInfo(contact, uppercaseLetter){
     `
 }
 
-function openContactView(){
+function openContactView(i){
+    let contactView = document.getElementById('contactView');
+    contactView = '';
+    let name = contacts[i]['name'];
+    let email = contacts[i]['email'];
+    let phone = contacts[i]['phone'];
     
+    let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
+    const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
+    
+    contactView += renderContactView(i, name, email, phone, uppercaseLetter); 
+}
+function renderContactView(i, name, email, phone, uppercaseLetter){
+    return `
+    <div class="contacts-top">
+    <div class="profileBadge contactViewBadge">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="120"
+        height="120"
+        viewBox="0 0 43 42"
+        fill="none"
+      >
+        <circle
+          cx="21.5"
+          cy="21"
+          r="20"
+          fill="#FF7A00"
+          stroke="white"
+          stroke-width="2"
+        />
+        <text id="profileBadge"
+          font-size="47px"
+          text-anchor="middle"
+          x="50%"
+          y="50%"
+          fill="white"
+          stroke-width="0.1px"
+          dy=".3em"
+        >
+          ${uppercaseLetter}
+        </text>
+      </svg>
+    </div>
+    <div class="profileName">
+      <h1 id="profileName">${name}</h1>
+      <div class="profileActions">
+        <button class="profileEdit" onclick="editContact(${i})">
+          <img src="assets/img/edit.png" alt="" /> Edit
+        </button>
+        <button class="profileDel" onclick="editContact(${i})">
+          <img src="assets/img/delete.png" alt="" /> Delete
+        </button>
+      </div>
+    </div>
+  
+  </div>
+  <h2>Contact Information</h2>
+    <div class="contactMailPhone">
+      <div class="contactEmail">
+          <h3>Email</h3>
+          <p id="profileEmail">${email}</p>
+      </div>
+      <div class="contactPhone"> 
+          <h3>Phone</h3>
+          <p id="profilePhone">${phone}</p>
+      </div>
+    </div> `
 }
