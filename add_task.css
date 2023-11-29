@@ -1,3 +1,13 @@
+@font-face {
+    font-family: OpenSans;
+    src: url('font/OpenSans-VariableFont_wdth\,wght.ttf');
+}
+
+* {
+    font-family: OpenSans !important;
+
+}
+
 /* edit scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
@@ -19,8 +29,6 @@
     background: #a0a0a0;
     border-radius: 10px;
 }
-
-
 
 .add-task-container {
     margin-left: 233px;
@@ -95,16 +103,19 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
     font-size: 16px;
 }
 
-#add-task-assigne {
+#add-task-assigne,
+#add-task-category {
     display: flex;
     justify-content: space-between;
 }
 
-#add-task-assigne:hover {
+#add-task-assigne:hover,
+#add-task-category:hover {
     border-bottom: 1px solid #005DFF;
 }
 
-#add-task-assigne img:hover {
+#add-task-assigne img:hover,
+#add-task-category img:hover {
     background-color: #D2E3FF;
     border-radius: 100%;
 }
@@ -124,13 +135,15 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
     /* background-color: #D2E3FF; */
 }
 
-.add-task-contacts-to-assigne-list-item {
+.add-task-contacts-to-assigne-list-item,
+.add-task-category-dropdown-task {
     display: flex;
     justify-content: space-between;
     padding: 10px;
 }
 
-.add-task-contacts-to-assigne-list-item:hover {
+.add-task-contacts-to-assigne-list-item:hover,
+.add-task-category-dropdown-task:hover {
     cursor: pointer;
     border-radius: 10px;
     background-color: #D2E3FF;

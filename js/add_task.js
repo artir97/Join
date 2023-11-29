@@ -20,23 +20,24 @@ function showAndHideContacts(){
     console.log('in showAndHideContacts()');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
 
-
-    // if (contactBox.style.height) {
-    //     contactBox.style.height = null;
-    //     contactBox.style.opacity = 0;
-    // } else {
-    //     contactBox.style.height = '200px'; // Adjust the value based on your content height
-    //     contactBox.style.opacity = 1;
-    // }
-
-    // contactBox.classList.toggle('show-contacts');
-
     if(contactBox.classList.contains('d-none')){
         contactBox.classList.remove('d-none');
         contactBox.classList.add('d-block');
     } else if(contactBox.classList.contains('d-block')) {
         contactBox.classList.remove('d-block');
         contactBox.classList.add('d-none');
+    }
+}
+
+function showAndHideCategories() {
+    let taskBox = document.getElementById('add-task-category-dropdown');
+
+    if(taskBox.classList.contains('d-none')){
+        taskBox.classList.remove('d-none');
+        taskBox.classList.add('d-block');
+    } else if(taskBox.classList.contains('d-block')) {
+        taskBox.classList.remove('d-block');
+        taskBox.classList.add('d-none');
     }
 }
 

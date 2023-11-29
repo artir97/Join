@@ -1,5 +1,18 @@
 
+.green {
+    background-color: green;
+}
 /* FOR Add Task Popup */
+@font-face {
+    font-family: OpenSans;
+    src: url('font/OpenSans-VariableFont_wdth\,wght.ttf');
+}
+
+* {
+    font-family: OpenSans !important;
+
+}
+
 #slide-form-add-task {
     height: 100vh;
     width: 30%;
@@ -135,28 +148,48 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
     font-size: 16px;
 }
 
-#add-task-assigne {
-    display: flex;
+#add-task-assigne,
+#add-task-category {
+   display: flex;
     justify-content: space-between;
 }
 
-#add-task-assigne:hover {
-    border-bottom: 1px solid #005DFF;
+#add-task-assigne:hover,
+#add-task-category:hover {
+   border-bottom: 1px solid #005DFF;
 }
 
-#add-task-assigne img:hover {
-    background-color: #D2E3FF;
+#add-task-assigne img:hover,
+#add-task-category img:hover {
+   background-color: #D2E3FF;
     border-radius: 100%;
 }
 
-.add-task-contacts-to-assigne-list-item {
-    display: flex;
+#add-task-contacts-to-assigne {
+    /* margin-top: 5px; */
+    /* background-color: #D2E3FF; */
+
+    /* background-color: gray; */
+    /* max-height: 0; */
+    /* overflow: hidden; */
+    /* transition: max-height 0.5s ease-in; */
+
+}
+
+#add-task-contacts-to-assigne:hover {
+    /* background-color: #D2E3FF; */
+}
+
+.add-task-contacts-to-assigne-list-item,
+.add-task-category-dropdown-task {
+   display: flex;
     justify-content: space-between;
     padding: 10px;
 }
 
-.add-task-contacts-to-assigne-list-item:hover {
-    cursor: pointer;
+.add-task-contacts-to-assigne-list-item:hover,
+.add-task-category-dropdown-task:hover {
+   cursor: pointer;
     border-radius: 10px;
     background-color: #D2E3FF;
 }
