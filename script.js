@@ -108,30 +108,35 @@ function contactInfo(contact, uppercaseLetter, i){
         <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
         </svg>
         </div>
-        <div class="contactInfo" onclick="openContactView(${i})">
+        <div class="contactInfo" id="contactInfo${i}" onclick="openContactView(${i})">
         <div class="profileBadge">
                 <svg xmlns="http://www.w3.org/2000/svg" width="43" height="42" viewBox="0 0 43 42" fill="none">
                     <circle cx="21.5" cy="21" r="20" fill="#FF7A00" stroke="white" stroke-width="2"/>
                     <text font-size="12px" text-anchor="middle" x="50%" y="50%" fill="white" stroke-width="0.1px" dy=".3em">${uppercaseLetter}</text>
                 </svg>
                 </div>
-                <h2>${contact['name']} <p>${contact['email']}</p></h2>
+                <h2 id="contactName${i}">${contact['name']} <p id="contactMail${i}">${contact['email']}</p></h2>
             </div>
     `
 }
 
 function openContactView(i){
     let contactView = document.getElementById('contactView');
-    contactView = '';
-    let name = contacts[i]['name'];
-    let email = contacts[i]['email'];
-    let phone = contacts[i]['phone'];
+    contactView.innerHTML = '';
+    // contactView.style.display =   ; //anmation
+    const contact = contacts[i];
+    let name = contact['name'];
+    let email = contact['email'];
+    let phone = contact['phone'];
     
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
     
-    contactView += renderContactView(i, name, email, phone, uppercaseLetter); 
+    contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter); 
+    changeContactColor(i);
 }
+
+
 function renderContactView(i, name, email, phone, uppercaseLetter){
     return `
     <div class="contacts-top">
@@ -152,7 +157,7 @@ function renderContactView(i, name, email, phone, uppercaseLetter){
           stroke-width="2"
         />
         <text id="profileBadge"
-          font-size="47px"
+          font-size="20px"
           text-anchor="middle"
           x="50%"
           y="50%"
@@ -170,7 +175,7 @@ function renderContactView(i, name, email, phone, uppercaseLetter){
         <button class="profileEdit" onclick="editContact(${i})">
           <img src="assets/img/edit.png" alt="" /> Edit
         </button>
-        <button class="profileDel" onclick="editContact(${i})">
+        <button class="profileDel" onclick="delContact(${i})">
           <img src="assets/img/delete.png" alt="" /> Delete
         </button>
       </div>
@@ -185,7 +190,35 @@ function renderContactView(i, name, email, phone, uppercaseLetter){
       </div>
       <div class="contactPhone"> 
           <h3>Phone</h3>
-          <p id="profilePhone">${phone}</p>
+          <p id="profilePhone">+${phone}</p>
       </div>
     </div> `
+}
+
+function changeContactColor(i){
+    for (let index = 0; index < contacts.length; index++) {
+        const contactElement = document.getElementById(`contactInfo${index}`);
+        const nameElement = document.getElementById(`contactName${index}`);
+        const mailElement = document.getElementById(`contactMail${index}`);
+        if (index === i) {
+            contactElement.classList.add('blueColor');
+            nameElement.classList.add('whiteColor');
+            mailElement.classList.add('whiteColor');
+        } else {
+            contactElement.classList.remove('blueColor');
+            nameElement.classList.remove('whiteColor');
+            mailElement.classList.remove('whiteColor');
+        }
+    }
+}
+
+function editContact(i){
+    // open edit contact
+}
+
+function delContact(i){
+    let contactView = document.getElementById('contactView');
+    contactView.innerHTML = '';
+    contacts.splice(i);
+    init();
 }

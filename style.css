@@ -1,6 +1,10 @@
 @font-face {
   font-family: OpenSans;
-  src: url(font/OpenSans-VariableFont_wdth\wght.ttf);
+  src: url(font/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf);
+}
+@font-face {
+  font-family: Inter;
+  src: url(font/Inter/Inter-VariableFont_slnt\,wght.ttf);
 }
 h1,
 h2,
@@ -13,7 +17,7 @@ html {
 }
 body {
   margin: 0;
-  font-family: OpenSans !important; /*Arial, Helvetica, sans-serif; /* font ist opensans - arial gerade nur als platzhalter */
+  font-style: normal;
   overflow-y: hidden;
 }
 .imagecontainer {
@@ -302,7 +306,7 @@ button {
   width: 304px;
   padding: 15px 24px;
   align-items: center;
-  gap: 35px;
+  gap: 35px; 
   border-radius: 10px;
   cursor: pointer;
 }
@@ -323,6 +327,7 @@ button {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  font-family: Inter;
 }
 .contactInfo h2 {
   color: #000;
@@ -351,6 +356,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Inter;
 }
 .contactViewBadge {
   width: 120px;
@@ -366,6 +372,9 @@ button {
   left: 332px;
   top: 68px;
 }
+#profileBadge{
+  font-family: Inter;
+}
 .contacts-top {
   display: flex;
   gap: 54px;
@@ -374,7 +383,7 @@ button {
 }
 .contact-view h2 {
   color: #000;
-  font-family: Open Sans;
+  font-family: OpenSans;
   font-size: 23px;
   font-style: normal;
   font-weight: 700;
@@ -386,7 +395,7 @@ button {
   margin-block-end: 0;
   margin-block-start: 0;
   color: #000;
-  font-family: Open Sans;
+  font-family: OpenSans;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
@@ -394,7 +403,7 @@ button {
 }
 #profileEmail {
   color: #005dff;
-  font-family: Open Sans;
+  font-family: OpenSans;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -402,7 +411,7 @@ button {
 }
 #profilePhone {
   color: #000;
-  font-family: Open Sans;
+  font-family: OpenSans;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -416,7 +425,7 @@ button {
 }
 .profileName h1 {
   color: #000;
-  font-family: OpenSans; /* muss Inter*/
+  font-family: Inter; /* muss Inter*/
   font-size: 47px;
   font-style: normal;
   font-weight: 500;
@@ -450,6 +459,13 @@ button {
   justify-content: center;
   align-items: center;
   gap: 8px;
+}
+.blueColor{
+  background: #4589FF !important;
+}
+.whiteColor{
+  color: white !important ;
+  text-decoration: none !important;
 }
 
 /* Contacts Styling End  */
@@ -538,6 +554,7 @@ header {
   display: flex;
   align-items: center;
   width: 186px;
+  font-family: OpenSans;
   /* margin-left: 20px; */
 }
 
@@ -564,8 +581,7 @@ header {
 #summary-headline {
   color: #2a3647;
   margin-bottom: 32px;
-  font-family: Arial, Helvetica, sans-serif;
-  /* font-family: Open Sans;   <- muss noch eingefügt werden */
+  font-family: OpenSans;
   font-size: 44px;
   font-style: normal;
   font-weight: 700;
@@ -657,12 +673,7 @@ header {
 }
 
 .summary-small-box {
-  /* width: 100px;
-    height: 100px;
-    background-color: #fff; */
-
   cursor: pointer;
-
   display: flex;
   width: 52px;
   height: 48px;
@@ -670,7 +681,6 @@ header {
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
   border-radius: 30px;
   background: var(--white, #fff);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
@@ -696,8 +706,6 @@ header {
 .summary-small-box-content {
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-    align-items: center; */
 }
 
 .summary-small-box-content-top {
@@ -709,8 +717,7 @@ header {
 .summary-small-box-number {
   color: var(--black, #000);
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  /* font-family: Open Sans; */
+  font-family: OpenSans;
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
@@ -766,8 +773,7 @@ header {
 
 .summary-big-box-right .date {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  /* font-family: Open Sans; */
+  font-family: OpenSans;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
@@ -776,8 +782,7 @@ header {
 .summary-big-box-number {
   /* color: #fff */
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  /* font-family: Open Sans; */
+  font-family: OpenSans;
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
