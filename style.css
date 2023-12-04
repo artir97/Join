@@ -6,6 +6,11 @@
   font-family: Inter;
   src: url(font/Inter/Inter-VariableFont_slnt\,wght.ttf);
 }
+
+.d-none {
+  display: none;
+}
+
 h1,
 h2,
 h3,
@@ -98,7 +103,8 @@ body {
   border-bottom: 3px solid #4589ff;
 }
 
-.login input[type="text"] {
+.login input[type="email"],
+.login input[type="password"] {
   width: 422px;
   height: 48px;
   margin-bottom: 20px;

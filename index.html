@@ -13,20 +13,25 @@
         <img id="logo-img" class="frontimage" src="assets/img/Capa2.png" alt="">
         <div id="login-container">
             <div id="sign-up"><p>Not a Join user?</p><a  class="signUpBtn" href="sign_up.html"><button >Sign up</button></a></div>
-            <div class="login">
-                    <h1>Log in</h1>
-                    <input id="login" class="loginInput" type="text" placeholder="Email">
-                    <input id="password" class="loginInput" type="text" placeholder="Password">
-                    <div id="remember-div">
-                        <input type="checkbox" name="RememberMe" id="remember">
-                        <label for="remember">Remember me</label>
-                    </div>
-                    
-                    <div class="buttons">
-                        <button>Log in</button>
-                        <a href="summary.html"><button id="guest-log-in-btn">Guest log in</button></a>
-                    </div>
-                </div>
+            <!-- <div class="login"> -->
+                    <form class="login" action="">
+                        <h1>Log in</h1>
+
+                        <input required id="login" class="loginInput" type="email" placeholder="Email">
+                        <input required id="password" class="loginInput" type="password" placeholder="Password">
+                 
+                        <div id="remember-div">
+                            <input type="checkbox" name="RememberMe" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        
+                        <div class="buttons">
+                            <button>Log in</button>
+                            <a href="summary.html"><button id="guest-log-in-btn">Guest log in</button></a>
+                        </div>
+                    </form>
+             
+                <!-- </div> -->
         </div>
     </div>
 

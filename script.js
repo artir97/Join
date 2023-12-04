@@ -1,17 +1,18 @@
-async function init(){
+async function init() {
     await includeHTML();
-    setTimeout(loadimg, 800);
+    //Timeout war 800 -> stelle kürzer um am login zu arbeiten
+    setTimeout(loadimg, 0);
     contactsListRender();
 }
 
 
-function loadimg(){
+function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
     img.src = 'assets/img/logo_blue.png';
     img.style.top = '10%';
     img.style.left = '5%';
-    container.style.backgroundColor = "white"; 
+    container.style.backgroundColor = "white";
     document.getElementById('login-container').style.display = 'flex';
 }
 

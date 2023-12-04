@@ -28,7 +28,15 @@ async function register(){
     });
 
     await setItem('users', JSON.stringify(users));
+    document.getElementById('msgBox').classList.remove('d-none');
     resetForm();
+
+
+    setTimeout(() => {
+        window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
+    }, 3000);
+
+
 }
 
 function resetForm(){
