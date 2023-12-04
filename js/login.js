@@ -57,3 +57,7 @@ function login() {
         alert('User not found. Please register or check your email.');
     }
 }
+
+function guestLogin() {
+    location.href = "summary.html";
+}
