@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <script src="script.js"></script>
     <script src="js/storage.js"></script>
-    <script src="login.js"></script>
+    <script src="js/login.js"></script>
+    <script src="script.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="init()">
+<body onload="init(); initUsers();">
     <div id="logo-container" class="imagecontainer">
         <img id="logo-img" class="frontimage" src="assets/img/Capa2.png" alt="">
         <div id="login-container">
@@ -27,7 +28,7 @@
                         </div>
                         
                         <div class="buttons">
-                            <button>Log in</button>
+                            <button type="button" id="loginBtn">Log in</button>
                         </div>
                     </form>
 
