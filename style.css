@@ -212,9 +212,20 @@ button {
   gap: 10px;
 }
 .addTaskBtn {
-  color: white;
-  background-color: #4589ff;
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 51px;
+    font-size: 19px;
+    padding: 16px 10px;
+    gap: 10px;
+    border: unset;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--version-2-main-color, #4589FF);
+    background: var(--version-2-main-color, #4589FF);
+  }
 .columnTitles {
   display: flex;
   justify-content: space-between;
