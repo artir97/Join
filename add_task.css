@@ -85,19 +85,6 @@
     min-height: 30px;
 }
 
-/* verstecken vom alten kalender icon -
-sobald ich weiß wie das neue seine funktionen übernehmen kann */
-/* #add-task-date::-webkit-calendar-picker-indicator { */
-    /* display: none; */
-/* } */
-
-
-/* Bild von neuem kalender icon -
- funktioniert aber dann nicht wie das alte */
-/* #add-task-date::after { */
-    /* content: url("/assets/img/calendar-icon.png"); */
-/* } */
-
 #add-task-assigne,
 #add-task-category {
     font-size: 16px;
@@ -118,21 +105,6 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
 #add-task-category img:hover {
     background-color: #D2E3FF;
     border-radius: 100%;
-}
-
-#add-task-contacts-to-assigne {
-    /* margin-top: 5px; */
-    /* background-color: #D2E3FF; */
-
-    /* background-color: gray; */
-    /* max-height: 0; */
-    /* overflow: hidden; */
-    /* transition: max-height 0.5s ease-in; */
-
-}
-
-#add-task-contacts-to-assigne:hover {
-    /* background-color: #D2E3FF; */
 }
 
 .add-task-contacts-to-assigne-list-item,
@@ -175,11 +147,6 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
 .add-task-contacts-to-assigne-list-item .name {
     width: 80%;
 }
-
-/* #add-task-contacts-to-assigne.show-contacts {
-    max-height: 100%;
-    overflow-y: auto;
-} */
 
 
 #add-task-subtask {
@@ -239,7 +206,6 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
 }
 
 .add-task-form-buttons button {
-    /* width: Hug (174px); */
     min-width: 100px;
     height: 50px;
     padding: 16px, 10px, 16px, 10px;

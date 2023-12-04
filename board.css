@@ -130,19 +130,6 @@
     min-height: 30px;
 }
 
-/* verstecken vom alten kalender icon -
-sobald ich weiß wie das neue seine funktionen übernehmen kann */
-/* #add-task-date::-webkit-calendar-picker-indicator { */
-    /* display: none; */
-/* } */
-
-
-/* Bild von neuem kalender icon -
- funktioniert aber dann nicht wie das alte */
-/* #add-task-date::after { */
-    /* content: url("/assets/img/calendar-icon.png"); */
-/* } */
-
 #add-task-assigne,
 #add-task-category {
     font-size: 16px;
@@ -165,20 +152,6 @@ sobald ich weiß wie das neue seine funktionen übernehmen kann */
     border-radius: 100%;
 }
 
-#add-task-contacts-to-assigne {
-    /* margin-top: 5px; */
-    /* background-color: #D2E3FF; */
-
-    /* background-color: gray; */
-    /* max-height: 0; */
-    /* overflow: hidden; */
-    /* transition: max-height 0.5s ease-in; */
-
-}
-
-#add-task-contacts-to-assigne:hover {
-    /* background-color: #D2E3FF; */
-}
 
 .add-task-contacts-to-assigne-list-item,
 .add-task-category-dropdown-task {
