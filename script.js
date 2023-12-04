@@ -30,3 +30,13 @@ async function includeHTML() {
     }
 }
 
+function showNavDropDown(){
+    let dropdown = document.getElementById('navbar-dropdown');
+    
+    if(dropdown.classList.contains('d-none')){
+        dropdown.classList.remove('d-none');
+    }else{
+        dropdown.classList.add('d-none');
+    }
+    
+}

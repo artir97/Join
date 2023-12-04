@@ -6,10 +6,16 @@
             <li><a href="../help.html"><img id="help-icon" src="../../assets/img/help.png" alt="help logo"></a></li>
 
             <!-- User initials muss noch mit css angepasst werden und nicht als bild eingefügt (je nach user buchstaben etc) -->
-            <li><a href="#"><img src="../../assets/img/User profile initials.png" alt="user initials"></a></li>
+            <li  onclick="showNavDropDown()"><a href="#"><img src="../../assets/img/User profile initials.png" alt="user initials"></a></li>
         </ul>
     </nav>
 </header>
+
+<div id="navbar-dropdown" class="navbar-dropdown d-none">
+    <li><a href="../../legal_notice.html">Legal Notice</a></li>
+    <li><a href="../../privacy_policy.html">Privacy Policy</a></li>
+    <li><a href="../../index.html">Log out</a></li>
+</div>
 
 <div class="sidenav">
     <div>

@@ -8,7 +8,7 @@
 }
 
 .d-none {
-  display: none;
+  display: none!important;
 }
 
 h1,
@@ -530,6 +530,49 @@ header {
   text-decoration: none;
   color: white;
 }
+
+/* DROPDOWN logout etc. */
+.navbar-dropdown {
+  z-index: 999;
+  position: absolute;
+  right: 5px;
+  height: 150px;
+  width: 200px;
+  border-radius: 30px 0 30px 30px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.navbar-dropdown li{
+  list-style-type: none;
+  padding: 5px 20px 15px 40px;
+  text-decoration: none;
+  /* font-size: 20px; */
+  color: #818181;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 60%;
+  font-family: OpenSans;
+}
+
+.navbar-dropdown li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-dropdown li:hover{
+  background-color: #e3eeff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
 
 /* SIDE */
 
