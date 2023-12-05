@@ -40,7 +40,7 @@ let phone = [49111111111];
 //     'email': email
 // }
 
-
+    
 
 function contactsListRender(){
     let contactsList = document.getElementById('contacts');
@@ -94,6 +94,7 @@ function openContactView(i){
     const contact = contacts[i];
     let name = contact['name'];
     let email = contact['email'];
+    let phone = contact['phone'];
     
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
