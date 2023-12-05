@@ -1,31 +1,38 @@
 let contacts = [
     {
         'name': 'Anton Mayer',
-        'email': 'anton@gmail.com'
+        'email': 'anton@gmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'Anja Schulz',
-        'email': 'schulz@hotmail.com'
+        'email': 'schulz@hotmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'Benedikt Ziegler',
-        'email': 'benedikt@gmail.com'
+        'email': 'benedikt@gmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'David Eisenberg',
-        'email': 'davidberg@gmail.com'
+        'email': 'davidberg@gmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'Eva Fischer',
-        'email': 'eva@gmail.com'
+        'email': 'eva@gmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'Emmanuel Mauer',
-        'email': 'emmanuelma@gmail.com'
+        'email': 'emmanuelma@gmail.com',
+        'phone': 49111111111
     },
     {
         'name': 'Marcel Bauer',
-        'email': 'bauer@gmail.com'
+        'email': 'bauer@gmail.com',
+        'phone': 49111111111
     }
     //
     //     'name': 'Tatjana Wolf',
@@ -33,7 +40,6 @@ let contacts = [
 
     // sie muss neu rein bei add
 ];
-let phone = [49111111111];
 
 // {
 //     'name': name,
@@ -89,7 +95,11 @@ function contactInfo(contact, uppercaseLetter, i){
 
 function openContactView(i){
     let contactView = document.getElementById('contactView');
-    contactView.innerHTML = '';
+    if(contactView.innerHTML.trim() !== '') {
+        // Wenn Inhalt vorhanden, dann
+        contactView.innerHTML = '';
+        removeColor(i);
+    } else {
     // contactView.style.display =   ; //anmation
     const contact = contacts[i];
     let name = contact['name'];
@@ -99,12 +109,13 @@ function openContactView(i){
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
     
-    contactView.innerHTML += renderContactView(i, name, email, uppercaseLetter); 
+    contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter); 
     changeContactColor(i);
+    }
 }
 
 
-function renderContactView(i, name, email, uppercaseLetter){
+function renderContactView(i, name, email, phone, uppercaseLetter){
     return `
     <div class="contacts-top">
     <div class="profileBadge contactViewBadge">
@@ -177,6 +188,11 @@ function changeContactColor(i){
             mailElement.classList.remove('whiteColor');
         }
     }
+}
+function removeColor(i){
+            document.getElementById(`contactInfo${i}`).classList.remove('blueColor');
+            document.getElementById(`contactName${i}`).classList.remove('whiteColor');
+            document.getElementById(`contactMail${i}`).classList.remove('whiteColor');
 }
 
 function editContact(i){

@@ -1,14 +1,14 @@
 @font-face {
   font-family: OpenSans;
-  src: url(font/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf);
+  src: url(font/OpenSans/OpenSans-VariableFont_wdth\wght.ttf);
 }
 @font-face {
   font-family: Inter;
-  src: url(font/Inter/Inter-VariableFont_slnt\,wght.ttf);
+  src: url(font/Inter/Inter-VariableFont_slnt\wght.ttf);
 }
 
 .d-none {
-  display: none!important;
+  display: none !important;
 }
 
 h1,
@@ -212,20 +212,20 @@ button {
   gap: 10px;
 }
 .addTaskBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 51px;
-    font-size: 19px;
-    padding: 16px 10px;
-    gap: 10px;
-    border: unset;
-    color: #fff;
-    border-radius: 10px;
-    border: 1px solid var(--version-2-main-color, #4589FF);
-    background: var(--version-2-main-color, #4589FF);
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  height: 51px;
+  font-size: 19px;
+  padding: 16px 10px;
+  gap: 10px;
+  border: unset;
+  color: #fff;
+  border-radius: 10px;
+  border: 1px solid var(--version-2-main-color, #4589ff);
+  background: var(--version-2-main-color, #4589ff);
+}
 .columnTitles {
   display: flex;
   justify-content: space-between;
@@ -323,7 +323,7 @@ button {
   width: 304px;
   padding: 15px 24px;
   align-items: center;
-  gap: 35px; 
+  gap: 35px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -389,7 +389,7 @@ button {
   left: 332px;
   top: 68px;
 }
-#profileBadge{
+#profileBadge {
   font-family: Inter;
 }
 .contacts-top {
@@ -477,13 +477,134 @@ button {
   align-items: center;
   gap: 8px;
 }
-.blueColor{
-  background: #4589FF !important;
+.blueColor {
+  background: #4589ff !important;
 }
-.whiteColor{
+.whiteColor {
   color: white !important ;
   text-decoration: none !important;
 }
+
+.addContact-container {
+  height: 1024px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 72px;
+  border-radius: 30px 0px 0px 0px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  right: 0;
+}
+.addContactTop {
+  display: flex;
+  width: 492px;
+  padding: 91px 46px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--Ligth-blue, #005dff);
+  border-radius: inherit;
+}
+.addContactTop button {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  display: flex;
+  padding: 4px;
+  align-items: flex-start;
+  gap: 10px;
+  border: unset;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(/assets/img/close_white.png);
+}
+.addContactTop img {
+  width: 55.123px;
+  height: 66.483px;
+}
+.addContactTop h2 {
+  color: white;
+  font-family: OpenSans;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 57.6px */
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+.addContactTop h3 {
+  color: white;
+  font-family: Inter;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 32.4px */
+}
+.addContactBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  border-radius: 0 0 30px 30px;
+  /* width: 100%; */
+}
+.addContactImage {
+  width: 120px;
+  height: 120px;
+}
+#contactImage {
+  position: relative;
+  left: 28px;
+  top: -100px;
+  width: 64px;
+  height: 64px;
+}
+.addContactInput-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.addContactInput {
+  display: flex;
+  width: 380px !important;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+.addContactInput input{
+  width: 100%;
+}
+.addContactInput img{
+  position: absolute;
+}
+/* .addName {
+  background: url(/assets/img/person.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.addEmail {
+  background: url(/assets/img/mail.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.addPhone {
+  background: url(/assets/img/call.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+} */
 
 /* Contacts Styling End  */
 
@@ -556,10 +677,10 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
-.navbar-dropdown li{
+.navbar-dropdown li {
   list-style-type: none;
   padding: 5px 20px 15px 40px;
   text-decoration: none;
@@ -577,13 +698,11 @@ header {
   color: inherit;
 }
 
-.navbar-dropdown li:hover{
+.navbar-dropdown li:hover {
   background-color: #e3eeff;
   border-radius: 8px;
   cursor: pointer;
 }
-
-
 
 /* SIDE */
 
