@@ -1,45 +1,45 @@
 let contacts = [
     {
         'name': 'Anton Mayer',
-        'email': 'anton@gmail.com',
-        'phone': 49111111111
+        'email': 'anton@gmail.com'
     },
     {
         'name': 'Anja Schulz',
-        'email': 'schulz@hotmail.com',
-        'phone': 49111111111
+        'email': 'schulz@hotmail.com'
     },
     {
         'name': 'Benedikt Ziegler',
-        'email': 'benedikt@gmail.com',
-        'phone': 49111111111
+        'email': 'benedikt@gmail.com'
     },
     {
         'name': 'David Eisenberg',
-        'email': 'davidberg@gmail.com',
-        'phone': 49111111111
+        'email': 'davidberg@gmail.com'
     },
     {
         'name': 'Eva Fischer',
-        'email': 'eva@gmail.com',
-        'phone': 49111111111
+        'email': 'eva@gmail.com'
     },
     {
         'name': 'Emmanuel Mauer',
-        'email': 'emmanuelma@gmail.com',
-        'phone': 49111111111
+        'email': 'emmanuelma@gmail.com'
     },
     {
         'name': 'Marcel Bauer',
-        'email': 'bauer@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Tatjana Wolf',
-        'email': 'wolf@gmail.com',
-        'phone': 49111111111
-    },
+        'email': 'bauer@gmail.com'
+    }
+    //
+    //     'name': 'Tatjana Wolf',
+    //     'email': 'wolf@gmail.com'
+
+    // sie muss neu rein bei add
 ];
+let phone = [49111111111];
+
+// {
+//     'name': name,
+//     'email': email
+// }
+
 
 
 function contactsListRender(){
@@ -94,17 +94,16 @@ function openContactView(i){
     const contact = contacts[i];
     let name = contact['name'];
     let email = contact['email'];
-    let phone = contact['phone'];
     
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
     
-    contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter); 
+    contactView.innerHTML += renderContactView(i, name, email, uppercaseLetter); 
     changeContactColor(i);
 }
 
 
-function renderContactView(i, name, email, phone, uppercaseLetter){
+function renderContactView(i, name, email, uppercaseLetter){
     return `
     <div class="contacts-top">
     <div class="profileBadge contactViewBadge">
