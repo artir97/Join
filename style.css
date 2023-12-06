@@ -575,24 +575,40 @@ button {
   align-items: center;
   flex-shrink: 0;
 }
-.addContactInput input{
+.addContactInput input {
   width: 100%;
 }
-.addContactInput img{
+.addContactInput img {
   position: absolute;
 }
-/* .addName {
+.addName {
   background: url(/assets/img/person.png);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position-x: 350px;
+  align-items: center;
+  border: unset;
+  border-bottom: 1px solid var(--Style, #d1d1d1);
+  justify-content: space-between;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
+.addName::placeholder, .addEmail::placeholder, .addPhone::placeholder {
+  color: var(--Style, #d1d1d1);
+  font-family: OpenSans;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 22.8px */
+}
 .addEmail {
   background: url(/assets/img/mail.png);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position-x: 350px;
+  align-items: center;
+  border: unset;
+  border-bottom: 1px solid var(--Style, #d1d1d1);
+  justify-content: space-between;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -600,18 +616,81 @@ button {
 .addPhone {
   background: url(/assets/img/call.png);
   background-repeat: no-repeat;
-  background-position: right;
+  background-position-x: 350px;
+  align-items: center;
+  border: unset;
+  border-bottom: 1px solid var(--Style, #d1d1d1);
+  justify-content: space-between;
   width: 24px;
   height: 24px;
   flex-shrink: 0;
-} */
+}
+.addName:focus,
+.addEmail:focus,
+.addPhone:focus {
+  outline: none;
+}
+.addContactBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 25px;
+}
+.cancelAddContact {
+  display: flex;
+  width: 136px;
+  height: 61px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid #647188;
+  background: var(--white, #fff);
+}
+.cancelAddContact p {
+  color: #647188;
+  font-family: OpenSans;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 27.6px */
+}
+
+.cancelAddContact:hover {
+  border: 2px solid #005dff;
+}
+.createAddContact {
+  display: flex;
+  height: 60px;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  background: var(--version-2-main-color, #4589ff);
+  border: unset;
+}
+.createAddContact p {
+  color: #fff;
+  font-family: OpenSans;
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 27.6px */
+}
+.createAddContact:hover {
+  background: #005dff;
+  
+}
 
 /* Contacts Styling End  */
 
 /* DESKTOP NAVBAR  */
 
 /* TOP */
-#user-initials{
+#user-initials {
   height: 46px;
   width: 46px;
   border-radius: 100%;
