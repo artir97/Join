@@ -2,9 +2,9 @@ async function init() {
     await includeHTML();
     //Timeout war 800 -> stelle kürzer um am login zu arbeiten
     setTimeout(loadimg, 0);
+    CheckIfLoggedInOrGuest();
     contactsListRender();
 }
-
 
 function loadimg() {
     let container = document.getElementById('logo-container');
@@ -39,4 +39,25 @@ function showNavDropDown(){
         dropdown.classList.add('d-none');
     }
     
+}
+
+async function CheckIfLoggedInOrGuest() {
+    let cookies = document.cookie.split(';');
+    let loggedInUserCookie = cookies.find(cookie => cookie.trim().startsWith('loggedInUser='));
+
+    if (loggedInUserCookie) {
+        loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
+        // User is logged in, update UI accordingly
+        document.getElementById('user-initials').innerHTML = `<div>${loggedInUser.user_name}</div>`;
+    } else {
+        // No user is logged in
+        document.getElementById('user-initials').innerHTML = '<div>G</div>';
+    }
+}
+
+function logout() {
+    // Set the expiration date of the cookie to a date in the past
+    document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Redirect to the login page or perform any other logout-related actions
+    window.location.href = 'index.html';
 }

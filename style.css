@@ -611,6 +611,21 @@ button {
 /* DESKTOP NAVBAR  */
 
 /* TOP */
+#user-initials{
+  height: 46px;
+  width: 46px;
+  border-radius: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px #4589ff, 0 0 0 5px #fff;
+
+  color: #4589ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 header {
   background-color: #4589ff;
   color: #fff;

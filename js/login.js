@@ -1,25 +1,20 @@
 console.log('login.js');
 
-let users = []; // Correct variable name
+let users = [];
+let loggedInUser = null;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('loginBtn').addEventListener('click', login);
 });
 
 async function initUsers() {
     console.log('in initUsers()');
     await loadUsers(); // Make sure to await the asynchronous function
-
-    console.log(users[0]);
-    console.log(users[1]);
-    console.log(users[0].email);
-    console.log(users[0].password);
-
     console.log('_________________________________');
-
-    for(let i=0; i<users.length; i++){
+    for (let i = 0; i < users.length; i++) {
         console.log(users[i]);
     }
+    console.log('_________________________________')
 }
 
 async function loadUsers() {
@@ -30,7 +25,8 @@ async function loadUsers() {
     }
 }
 
-function login() {
+function login(event) {
+    event.preventDefault();
     console.log('ich bin in der login() funktion');
 
     let emailInput = document.getElementById('login');
@@ -44,20 +40,23 @@ function login() {
     let userIndex = users.findIndex(user => user.email === enteredEmail);
 
     if (userIndex !== -1) {
-        // User found, check the password
         if (users[userIndex].password === enteredPassword) {
-            // Password is correct, navigate to summary.html
+            loggedInUser = users[userIndex];
+
+            // Set a cookie with the user information
+            document.cookie = 'loggedInUser=' + encodeURIComponent(JSON.stringify(loggedInUser));
             window.location.href = 'summary.html';
         } else {
-            // Password is incorrect
             alert('Incorrect password. Please try again.');
         }
     } else {
-        // User not found
         alert('User not found. Please register or check your email.');
     }
+    console.log('loggedInUser in login() after click:', loggedInUser);
+
 }
 
 function guestLogin() {
+    console.log('ich bin in der guest login funktion');
     location.href = "summary.html";
 }
