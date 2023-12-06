@@ -48,11 +48,36 @@ async function CheckIfLoggedInOrGuest() {
     if (loggedInUserCookie) {
         loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
         // User is logged in, update UI accordingly
-        document.getElementById('user-initials').innerHTML = `<div>${loggedInUser.user_name}</div>`;
+        document.getElementById('user-initials').innerHTML = `<div>${returnInitials(loggedInUser.user_name)}</div>`;
+        document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}, ${loggedInUser.user_name}`;
     } else {
         // No user is logged in
         document.getElementById('user-initials').innerHTML = '<div>G</div>';
+        document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}`;
     }
+}
+
+function checkTimeOfDay() {
+    let currentDate = new Date();
+    let currentHour = currentDate.getHours();
+
+    if (currentHour >= 6 && currentHour < 12) {
+        return 'Good Morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+        return 'Good Day';
+    } else {
+        return 'Good Evening';
+    }
+}
+
+function returnInitials(name){
+    let names = name.split(' ');
+    let initials = '';
+
+    for (let name of names) {
+        initials += name.charAt(0).toUpperCase();
+    }
+    return initials;
 }
 
 function logout() {
