@@ -17,6 +17,7 @@ async function initUsers() {
     console.log('_________________________________')
 }
 
+//Get users 
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));

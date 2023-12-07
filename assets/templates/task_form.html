@@ -7,7 +7,7 @@
         <label for="add-task-description">Description (optional)</label>
         <textarea  class="pointer" type="text" name="add-task-description" id="add-task-description" placeholder="Enter a description"></textarea>
 
-        <label for="add-task-date">Due date (optional)</label>
+        <label for="add-task-date">Due date</label>
         <input class="pointer" type="date" name="add-task-date" id="add-task-date">
 
         <label for="add-task-priority">Priority (optional)</label>
@@ -83,6 +83,6 @@
     
     <div class="add-task-form-buttons">
         <button id="add-task-clear-form" onclick="clearForm()"> Clear X</button>
-        <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
+        <button onclick="createTask()" id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
     </div>
 </div>

@@ -1,5 +1,36 @@
-function changePriority(priority) {
+let allTasks = [];
 
+
+
+
+async function createTask() {
+    const title = document.getElementById('add-task-title');
+    const description = document.getElementById('add-task-description');
+    const date = document.getElementById('add-task-date');
+    const priority = '';
+    const assignedContact = '';
+    const category = '';
+    const subtask = document.getElementById('add-task-subtask');
+
+    console.log('in createTask button');
+    console.log('pushing: ' + title.value + " " + description.value + " " + date.value);
+
+
+
+    allTasks.push(
+        {
+            title: title.value,
+            description: description.value,
+            date: date.value,
+            subtask: subtask.value
+        }
+    );
+
+    await setItem('allTasks', JSON.stringify(allTasks));
+}
+
+
+function changePriority(priority) {
     switch (priority) {
         case 'urgent':
             changeColorUrgent();
@@ -12,18 +43,17 @@ function changePriority(priority) {
             break;
 
     }
-
 }
 
 
-function showAndHideContacts(){
+function showAndHideContacts() {
     console.log('in showAndHideContacts()');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
 
-    if(contactBox.classList.contains('d-none')){
+    if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
         contactBox.classList.add('d-block');
-    } else if(contactBox.classList.contains('d-block')) {
+    } else if (contactBox.classList.contains('d-block')) {
         contactBox.classList.remove('d-block');
         contactBox.classList.add('d-none');
     }
@@ -32,16 +62,16 @@ function showAndHideContacts(){
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
 
-    if(taskBox.classList.contains('d-none')){
+    if (taskBox.classList.contains('d-none')) {
         taskBox.classList.remove('d-none');
         taskBox.classList.add('d-block');
-    } else if(taskBox.classList.contains('d-block')) {
+    } else if (taskBox.classList.contains('d-block')) {
         taskBox.classList.remove('d-block');
         taskBox.classList.add('d-none');
     }
 }
 
-function clearForm(){
+function clearForm() {
     document.getElementById('add-task-title').value = '';
     document.getElementById('add-task-description').value = '';
     document.getElementById('add-task-date').value = '';
@@ -49,6 +79,8 @@ function clearForm(){
 }
 
 
+
+// these functions have to be combined
 function changeColorUrgent() {
     document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
     document.getElementById('add-task-urgent').style.color = '#fff';

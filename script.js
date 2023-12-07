@@ -83,6 +83,6 @@ function returnInitials(name){
 function logout() {
     // Set the expiration date of the cookie to a date in the past
     document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // Redirect to the login page or perform any other logout-related actions
+    // Redirect to the startpage
     window.location.href = 'index.html';
 }

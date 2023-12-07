@@ -17,6 +17,7 @@ async function loadUsers(){
     
 }
 
+//Set users
 async function register(){
     signUpBtn.disabled = true;
     console.log('in function regsiter()');
