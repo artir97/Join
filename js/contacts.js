@@ -97,18 +97,18 @@ function openContactView(i){
     let contactView = document.getElementById('contactView');
     if(contactView.innerHTML.trim() !== '') {
         // Wenn Inhalt vorhanden, dann
-        contactView.innerHTML = '';
+        contactView.style = 'left: 100%';
         removeColor(i);
+        setTimeout(() => contactView.innerHTML = '', 200);
     } else {
-    // contactView.style.display =   ; //anmation
     const contact = contacts[i];
     let name = contact['name'];
     let email = contact['email'];
     let phone = contact['phone'];
-    
+    contactView.style = 'left: 332px';
     let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
     const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
-    
+    contactView.innerHTML = '';
     contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter); 
     changeContactColor(i);
     }
@@ -195,13 +195,50 @@ function removeColor(i){
             document.getElementById(`contactMail${i}`).classList.remove('whiteColor');
 }
 
+function addNewContact() {
+    let addNewContact = document.getElementById('addContact'); 
+    addNewContact.style = 'right: 0'
+}
+
 function editContact(i){
     // open edit contact
+    document.getElementById('popup-bg').style.display = 'block';
+    let editContact = document.getElementById('editContact');
+    editContact.style = 'left: 0';
+    document.getElementById('editContactName').value = contacts[i]['name'];
+    document.getElementById('editContactEmail').value = contacts[i]['email'];
+    document.getElementById('editContactPhone').value = '+' + contacts[i]['phone'];
+
 }
 
 function delContact(i){
     let contactView = document.getElementById('contactView');
     contactView.innerHTML = '';
     contacts.splice(i);
-    init();
+    init(); // geht noch nicht ganz, wegen storage speichern
 }
+function closeAddNewContact(){
+    let addNewContact = document.getElementById('addContact'); 
+    addNewContact.style = 'right: -100%';
+    document.getElementById('popup-bg').style.display = 'none';
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Warten, bis das DOM vollständig geladen ist
+  
+    var popupBg = document.getElementById('popup-bg');
+  
+    if (popupBg) {
+      // Überprüfen, ob das Element mit der ID 'popup-bg' existiert
+      popupBg.addEventListener('click', function (event) {
+        // EventListener für das Klicken auf das Element
+  
+        // Verhindern der Eventpropagation
+        event.stopPropagation();
+  
+        // Setzen der Display-Eigenschaft auf 'none'
+        popupBg.style.display = 'none';
+      });
+    }
+  });

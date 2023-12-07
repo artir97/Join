@@ -24,39 +24,78 @@
       <div class="contact-view" id="contactView">
       
       </div>
-      <div class="addContact-container" id="addContact">
-        <div class="addContactTop">
-          <button onclick="closeWindow()"></button>
-          <img src="/assets/img/Capa2.png" alt="">
-          <h2>Add contact</h2>
-          <h3>Tasks are better with a team!</h3>
+      <div class="popupbackground" id="popup-bg">
+        <div class="addContact-container" id="addContact">
+          <div class="addContactTop">
+            <button onclick="closeAddNewContact()"></button>
+            <img src="/assets/img/Capa2.png" alt="">
+            <h2>Add contact</h2>
+            <h3>Tasks are better with a team!</h3>
+          </div>
+          <div class="addContactBottom">
+            <div class="addContactImage">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="121" viewBox="0 0 120 121" fill="none">
+                <circle cx="60" cy="60.4829" r="60" fill="#D1D1D1"/>
+              </svg>
+              <svg id="contactImage" xmlns="http://www.w3.org/2000/svg" width="64" height="65" viewBox="0 0 64 65" fill="none">
+                <mask id="mask0_19013_6202" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="65">
+                  <rect y="0.48291" width="64" height="64" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_19013_6202)">
+                  <path d="M32 32.483C29.0667 32.483 26.5555 31.4385 24.4667 29.3497C22.3778 27.2608 21.3333 24.7497 21.3333 21.8163C21.3333 18.883 22.3778 16.3719 24.4667 14.283C26.5555 12.1941 29.0667 11.1497 32 11.1497C34.9333 11.1497 37.4444 12.1941 39.5333 14.283C41.6222 16.3719 42.6667 18.883 42.6667 21.8163C42.6667 24.7497 41.6222 27.2608 39.5333 29.3497C37.4444 31.4385 34.9333 32.483 32 32.483ZM48 53.8163H16C14.5333 53.8163 13.2778 53.2941 12.2333 52.2497C11.1889 51.2052 10.6667 49.9497 10.6667 48.483V46.3497C10.6667 44.8385 11.0555 43.4497 11.8333 42.183C12.6111 40.9163 13.6444 39.9497 14.9333 39.283C17.6889 37.9052 20.4889 36.8719 23.3333 36.183C26.1778 35.4941 29.0667 35.1497 32 35.1497C34.9333 35.1497 37.8222 35.4941 40.6667 36.183C43.5111 36.8719 46.3111 37.9052 49.0667 39.283C50.3555 39.9497 51.3889 40.9163 52.1667 42.183C52.9444 43.4497 53.3333 44.8385 53.3333 46.3497V48.483C53.3333 49.9497 52.8111 51.2052 51.7667 52.2497C50.7222 53.2941 49.4667 53.8163 48 53.8163ZM16 48.483H48V46.3497C48 45.8608 47.8778 45.4163 47.6333 45.0163C47.3889 44.6163 47.0667 44.3052 46.6667 44.083C44.2667 42.883 41.8444 41.983 39.4 41.383C36.9555 40.783 34.4889 40.483 32 40.483C29.5111 40.483 27.0444 40.783 24.6 41.383C22.1555 41.983 19.7333 42.883 17.3333 44.083C16.9333 44.3052 16.6111 44.6163 16.3667 45.0163C16.1222 45.4163 16 45.8608 16 46.3497V48.483ZM32 27.1497C33.4667 27.1497 34.7222 26.6274 35.7667 25.583C36.8111 24.5385 37.3333 23.283 37.3333 21.8163C37.3333 20.3497 36.8111 19.0941 35.7667 18.0497C34.7222 17.0052 33.4667 16.483 32 16.483C30.5333 16.483 29.2778 17.0052 28.2333 18.0497C27.1889 19.0941 26.6667 20.3497 26.6667 21.8163C26.6667 23.283 27.1889 24.5385 28.2333 25.583C29.2778 26.6274 30.5333 27.1497 32 27.1497Z" fill="white"/>
+                </g>
+              </svg>
+            </div>
+            
+              <!-- onclick contact create  -->
+              <!-- weiterer onclick delete data -->
+              <div class="addContactInput"><input class="addName" required type="name" id="addContactName" placeholder="Name" autocomplete="off"ssss></div>
+              <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
+              <div class="addContactInput"><input class="addPhone" required type="text" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
+              <div class="addContactBtns">
+              <button onclick="" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
+              <button onclick="" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
+            </div>
+          </div>
         </div>
-        <div class="addContactBottom">
-          <div class="addContactImage">
-            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="121" viewBox="0 0 120 121" fill="none">
-              <circle cx="60" cy="60.4829" r="60" fill="#D1D1D1"/>
-            </svg>
-            <svg id="contactImage" xmlns="http://www.w3.org/2000/svg" width="64" height="65" viewBox="0 0 64 65" fill="none">
-              <mask id="mask0_19013_6202" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="65">
-                <rect y="0.48291" width="64" height="64" fill="#D9D9D9"/>
-              </mask>
-              <g mask="url(#mask0_19013_6202)">
-                <path d="M32 32.483C29.0667 32.483 26.5555 31.4385 24.4667 29.3497C22.3778 27.2608 21.3333 24.7497 21.3333 21.8163C21.3333 18.883 22.3778 16.3719 24.4667 14.283C26.5555 12.1941 29.0667 11.1497 32 11.1497C34.9333 11.1497 37.4444 12.1941 39.5333 14.283C41.6222 16.3719 42.6667 18.883 42.6667 21.8163C42.6667 24.7497 41.6222 27.2608 39.5333 29.3497C37.4444 31.4385 34.9333 32.483 32 32.483ZM48 53.8163H16C14.5333 53.8163 13.2778 53.2941 12.2333 52.2497C11.1889 51.2052 10.6667 49.9497 10.6667 48.483V46.3497C10.6667 44.8385 11.0555 43.4497 11.8333 42.183C12.6111 40.9163 13.6444 39.9497 14.9333 39.283C17.6889 37.9052 20.4889 36.8719 23.3333 36.183C26.1778 35.4941 29.0667 35.1497 32 35.1497C34.9333 35.1497 37.8222 35.4941 40.6667 36.183C43.5111 36.8719 46.3111 37.9052 49.0667 39.283C50.3555 39.9497 51.3889 40.9163 52.1667 42.183C52.9444 43.4497 53.3333 44.8385 53.3333 46.3497V48.483C53.3333 49.9497 52.8111 51.2052 51.7667 52.2497C50.7222 53.2941 49.4667 53.8163 48 53.8163ZM16 48.483H48V46.3497C48 45.8608 47.8778 45.4163 47.6333 45.0163C47.3889 44.6163 47.0667 44.3052 46.6667 44.083C44.2667 42.883 41.8444 41.983 39.4 41.383C36.9555 40.783 34.4889 40.483 32 40.483C29.5111 40.483 27.0444 40.783 24.6 41.383C22.1555 41.983 19.7333 42.883 17.3333 44.083C16.9333 44.3052 16.6111 44.6163 16.3667 45.0163C16.1222 45.4163 16 45.8608 16 46.3497V48.483ZM32 27.1497C33.4667 27.1497 34.7222 26.6274 35.7667 25.583C36.8111 24.5385 37.3333 23.283 37.3333 21.8163C37.3333 20.3497 36.8111 19.0941 35.7667 18.0497C34.7222 17.0052 33.4667 16.483 32 16.483C30.5333 16.483 29.2778 17.0052 28.2333 18.0497C27.1889 19.0941 26.6667 20.3497 26.6667 21.8163C26.6667 23.283 27.1889 24.5385 28.2333 25.583C29.2778 26.6274 30.5333 27.1497 32 27.1497Z" fill="white"/>
-              </g>
-            </svg>
+  
+        <div class="editContact" id="editContact">
+          <div class="editContactTop">
+            <button onclick="closeAddNewContact()"></button>
+            <img src="/assets/img/Capa2.png" alt="">
+            <h2>Edit contact</h2>
           </div>
-          
-            <!-- onclick contact create  -->
-            <!-- weiterer onclick delete data -->
-            <div class="addContactInput"><input class="addName" required type="name" id="addContactName" placeholder="Name" autocomplete="off"ssss></div>
-            <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
-            <div class="addContactInput"><input class="addPhone" required type="text" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
-            <div class="addContactBtns">
-            <button onclick="" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
-            <button onclick="" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
+          <div class="editContactBottom">
+            <div class="editContactImage">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="121" viewBox="0 0 120 121" fill="none">
+                <circle cx="60" cy="60.4829" r="60" fill="#FF7A00"/>
+                <text id="contactEditImage"></text>
+              </svg>
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="120" height="121" viewBox="0 0 120 121" fill="none">
+                <circle cx="60" cy="60.4829" r="60" fill="#D1D1D1"/>
+              </svg>
+              <svg id="contactEditImage" xmlns="http://www.w3.org/2000/svg" width="64" height="65" viewBox="0 0 64 65" fill="none">
+                <mask id="mask0_19013_6202" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="65">
+                  <rect y="0.48291" width="64" height="64" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_19013_6202)">
+                  <path d="M32 32.483C29.0667 32.483 26.5555 31.4385 24.4667 29.3497C22.3778 27.2608 21.3333 24.7497 21.3333 21.8163C21.3333 18.883 22.3778 16.3719 24.4667 14.283C26.5555 12.1941 29.0667 11.1497 32 11.1497C34.9333 11.1497 37.4444 12.1941 39.5333 14.283C41.6222 16.3719 42.6667 18.883 42.6667 21.8163C42.6667 24.7497 41.6222 27.2608 39.5333 29.3497C37.4444 31.4385 34.9333 32.483 32 32.483ZM48 53.8163H16C14.5333 53.8163 13.2778 53.2941 12.2333 52.2497C11.1889 51.2052 10.6667 49.9497 10.6667 48.483V46.3497C10.6667 44.8385 11.0555 43.4497 11.8333 42.183C12.6111 40.9163 13.6444 39.9497 14.9333 39.283C17.6889 37.9052 20.4889 36.8719 23.3333 36.183C26.1778 35.4941 29.0667 35.1497 32 35.1497C34.9333 35.1497 37.8222 35.4941 40.6667 36.183C43.5111 36.8719 46.3111 37.9052 49.0667 39.283C50.3555 39.9497 51.3889 40.9163 52.1667 42.183C52.9444 43.4497 53.3333 44.8385 53.3333 46.3497V48.483C53.3333 49.9497 52.8111 51.2052 51.7667 52.2497C50.7222 53.2941 49.4667 53.8163 48 53.8163ZM16 48.483H48V46.3497C48 45.8608 47.8778 45.4163 47.6333 45.0163C47.3889 44.6163 47.0667 44.3052 46.6667 44.083C44.2667 42.883 41.8444 41.983 39.4 41.383C36.9555 40.783 34.4889 40.483 32 40.483C29.5111 40.483 27.0444 40.783 24.6 41.383C22.1555 41.983 19.7333 42.883 17.3333 44.083C16.9333 44.3052 16.6111 44.6163 16.3667 45.0163C16.1222 45.4163 16 45.8608 16 46.3497V48.483ZM32 27.1497C33.4667 27.1497 34.7222 26.6274 35.7667 25.583C36.8111 24.5385 37.3333 23.283 37.3333 21.8163C37.3333 20.3497 36.8111 19.0941 35.7667 18.0497C34.7222 17.0052 33.4667 16.483 32 16.483C30.5333 16.483 29.2778 17.0052 28.2333 18.0497C27.1889 19.0941 26.6667 20.3497 26.6667 21.8163C26.6667 23.283 27.1889 24.5385 28.2333 25.583C29.2778 26.6274 30.5333 27.1497 32 27.1497Z" fill="white"/>
+                </g>
+              </svg> -->
+            </div>
+            
+              <!-- onclick contact create  -->
+              <!-- weiterer onclick delete data -->
+              <div class="editContactInput"><input class="editName" required type="name" id="editContactName" placeholder="Name" autocomplete="off"></div>
+              <div class="editContactInput"><input class="editEmail" required type="email" id="editContactEmail" placeholder="Email" autocomplete="off"></div>
+              <div class="editContactInput"><input class="editPhone" required type="text" id="editContactPhone" placeholder="Phone" autocomplete="off"></div>
+              <div class="editContactBtns">
+              <button onclick="" class="delEditContact"><p>Delete</p></button>
+              <button onclick="" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>
           </div>
+        </div>
         </div>
       </div>
-    </div>
+      
   </body>
 </html>

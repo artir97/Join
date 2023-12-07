@@ -1,10 +1,14 @@
 @font-face {
   font-family: OpenSans;
-  src: url(font/OpenSans/OpenSans-VariableFont_wdth\wght.ttf);
+  src: url(font/OpenSans/OpenSans-VariableFont_wdth%2Cwght.ttf);
 }
+/* @font-face {
+  font-family: OpenSans;
+  src: url(font/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf);
+} */
 @font-face {
   font-family: Inter;
-  src: url(font/Inter/Inter-VariableFont_slnt\wght.ttf);
+  src: url(font/Inter/Inter-VariableFont_slnt%2wght.ttf);
 }
 
 .d-none {
@@ -24,6 +28,7 @@ body {
   margin: 0;
   font-style: normal;
   overflow-y: hidden;
+  font-family: OpenSans !important;
 }
 .imagecontainer {
   position: absolute;
@@ -386,8 +391,9 @@ button {
   align-items: flex-start;
   gap: 21px;
   position: relative;
-  left: 332px;
+  left: 100%; /*332px*/
   top: 68px;
+  transition: all 200ms ease-in-out;
 }
 #profileBadge {
   font-family: Inter;
@@ -485,17 +491,31 @@ button {
   text-decoration: none !important;
 }
 
+.popupbackground {
+  display: none;
+  background-color: rgba(255, 255, 255, 0.6);
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
 .addContact-container {
   height: 1024px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   gap: 72px;
-  border-radius: 30px 0px 0px 0px;
+  border-radius: 30px 0px 30px 30px;
   background: #fff;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   position: absolute;
-  right: 0;
+  right: -100%;
+  top: 0;
+  transition: all 200ms ease-in-out;
+  z-index: 20;
 }
 .addContactTop {
   display: flex;
@@ -505,9 +525,10 @@ button {
   align-items: center;
   gap: 12px;
   background: var(--Ligth-blue, #005dff);
-  border-radius: inherit;
+  border-radius: 30px 0px 0px 0px;
 }
-.addContactTop button {
+.addContactTop button,
+.editContactTop button {
   width: 24px;
   height: 24px;
   position: absolute;
@@ -521,11 +542,13 @@ button {
   background-color: rgba(0, 0, 0, 0);
   background-image: url(/assets/img/close_white.png);
 }
-.addContactTop img {
+.addContactTop img,
+.editContactTop img {
   width: 55.123px;
   height: 66.483px;
 }
-.addContactTop h2 {
+.addContactTop h2,
+.editContactTop h2 {
   color: white;
   font-family: OpenSans;
   font-size: 48px;
@@ -543,7 +566,8 @@ button {
   font-weight: 400;
   line-height: 120%; /* 32.4px */
 }
-.addContactBottom {
+.addContactBottom,
+.editContactBottom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -551,37 +575,44 @@ button {
   border-radius: 0 0 30px 30px;
   /* width: 100%; */
 }
-.addContactImage {
+.addContactImage,
+.editContactImage {
   width: 120px;
   height: 120px;
 }
-#contactImage {
+#contactImage,
+#contactEditImage {
   position: relative;
   left: 28px;
   top: -100px;
   width: 64px;
   height: 64px;
 }
-.addContactInput-container {
+.addContactInput-container,
+.editContactInput-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
 }
-.addContactInput {
+.addContactInput,
+.editContactInput {
   display: flex;
   width: 380px !important;
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
 }
-.addContactInput input {
+.addContactInput input,
+.editContactInput input {
   width: 100%;
 }
-.addContactInput img {
+.addContactInput img,
+.editContactInput img {
   position: absolute;
 }
-.addName {
+.addName,
+.editName {
   background: url(/assets/img/person.png);
   background-repeat: no-repeat;
   background-position-x: 350px;
@@ -592,8 +623,16 @@ button {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  color: var(--black, #000);
+font-family: OpenSans;
+font-size: 19px;
+font-style: normal;
+font-weight: 400;
+line-height: 120%; /* 22.8px */
 }
-.addName::placeholder, .addEmail::placeholder, .addPhone::placeholder {
+.addName::placeholder,
+.addEmail::placeholder,
+.addPhone::placeholder {
   color: var(--Style, #d1d1d1);
   font-family: OpenSans;
   font-size: 19px;
@@ -601,7 +640,8 @@ button {
   font-weight: 400;
   line-height: 120%; /* 22.8px */
 }
-.addEmail {
+.addEmail,
+.editEmail {
   background: url(/assets/img/mail.png);
   background-repeat: no-repeat;
   background-position-x: 350px;
@@ -612,8 +652,15 @@ button {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  color: var(--black, #000);
+  font-family: OpenSans;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 22.8px */
 }
-.addPhone {
+.addPhone,
+.editPhone {
   background: url(/assets/img/call.png);
   background-repeat: no-repeat;
   background-position-x: 350px;
@@ -624,20 +671,31 @@ button {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  color: var(--black, #000);
+font-family: OpenSans;
+font-size: 19px;
+font-style: normal;
+font-weight: 400;
+line-height: 120%; /* 22.8px */
 }
 .addName:focus,
 .addEmail:focus,
-.addPhone:focus {
+.addPhone:focus,
+.editName:focus,
+.editEmail:focus,
+.editPhone:focus {
   outline: none;
 }
-.addContactBtns {
+.addContactBtns,
+.editContactBtns {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   gap: 25px;
 }
-.cancelAddContact {
+.cancelAddContact,
+.delEditContact {
   display: flex;
   width: 136px;
   height: 61px;
@@ -649,8 +707,9 @@ button {
   border: 1px solid #647188;
   background: var(--white, #fff);
 }
-.cancelAddContact p {
-  color: #647188;
+.cancelAddContact p,
+.delEditContact p {
+  color: #647188 inherit;
   font-family: OpenSans;
   font-size: 23px;
   font-style: normal;
@@ -658,10 +717,13 @@ button {
   line-height: 120%; /* 27.6px */
 }
 
-.cancelAddContact:hover {
+.cancelAddContact:hover,
+.delEditContact:hover {
   border: 2px solid #005dff;
+  color: #005dff;
 }
-.createAddContact {
+.createAddContact,
+.saveEditContact {
   display: flex;
   height: 60px;
   padding: 16px 10px;
@@ -672,7 +734,8 @@ button {
   background: var(--version-2-main-color, #4589ff);
   border: unset;
 }
-.createAddContact p {
+.createAddContact p,
+.saveEditContact p {
   color: #fff;
   font-family: OpenSans;
   font-size: 23px;
@@ -680,9 +743,34 @@ button {
   font-weight: 400;
   line-height: 120%; /* 27.6px */
 }
-.createAddContact:hover {
+.createAddContact:hover,
+.saveEditContact:hover {
   background: #005dff;
-  
+}
+.editContact {
+  height: 1024px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 72px;
+  border-radius: 0px 30px 30px 30px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  position: absolute;
+  left: -100%;
+  transition: all 200ms ease-in-out;
+  z-index: 100;
+  top: 0;
+}
+.editContactTop {
+  display: flex;
+  width: 584px;
+  padding: 108px 46px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--Ligth-blue, #005dff);
+  border-radius: 0px 30px 0px 0px;
 }
 
 /* Contacts Styling End  */
