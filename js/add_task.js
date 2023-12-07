@@ -1,48 +1,129 @@
 let allTasks = [];
-
-
+let selectedPriority = '';
 
 
 async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
-    const priority = '';
+    const priority = assignPriority(selectedPriority); // Use the selectedPriority value
     const assignedContact = '';
-    const category = '';
+    const category = document.getElementById('add-task-category');
     const subtask = document.getElementById('add-task-subtask');
 
     console.log('in createTask button');
-    console.log('pushing: ' + title.value + " " + description.value + " " + date.value);
 
+    console.log('Title:', title.value);
+    console.log('Description:', description.value);
+    console.log('Date:', date.value);
+    console.log('Priority:', priority);
+    console.log('Category:', category.value);
+    console.log('Subtask:', subtask.value);
 
-
-    allTasks.push(
-        {
-            title: title.value,
-            description: description.value,
-            date: date.value,
-            subtask: subtask.value
-        }
-    );
+    allTasks.push({
+        title: title.value,
+        description: description.value,
+        date: date.value,
+        priority: priority, // Assign the priority value
+        category: category.value,
+        subtask: subtask.value
+    });
 
     await setItem('allTasks', JSON.stringify(allTasks));
+    alert('Task created successfully');
+    clearForm();
+}
+
+
+// async function createTask() {
+//     const title = document.getElementById('add-task-title');
+//     const description = document.getElementById('add-task-description');
+//     const date = document.getElementById('add-task-date');
+//     const priority = '';
+//     const assignedContact = '';
+//     const category = document.getElementById('');
+//     // const category = document.getElementById('add-task-category');
+//     const subtask = document.getElementById('add-task-subtask');
+
+//     console.log('in createTask button');
+
+//     console.log('Title:', title.value);
+//     console.log('Description:', description.value);
+//     console.log('Date:', date.value);
+//     // console.log('Priority:', priority.value)
+//     console.log('Category:', category.value);
+//     console.log('Subtask:', subtask.value);
+
+
+
+//     allTasks.push(
+//         {
+//             title: title.value,
+//             description: description.value,
+//             date: date.value,
+//             category: category.value,
+//             subtask: subtask.value
+//         }
+//     );
+
+//     await setItem('allTasks', JSON.stringify(allTasks));
+// }
+
+
+function assignPriority(priority) {
+    switch (priority) {
+        case 'urgent':
+            changeColorUrgent();
+            return 'urgent';
+        case 'medium':
+            changeColorMedium();
+            return 'medium';
+        case 'low':
+            changeColorLow();
+            return 'low';
+        default:
+            return null;
+    }
 }
 
 
 function changePriority(priority) {
-    switch (priority) {
-        case 'urgent':
-            changeColorUrgent();
-            break;
-        case 'medium':
-            changeColorMedium();
-            break;
-        case 'low':
-            changeColorLow();
-            break;
-
+    // Reset previous selected priority
+    if (selectedPriority) {
+        document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
     }
+
+    // Update the selected priority
+    selectedPriority = priority;
+
+    // Add a visual indication for the selected priority
+    document.getElementById(`add-task-${priority}`).classList.add('selected');
+
+    // Assign the priority value to your constant or use it as needed
+    assignPriority(priority);
+}
+
+
+// function changePriority(priority) {
+//     switch (priority) {
+//         case 'urgent':
+//             changeColorUrgent();
+//             break;
+//         case 'medium':
+//             changeColorMedium();
+//             break;
+//         case 'low':
+//             changeColorLow();
+//             break;
+
+//     }
+// }
+
+
+function selectedTask(selectedTask) {
+    document.getElementById('add-task-currently-selected-category').innerHTML = selectedTask;
+    showAndHideCategories();
+    return selectedTask;
 }
 
 

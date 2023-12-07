@@ -1,59 +1,61 @@
 <div class="add-task-container">
-    <div class="add-task-container-content">
-        <h2>Contact Form & Imprint</h2>
+    <form onsubmit="createTask(); return false;">
+        <div class="add-task-container-content">
+            <h2>Contact Form & Imprint</h2>
 
-        <input class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
+            <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
 
-        <label for="add-task-description">Description (optional)</label>
-        <textarea  class="pointer" type="text" name="add-task-description" id="add-task-description" placeholder="Enter a description"></textarea>
+            <label for="add-task-description">Description (optional)</label>
+            <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
+                placeholder="Enter a description"></textarea>
 
-        <label for="add-task-date">Due date</label>
-        <input class="pointer" type="date" name="add-task-date" id="add-task-date">
+            <label for="add-task-date">Due date</label>
+            <input required class="pointer" type="date" name="add-task-date" id="add-task-date">
 
-        <label for="add-task-priority">Priority (optional)</label>
-        <div id="add-task-priority">
-            <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
-                <div>Urgent</div>
-                <img src="/assets/img/Prio urgent.png" alt="">
+            <label for="add-task-priority">Priority (optional)</label>
+            <div id="add-task-priority">
+                <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent'), assignPriority('urgent')">
+                    <div>Urgent</div>
+                    <img src="/assets/img/Prio urgent.png" alt="">
+                </div>
+                <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium'), assignPriority('medium')">
+                    <div>Medium</div>
+                    <img src="/assets/img/Prio medium.png" alt="">
+                </div>
+                <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low'), assignPriority('low')">
+                    <div>Low</div>
+                    <img src="/assets/img/Prio low.png" alt="">
+                </div>
             </div>
-            <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
-                <div>Medium</div>
-                <img src="/assets/img/Prio medium.png" alt="">
-            </div>
-            <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
-                <div>Low</div>
-                <img src="/assets/img/Prio low.png" alt="">
-            </div>
-        </div>
 
-        <label for="add-task-assigne">Assgigned to (optional)</label>
-        <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
-            <div>Select contacts to assgin</div>  
-            <img src="/assets/img/arrow_drop_down.png" alt="">
-        </div>
-        <div class="d-none" id="add-task-contacts-to-assigne">
-            <div class="add-task-contacts-to-assigne-list-item">
-                <div class="name-box">AG</div>
-                <div class="name">Artir Guri</div>
-                <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+            <label for="add-task-assigne">Assgigned to (optional)</label>
+            <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
+                <div>Select contacts to assgin</div>
+                <img src="/assets/img/arrow_drop_down.png" alt="">
             </div>
-            <div class="add-task-contacts-to-assigne-list-item">
-                <div class="name-box">BS</div>
-                <div class="name">Bari Sopa</div>
-                <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+            <div class="d-none" id="add-task-contacts-to-assigne">
+                <div class="add-task-contacts-to-assigne-list-item">
+                    <div class="name-box">AG</div>
+                    <div class="name">Artir Guri</div>
+                    <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+                </div>
+                <div class="add-task-contacts-to-assigne-list-item">
+                    <div class="name-box">BS</div>
+                    <div class="name">Bari Sopa</div>
+                    <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+                </div>
+                <div class="add-task-contacts-to-assigne-list-item">
+                    <div class="name-box">CS</div>
+                    <div class="name">Christian Heyden</div>
+                    <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+                </div>
+                <div class="add-task-contacts-to-assigne-list-item">
+                    <div class="green name-box">TT</div>
+                    <div class="name">Test Test</div>
+                    <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+                </div>
             </div>
-            <div class="add-task-contacts-to-assigne-list-item">
-                <div class="name-box">CS</div>
-                <div class="name">Christian Heyden</div>
-                <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
-            </div>
-            <div class="add-task-contacts-to-assigne-list-item">
-                <div class="green name-box">TT</div>
-                <div class="name">Test Test</div>
-                <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
-            </div>
-        </div>
-        <!-- <select class="pointer" name="assigne" id="add-task-assigne">
+            <!-- <select class="pointer" name="assigne" id="add-task-assigne">
             <option value="" disabled selected>Select contacts to assgin</option>
             <option value="guest1">Guest1</option>
             <option value="guest2">Guest2</option>
@@ -61,28 +63,38 @@
             <option value="guest4">Guest4</option>
             <option value="guest5">Guest5</option>
         </select> -->
+            <!-- 
+            <label for="add-task-category">Category</label>
+            <select class="pointer" id="add-task-category">
+                <option value="" selected disabled>Select task category</option>
+                <option value="Technical Task">Technical Task</option>
+                <option value="User Story">User Story</option>
+            </select> -->
 
-        <label for="add-task-category">Category</label>
-        <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
-            <div>Select task category</div>
-            <img src="/assets/img/arrow_drop_down.png" alt="">
-        </div>
-        <div class="d-none" id="add-task-category-dropdown">
-            <div class="add-task-category-dropdown-task">Technical Task</div>
-            <div class="add-task-category-dropdown-task">User Story</div>
-        </div>
-        <!-- <select class="pointer" name="category" id="add-task-category">
-            <option value="" disabled selected>Select task category</option>
-            <option value="technical-task">Technical Task</option>
-            <option value="user-story">User Story</option>
-        </select> -->
+         <label for="add-task-category">Category</label>
+            <!-- <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
+                <div id="add-task-currently-selected-category">Select task category</div>
+                <img src="/assets/img/arrow_drop_down.png" alt="">
+            </div>
+            <div class="d-none" id="add-task-category-dropdown">
+                <div class="add-task-category-dropdown-task" onclick="selectedTask('technical-task')">Technical Task
+                </div>
+                <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
+            </div> -->
 
-        <label for="add-task-subtask">Subtask (optional)</label>
-        <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask">
-    </div>
-    
-    <div class="add-task-form-buttons">
-        <button id="add-task-clear-form" onclick="clearForm()"> Clear X</button>
-        <button onclick="createTask()" id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
-    </div>
+            <select class="pointer" name="category" id="add-task-category">
+                <option value="" disabled selected>Select task category</option>
+                <option value="technical-task">Technical Task</option>
+                <option value="user-story">User Story</option>
+            </select>
+
+            <label for="add-task-subtask">Subtask (optional)</label>
+            <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask">
+        </div>
+
+        <div class="add-task-form-buttons">
+            <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
+            <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
+        </div>
+    </form>
 </div>
