@@ -3,7 +3,6 @@ async function init() {
     //Timeout war 800 -> stelle kürzer um am login zu arbeiten
     setTimeout(loadimg, 0);
     CheckIfLoggedInOrGuest();
-    contactsListRender();
 }
 
 function loadimg() {

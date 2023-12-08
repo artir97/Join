@@ -2,13 +2,9 @@
   font-family: OpenSans;
   src: url(font/OpenSans/OpenSans-VariableFont_wdth%2Cwght.ttf);
 }
-/* @font-face {
-  font-family: OpenSans;
-  src: url(font/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf);
-} */
 @font-face {
   font-family: Inter;
-  src: url(font/Inter/Inter-VariableFont_slnt%2wght.ttf);
+  src: url('font/Inter/Inter-VariableFont_slnt,wght.ttf');
 }
 
 .d-none {
@@ -378,7 +374,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Inter;
+  font-family: Inter !important;
 }
 .contactViewBadge {
   width: 120px;
@@ -396,7 +392,7 @@ button {
   transition: all 200ms ease-in-out;
 }
 #profileBadge {
-  font-family: Inter;
+  font-family: Inter !important;
 }
 .contacts-top {
   display: flex;

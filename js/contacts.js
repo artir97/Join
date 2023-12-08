@@ -1,81 +1,113 @@
-let contacts = [
-    {
-        'name': 'Anton Mayer',
-        'email': 'anton@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Anja Schulz',
-        'email': 'schulz@hotmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Benedikt Ziegler',
-        'email': 'benedikt@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'David Eisenberg',
-        'email': 'davidberg@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Eva Fischer',
-        'email': 'eva@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Emmanuel Mauer',
-        'email': 'emmanuelma@gmail.com',
-        'phone': 49111111111
-    },
-    {
-        'name': 'Marcel Bauer',
-        'email': 'bauer@gmail.com',
-        'phone': 49111111111
-    }
-    //
-    //     'name': 'Tatjana Wolf',
-    //     'email': 'wolf@gmail.com'
-
-    // sie muss neu rein bei add
+let allContacts = [
+  {
+    name: "Anton Mayer",
+    email: "anton@gmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "Anja Schulz",
+    email: "schulz@hotmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "Benedikt Ziegler",
+    email: "benedikt@gmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "David Eisenberg",
+    email: "davidberg@gmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "Eva Fischer",
+    email: "eva@gmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "Emmanuel Mauer",
+    email: "emmanuelma@gmail.com",
+    phone: 49111111111,
+  },
+  {
+    name: "Marcel Bauer",
+    email: "bauer@gmail.com",
+    phone: 49111111111,
+  },
+  //
+  //     'name': 'Tatjana Wolf',
+  //     'email': 'wolf@gmail.com
 ];
 
-// {
-//     'name': name,
-//     'email': email
-// }
-
-    
-
-function contactsListRender(){
-    let contactsList = document.getElementById('contacts');
-    contacts.sort((a, b) => a.name.localeCompare(b.name));
-    for (let i = 0; i < contacts.length; i++) {
-        const contact = contacts[i];
-        contactsList.innerHTML += contactList(contact, i);
-    }
+async function contactsInit() {
+    try {
+        const allContacts = await getItem("kontakte");
+        await setContactsInStorage(allContacts);
+        contactsListRender(allContacts);
+      } catch (error) {
+        console.error("Fehler beim Laden der Daten:", error);
+      }
 }
 
-function contactList(contact, i){
-    let firstLetter = contact['name'].charAt(0).toUpperCase();
-    let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
-    const uppercaseLetter = uppercaseLetters(contact['name']).join('');
-    if (contactList.lastFirstLetter === undefined || contactList.lastFirstLetter !== firstLetter) {
-        contactList.lastFirstLetter = firstLetter;
-        return `
+async function setContactsInStorage(contacts) {
+    try {
+        await setItem("kontakte", contacts);
+        console.log("Daten erfolgreich gespeichert.");
+      } catch (error) {
+        console.error("Fehler beim Speichern der Daten:", error);
+      }
+}
+
+async function contactsListRender(contacts) {
+    try {
+        let contactsList = document.getElementById("contacts");
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
+        for (let i = 0; i < contacts.length; i++) {
+          const contact = contacts[i];
+          contactsList.innerHTML += contactList(contact, i);
+        }
+      } catch (error) {
+        console.error("Fehler beim Laden der Daten:", error);
+      }
+
+
+    // try {
+    //     const contacts = await getItem("kontakte");
+    //     let contactsList = document.getElementById("contacts");
+    //       contacts.sort((a, b) => a.name.localeCompare(b.name));
+    //       for (let i = 0; i < contacts.length; i++) {
+    //         const contact = contacts[i];
+    //         contactsList.innerHTML += contactList(contact, i);
+    //       }
+    //   } catch (error) {
+    //     console.error("Fehler beim Laden der Daten:", error);
+    //   }
+}
+
+function contactList(contact, i) {
+  let firstLetter = contact["name"].charAt(0).toUpperCase();
+  let uppercaseLetters = (str) => {
+    return str.split("").filter((char) => /[A-Z]/.test(char));
+  };
+  const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
+  if (
+    contactList.lastFirstLetter === undefined ||
+    contactList.lastFirstLetter !== firstLetter
+  ) {
+    contactList.lastFirstLetter = firstLetter;
+    return `
             <div class="firstLetter">${firstLetter}</div>
             ${contactInfo(contact, uppercaseLetter, i)}
         `;
-    } else {
-        return `
+  } else {
+    return `
             ${contactInfo(contact, uppercaseLetter, i)}
         `;
-    }
+  }
 }
 
-function contactInfo(contact, uppercaseLetter, i){
-    return `
+function contactInfo(contact, uppercaseLetter, i) {
+  return `
         <div class="spacer">
         <svg xmlns="http://www.w3.org/2000/svg" width="353" height="2" viewBox="0 0 353 2" fill="none">
         <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
@@ -88,35 +120,42 @@ function contactInfo(contact, uppercaseLetter, i){
                     <text font-size="12px" text-anchor="middle" x="50%" y="50%" fill="white" stroke-width="0.1px" dy=".3em">${uppercaseLetter}</text>
                 </svg>
                 </div>
-                <h2 id="contactName${i}">${contact['name']} <p id="contactMail${i}">${contact['email']}</p></h2>
+                <h2 id="contactName${i}">${contact["name"]} <p id="contactMail${i}">${contact["email"]}</p></h2>
             </div>
-    `
+    `;
 }
 
-function openContactView(i){
-    let contactView = document.getElementById('contactView');
-    if(contactView.innerHTML.trim() !== '') {
-        // Wenn Inhalt vorhanden, dann
-        contactView.style = 'left: 100%';
-        removeColor(i);
-        setTimeout(() => contactView.innerHTML = '', 200);
-    } else {
+function openContactView(i) {
+  let contactView = document.getElementById("contactView");
+  if (contactView.innerHTML.trim() !== "") {
+    // Wenn Inhalt vorhanden, dann
+    contactView.style = "left: 100%";
+    removeColor(i);
+    setTimeout(() => (contactView.innerHTML = ""), 200);
+  } else {
     const contact = contacts[i];
-    let name = contact['name'];
-    let email = contact['email'];
-    let phone = contact['phone'];
-    contactView.style = 'left: 332px';
-    let uppercaseLetters = (str) => {return str.split('').filter(char => /[A-Z]/.test(char));};
-    const uppercaseLetter = uppercaseLetters(contacts[i]['name']).join('');
-    contactView.innerHTML = '';
-    contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter); 
+    let name = contact["name"];
+    let email = contact["email"];
+    let phone = contact["phone"];
+    contactView.style = "left: 332px";
+    let uppercaseLetters = (str) => {
+      return str.split("").filter((char) => /[A-Z]/.test(char));
+    };
+    const uppercaseLetter = uppercaseLetters(contacts[i]["name"]).join("");
+    contactView.innerHTML = "";
+    contactView.innerHTML += renderContactView(
+      i,
+      name,
+      email,
+      phone,
+      uppercaseLetter
+    );
     changeContactColor(i);
-    }
+  }
 }
 
-
-function renderContactView(i, name, email, phone, uppercaseLetter){
-    return `
+function renderContactView(i, name, email, phone, uppercaseLetter) {
+  return `
     <div class="contacts-top">
     <div class="profileBadge contactViewBadge">
       <svg
@@ -170,75 +209,102 @@ function renderContactView(i, name, email, phone, uppercaseLetter){
           <h3>Phone</h3>
           <p id="profilePhone">+${phone}</p>
       </div>
-    </div> `
+    </div> `;
 }
 
-function changeContactColor(i){
-    for (let index = 0; index < contacts.length; index++) {
-        const contactElement = document.getElementById(`contactInfo${index}`);
-        const nameElement = document.getElementById(`contactName${index}`);
-        const mailElement = document.getElementById(`contactMail${index}`);
-        if (index === i) {
-            contactElement.classList.add('blueColor');
-            nameElement.classList.add('whiteColor');
-            mailElement.classList.add('whiteColor');
-        } else {
-            contactElement.classList.remove('blueColor');
-            nameElement.classList.remove('whiteColor');
-            mailElement.classList.remove('whiteColor');
-        }
+function changeContactColor(i) {
+  for (let index = 0; index < contacts.length; index++) {
+    const contactElement = document.getElementById(`contactInfo${index}`);
+    const nameElement = document.getElementById(`contactName${index}`);
+    const mailElement = document.getElementById(`contactMail${index}`);
+    if (index === i) {
+      contactElement.classList.add("blueColor");
+      nameElement.classList.add("whiteColor");
+      mailElement.classList.add("whiteColor");
+    } else {
+      contactElement.classList.remove("blueColor");
+      nameElement.classList.remove("whiteColor");
+      mailElement.classList.remove("whiteColor");
     }
+  }
 }
-function removeColor(i){
-            document.getElementById(`contactInfo${i}`).classList.remove('blueColor');
-            document.getElementById(`contactName${i}`).classList.remove('whiteColor');
-            document.getElementById(`contactMail${i}`).classList.remove('whiteColor');
+
+function removeColor(i) {
+  document.getElementById(`contactInfo${i}`).classList.remove("blueColor");
+  document.getElementById(`contactName${i}`).classList.remove("whiteColor");
+  document.getElementById(`contactMail${i}`).classList.remove("whiteColor");
 }
 
 function addNewContact() {
-    let addNewContact = document.getElementById('addContact'); 
-    addNewContact.style = 'right: 0'
+  getItem("kontakte")
+    .then((currentContacts) => {
+      // Hier kannst du die geladenen Kontakte verwenden
+      // Füge einen neuen Kontakt hinzu
+      currentContacts.push(newContact);
+
+      // Speichere die aktualisierten Kontakte im Storage
+      return setItem("kontakte", currentContacts);
+    })
+    .then((response) => {
+      console.log("Daten erfolgreich gespeichert:", response);
+    })
+    .catch((error) => {
+      console.error("Fehler beim Bearbeiten der Daten:", error);
+    });
+
+  let addNewContact = document.getElementById("addContact");
+  addNewContact.style = "right: 0";
+  document.getElementById("popup-bg").style.display = "block";
 }
 
-function editContact(i){
-    // open edit contact
-    document.getElementById('popup-bg').style.display = 'block';
-    let editContact = document.getElementById('editContact');
-    editContact.style = 'left: 0';
-    document.getElementById('editContactName').value = contacts[i]['name'];
-    document.getElementById('editContactEmail').value = contacts[i]['email'];
-    document.getElementById('editContactPhone').value = '+' + contacts[i]['phone'];
-
+async function editContact(i) {
+  let uppercaseLetters = (str) => {
+    return str.split("").filter((char) => /[A-Z]/.test(char));
+  };
+  const uppercaseLetter = uppercaseLetters(contacts[i]["name"]).join("");
+  document.getElementById("popup-bg").style.display = "block";
+  let editContact = document.getElementById("editContact");
+  editContact.style = "left: 0";
+  document.getElementById("editContactName").value = contacts[i]["name"];
+  document.getElementById("editContactEmail").value = contacts[i]["email"];
+  document.getElementById("editContactPhone").value =
+    "+" + contacts[i]["phone"];
+  document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
+  await setContactsInStorage();
 }
 
-function delContact(i){
-    let contactView = document.getElementById('contactView');
-    contactView.innerHTML = '';
-    contacts.splice(i);
-    init(); // geht noch nicht ganz, wegen storage speichern
+async function delContact(i) {
+  let contactView = document.getElementById("contactView");
+  contactView.innerHTML = "";
+  contacts.splice(i, 1);
+  contactsInit();
+  await setContactsInStorage();
 }
-function closeAddNewContact(){
-    let addNewContact = document.getElementById('addContact'); 
-    addNewContact.style = 'right: -100%';
-    document.getElementById('popup-bg').style.display = 'none';
+
+function closeAddNewContact() {
+  let addNewContact = document.getElementById("addContact");
+  addNewContact.style = "right: -100%";
+  document.getElementById("popup-bg").style.display = "none";
+}
+
+function closeEditContact() {
+  let editContact = document.getElementById("editContact");
+  editContact.style = "left: -100%";
+  document.getElementById("popup-bg").style.display = "none";
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Warten, bis das DOM vollständig geladen ist
-  
-    var popupBg = document.getElementById('popup-bg');
-  
-    if (popupBg) {
-      // Überprüfen, ob das Element mit der ID 'popup-bg' existiert
-      popupBg.addEventListener('click', function (event) {
-        // EventListener für das Klicken auf das Element
-  
-        // Verhindern der Eventpropagation
-        event.stopPropagation();
-  
-        // Setzen der Display-Eigenschaft auf 'none'
-        popupBg.style.display = 'none';
-      });
-    }
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  var popupBg = document.getElementById("popup-bg");
+
+  if (popupBg) {
+    popupBg.addEventListener("click", function (event) {
+      event.stopPropagation();
+      popupBg.style.display = "none";
+      closeAddNewContact();
+      closeEditContact();
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", contactsInit);
