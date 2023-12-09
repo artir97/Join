@@ -42,6 +42,7 @@ let allContacts = [
 async function contactsInit() {
   saveContacts(); //Kontakte speichern
   await loadContacts();
+  
 }
 
 async function saveContacts() {
@@ -79,6 +80,7 @@ async function loadContacts() {
 async function contactsListRender(contacts) {
   try {
     let contactsList = document.getElementById("contacts");
+    contactsList.innerHTML ='';
     contacts.sort((a, b) => a.name.localeCompare(b.name));
     for (let i = 0; i < contacts.length; i++) {
       const contact = contacts[i];
@@ -131,7 +133,7 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
-function openContactView(i) {
+async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
     // Wenn Inhalt vorhanden, dann
@@ -139,7 +141,10 @@ function openContactView(i) {
     removeColor(i);
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
-    const contact = contacts[i];
+    // const contact = contacts[i];
+    const contactsString = await getItem("kontakte");
+    const loadedContacts = JSON.parse(contactsString);
+    const contact = loadedContacts[i];
     let name = contact["name"];
     let email = contact["email"];
     let phone = contact["phone"];
@@ -147,7 +152,7 @@ function openContactView(i) {
     let uppercaseLetters = (str) => {
       return str.split("").filter((char) => /[A-Z]/.test(char));
     };
-    const uppercaseLetter = uppercaseLetters(contacts[i]["name"]).join("");
+    const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
     contactView.innerHTML = "";
     contactView.innerHTML += renderContactView(
       i,
@@ -241,40 +246,49 @@ function removeColor(i) {
   document.getElementById(`contactMail${i}`).classList.remove("whiteColor");
 }
 
-function addNewContact() {
-  getItem("contacts")
-  .then((currentContacts) => {
-    // Hier kannst du die geladenen Kontakte verwenden
-    // Füge einen neuen Kontakt hinzu
-    currentContacts.push(newContact);
+async function addNewContact() {
+  const newContact = {
+    name: "Neuer Kontakt", // Hier sollte der Name des neuen Kontakts stehen
+    email: "neu@gmail.com", // Hier sollte die E-Mail des neuen Kontakts stehen
+    phone: 49123456789, // Hier sollte die Telefonnummer des neuen Kontakts stehen
+  };
 
-    // Speichere die aktualisierten Kontakte im Storage
-    return setItem("contacts", currentContacts);
-  })
-  .then((response) => {
-    console.log("Daten erfolgreich gespeichert:", response);
-  })
-  .catch((error) => {
-    console.error("Fehler beim Bearbeiten der Daten:", error);
-  });
+  // Füge den neuen Kontakt hinzu
+  allContacts.push(newContact);
+
+  // Speichere die Kontakte
+  await saveContacts();
 
 let addNewContact = document.getElementById("addContact");
 addNewContact.style = "right: 0";
 document.getElementById("popup-bg").style.display = "block";
 }
 
+async function saveContacts() {
+  try {
+    const contactsString = JSON.stringify(allContacts);
+    await setItem("kontakte", contactsString);
+    console.log("Kontakte erfolgreich gespeichert.");
+  } catch (error) {
+    console.error("Fehler beim Speichern der Kontakte:", error);
+  }
+}
+
 async function editContact(i) {
+  const contactsString = await getItem("kontakte");
+    const loadedContacts = JSON.parse(contactsString);
+    const contact = loadedContacts[i];
   let uppercaseLetters = (str) => {
     return str.split("").filter((char) => /[A-Z]/.test(char));
   };
-  const uppercaseLetter = uppercaseLetters(contacts[i]["name"]).join("");
+  const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   document.getElementById("popup-bg").style.display = "block";
   let editContact = document.getElementById("editContact");
   editContact.style = "left: 0";
-  document.getElementById("editContactName").value = contacts[i]["name"];
-  document.getElementById("editContactEmail").value = contacts[i]["email"];
+  document.getElementById("editContactName").value = contact["name"];
+  document.getElementById("editContactEmail").value = contact["email"];
   document.getElementById("editContactPhone").value =
-    "+" + contacts[i]["phone"];
+    "+" + contact["phone"];
   document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
   await setContactsInStorage();
 }
