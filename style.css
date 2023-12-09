@@ -4,7 +4,7 @@
 }
 @font-face {
   font-family: Inter;
-  src: url('font/Inter/Inter-VariableFont_slnt,wght.ttf');
+  src: url("font/Inter/Inter-VariableFont_slnt,wght.ttf");
 }
 
 .d-none {
@@ -24,6 +24,7 @@ body {
   margin: 0;
   font-style: normal;
   overflow-y: hidden;
+  overflow-x: hidden;
   font-family: OpenSans !important;
 }
 .imagecontainer {
@@ -319,7 +320,6 @@ button {
   width: 352px;
   padding: 32px 24px;
   z-index: 1;
-  
 }
 .contactInfo {
   display: flex;
@@ -511,7 +511,7 @@ button {
   background: #fff;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   position: absolute;
-  right: 100%;
+  right: -584px;
   top: 0;
   transition: all 200ms ease-in-out;
   z-index: 20;
@@ -623,11 +623,11 @@ button {
   height: 24px;
   flex-shrink: 0;
   color: var(--black, #000);
-font-family: OpenSans;
-font-size: 19px;
-font-style: normal;
-font-weight: 400;
-line-height: 120%; /* 22.8px */
+  font-family: OpenSans;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 22.8px */
 }
 .addName::placeholder,
 .addEmail::placeholder,
@@ -671,11 +671,11 @@ line-height: 120%; /* 22.8px */
   height: 24px;
   flex-shrink: 0;
   color: var(--black, #000);
-font-family: OpenSans;
-font-size: 19px;
-font-style: normal;
-font-weight: 400;
-line-height: 120%; /* 22.8px */
+  font-family: OpenSans;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 22.8px */
 }
 .addName:focus,
 .addEmail:focus,

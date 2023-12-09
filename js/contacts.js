@@ -264,6 +264,7 @@ function addNewContact() {
   });
 
   let addNewContact = document.getElementById("addContact");
+  addNewContact.style.display = "inline-flex";
   addNewContact.style = "right: 0";
   document.getElementById("popup-bg").style.display = "block";
 }
@@ -307,7 +308,8 @@ async function delContact(i) {
 
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style = "left: -100%";
+  // addNewContact.style.display = 'none';
+  addNewContact.style = "left: 100%";
   document.getElementById("popup-bg").style.display = "none";
 }
 
