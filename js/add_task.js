@@ -1,5 +1,6 @@
 let allTasks = [];
 let allContacts = [];
+let selectedContact;
 let selectedPriority = '';
 
 
@@ -12,7 +13,7 @@ async function createTask() {
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
     const priority = assignPriority(selectedPriority); // Use the selectedPriority value
-    const assignedContact = '';
+    const assignedContact = selectedContact;
     const category = document.getElementById('add-task-category');
     const subtask = document.getElementById('add-task-subtask');
 
@@ -30,7 +31,8 @@ async function createTask() {
         title: title.value,
         description: description.value,
         date: date.value,
-        priority: priority, // Assign the priority value
+        priority: priority,
+        // assignedContact: selectedContact
         category: category.value,
         subtask: subtask.value
     });
@@ -55,7 +57,7 @@ async function loadContacts() {
 function assignContactsTemplate(name, id) {
     return (
         `         
-        <div id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
+        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
             <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
@@ -80,6 +82,10 @@ function renderAssignableContacts(){
         content += assignContactsTemplate(allContacts[0][i].name, i);
     }
     return content;
+}
+
+function selectContact(id){
+    selectedContact = allContacts[0][id];
 }
 
 
