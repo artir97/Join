@@ -52,11 +52,11 @@ async function loadContacts() {
     }
 }
 
-function assignContactsTemplate(name) {
+function assignContactsTemplate(name, id) {
     return (
         `         
-        <div class="add-task-contacts-to-assigne-list-item">
-            <div class="name-box">AG</div>
+        <div id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
+            <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
             <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
         </div>
@@ -64,10 +64,20 @@ function assignContactsTemplate(name) {
     );
 }
 
+function getInitials(fullName){
+    if(!fullName){
+        return '';
+    } else {
+        const words = fullName.split(' ');
+        const initials = words.map(word => word.charAt(0).toUpperCase());
+        return initials.join('');
+    }
+}
+
 function renderAssignableContacts(){
     let content = '';
     for(let i = 0; i < allContacts[0].length; i++){
-        content += assignContactsTemplate(allContacts[0][i].name);
+        content += assignContactsTemplate(allContacts[0][i].name, i);
     }
     return content;
 }
