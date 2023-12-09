@@ -246,22 +246,26 @@ function removeColor(i) {
   document.getElementById(`contactMail${i}`).classList.remove("whiteColor");
 }
 
-async function addNewContact() {
-  const newContact = {
-    name: "Neuer Kontakt", // Hier sollte der Name des neuen Kontakts stehen
-    email: "neu@gmail.com", // Hier sollte die E-Mail des neuen Kontakts stehen
-    phone: 49123456789, // Hier sollte die Telefonnummer des neuen Kontakts stehen
-  };
+function addNewContact() {
+  getItem("contacts")
+  .then((currentContacts) => {
+    // Hier kannst du die geladenen Kontakte verwenden
+    // Füge einen neuen Kontakt hinzu
+    currentContacts.push(newContact);
 
-  // Füge den neuen Kontakt hinzu
-  allContacts.push(newContact);
+    // Speichere die aktualisierten Kontakte im Storage
+    return setItem("contacts", currentContacts);
+  })
+  .then((response) => {
+    console.log("Daten erfolgreich gespeichert:", response);
+  })
+  .catch((error) => {
+    console.error("Fehler beim Bearbeiten der Daten:", error);
+  });
 
-  // Speichere die Kontakte
-  await saveContacts();
-
-let addNewContact = document.getElementById("addContact");
-addNewContact.style = "right: 0";
-document.getElementById("popup-bg").style.display = "block";
+  let addNewContact = document.getElementById("addContact");
+  addNewContact.style = "right: 0";
+  document.getElementById("popup-bg").style.display = "block";
 }
 
 async function saveContacts() {
@@ -296,19 +300,9 @@ async function editContact(i) {
 async function delContact(i) {
   let contactView = document.getElementById("contactView");
   contactView.innerHTML = "";
-
-  try {
-    const currentContacts = await getItem("contacts");
-    currentContacts.splice(i, 1);
-
-    // Aktualisierte Kontakte speichern
-    await setItem("contacts", currentContacts);
-
-    // Hier kannst du die aktualisierten Kontakte für weitere Aktionen verwenden
-    contactsInit();
-  } catch (error) {
-    console.error("Fehler beim Löschen des Kontakts:", error);
-  }
+  contacts.splice(i, 1);
+  contactsInit();
+  await setContactsInStorage();
 }
 
 function closeAddNewContact() {
@@ -322,6 +316,7 @@ function closeEditContact() {
   editContact.style = "left: -100%";
   document.getElementById("popup-bg").style.display = "none";
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var popupBg = document.getElementById("popup-bg");

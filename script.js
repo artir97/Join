@@ -8,7 +8,7 @@ async function init() {
 function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
-    img.src = 'assets/img/logo_blue.png';
+    // img.src = './assets/img/logo_blue.png'; throws error idk why - commenting it 
     img.style.top = '10%';
     img.style.left = '5%';
     container.style.backgroundColor = "white";
