@@ -201,7 +201,7 @@ button {
 }
 .addTask-container {
   display: flex;
-  /* justify-content: center; */
+  flex-direction: column;
 }
 #findTask {
   background-image: url(assets/img/searchbuttonimg.png);

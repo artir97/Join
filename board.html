@@ -12,19 +12,38 @@
     <!-- <link rel="stylesheet" href="add_task.css"> -->
     <link rel="stylesheet" href="board.css">
 </head>
-<body onload="init()">
+<body onload="init(); updateHTML()">
     <div w3-include-html="assets/templates/desktop_template.html"></div>
     <div class="board-container">
         <div class="addTask-container">
-            <di class="boardHeader">
+            <div class="boardHeader">
                 <input type="text" name="" id="findTask" placeholder="Find Task">
                 <button onclick="openAddTaskForm()" class="addTaskBtn">Add task +</button>
             </div>
             <div class="columnTitles">
-                <h1>To do<img src="assets/img/plus_button.png" alt=""></h1>
-                <h1>In progress<img src="assets/img/plus_button.png" alt=""></h1>
-                <h1>Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
-                <h1>Done<img src="assets/img/plus_button.png" alt=""></h1>
+                <div class="toDoContainer">
+                    <h1>To do<img src="assets/img/plus_button.png" alt=""></h1>
+                    <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragleave="removeHighlight('todoListContainer')" ondragover="allowDrop(event); highlight('todoListContainer')">
+                    </div>
+                </div> 
+
+                <div>
+                    <h1>In progress<img src="assets/img/plus_button.png" alt=""></h1>
+                    <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragleave="removeHighlight('progressListContainer')" ondragover="allowDrop(event); highlight('progressListContainer')">
+                    </div>
+                </div>
+
+                <div>
+                    <h1>Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
+                    <div class="drag-area">
+                    </div>
+                </div>
+
+                <div>
+                    <h1>Done<img src="assets/img/plus_button.png" alt=""></h1>
+                    <div class="drag-area">
+                    </div>
+                </div>
             </div>
         </div>
         <div></div>
