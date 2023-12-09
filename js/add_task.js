@@ -11,8 +11,8 @@ async function createTask() {
     const category = document.getElementById('add-task-category');
     const subtask = document.getElementById('add-task-subtask');
 
+    // console.logs can be removed when done
     console.log('in createTask button');
-
     console.log('Title:', title.value);
     console.log('Description:', description.value);
     console.log('Date:', date.value);
@@ -33,41 +33,6 @@ async function createTask() {
     alert('Task created successfully');
     clearForm();
 }
-
-
-// async function createTask() {
-//     const title = document.getElementById('add-task-title');
-//     const description = document.getElementById('add-task-description');
-//     const date = document.getElementById('add-task-date');
-//     const priority = '';
-//     const assignedContact = '';
-//     const category = document.getElementById('');
-//     // const category = document.getElementById('add-task-category');
-//     const subtask = document.getElementById('add-task-subtask');
-
-//     console.log('in createTask button');
-
-//     console.log('Title:', title.value);
-//     console.log('Description:', description.value);
-//     console.log('Date:', date.value);
-//     // console.log('Priority:', priority.value)
-//     console.log('Category:', category.value);
-//     console.log('Subtask:', subtask.value);
-
-
-
-//     allTasks.push(
-//         {
-//             title: title.value,
-//             description: description.value,
-//             date: date.value,
-//             category: category.value,
-//             subtask: subtask.value
-//         }
-//     );
-
-//     await setItem('allTasks', JSON.stringify(allTasks));
-// }
 
 
 function assignPriority(priority) {
@@ -104,22 +69,6 @@ function changePriority(priority) {
 }
 
 
-// function changePriority(priority) {
-//     switch (priority) {
-//         case 'urgent':
-//             changeColorUrgent();
-//             break;
-//         case 'medium':
-//             changeColorMedium();
-//             break;
-//         case 'low':
-//             changeColorLow();
-//             break;
-
-//     }
-// }
-
-
 function selectedTask(selectedTask) {
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTask;
     showAndHideCategories();
@@ -140,6 +89,7 @@ function showAndHideContacts() {
     }
 }
 
+
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
 
@@ -158,7 +108,6 @@ function clearForm() {
     document.getElementById('add-task-date').value = '';
     document.getElementById('add-task-subtask').value = '';
 }
-
 
 
 // these functions have to be combined
