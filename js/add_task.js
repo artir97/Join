@@ -32,7 +32,7 @@ async function createTask() {
         description: description.value,
         date: date.value,
         priority: priority,
-        // assignedContact: selectedContact
+        assignedContact: selectedContact,
         category: category.value,
         subtask: subtask.value
     });
@@ -86,6 +86,20 @@ function renderAssignableContacts(){
 
 function selectContact(id){
     selectedContact = allContacts[0][id];
+    let contact = document.getElementById(`contact-${id}`);
+
+    if(contact.classList.contains('selectedContact')){
+        unselectContact(contact);
+    }else{
+        contact.classList.add('selectedContact');
+    }
+    console.log(selectedContact);    
+}
+
+function unselectContact(contact){
+    contact.classList.remove('selectedContact');
+    selectedContact = null;
+
 }
 
 

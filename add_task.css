@@ -106,6 +106,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    margin-bottom: 5px;
 }
 
 .add-task-contacts-to-assigne-list-item:hover,
@@ -247,4 +248,17 @@ transition: background-color 0.3 ease-in-out!important;
 
 .green {
     background-color: green;
+}
+
+
+
+.selectedContact {
+    background-color: #4589FF;
+    color: #fff;
+
+    border-radius: 10px;
+}
+
+.selectedContact:hover {
+    background-color: #005DFF;
 }
