@@ -1,6 +1,11 @@
 let allTasks = [];
+let allContacts = [];
 let selectedPriority = '';
 
+
+async function initTaskData() {
+    await loadContacts();
+}
 
 async function createTask() {
     const title = document.getElementById('add-task-title');
@@ -16,6 +21,7 @@ async function createTask() {
     console.log('Title:', title.value);
     console.log('Description:', description.value);
     console.log('Date:', date.value);
+    console.log('Assigne:', assignedContact)
     console.log('Priority:', priority);
     console.log('Category:', category.value);
     console.log('Subtask:', subtask.value);
@@ -32,6 +38,38 @@ async function createTask() {
     await setItem('allTasks', JSON.stringify(allTasks));
     alert('Task created successfully');
     clearForm();
+}
+
+async function loadContacts() {
+    try {
+        const contactsString = await getItem("contacts");
+        const loadedContacts = JSON.parse(contactsString);
+
+        allContacts.push(loadedContacts);
+        console.log(allContacts);
+    } catch (e) {
+        console.error("Error while loading the contacts:", e);
+    }
+}
+
+function assignContactsTemplate(name) {
+    return (
+        `         
+        <div class="add-task-contacts-to-assigne-list-item">
+            <div class="name-box">AG</div>
+            <div class="name">${name}</div>
+            <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+        </div>
+        `
+    );
+}
+
+function renderAssignableContacts(){
+    let content = '';
+    for(let i = 0; i < allContacts[0].length; i++){
+        content += assignContactsTemplate(allContacts[0][i].name);
+    }
+    return content;
 }
 
 
@@ -78,11 +116,13 @@ function selectedTask(selectedTask) {
 
 function showAndHideContacts() {
     console.log('in showAndHideContacts()');
-    let contactBox = document.getElementById('add-task-contacts-to-assigne');
 
+    let contactBox = document.getElementById('add-task-contacts-to-assigne');
     if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
         contactBox.classList.add('d-block');
+
+        contactBox.innerHTML = renderAssignableContacts();
     } else if (contactBox.classList.contains('d-block')) {
         contactBox.classList.remove('d-block');
         contactBox.classList.add('d-none');
@@ -108,6 +148,38 @@ function clearForm() {
     document.getElementById('add-task-date').value = '';
     document.getElementById('add-task-subtask').value = '';
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // these functions have to be combined
