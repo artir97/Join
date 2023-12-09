@@ -249,6 +249,7 @@ button {
 .contacts {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 .contacts-container {
   display: flex;
@@ -500,6 +501,7 @@ button {
 
 .addContact-container {
   height: 1024px;
+  width: 584px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;

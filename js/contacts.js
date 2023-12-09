@@ -40,23 +40,41 @@ let allContacts = [
 ];
 
 async function contactsInit() {
-    try {
-        const allContacts = await getItem("kontakte");
-        await setContactsInStorage(allContacts);
-        contactsListRender(allContacts);
-      } catch (error) {
-        console.error("Fehler beim Laden der Daten:", error);
-      }
+  saveContacts(); //Kontakte speichern
+  await loadContacts();
 }
 
-async function setContactsInStorage(contacts) {
-    try {
-        await setItem("kontakte", contacts);
-        console.log("Daten erfolgreich gespeichert.");
-      } catch (error) {
-        console.error("Fehler beim Speichern der Daten:", error);
-      }
+async function saveContacts() {
+  try {
+    const contactsString = JSON.stringify(allContacts);
+    await setItem("kontakte", contactsString);
+    // await setItem("kontakte", allContacts);
+    console.log("Kontakte erfolgreich gespeichert.");
+  } catch (error) {
+    console.error("Fehler beim Speichern der Kontakte:", error);
+  }
 }
+
+async function loadContacts() {
+  try {
+    // const loadedContacts = await getItem("kontakte");
+    // contactsListRender(loadedContacts);
+    // console.log("Geladene Kontakte:", loadedContacts);
+    const contactsString = await getItem("kontakte");
+    const loadedContacts = JSON.parse(contactsString);
+
+    // Überprüfen, ob es sich um ein Array handelt, bevor es gerendert wird
+    if (Array.isArray(loadedContacts)) {
+      contactsListRender(loadedContacts);
+      console.log("Geladene Kontakte:", loadedContacts);
+    } else {
+      console.error("Geladene Daten sind kein Array.");
+    }
+  } catch (error) {
+    console.error("Fehler beim Laden der Kontakte:", error);
+  }
+}
+
 
 async function contactsListRender(contacts) {
     try {
@@ -70,18 +88,6 @@ async function contactsListRender(contacts) {
         console.error("Fehler beim Laden der Daten:", error);
       }
 
-
-    // try {
-    //     const contacts = await getItem("kontakte");
-    //     let contactsList = document.getElementById("contacts");
-    //       contacts.sort((a, b) => a.name.localeCompare(b.name));
-    //       for (let i = 0; i < contacts.length; i++) {
-    //         const contact = contacts[i];
-    //         contactsList.innerHTML += contactList(contact, i);
-    //       }
-    //   } catch (error) {
-    //     console.error("Fehler beim Laden der Daten:", error);
-    //   }
 }
 
 function contactList(contact, i) {
@@ -283,7 +289,7 @@ async function delContact(i) {
 
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style = "right: -100%";
+  addNewContact.style = "left: -100%";
   document.getElementById("popup-bg").style.display = "none";
 }
 
