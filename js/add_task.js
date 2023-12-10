@@ -69,6 +69,22 @@ function assignContactsTemplate(name, id) {
     );
 }
 
+function selectedContactMiniTemplate(name){
+    return (
+        `<div class="name-box">${name}</div>`
+    );
+}
+
+function renderSelectedContactsMini(){
+    let miniContacts = '';
+    if(selectedContacts.length > 0){
+        for(let i=0; i < selectedContacts.length; i++){
+            miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i].name));
+        }
+    }
+    return miniContacts;
+}
+
 function getInitials(fullName) {
     if (!fullName) {
         return '';
@@ -167,6 +183,7 @@ function selectedTask(selectedTask) {
 
 function showAndHideContacts() {
     console.log('in showAndHideContacts()');
+    let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
 
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
     if (contactBox.classList.contains('d-none')) {
@@ -175,6 +192,8 @@ function showAndHideContacts() {
     } else if (contactBox.classList.contains('d-block')) {
         contactBox.classList.remove('d-block');
         contactBox.classList.add('d-none');
+
+        selectedContactsMini.innerHTML =  renderSelectedContactsMini();
     }
 }
 

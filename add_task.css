@@ -262,3 +262,7 @@ transition: background-color 0.3 ease-in-out!important;
 .selectedContact:hover {
     background-color: #005DFF;
 }
+
+#add-task-selected-contacts-mini {
+    display: flex;
+}
