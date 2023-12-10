@@ -7,6 +7,8 @@ let selectedPriority = '';
 
 async function initTaskData() {
     await loadContacts();
+    document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
+
 }
 
 async function createTask() {
@@ -170,8 +172,6 @@ function showAndHideContacts() {
     if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
         contactBox.classList.add('d-block');
-
-        contactBox.innerHTML = renderAssignableContacts();
     } else if (contactBox.classList.contains('d-block')) {
         contactBox.classList.remove('d-block');
         contactBox.classList.add('d-none');
