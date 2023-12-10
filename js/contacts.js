@@ -38,19 +38,18 @@ let allContacts = [
   //     'name': 'Tatjana Wolf',
   //     'email': 'wolf@gmail.com
 ];
+let loadedContacts = [];
 
 async function contactsInit() {
-  saveContacts(); //Kontakte speichern
+  saveContacts();
   await loadContacts();
-  
+
 }
 
 async function saveContacts() {
   try {
     const contactsString = JSON.stringify(allContacts);
     await setItem("kontakte", contactsString);
-    // await setItem("kontakte", allContacts);
-    console.log("Kontakte erfolgreich gespeichert.");
   } catch (error) {
     console.error("Fehler beim Speichern der Kontakte:", error);
   }
@@ -58,18 +57,11 @@ async function saveContacts() {
 
 async function loadContacts() {
   try {
-    // const loadedContacts = await getItem("kontakte");
-    // contactsListRender(loadedContacts);
-    // console.log("Geladene Kontakte:", loadedContacts);
     const contactsString = await getItem("kontakte");
-    const loadedContacts = JSON.parse(contactsString);
-
-    // Überprüfen, ob es sich um ein Array handelt, bevor es gerendert wird
-    if (Array.isArray(loadedContacts)) {
+    if (contactsString) {
+       loadedContacts = JSON.parse(contactsString);
+            loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
       contactsListRender(loadedContacts);
-      console.log("Geladene Kontakte:", loadedContacts);
-    } else {
-      console.error("Geladene Daten sind kein Array.");
     }
   } catch (error) {
     console.error("Fehler beim Laden der Kontakte:", error);
@@ -81,9 +73,9 @@ async function contactsListRender(contacts) {
   try {
     let contactsList = document.getElementById("contacts");
     contactsList.innerHTML ='';
-    contacts.sort((a, b) => a.name.localeCompare(b.name));
     for (let i = 0; i < contacts.length; i++) {
       const contact = contacts[i];
+
       contactsList.innerHTML += contactList(contact, i);
     }
   } catch (error) {
@@ -94,23 +86,17 @@ async function contactsListRender(contacts) {
 
 function contactList(contact, i) {
   let firstLetter = contact["name"].charAt(0).toUpperCase();
-  let uppercaseLetters = (str) => {
-    return str.split("").filter((char) => /[A-Z]/.test(char));
-  };
+  let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   if (
     contactList.lastFirstLetter === undefined ||
     contactList.lastFirstLetter !== firstLetter
   ) {
     contactList.lastFirstLetter = firstLetter;
-    return `
-            <div class="firstLetter">${firstLetter}</div>
-            ${contactInfo(contact, uppercaseLetter, i)}
-        `;
+    return `<div class="firstLetter">${firstLetter}</div>
+            ${contactInfo(contact, uppercaseLetter, i)}`;
   } else {
-    return `
-            ${contactInfo(contact, uppercaseLetter, i)}
-        `;
+    return `${contactInfo(contact, uppercaseLetter, i)}`;
   }
 }
 
@@ -141,27 +127,23 @@ async function openContactView(i) {
     removeColor(i);
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
-    // const contact = contacts[i];
-    const contactsString = await getItem("kontakte");
-    const loadedContacts = JSON.parse(contactsString);
-    const contact = loadedContacts[i];
-    let name = contact["name"];
-    let email = contact["email"];
-    let phone = contact["phone"];
-    contactView.style = "left: 332px";
-    let uppercaseLetters = (str) => {
-      return str.split("").filter((char) => /[A-Z]/.test(char));
-    };
-    const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
-    contactView.innerHTML = "";
-    contactView.innerHTML += renderContactView(
-      i,
-      name,
-      email,
-      phone,
-      uppercaseLetter
-    );
-    changeContactColor(i);
+    try {
+      const contactsString = await getItem("kontakte");
+      loadedContacts = JSON.parse(contactsString);
+      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+      const contact = loadedContacts[i];
+      let name = contact["name"];
+      let email = contact["email"];
+      let phone = contact["phone"];
+      contactView.style = "left: 832px";
+      let uppercaseLetters = (str) => str.split("").filter((char) => /[A-Z]/.test(char));
+      const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
+      contactView.innerHTML = "";
+      contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter);
+      changeContactColor(i);
+    } catch (error) {
+      console.error("Fehler beim Laden des Kontakts:", error);
+    }
   }
 }
 
@@ -246,77 +228,115 @@ function removeColor(i) {
   document.getElementById(`contactMail${i}`).classList.remove("whiteColor");
 }
 
-function addNewContact() {
-  getItem("contacts")
-  .then((currentContacts) => {
-    // Hier kannst du die geladenen Kontakte verwenden
-    // Füge einen neuen Kontakt hinzu
-    currentContacts.push(newContact);
-
-    // Speichere die aktualisierten Kontakte im Storage
-    return setItem("contacts", currentContacts);
-  })
-  .then((response) => {
-    console.log("Daten erfolgreich gespeichert:", response);
-  })
-  .catch((error) => {
-    console.error("Fehler beim Bearbeiten der Daten:", error);
-  });
-
+function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
   addNewContact.style.display = "inline-flex";
   addNewContact.style = "right: 0";
   document.getElementById("popup-bg").style.display = "block";
 }
 
-async function saveContacts() {
-  try {
-    const contactsString = JSON.stringify(allContacts);
-    await setItem("kontakte", contactsString);
-    console.log("Kontakte erfolgreich gespeichert.");
+async function addContact(){
+  try{
+    let contactName = document.getElementById('addContactName').value;
+    let contactEmail = document.getElementById('addContactEmail').value;
+    let contactPhone = document.getElementById('addContactPhone').value;
+    const newContact = {
+      name: contactName,
+      email: contactEmail,
+      phone: contactPhone
+    };
+    const contactsString = await getItem("kontakte");
+    loadedContacts = JSON.parse(contactsString);
+    loadedContacts.push(newContact);
+    loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    await setItem("kontakte", JSON.stringify(loadedContacts));
+    contactsListRender(loadedContacts);
+
+    closeAddNewContact();
   } catch (error) {
-    console.error("Fehler beim Speichern der Kontakte:", error);
+    console.error("Fehler beim Hinzufügen des Kontakts:", error);
   }
 }
 
+let currentEditIndex; 
+
 async function editContact(i) {
   const contactsString = await getItem("kontakte");
-    const loadedContacts = JSON.parse(contactsString);
-    const contact = loadedContacts[i];
-  let uppercaseLetters = (str) => {
-    return str.split("").filter((char) => /[A-Z]/.test(char));
-  };
+  loadedContacts = JSON.parse(contactsString);
+  const contact = loadedContacts[i];
+  let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   document.getElementById("popup-bg").style.display = "block";
   let editContact = document.getElementById("editContact");
   editContact.style = "left: 0";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
-  document.getElementById("editContactPhone").value =
-    "+" + contact["phone"];
+  document.getElementById("editContactPhone").value = "+" + contact["phone"];
   document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
-  await setContactsInStorage();
+  currentEditIndex = i;
+}
+
+async function saveChangeContact() {
+  const editedIndex = currentEditIndex;
+  try {
+    const contactsString = await getItem("kontakte");
+    loadedContacts = JSON.parse(contactsString);
+    const editedContact = loadedContacts[editedIndex];
+
+    // Aktualisierte Werte aus den Eingabefeldern abrufen
+    const editedName = document.getElementById("editContactName").value;
+    const editedEmail = document.getElementById("editContactEmail").value;
+    const editedPhone = document.getElementById("editContactPhone").value;
+
+    // Werte des bearbeiteten Kontakts aktualisieren
+    editedContact['name'] = editedName;
+    editedContact['email'] = editedEmail;
+    editedContact['phone'] = editedPhone;
+
+    setItem("kontakte", JSON.stringify(loadedContacts));
+    loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    contactsListRender(loadedContacts);
+    closeEditContact();
+  } catch (error) {
+    console.error("Fehler beim Speichern der Änderungen:", error);
+  }
+}
+
+function delEditedContact(){
+  const deletedIndex = currentEditIndex;
 }
 
 async function delContact(i) {
-  let contactView = document.getElementById("contactView");
-  contactView.innerHTML = "";
-  contacts.splice(i, 1);
-  contactsInit();
-  await setContactsInStorage();
+  try {
+    const contactsString = await getItem("kontakte");
+    loadedContacts = JSON.parse(contactsString);
+    loadedContacts.splice(i, 1)[0];
+    await setItem("kontakte", JSON.stringify(loadedContacts));
+    contactsListRender(loadedContacts);
+    let contactView = document.getElementById("contactView");
+    contactView.innerHTML = "";
+  } catch (error) {
+    console.error("Fehler beim Löschen des Kontakts:", error);
+  }
 }
 
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  // addNewContact.style.display = 'none';
   addNewContact.style = "left: 100%";
   document.getElementById("popup-bg").style.display = "none";
+  document.getElementById('addContactName').value = '';
+  document.getElementById('addContactEmail').value ='';
+  document.getElementById('addContactPhone').value ='';
+  
 }
 
 function closeEditContact() {
   let editContact = document.getElementById("editContact");
   editContact.style = "left: -100%";
   document.getElementById("popup-bg").style.display = "none";
+  document.getElementById("editContactName").value = '';
+  document.getElementById("editContactEmail").value = '';
+  document.getElementById("editContactPhone").value = '';
 }
 
 
