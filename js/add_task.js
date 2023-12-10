@@ -69,16 +69,16 @@ function assignContactsTemplate(name, id) {
     );
 }
 
-function selectedContactMiniTemplate(name){
+function selectedContactMiniTemplate(name) {
     return (
         `<div class="name-box">${name}</div>`
     );
 }
 
-function renderSelectedContactsMini(){
+function renderSelectedContactsMini() {
     let miniContacts = '';
-    if(selectedContacts.length > 0){
-        for(let i=0; i < selectedContacts.length; i++){
+    if (selectedContacts.length > 0) {
+        for (let i = 0; i < selectedContacts.length; i++) {
             miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i].name));
         }
     }
@@ -114,7 +114,7 @@ function selectContact(id) {
     if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
 
-        if(indexToRemoveContact !== -1){
+        if (indexToRemoveContact !== -1) {
             selectedContacts.splice(indexToRemoveContact, 1);
             console.log('selectedContactsAfterRemovingOne:', selectedContacts);
         }
@@ -125,7 +125,7 @@ function selectContact(id) {
         checkboxImage.src = 'assets/img/add-task/checkbox-checked.png';
         checkboxImage.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
 
-        
+
         // console.log('selectedContact:', selectedContact);
         console.log('selectedContactsAfterAddingOne:', selectedContacts);
     }
@@ -182,21 +182,19 @@ function selectedTask(selectedTask) {
 
 
 function showAndHideContacts() {
-    console.log('in showAndHideContacts()');
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
 
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
     if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
-        contactBox.classList.add('d-block');
-    } else if (contactBox.classList.contains('d-block')) {
-        contactBox.classList.remove('d-block');
-        contactBox.classList.add('d-none');
+        selectedContactsMini.classList.add('d-none');
 
-        selectedContactsMini.innerHTML =  renderSelectedContactsMini();
+    } else {
+        contactBox.classList.add('d-none');
+        selectedContactsMini.classList.remove('d-none');
+        selectedContactsMini.innerHTML = renderSelectedContactsMini();
     }
 }
-
 
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
