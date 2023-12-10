@@ -60,7 +60,7 @@ function assignContactsTemplate(name, id) {
         <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
-            <div class="checkbox"><img src="/assets/img/add-task/checkbox.png" alt="checkbox"></div>
+            <div class="checkbox"><img id="contact-checkbox-${id}" src="assets/img/add-task/checkbox.png" alt="checkbox"></div>
         </div>
         `
     );
@@ -88,20 +88,25 @@ function selectContact(id){
     selectedContact = allContacts[0][id];
     let contact = document.getElementById(`contact-${id}`);
 
+    const checkboxImage = document.getElementById(`contact-checkbox-${id}`); 
+
     if(contact.classList.contains('selectedContact')){
-        unselectContact(contact);
+        unselectContact(contact, checkboxImage);
     }else{
-        contact.classList.add('selectedContact');
+        contact.classList.add('selectedContact');   
+        checkboxImage.src = 'assets/img/add-task/checkbox-checked.png';
+        checkboxImage.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
     }
     console.log(selectedContact);    
 }
 
-function unselectContact(contact){
+function unselectContact(contact, img){
     contact.classList.remove('selectedContact');
+    img.src = 'assets/img/add-task/checkbox.png';
+    img.style.filter = 'none';
     selectedContact = null;
 
 }
-
 
 function assignPriority(priority) {
     switch (priority) {
