@@ -35,13 +35,13 @@
 
                 <div>
                     <h1>Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area">
+                    <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragleave="removeHighlight('awaitFeedbackListContainer')" ondragover="allowDrop(event); highlight('awaitFeedbackListContainer')">
                     </div>
                 </div>
 
                 <div>
                     <h1>Done<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area">
+                    <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragleave="removeHighlight('doneListContainer')" ondragover="allowDrop(event); highlight('doneListContainer')">
                     </div>
                 </div>
             </div>
