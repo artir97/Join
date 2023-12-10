@@ -251,6 +251,7 @@ button {
   display: flex;
   flex-direction: row;
   width: 100%;
+  /* position: absolute; */
 }
 .contacts-container {
   display: flex;
@@ -258,13 +259,15 @@ button {
   align-items: center;
   justify-content: center;
   width: 456px;
-  height: 928px;
-  position: relative;
-  /* top: 96px; */
+  /* height: 928px; */
+  position: absolute;
+  bottom: 0;
   left: 232px;
+  top: 96px;
   flex-shrink: 0;
   box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
   overflow-y: scroll;
+  overflow-x: hidden;
   z-index: 9;
 }
 .addContact {
@@ -280,21 +283,21 @@ button {
   background: white;
   width: 408px;
   display: flex;
-  padding: 32px 16px 16px 16px;
+  padding: 32px 6px 16px 24px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
   position: fixed;
+  left: 232px;
   top: 96px;
   height: 56px;
-  z-index: 2;
+  z-index: 15;
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.08);
 }
 .addContactBtn {
   display: flex;
   width: 357px;
-  /* height: 24px; */
   padding: 16px 10px 16px 10px;
   justify-content: center;
   align-items: center;
@@ -315,8 +318,8 @@ button {
   display: inline-flex;
   align-items: center;
   flex-direction: column;
-  /* justify-content: center; */
-  margin-top: 300px;
+  position: relative; 
+  top: 150px;
   width: 352px;
   padding: 32px 24px;
   z-index: 1;
@@ -389,7 +392,7 @@ button {
   align-items: flex-start;
   gap: 21px;
   position: relative;
-  left: 100%; /*332px*/
+  left: 100%; /* 832px */
   top: 68px;
   transition: all 200ms ease-in-out;
 }

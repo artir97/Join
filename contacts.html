@@ -14,13 +14,14 @@
   <body onload="init(), contactsInit()">
     <div w3-include-html="assets/templates/desktop_template.html"></div>
     <div class="contacts">
+      <div class="btnContainer">
+        <button onclick="addNewContactWindow()" class="addContactBtn">
+          Add new contact
+          <img src="assets/img/person_add.png" alt="Add new contact" />
+        </button>
+      </div>
       <div class="contacts-container">
-        <div class="btnContainer">
-          <button onclick="addNewContact()" class="addContactBtn">
-            Add new contact
-            <img src="assets/img/person_add.png" alt="Add new contact" />
-          </button>
-        </div>
+       
         <div class="contactList" id="contacts"></div>
       </div>
       <div class="contact-view" id="contactView">
@@ -55,8 +56,8 @@
               <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
               <div class="addContactInput"><input class="addPhone" required type="text" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
               <div class="addContactBtns">
-              <button onclick="" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
-              <button onclick="" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
+              <button onclick="closeAddNewContact()" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
+              <button onclick="addContact()" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
             </div>
           </div>
         </div>
@@ -87,9 +88,12 @@
               <div class="editContactInput"><input class="editPhone" required type="text" id="editContactPhone" placeholder="Phone" autocomplete="off"></div>
               <div class="editContactBtns">
               <button onclick="delEditedContact()" class="delEditContact"><p>Delete</p></button>
-              <button onclick="" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>
+              <button onclick="saveChangeContact()" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>
           </div>
         </div>
+        </div>
+        <div class="newContactSuccess" id="newContactSuccess">
+
         </div>
         <div class="popupbackground" id="popup-bg"></div>
       
