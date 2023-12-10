@@ -1,6 +1,7 @@
 let allTasks = [];
 let allContacts = [];
 let selectedContact;
+let selectedContacts = [];
 let selectedPriority = '';
 
 
@@ -13,7 +14,7 @@ async function createTask() {
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
     const priority = assignPriority(selectedPriority); // Use the selectedPriority value
-    const assignedContact = selectedContact;
+    const assignedContact = selectedContacts;
     const category = document.getElementById('add-task-category');
     const subtask = document.getElementById('add-task-subtask');
 
@@ -32,7 +33,7 @@ async function createTask() {
         description: description.value,
         date: date.value,
         priority: priority,
-        assignedContact: selectedContact,
+        assignedContact: selectedContacts,
         category: category.value,
         subtask: subtask.value
     });
@@ -66,8 +67,8 @@ function assignContactsTemplate(name, id) {
     );
 }
 
-function getInitials(fullName){
-    if(!fullName){
+function getInitials(fullName) {
+    if (!fullName) {
         return '';
     } else {
         const words = fullName.split(' ');
@@ -76,31 +77,44 @@ function getInitials(fullName){
     }
 }
 
-function renderAssignableContacts(){
+function renderAssignableContacts() {
     let content = '';
-    for(let i = 0; i < allContacts[0].length; i++){
+    for (let i = 0; i < allContacts[0].length; i++) {
         content += assignContactsTemplate(allContacts[0][i].name, i);
     }
     return content;
 }
 
-function selectContact(id){
+function selectContact(id) {
     selectedContact = allContacts[0][id];
     let contact = document.getElementById(`contact-${id}`);
+    let emailToRemoveContact = selectedContact.email;
+    let indexToRemoveContact = selectedContacts.findIndex(selectedContact => selectedContact.email === emailToRemoveContact);
 
-    const checkboxImage = document.getElementById(`contact-checkbox-${id}`); 
+    const checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
-    if(contact.classList.contains('selectedContact')){
+    if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
-    }else{
-        contact.classList.add('selectedContact');   
+
+        if(indexToRemoveContact !== -1){
+            selectedContacts.splice(indexToRemoveContact, 1);
+            console.log('selectedContactsAfterRemovingOne:', selectedContacts);
+        }
+
+    } else {
+        selectedContacts.push(selectedContact);
+        contact.classList.add('selectedContact');
         checkboxImage.src = 'assets/img/add-task/checkbox-checked.png';
         checkboxImage.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
+
+        
+        // console.log('selectedContact:', selectedContact);
+        console.log('selectedContactsAfterAddingOne:', selectedContacts);
     }
-    console.log(selectedContact);    
+    // console.log(selectedContact);
 }
 
-function unselectContact(contact, img){
+function unselectContact(contact, img) {
     contact.classList.remove('selectedContact');
     img.src = 'assets/img/add-task/checkbox.png';
     img.style.filter = 'none';
