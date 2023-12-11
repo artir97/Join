@@ -304,8 +304,8 @@ transition: background-color 0.3 ease-in-out!important;
 
 .drag-area {
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 1px dashed black;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+    /* border: 1px dashed black; */
     margin-bottom: 50px;
     display: flex;
     align-items: flex-start;
@@ -322,14 +322,84 @@ transition: background-color 0.3 ease-in-out!important;
     width: 252px;
     padding: 16px;
     flex-direction: column;
-    justify-content: center;   
-    gap: 10px;
+    justify-content: center;
     background-color: white;
     border: 1px solid black;
-    border-radius: 5px;
-    padding: 10px;
     margin: 10px;
     border-radius: 24px;
     background: var(--white, #FFF);
     box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    border: none;
+}
+
+.selectContact{
+    display: flex;
+
+}
+
+.boardNameBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF3D00;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    color: #fff;
+    margin-right: -10px;
+}
+
+.category{
+    display: flex;
+    padding: 4px 16px;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 8px;
+    background: #FF7A00;
+    color: #FFF;
+    width: fit-content;
+    height: auto;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+    margin-bottom: 15px;
+}
+
+.taskName{
+    color: var(--version-2-main-color, #4589FF);
+    font-family: Open Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 19.2px */   
+    padding-bottom: 15px;
+}
+
+.taskInfo{
+    color: var(--icon, #A8A8A8);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 19.2px */
+    padding-bottom: 15px;
+}
+
+.emtyTask{
+    display: flex;
+    height: 48px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px dashed var(--icon, #A8A8A8);
+    background: #E7E7E7;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    color: var(--icon, #A8A8A8);
 }

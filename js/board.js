@@ -31,7 +31,7 @@ let todos = [{
 }, {
     'id': 5,
     'title': 'Hausaufgaben',
-    'category': 'doneListContainer'
+    'category': 'awaitFeedbackListContainer'
 }
 ];
 
@@ -48,44 +48,64 @@ function updateHTML() {
 
 function updateToDo() {
     let open = todos.filter(t => t['category'] == 'todoListContainer');
+    container = document.getElementById('todoListContainer');
+    container.innerHTML = '';
 
-    document.getElementById('todoListContainer').innerHTML = '';
-
-    for (let index = 0; index < open.length; index++) {
-        const element = open[index];
-        document.getElementById('todoListContainer').innerHTML += generateTodoHTML(element);
+    if (open.length > 0) {
+        for (let index = 0; index < open.length; index++) {
+            const element = open[index];
+            container.innerHTML += generateTodoHTML(element);
+        }        
+    } else {
+        generateEmtyTodoHTML(container);
     }
 }
 
 function updateInProgress(){
     let closed = todos.filter(t => t['category'] == 'progressListContainer');
-
-    document.getElementById('progressListContainer').innerHTML = '';
-
-    for (let index = 0; index < closed.length; index++) {
-        const element = closed[index];
-        document.getElementById('progressListContainer').innerHTML += generateTodoHTML(element);
+    container = document.getElementById('progressListContainer');
+    container.innerHTML = '';
+    if (closed.length > 0) {
+        for (let index = 0; index < closed.length; index++) {
+            const element = closed[index];
+            container.innerHTML += generateTodoHTML(element);
+        }        
+    } else {
+        generateEmtyTodoHTML(container);
     }
 }
 
 function updateAwaitFeedback(){
     let awaitFeedback = todos.filter(t => t['category'] == 'awaitFeedbackListContainer');
-    document.getElementById('awaitFeedbackListContainer').innerHTML = '';
+    container = document.getElementById('awaitFeedbackListContainer');
+    container.innerHTML = '';
 
-    for (let index = 0; index < awaitFeedback.length; index++) {
-        const element = awaitFeedback[index];
-        document.getElementById('awaitFeedbackListContainer').innerHTML += generateTodoHTML(element);
+    if (awaitFeedback.length > 0) {
+        for (let index = 0; index < awaitFeedback.length; index++) {
+            const element = awaitFeedback[index];
+            document.getElementById('awaitFeedbackListContainer').innerHTML += generateTodoHTML(element);
+        }
+    } else {
+        generateEmtyTodoHTML(container);
     }
 }
 
 function updateDone(){
     let done = todos.filter(t => t['category'] == 'doneListContainer');
-    document.getElementById('doneListContainer').innerHTML = '';
+    container = document.getElementById('doneListContainer');
+    container.innerHTML = '';
 
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('doneListContainer').innerHTML += generateTodoHTML(element);
+
+    if (done.length > 0) {
+        for (let index = 0; index < done.length; index++) {
+            const element = done[index];
+            document.getElementById('doneListContainer').innerHTML += generateTodoHTML(element);
+        }
+    } else {
+        generateEmtyTodoHTML(container);
     }
+     
+    
 }
 
 
@@ -97,11 +117,30 @@ function startDragging(id) {
 function generateTodoHTML(element) {
     return /*html*/`
         <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">
-            <div>Technical task</div>
-            <p>${element['title']}</p>
-            <p>Create reusable HTML base templates...</p>
+            <div class="category">Technical task</div>
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">Create reusable HTML base templates...</div>
+            <div class="selectContact">
+                <div class="boardNameBox">CH</div>
+                <div class="boardNameBox">AF</div>
+                <div class="boardNameBox">GT</div>
+            </div>
             
         </div>`;
+}
+
+function generateEmtyTodoHTML(){
+   
+        container.innerHTML = /*html*/`
+               
+        <div class="emtyTask">
+           <p>No tasks To do</p>
+            
+        </div>`;
+        
+   
+    
+    
 }
 
 function allowDrop(ev) {
@@ -113,10 +152,10 @@ function moveTo(category) {
     updateHTML();
 }
 
-function highlight(id) {
-    document.getElementById(id).classList.add('drag-area-highlight');
-}
+// function highlight(id) {
+//     document.getElementById(id).classList.add('drag-area-highlight');
+// }
 
-function removeHighlight(id) {
-    document.getElementById(id).classList.remove('drag-area-highlight');
-}
+// function removeHighlight(id) {
+//     document.getElementById(id).classList.remove('drag-area-highlight');
+// }
