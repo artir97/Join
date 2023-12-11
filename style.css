@@ -1,6 +1,6 @@
 @font-face {
   font-family: OpenSans;
-  src: url(font/OpenSans/OpenSans-VariableFont_wdth%2Cwght.ttf);
+  src: url("font/OpenSans/OpenSans-VariableFont_wdth\,wght.ttf");
 }
 @font-face {
   font-family: Inter;
@@ -27,6 +27,25 @@ body {
   overflow-x: hidden;
   font-family: OpenSans !important;
 }
+
+.active {
+  background-color: rgb(210,227,255);
+  border-radius: 8px;
+}
+/* #taskPage.active {
+  background-color: rgb(210,227,255);
+  border-radius: 8px;
+}
+#boardPage.active {
+  background-color: rgb(210,227,255);
+  border-radius: 8px;
+}
+#contactsPage.active {
+  background-color: rgb(210,227,255);
+  border-radius: 8px;
+} */
+
+
 .imagecontainer {
   position: absolute;
 

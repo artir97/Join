@@ -47,7 +47,10 @@ let loadedContacts = [];
 async function contactsInit() {
   saveContacts();
   await loadContacts();
-
+  document.getElementById('contactsPage').classList.add('active');
+  document.getElementById('summaryPage').classList.remove('active');
+  document.getElementById('taskPage').classList.remove('active');
+  document.getElementById('boardPage').classList.remove('active');
 }
 
 async function saveContacts() {
@@ -341,6 +344,8 @@ function closeEditContact() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById('contactsPage').classList.add('active');
+
   var popupBg = document.getElementById("popup-bg");
 
   if (popupBg) {
@@ -354,3 +359,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", contactsInit);
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('contactsPage').classList.add('active');
+});
