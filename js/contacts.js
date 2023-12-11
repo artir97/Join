@@ -34,10 +34,14 @@ let allContacts = [
     email: "bauer@gmail.com",
     phone: 49111111111,
   },
-  //
-  //     'name': 'Tatjana Wolf',
-  //     'email': 'wolf@gmail.com
 ];
+
+let newContacts = [{
+  name: 'Tatjana Wolf',
+  email: 'wolf@gmail.com',
+  phone: 4922222222}
+ ];
+
 let loadedContacts = [];
 
 async function contactsInit() {
@@ -235,6 +239,17 @@ function addNewContactWindow() {
   document.getElementById("popup-bg").style.display = "block";
 }
 
+function setContactValue(){
+  let contactName = document.getElementById('addContactName');
+  let contactEmail = document.getElementById('addContactEmail');
+  let contactPhone = document.getElementById('addContactPhone');
+  contactName.value  = newContacts[0]['name'];
+  contactEmail.value = newContacts[0]['email'];
+  contactPhone.value = newContacts[0]['phone'];
+}
+
+
+// neuer Kontakt zum selbst eintragen :
 async function addContact(){
   try{
     let contactName = document.getElementById('addContactName').value;
