@@ -49,12 +49,9 @@
                 </g>
               </svg>
             </div>
-            
-              <!-- onclick contact create  -->
-              <!-- weiterer onclick delete data -->
               <div class="addContactInput"><input onclick="setContactValue()" class="addName" required type="name" id="addContactName" placeholder="Name" autocomplete="off"></div>
-              <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
-              <div class="addContactInput"><input class="addPhone" required type="text" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
+              <div class="addContactInput"><input onclick="setContactValue()" class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
+              <div class="addContactInput"><input onclick="setContactValue()" class="addPhone" required type="text" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
               <div class="addContactBtns">
               <button onclick="closeAddNewContact()" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
               <button onclick="addContact()" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
@@ -93,7 +90,7 @@
         </div>
         </div>
         <div class="newContactSuccess" id="newContactSuccess">
-
+          <p>Contact successfully created</p>
         </div>
         <div class="popupbackground" id="popup-bg"></div>
       

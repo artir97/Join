@@ -51,30 +51,21 @@ async function contactsInit() {
 }
 
 async function saveContacts() {
-  try {
     const contactsString = JSON.stringify(allContacts);
     await setItem("kontakte", contactsString);
-  } catch (error) {
-    console.error("Fehler beim Speichern der Kontakte:", error);
-  }
 }
 
 async function loadContacts() {
-  try {
     const contactsString = await getItem("kontakte");
     if (contactsString) {
        loadedContacts = JSON.parse(contactsString);
             loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
       contactsListRender(loadedContacts);
     }
-  } catch (error) {
-    console.error("Fehler beim Laden der Kontakte:", error);
-  }
 }
 
 
 async function contactsListRender(contacts) {
-  try {
     let contactsList = document.getElementById("contacts");
     contactsList.innerHTML ='';
     for (let i = 0; i < contacts.length; i++) {
@@ -82,10 +73,6 @@ async function contactsListRender(contacts) {
 
       contactsList.innerHTML += contactList(contact, i);
     }
-  } catch (error) {
-    console.error("Fehler beim Laden der Daten:", error);
-  }
-
 }
 
 function contactList(contact, i) {
@@ -131,7 +118,6 @@ async function openContactView(i) {
     removeColor(i);
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
-    try {
       const contactsString = await getItem("kontakte");
       loadedContacts = JSON.parse(contactsString);
       loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -145,9 +131,6 @@ async function openContactView(i) {
       contactView.innerHTML = "";
       contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter);
       changeContactColor(i);
-    } catch (error) {
-      console.error("Fehler beim Laden des Kontakts:", error);
-    }
   }
 }
 
@@ -248,10 +231,7 @@ function setContactValue(){
   contactPhone.value = newContacts[0]['phone'];
 }
 
-
-// neuer Kontakt zum selbst eintragen :
 async function addContact(){
-  try{
     let contactName = document.getElementById('addContactName').value;
     let contactEmail = document.getElementById('addContactEmail').value;
     let contactPhone = document.getElementById('addContactPhone').value;
@@ -260,17 +240,30 @@ async function addContact(){
       email: contactEmail,
       phone: contactPhone
     };
-    const contactsString = await getItem("kontakte");
-    loadedContacts = JSON.parse(contactsString);
-    loadedContacts.push(newContact);
-    loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-    await setItem("kontakte", JSON.stringify(loadedContacts));
-    contactsListRender(loadedContacts);
+    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === contactName.toLowerCase());
+    if (isNameDuplicate) {
+      console.log("Der Name existiert bereits im Adressbuch.");
+      closeAddNewContact();
+    } else {
+      const contactsString = await getItem("kontakte");
+      loadedContacts = JSON.parse(contactsString);
+      loadedContacts.push(newContact);
+      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+      await setItem("kontakte", JSON.stringify(loadedContacts));
+      contactsListRender(loadedContacts);
+      closeAddNewContact();
+      setTimeout(addContactSuccess, 800);
+    }
+}
 
-    closeAddNewContact();
-  } catch (error) {
-    console.error("Fehler beim Hinzufügen des Kontakts:", error);
-  }
+function addContactSuccess(){
+  let success = document.getElementById('newContactSuccess');
+  success.style.top = '50%';
+  setTimeout(addContactSuccessClose, 1600)
+}
+function addContactSuccessClose(){
+  let success = document.getElementById('newContactSuccess');
+  success.style.top = '120%';
 }
 
 let currentEditIndex; 
@@ -293,7 +286,6 @@ async function editContact(i) {
 
 async function saveChangeContact() {
   const editedIndex = currentEditIndex;
-  try {
     const contactsString = await getItem("kontakte");
     loadedContacts = JSON.parse(contactsString);
     const editedContact = loadedContacts[editedIndex];
@@ -312,9 +304,6 @@ async function saveChangeContact() {
     loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
     contactsListRender(loadedContacts);
     closeEditContact();
-  } catch (error) {
-    console.error("Fehler beim Speichern der Änderungen:", error);
-  }
 }
 
 function delEditedContact(){
@@ -322,7 +311,6 @@ function delEditedContact(){
 }
 
 async function delContact(i) {
-  try {
     const contactsString = await getItem("kontakte");
     loadedContacts = JSON.parse(contactsString);
     loadedContacts.splice(i, 1)[0];
@@ -330,9 +318,6 @@ async function delContact(i) {
     contactsListRender(loadedContacts);
     let contactView = document.getElementById("contactView");
     contactView.innerHTML = "";
-  } catch (error) {
-    console.error("Fehler beim Löschen des Kontakts:", error);
-  }
 }
 
 function closeAddNewContact() {
