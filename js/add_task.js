@@ -1,8 +1,9 @@
 let allTasks = [];
 let allContacts = [];
+let selectedPriority;
 let selectedContact;
 let selectedContacts = [];
-let selectedPriority = '';
+let selectedCategory;
 
 
 async function initTaskData() {
@@ -15,9 +16,9 @@ async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
-    const priority = assignPriority(selectedPriority); // Use the selectedPriority value
+    const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
-    const category = document.getElementById('add-task-category');
+    const category = selectedCategory;
     const subtask = document.getElementById('add-task-subtask');
 
     // console.logs can be removed when done
@@ -27,7 +28,7 @@ async function createTask() {
     console.log('Date:', date.value);
     console.log('Assigne:', assignedContact)
     console.log('Priority:', priority);
-    console.log('Category:', category.value);
+    console.log('Category:', category);
     console.log('Subtask:', subtask.value);
 
     allTasks.push({
@@ -36,7 +37,7 @@ async function createTask() {
         date: date.value,
         priority: priority,
         assignedContact: selectedContacts,
-        category: category.value,
+        category: selectedCategory,
         subtask: subtask.value
     });
 
@@ -57,33 +58,8 @@ async function loadContacts() {
     }
 }
 
-function assignContactsTemplate(name, id) {
-    return (
-        `         
-        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
-            <div class="name-box">${getInitials(name)}</div>
-            <div class="name">${name}</div>
-            <div class="checkbox"><img id="contact-checkbox-${id}" src="assets/img/add-task/checkbox.png" alt="checkbox"></div>
-        </div>
-        `
-    );
-}
 
-function selectedContactMiniTemplate(name) {
-    return (
-        `<div class="name-box">${name}</div>`
-    );
-}
 
-function renderSelectedContactsMini() {
-    let miniContacts = '';
-    if (selectedContacts.length > 0) {
-        for (let i = 0; i < selectedContacts.length; i++) {
-            miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i].name));
-        }
-    }
-    return miniContacts;
-}
 
 function getInitials(fullName) {
     if (!fullName) {
@@ -124,12 +100,7 @@ function selectContact(id) {
         contact.classList.add('selectedContact');
         checkboxImage.src = 'assets/img/add-task/checkbox-checked.png';
         checkboxImage.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
-
-
-        // console.log('selectedContact:', selectedContact);
-        console.log('selectedContactsAfterAddingOne:', selectedContacts);
     }
-    // console.log(selectedContact);
 }
 
 function unselectContact(contact, img) {
@@ -158,26 +129,29 @@ function assignPriority(priority) {
 
 
 function changePriority(priority) {
-    // Reset previous selected priority
     if (selectedPriority) {
         document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
     }
-
-    // Update the selected priority
     selectedPriority = priority;
-
-    // Add a visual indication for the selected priority
     document.getElementById(`add-task-${priority}`).classList.add('selected');
-
-    // Assign the priority value to your constant or use it as needed
     assignPriority(priority);
 }
 
 
 function selectedTask(selectedTask) {
-    document.getElementById('add-task-currently-selected-category').innerHTML = selectedTask;
+    document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML(selectedTask);
     showAndHideCategories();
+    selectedCategory = selectedTask;
     return selectedTask;
+}
+
+function selectedTaskInnerHTML(selectedTask){
+    switch(selectedTask) {
+        case 'technical-task':
+            return 'Technical Task';
+        case 'user-story':
+            return 'User Story';
+    }
 }
 
 
@@ -201,12 +175,86 @@ function showAndHideCategories() {
 
     if (taskBox.classList.contains('d-none')) {
         taskBox.classList.remove('d-none');
-        taskBox.classList.add('d-block');
-    } else if (taskBox.classList.contains('d-block')) {
-        taskBox.classList.remove('d-block');
+    } else {
         taskBox.classList.add('d-none');
     }
 }
+
+
+
+
+
+
+
+// RENDER FUNCTIONs
+
+function renderSelectedContactsMini() {
+    let miniContacts = '';
+    if (selectedContacts.length > 0) {
+        for (let i = 0; i < selectedContacts.length; i++) {
+            miniContacts += selectedContactMiniTemplate(getInitials(selectedContacts[i].name));
+        }
+    }
+    return miniContacts;
+}
+
+
+
+
+// TEMPLATES
+
+function assignContactsTemplate(name, id) {
+    return (
+        `         
+        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
+            <div class="name-box">${getInitials(name)}</div>
+            <div class="name">${name}</div>
+            <div class="checkbox"><img id="contact-checkbox-${id}" src="assets/img/add-task/checkbox.png" alt="checkbox"></div>
+        </div>
+        `
+    );
+}
+
+function selectedContactMiniTemplate(name) {
+    return (
+        `<div class="name-box">${name}</div>`
+    );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function clearForm() {
     document.getElementById('add-task-title').value = '';
@@ -215,40 +263,7 @@ function clearForm() {
     document.getElementById('add-task-subtask').value = '';
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// these functions have to be combined
+// these functions probably have to be combined
 function changeColorUrgent() {
     document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
     document.getElementById('add-task-urgent').style.color = '#fff';
