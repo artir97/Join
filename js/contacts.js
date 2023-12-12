@@ -47,15 +47,25 @@ let loadedContacts = [];
 async function contactsInit() {
   saveContacts();
   await loadContacts();
-  document.getElementById('contactsPage').classList.add('active');
-  document.getElementById('summaryPage').classList.remove('active');
-  document.getElementById('taskPage').classList.remove('active');
-  document.getElementById('boardPage').classList.remove('active');
+  // document.getElementById('contactsPage').classList.add('active');
+  // document.getElementById('summaryPage').classList.remove('active');
+  // document.getElementById('taskPage').classList.remove('active');
+  // document.getElementById('boardPage').classList.remove('active');
 }
 
 async function saveContacts() {
-    const contactsString = JSON.stringify(allContacts);
-    await setItem("kontakte", contactsString);
+  const existingContactsString = await getItem("kontakte");
+  const existingContacts = existingContactsString ? JSON.parse(existingContactsString) : [];
+  
+  
+  // Speichern Sie die kombinierten Kontakte
+  await setItem("kontakte", JSON.stringify(existingContacts));
+
+
+
+
+    // const contactsString = JSON.stringify(allContacts);
+    // await setItem("kontakte", contactsString);
 }
 
 async function loadContacts() {
@@ -248,14 +258,32 @@ async function addContact(){
       console.log("Der Name existiert bereits im Adressbuch.");
       closeAddNewContact();
     } else {
-      const contactsString = await getItem("kontakte");
-      loadedContacts = JSON.parse(contactsString);
       loadedContacts.push(newContact);
+
+      // Sortieren der Kontakte nach Namen
       loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+
+      // Speichern der aktualisierten Kontakte
       await setItem("kontakte", JSON.stringify(loadedContacts));
+
+      // Neu rendern der Kontaktliste
       contactsListRender(loadedContacts);
+
+      // Schließen des Hinzufügen-Fensters
       closeAddNewContact();
+
+      // Anzeigen des Erfolgsmeldung
       setTimeout(addContactSuccess, 800);
+
+
+      // const contactsString = await getItem("kontakte");
+      // loadedContacts = JSON.parse(contactsString);
+      // loadedContacts.push(newContact);
+      // loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+      // await setItem("kontakte", JSON.stringify(loadedContacts));
+      // contactsListRender(loadedContacts);
+      // closeAddNewContact();
+      // setTimeout(addContactSuccess, 800);
     }
 }
 
@@ -344,7 +372,7 @@ function closeEditContact() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById('contactsPage').classList.add('active');
+  // document.getElementById('contactsPage').classList.add('active');
 
   var popupBg = document.getElementById("popup-bg");
 
@@ -359,6 +387,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", contactsInit);
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('contactsPage').classList.add('active');
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   document.getElementById('contactsPage').classList.add('active');
+// });
