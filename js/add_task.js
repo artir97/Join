@@ -8,6 +8,8 @@ let selectedCategory;
 
 async function initTaskData() {
     await loadContacts();
+    // await clearAllTasks();
+    await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
 
 }
@@ -22,14 +24,14 @@ async function createTask() {
     const subtask = document.getElementById('add-task-subtask');
 
     // console.logs can be removed when done
-    console.log('in createTask button');
-    console.log('Title:', title.value);
-    console.log('Description:', description.value);
-    console.log('Date:', date.value);
+
+    // console.log('Title:', title.value);
+    // console.log('Description:', description.value);
+    // console.log('Date:', date.value);
     console.log('Assigne:', assignedContact)
-    console.log('Priority:', priority);
-    console.log('Category:', category);
-    console.log('Subtask:', subtask.value);
+    // console.log('Priority:', priority);
+    // console.log('Category:', category);
+    // console.log('Subtask:', subtask.value);
 
     allTasks.push({
         title: title.value,
@@ -41,10 +43,34 @@ async function createTask() {
         subtask: subtask.value
     });
 
+    console.log(allTasks);
     await setItem('allTasks', JSON.stringify(allTasks));
+    console.log(allTasks);
     alert('Task created successfully');
     clearForm();
 }
+
+async function loadTasks(){
+    try {
+        const tasksString = await getItem('allTasks');
+        const loadedTasks = JSON.parse(tasksString);
+
+        // '...'  to prevent array nesting
+        allTasks = [...loadedTasks];
+        // allTasks.push(loadedTasks);
+        console.log('loadedTasks:', loadedTasks);
+        console.log('allTasks:', allTasks);
+    } catch (e) {
+        console.error('Error while loading the tasks:', e);
+    }
+}
+
+// was there to empty the storage 
+async function clearAllTasks(){
+    allTasks = [];
+    await setItem('allTasks', JSON.stringify(allTasks));
+}
+
 
 async function loadContacts() {
     try {
@@ -92,7 +118,7 @@ function selectContact(id) {
 
         if (indexToRemoveContact !== -1) {
             selectedContacts.splice(indexToRemoveContact, 1);
-            console.log('selectedContactsAfterRemovingOne:', selectedContacts);
+            // console.log('selectedContactsAfterRemovingOne:', selectedContacts);
         }
 
     } else {
@@ -157,8 +183,8 @@ function selectedTaskInnerHTML(selectedTask){
 
 function showAndHideContacts() {
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
-
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
+
     if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
         selectedContactsMini.classList.add('d-none');

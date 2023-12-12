@@ -3,14 +3,14 @@
         <div class="add-task-container-content">
             <h2>Contact Form & Imprint</h2>
 
-            <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
+            <input class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
 
             <label for="add-task-description">Description (optional)</label>
             <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
                 placeholder="Enter a description"></textarea>
 
             <label for="add-task-date">Due date</label>
-            <input required class="pointer" type="date" name="add-task-date" id="add-task-date">
+            <input class="pointer" type="date" name="add-task-date" id="add-task-date">
 
             <label for="add-task-priority">Priority (optional)</label>
             <div id="add-task-priority">
@@ -50,12 +50,6 @@
                 <div class="add-task-category-dropdown-task" onclick="selectedTask('technical-task')">Technical Task</div>
                 <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
             </div>
-            <!-- 
-            <select class="pointer" name="category" id="add-task-category">
-                <option value="" disabled selected>Select task category</option>
-                <option value="technical-task">Technical Task</option>
-                <option value="user-story">User Story</option>
-            </select> -->
 
             <label for="add-task-subtask">Subtask (optional)</label>
             <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask">
