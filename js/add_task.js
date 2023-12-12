@@ -11,6 +11,7 @@ async function initTaskData() {
     // await clearAllTasks();
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
+
     document.getElementById('contactsPage').classList.remove('active');
     document.getElementById('summaryPage').classList.remove('active');
     document.getElementById('taskPage').classList.add('active');
@@ -26,25 +27,18 @@ async function createTask() {
     const category = selectedCategory;
     const subtask = document.getElementById('add-task-subtask');
 
-    // console.logs can be removed when done
-
-    // console.log('Title:', title.value);
-    // console.log('Description:', description.value);
-    // console.log('Date:', date.value);
-    console.log('Assigne:', assignedContact)
-    // console.log('Priority:', priority);
-    // console.log('Category:', category);
-    // console.log('Subtask:', subtask.value);
-
-    allTasks.push({
+    const newTask = {
         title: title.value,
         description: description.value,
         date: date.value,
         priority: priority,
-        assignedContact: selectedContacts,
-        category: selectedCategory,
+        assignedContact: assignedContact.slice(), // Creates a new array
+        category: category,
         subtask: subtask.value
-    });
+    };
+
+    // Add the newTask directly to the allTasks array
+    allTasks.push(newTask);
 
     console.log(allTasks);
     await setItem('allTasks', JSON.stringify(allTasks));
