@@ -72,7 +72,7 @@ async function clearAllTasks(){
 
 async function loadContacts() {
     try {
-        const contactsString = await getItem("contacts");
+        const contactsString = await getItem("kontakte");
         const loadedContacts = JSON.parse(contactsString);
 
         allContacts.push(loadedContacts);
