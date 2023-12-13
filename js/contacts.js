@@ -56,16 +56,7 @@ async function contactsInit() {
 async function saveContacts() {
   const existingContactsString = await getItem("kontakte");
   const existingContacts = existingContactsString ? JSON.parse(existingContactsString) : [];
-  
-  
-  // Speichern Sie die kombinierten Kontakte
   await setItem("kontakte", JSON.stringify(existingContacts));
-
-
-
-
-    // const contactsString = JSON.stringify(allContacts);
-    // await setItem("kontakte", contactsString);
 }
 
 async function loadContacts() {
@@ -83,7 +74,6 @@ async function contactsListRender(contacts) {
     contactsList.innerHTML ='';
     for (let i = 0; i < contacts.length; i++) {
       const contact = contacts[i];
-
       contactsList.innerHTML += contactList(contact, i);
     }
 }
@@ -92,10 +82,7 @@ function contactList(contact, i) {
   let firstLetter = contact["name"].charAt(0).toUpperCase();
   let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
-  if (
-    contactList.lastFirstLetter === undefined ||
-    contactList.lastFirstLetter !== firstLetter
-  ) {
+  if (contactList.lastFirstLetter === undefined || contactList.lastFirstLetter !== firstLetter) {
     contactList.lastFirstLetter = firstLetter;
     return `<div class="firstLetter">${firstLetter}</div>
             ${contactInfo(contact, uppercaseLetter, i)}`;
@@ -126,9 +113,8 @@ function contactInfo(contact, uppercaseLetter, i) {
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
-    // Wenn Inhalt vorhanden, dann
     contactView.style = "left: 100%";
-    removeColor(i);
+    removeWhiteColor();
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
       const contactsString = await getItem("kontakte");
@@ -206,26 +192,29 @@ function renderContactView(i, name, email, phone, uppercaseLetter) {
 }
 
 function changeContactColor(i) {
-  for (let index = 0; index < contacts.length; index++) {
-    const contactElement = document.getElementById(`contactInfo${index}`);
-    const nameElement = document.getElementById(`contactName${index}`);
-    const mailElement = document.getElementById(`contactMail${index}`);
-    if (index === i) {
-      contactElement.classList.add("blueColor");
-      nameElement.classList.add("whiteColor");
-      mailElement.classList.add("whiteColor");
-    } else {
-      contactElement.classList.remove("blueColor");
-      nameElement.classList.remove("whiteColor");
-      mailElement.classList.remove("whiteColor");
-    }
-  }
+    const contactElement = document.getElementById(`contactInfo${i}`);
+    const nameElement = document.getElementById(`contactName${i}`);
+    const mailElement = document.getElementById(`contactMail${i}`);
+      addWhiteColor(contactElement, nameElement, mailElement);
 }
 
-function removeColor(i) {
-  document.getElementById(`contactInfo${i}`).classList.remove("blueColor");
-  document.getElementById(`contactName${i}`).classList.remove("whiteColor");
-  document.getElementById(`contactMail${i}`).classList.remove("whiteColor");
+function addWhiteColor(contactElement, nameElement, mailElement){
+  contactElement.classList.add("blueColor");
+  nameElement.classList.add("whiteColor");
+  mailElement.classList.add("whiteColor");
+}
+
+function removeWhiteColor(){
+  let info = document.getElementsByClassName('contactInfo');
+  for (let i = 0; i < info.length; i++) {
+    let allInfos = info[i];
+    const contactElement = document.getElementById(`contactInfo${i}`);
+    const nameElement = document.getElementById(`contactName${i}`);
+    const mailElement = document.getElementById(`contactMail${i}`);    
+    contactElement.classList.remove("blueColor");
+  nameElement.classList.remove("whiteColor");
+  mailElement.classList.remove("whiteColor");
+  }
 }
 
 function addNewContactWindow() {
@@ -259,31 +248,11 @@ async function addContact(){
       closeAddNewContact();
     } else {
       loadedContacts.push(newContact);
-
-      // Sortieren der Kontakte nach Namen
       loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-
-      // Speichern der aktualisierten Kontakte
       await setItem("kontakte", JSON.stringify(loadedContacts));
-
-      // Neu rendern der Kontaktliste
       contactsListRender(loadedContacts);
-
-      // Schließen des Hinzufügen-Fensters
       closeAddNewContact();
-
-      // Anzeigen des Erfolgsmeldung
       setTimeout(addContactSuccess, 800);
-
-
-      // const contactsString = await getItem("kontakte");
-      // loadedContacts = JSON.parse(contactsString);
-      // loadedContacts.push(newContact);
-      // loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-      // await setItem("kontakte", JSON.stringify(loadedContacts));
-      // contactsListRender(loadedContacts);
-      // closeAddNewContact();
-      // setTimeout(addContactSuccess, 800);
     }
 }
 
@@ -320,13 +289,9 @@ async function saveChangeContact() {
     const contactsString = await getItem("kontakte");
     loadedContacts = JSON.parse(contactsString);
     const editedContact = loadedContacts[editedIndex];
-
-    // Aktualisierte Werte aus den Eingabefeldern abrufen
     const editedName = document.getElementById("editContactName").value;
     const editedEmail = document.getElementById("editContactEmail").value;
     const editedPhone = document.getElementById("editContactPhone").value;
-
-    // Werte des bearbeiteten Kontakts aktualisieren
     editedContact['name'] = editedName;
     editedContact['email'] = editedEmail;
     editedContact['phone'] = editedPhone;
@@ -372,7 +337,6 @@ function closeEditContact() {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  // document.getElementById('contactsPage').classList.add('active');
 
   var popupBg = document.getElementById("popup-bg");
 
@@ -386,7 +350,4 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document.addEventListener("DOMContentLoaded", contactsInit);
-// document.addEventListener('DOMContentLoaded', function() {
-//   document.getElementById('contactsPage').classList.add('active');
-// });
+// document.addEventListener("DOMContentLoaded", contactsInit);
