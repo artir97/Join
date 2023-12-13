@@ -22,25 +22,25 @@
             </div>
             <div class="columnTitles">
                 <div class="toDoContainer">
-                    <h1>To do<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm()">To do<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragleave="removeHighlight('todoListContainer')" ondragover="allowDrop(event); highlight('todoListContainer')">
                     </div>
                 </div> 
 
                 <div>
-                    <h1>In progress<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm()">In progress<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragleave="removeHighlight('progressListContainer')" ondragover="allowDrop(event); highlight('progressListContainer')">
                     </div>
                 </div>
 
                 <div>
-                    <h1>Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm()">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragleave="removeHighlight('awaitFeedbackListContainer')" ondragover="allowDrop(event); highlight('awaitFeedbackListContainer')">
                     </div>
                 </div>
 
                 <div>
-                    <h1>Done<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm()">Done<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragleave="removeHighlight('doneListContainer')" ondragover="allowDrop(event); highlight('doneListContainer')">
                     </div>
                 </div>

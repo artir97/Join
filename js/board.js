@@ -40,6 +40,7 @@ let todos = [{
 let currentDraggedElement;
 
 function updateHTML() {
+    initTaskData();
     updateToDo();
     updateInProgress();
     updateDone();
