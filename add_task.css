@@ -54,7 +54,7 @@
 #add-task-date,
 #add-task-assigne,
 #add-task-category,
-#add-task-subtask {
+#add-task-subtask-input {
     border: unset;
     height: 30px;
     border-bottom: 1px solid #D1D1D1;
@@ -144,15 +144,25 @@
 }
 
 
-#add-task-subtask {
-    padding-bottom: 50px;
+#add-task-subtask-container {
+    padding-bottom:100px;
 }
+
 
 #add-task-title::placeholder,
 #add-task-description::placeholder,
 #add-task-date::placeholder,
-#add-task-subtask::placeholder {
+#add-task-subtask-input::placeholder {
     color: #D1D1D1;
+}
+
+#add-task-subtask-input-container {
+    display: flex;
+    border-bottom: 1px solid #D1D1D1;
+}
+
+#add-task-subtask-input{
+    width: 90%;
 }
 
 #add-task-priority {

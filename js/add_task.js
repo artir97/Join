@@ -47,6 +47,7 @@ async function createTask() {
     clearForm();
 }
 
+
 async function loadTasks(){
     try {
         const tasksString = await getItem('allTasks');
