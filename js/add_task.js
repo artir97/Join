@@ -33,8 +33,8 @@ async function createTask() {
         date: date.value,
         priority: priority,
         assignedContact: assignedContact.slice(), // Creates a new array
-        category: category,
-        subtask: subtask.value
+        category: category
+        // subtask: subtask.value
     };
 
     // Add the newTask directly to the allTasks array
@@ -204,6 +204,10 @@ function showAndHideCategories() {
     }
 }
 
+function addSubtask(){
+    // !TODO
+    alert('still working on it');
+}
 
 
 
@@ -284,7 +288,7 @@ function clearForm() {
     document.getElementById('add-task-title').value = '';
     document.getElementById('add-task-description').value = '';
     document.getElementById('add-task-date').value = '';
-    document.getElementById('add-task-subtask').value = '';
+    // document.getElementById('add-task-subtask').value = '';
 }
 
 // these functions probably have to be combined

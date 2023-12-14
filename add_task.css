@@ -62,6 +62,10 @@
     padding: 5px;
 }
 
+#add-task-subtask-input  {
+    border-bottom: none;
+}
+
 #add-task-title {
     font-size: 30px;
 }
@@ -158,7 +162,21 @@
 
 #add-task-subtask-input-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
     border-bottom: 1px solid #D1D1D1;
+}
+
+#add-task-subtask-input-container img {
+    height: 24px;
+    
+    object-fit: contain;
+}
+
+#add-task-subtask-input-container img:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+    border-radius: 100%;
 }
 
 #add-task-subtask-input{
