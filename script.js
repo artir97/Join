@@ -1,16 +1,18 @@
 async function init() {
     await includeHTML();
     //Timeout war 800 -> stelle kürzer um am login zu arbeiten
-    setTimeout(loadimg, 0);
+    setTimeout(loadimg, 800);
     CheckIfLoggedInOrGuest();
 }
 
 function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
-    // img.src = './assets/img/logo_blue.png'; throws error idk why - commenting it 
-    img.style.top = '10%';
-    img.style.left = '5%';
+    img.src = 'assets/img/logo_blue.png';// fixed the error
+    if(window.innerWidth > 800){
+        img.style.top = '10%';
+        img.style.left = '5%';
+    }
     container.style.backgroundColor = "white";
     document.getElementById('login-container').style.display = 'flex';
 }

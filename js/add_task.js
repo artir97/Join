@@ -12,10 +12,10 @@ async function initTaskData() {
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
 
-    document.getElementById('contactsPage').classList.remove('active');
-    document.getElementById('summaryPage').classList.remove('active');
-    document.getElementById('taskPage').classList.add('active');
-    document.getElementById('boardPage').classList.remove('active');
+    // document.getElementById('contactsPage').classList.remove('active');
+    // document.getElementById('summaryPage').classList.remove('active');
+    // document.getElementById('taskPage').classList.add('active');
+    // document.getElementById('boardPage').classList.remove('active');
 }
 
 async function createTask() {

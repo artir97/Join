@@ -207,10 +207,9 @@ function addWhiteColor(contactElement, nameElement, mailElement){
 function removeWhiteColor(){
   let info = document.getElementsByClassName('contactInfo');
   for (let i = 0; i < info.length; i++) {
-    let allInfos = info[i];
     const contactElement = document.getElementById(`contactInfo${i}`);
     const nameElement = document.getElementById(`contactName${i}`);
-    const mailElement = document.getElementById(`contactMail${i}`);    
+    const mailElement = document.getElementById(`contactMail${i}`);    3
     contactElement.classList.remove("blueColor");
   nameElement.classList.remove("whiteColor");
   mailElement.classList.remove("whiteColor");
@@ -253,6 +252,7 @@ async function addContact(){
       contactsListRender(loadedContacts);
       closeAddNewContact();
       setTimeout(addContactSuccess, 800);
+      alert('contact exists already')
     }
 }
 
@@ -302,8 +302,16 @@ async function saveChangeContact() {
     closeEditContact();
 }
 
-function delEditedContact(){
+async function delEditedContact(){
   const deletedIndex = currentEditIndex;
+  const contactsString = await getItem("kontakte");
+  loadedContacts = JSON.parse(contactsString);
+  loadedContacts.splice(deletedIndex, 1)[0];
+  await setItem("kontakte", JSON.stringify(loadedContacts));
+  contactsListRender(loadedContacts);
+  let contactView = document.getElementById("contactView");
+  contactView.innerHTML = "";
+  closeEditContact();
 }
 
 async function delContact(i) {
