@@ -179,6 +179,21 @@
     border-radius: 100%;
 }
 
+#add-task-subtask-image-container {
+    display: flex;
+    align-items: center;
+}
+
+.hr {
+    height: 20px;
+    background-color: #d1d1d1;
+    width: 1px;
+
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+
 #add-task-subtask-input{
     width: 90%;
 }

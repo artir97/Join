@@ -4,6 +4,7 @@ let selectedPriority;
 let selectedContact;
 let selectedContacts = [];
 let selectedCategory;
+let subtasks = [];
 
 
 async function initTaskData() {
@@ -17,6 +18,7 @@ async function initTaskData() {
     // document.getElementById('taskPage').classList.add('active');
     // document.getElementById('boardPage').classList.remove('active');
 }
+
 
 async function createTask() {
     const title = document.getElementById('add-task-title');
@@ -51,12 +53,9 @@ async function createTask() {
 async function loadTasks(){
     try {
         const tasksString = await getItem('allTasks');
-        const loadedTasks = JSON.parse(tasksString);
-
+        const loadedTasks = JSON.parse(tasksString); 
         // '...'  to prevent array nesting
         allTasks = [...loadedTasks];
-        // allTasks.push(loadedTasks);
-        console.log('loadedTasks:', loadedTasks);
         console.log('allTasks:', allTasks);
     } catch (e) {
         console.error('Error while loading the tasks:', e);
@@ -83,8 +82,6 @@ async function loadContacts() {
 }
 
 
-
-
 function getInitials(fullName) {
     if (!fullName) {
         return '';
@@ -95,6 +92,7 @@ function getInitials(fullName) {
     }
 }
 
+
 function renderAssignableContacts() {
     let content = '';
     for (let i = 0; i < allContacts[0].length; i++) {
@@ -102,6 +100,7 @@ function renderAssignableContacts() {
     }
     return content;
 }
+
 
 function selectContact(id) {
     selectedContact = allContacts[0][id];
@@ -194,6 +193,7 @@ function showAndHideContacts() {
     }
 }
 
+
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
 
@@ -206,7 +206,31 @@ function showAndHideCategories() {
 
 function addSubtask(){
     // !TODO
-    alert('still working on it');
+    let imgContainer = document.getElementById('add-task-subtask-image-container');
+    imgContainer.innerHTML = 
+    `
+        <img src="/assets/img/add-task/subtask-close.png" alt="" onclick="cancelAddSubtask()">
+        <div class="hr"></div>
+        <img src="/assets/img/add-task/subtask-check.png" alt="" onclick="confirmAddSubtask()">
+    `;
+    alert('still working on it'); 
+}
+
+function cancelAddSubtask(){
+    let imgContainer = document.getElementById('add-task-subtask-image-container');
+    let subtaskInput = document.getElementById('add-task-subtask-input');
+    
+    subtaskInput.value = '';
+    imgContainer.innerHTML = 
+    `
+    <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+    `;
+
+    alert('cancel adding subtask');
+}
+
+function confirmAddSubtask(){
+    alert('confirm adding subtask');
 }
 
 
