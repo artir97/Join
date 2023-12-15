@@ -12,7 +12,6 @@ async function initTaskData() {
     // await clearAllTasks();
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
-
     // document.getElementById('contactsPage').classList.remove('active');
     // document.getElementById('summaryPage').classList.remove('active');
     // document.getElementById('taskPage').classList.add('active');
@@ -27,7 +26,7 @@ async function createTask() {
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
     const category = selectedCategory;
-    const subtask = document.getElementById('add-task-subtask');
+    const subtask = subtasks;
 
     const newTask = {
         title: title.value,
@@ -35,8 +34,8 @@ async function createTask() {
         date: date.value,
         priority: priority,
         assignedContact: assignedContact.slice(), // Creates a new array
-        category: category
-        // subtask: subtask.value
+        category: category,
+        subtask: subtask.slice()
     };
 
     // Add the newTask directly to the allTasks array
@@ -50,10 +49,10 @@ async function createTask() {
 }
 
 
-async function loadTasks(){
+async function loadTasks() {
     try {
         const tasksString = await getItem('allTasks');
-        const loadedTasks = JSON.parse(tasksString); 
+        const loadedTasks = JSON.parse(tasksString);
         // '...'  to prevent array nesting
         allTasks = [...loadedTasks];
         console.log('allTasks:', allTasks);
@@ -63,7 +62,7 @@ async function loadTasks(){
 }
 
 // was there to empty the storage 
-async function clearAllTasks(){
+async function clearAllTasks() {
     allTasks = [];
     await setItem('allTasks', JSON.stringify(allTasks));
 }
@@ -126,6 +125,7 @@ function selectContact(id) {
     }
 }
 
+
 function unselectContact(contact, img) {
     contact.classList.remove('selectedContact');
     img.src = 'assets/img/add-task/checkbox.png';
@@ -133,6 +133,7 @@ function unselectContact(contact, img) {
     selectedContact = null;
 
 }
+
 
 function assignPriority(priority) {
     switch (priority) {
@@ -168,8 +169,9 @@ function selectedTask(selectedTask) {
     return selectedTask;
 }
 
-function selectedTaskInnerHTML(selectedTask){
-    switch(selectedTask) {
+
+function selectedTaskInnerHTML(selectedTask) {
+    switch (selectedTask) {
         case 'technical-task':
             return 'Technical Task';
         case 'user-story':
@@ -204,33 +206,41 @@ function showAndHideCategories() {
     }
 }
 
-function addSubtask(){
-    // !TODO
+function addSubtask() {
     let imgContainer = document.getElementById('add-task-subtask-image-container');
-    imgContainer.innerHTML = 
-    `
+    imgContainer.innerHTML =
+        `
         <img src="/assets/img/add-task/subtask-close.png" alt="" onclick="cancelAddSubtask()">
         <div class="hr"></div>
         <img src="/assets/img/add-task/subtask-check.png" alt="" onclick="confirmAddSubtask()">
-    `;
-    alert('still working on it'); 
+        `;
 }
 
-function cancelAddSubtask(){
+function cancelAddSubtask() {
     let imgContainer = document.getElementById('add-task-subtask-image-container');
     let subtaskInput = document.getElementById('add-task-subtask-input');
-    
-    subtaskInput.value = '';
-    imgContainer.innerHTML = 
-    `
-    <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
-    `;
 
-    alert('cancel adding subtask');
+    subtaskInput.value = '';
+    imgContainer.innerHTML =
+        `
+         <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+        `;
 }
 
-function confirmAddSubtask(){
-    alert('confirm adding subtask');
+function confirmAddSubtask() {
+    let imgContainer = document.getElementById('add-task-subtask-image-container');
+    let subtaskInput = document.getElementById('add-task-subtask-input');
+    let subtaskList = document.getElementById('add-task-subtask-list');
+
+    subtasks.push(subtaskInput.value);
+    subtaskList.innerHTML = renderSubtasks();
+
+    subtaskInput.value = '';
+    imgContainer.innerHTML =
+        `
+        <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+        `;
+
 }
 
 
@@ -250,6 +260,18 @@ function renderSelectedContactsMini() {
     return miniContacts;
 }
 
+function renderSubtasks() {
+    let subtaskList = '';
+
+    if (subtasks.length > 0) {
+        for (let i = 0; i < subtasks.length; i++) {
+            subtaskList += `<li>${subtasks[i]}</li>`;
+        }
+    }
+
+    return subtaskList;
+
+}
 
 
 
@@ -273,8 +295,11 @@ function selectedContactMiniTemplate(name) {
     );
 }
 
-
-
+function getSubtasks(subtasks, i) {
+    return (
+        `<li>${subtasks[i]}</li>`
+    );
+}
 
 
 
