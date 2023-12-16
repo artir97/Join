@@ -35,7 +35,7 @@ async function createTask() {
         priority: priority,
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
-        subtask: subtask.slice()
+        subtask: subtask.slice() // Creates a new array
     };
 
     // Add the newTask directly to the allTasks array
@@ -243,10 +243,15 @@ function confirmAddSubtask() {
 
 }
 
+function addDisplayNone() {
+    let subtaskListElementButtons = document.getElementById('add-task-subtask-list-buttons');
+    subtaskListElementButtons.classList.add('d-none');
+}
 
-
-
-
+function removeDisplayNone() {
+    let subtaskListElementButtons = document.getElementById('add-task-subtask-list-buttons');
+    subtaskListElementButtons.classList.remove('d-none');
+}
 
 // RENDER FUNCTIONs
 

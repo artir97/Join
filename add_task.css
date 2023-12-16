@@ -186,13 +186,11 @@
 
 .hr {
     height: 20px;
-    background-color: #d1d1d1;
+    background-color: #c2c2c2;
     width: 1px;
-
     margin-left: 2px;
     margin-right: 2px;
 }
-
 
 #add-task-subtask-input{
     width: 90%;
@@ -307,5 +305,29 @@ transition: background-color 0.3 ease-in-out!important;
 }
 
 #add-task-selected-contacts-mini {
+    display: flex;
+}
+
+#add-task-subtask-list {
+    padding-inline-start: 0;
+
+}
+
+
+#add-task-subtask-list li {
+    padding: 2px 10px;
+
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#add-task-subtask-list li:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+}
+
+#add-task-subtask-list li div {
     display: flex;
 }
