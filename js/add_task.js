@@ -48,6 +48,11 @@ async function createTask() {
     clearForm();
 }
 
+async function updateMinDate() {
+    let today = new Date().toISOString().split('T')[0];
+    document.getElementById('add-task-date').min = today;
+}
+
 
 async function loadTasks() {
     try {
@@ -251,6 +256,10 @@ function deleteAddedSubtask(i){
 }
 
 function editAddedSubtsak(i){
+    let subtaskList = document.getElementById('add-task-subtask-list');
+    let editedSubtask = subtasks[i];
+
+    console.table(editedSubtask);
 
 }
 
@@ -288,7 +297,8 @@ function renderSubtasks() {
             <li onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
                 <span>${subtasks[i]}</span>
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">
-                    <img src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
+                    <input>
+                    <img onclick="editAddedSubtsak(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
                     <div class="hr"></div>
                     <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
                 </div>
