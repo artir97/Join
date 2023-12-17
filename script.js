@@ -1,7 +1,7 @@
+setTimeout(loadimg, 1000);
 async function init() {
     await includeHTML();
-    //Timeout war 800 -> stelle kürzer um am login zu arbeiten
-    setTimeout(loadimg, 800);
+    //Timeout war 800
     CheckIfLoggedInOrGuest();
 }
 
@@ -12,6 +12,11 @@ function loadimg() {
     if(window.innerWidth > 800){
         img.style.top = '10%';
         img.style.left = '5%';
+        img.style.transform = 'unset';
+    } if(window.innerWidth < 500) {
+        img.style.top = '37px'; 
+        img.style.left = '38px';
+        img.style.transform = 'unset';
     }
     container.style.backgroundColor = "white";
     document.getElementById('login-container').style.display = 'flex';
