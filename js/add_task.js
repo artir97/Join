@@ -243,13 +243,13 @@ function confirmAddSubtask() {
 
 }
 
-function addDisplayNone() {
-    let subtaskListElementButtons = document.getElementById('add-task-subtask-list-buttons');
+function addDisplayNone(i) {
+    let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.add('d-none');
 }
 
-function removeDisplayNone() {
-    let subtaskListElementButtons = document.getElementById('add-task-subtask-list-buttons');
+function removeDisplayNone(i) {
+    let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.remove('d-none');
 }
 
@@ -270,7 +270,19 @@ function renderSubtasks() {
 
     if (subtasks.length > 0) {
         for (let i = 0; i < subtasks.length; i++) {
-            subtaskList += `<li>${subtasks[i]}</li>`;
+            // subtaskList += `<li>${subtasks[i]}</li>`;
+
+            subtaskList += 
+            `
+            <li onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
+                <span>${subtasks[i]}</span>
+                <div id="add-task-subtask-list-buttons${i}" class="d-none">
+                    <img src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
+                    <div class="hr"></div>
+                    <img src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
+                </div>
+            </li>
+            `;
         }
     }
 
