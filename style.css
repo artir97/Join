@@ -151,7 +151,7 @@ body {
   width: 240px;
   height: 35px;
   flex-shrink: 0;
-  z-index: 20;
+  z-index: 9;
 }
 .privacyNotice a {
   color: var(--menu-color, #42526e);

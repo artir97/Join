@@ -18,6 +18,7 @@ function loadimg() {
         img.style.left = '38px';
         img.style.transform = 'unset';
     }
+    container.style.zIndex = '8';
     container.style.backgroundColor = "white";
     document.getElementById('login-container').style.display = 'flex';
 }
