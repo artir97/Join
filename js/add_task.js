@@ -243,6 +243,17 @@ function confirmAddSubtask() {
 
 }
 
+function deleteAddedSubtask(i){
+    let subtaskList = document.getElementById('add-task-subtask-list');
+
+    subtasks.splice(i, 1);
+    subtaskList.innerHTML = renderSubtasks();
+}
+
+function editAddedSubtsak(i){
+
+}
+
 function addDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.add('d-none');
@@ -279,7 +290,7 @@ function renderSubtasks() {
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">
                     <img src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
                     <div class="hr"></div>
-                    <img src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
+                    <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
                 </div>
             </li>
             `;
