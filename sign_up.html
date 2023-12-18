@@ -16,24 +16,24 @@
 <body onload="init()">
 
     <style>
-        .singUpContainer {
+        .signUpContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             background-color: #005DFF;
             height: 100vh;
-            width: 100vw;
+            width: 100%;
         }
 
-        .singUpHeader{
+        .signUpHeader{
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 80%;
         }
 
-        .singUpImage{
+        .signUpImage{
             /* height: 100px; */
             width: 100px;
             position: absolute;
@@ -41,30 +41,33 @@
             left: 77px;
         }
 
-        .singUpInputContainer{
+        .signUpInputContainer{
             background: white;
             height: 60%;
             border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            width: 85%;
         }
 
-        .singUp{
+        .signUp{
             display: flex;
             justify-content: space-evenly;
             align-items: center;
             flex-direction: column;
             height: 100%;
-            width: 650px;
+            width: 100%; /*650px*/
             box-shadow: rgba(149, 157, 165, 0.6) 0px 8px 24px;
             border-radius: 30px;
         }
 
-        .singUp h1 {
+        .signUp h1 {
             position: relative;
             text-decoration: none;   
             font-size: 46px;
         }
         
-        .singUpInput{
+        .signUpInput{
             border-top: none;
             border-left: none;
             border-right: none;
@@ -74,11 +77,11 @@
             padding-right: 200px;
         }
 
-        .singUpInput::placeholder{
+        .signUpInput::placeholder{
             color: rgba(149, 157, 165, 0.5);
         }
 
-        .singUp h1::after {
+        .signUp h1::after {
             content: '';
             position: absolute;
             left: 0;
@@ -87,7 +90,7 @@
             border-bottom: 3px solid #4589ff;
         }
 
-        .singUpForm{
+        .signUpForm{
             display: flex;
             justify-content: space-evenly;
             align-items: center;
@@ -155,20 +158,20 @@
     </style>
     
     
-    <div class="singUpContainer">
-        <img id="logo-img" class="singUpImage" src="assets/img/Capa2.png" alt="">        
-        <div class="singUpInputContainer">
-            <div class="singUp">
-                <div class="singUpHeader">
+    <div class="signUpContainer">
+        <img id="logo-img" class="signUpImage" src="assets/img/Capa2.png" alt="">        
+        <div class="signUpInputContainer">
+            <div class="signUp">
+                <div class="signUpHeader">
                     <a class="arrow" href="index.html"><img src="assets/img/arrow-left-line.png" alt=""></a>
                     <h1>Sing Up</h1>
                     <div style="width: 32px;"></div>
                 </div>
-                <form onsubmit="register(); return false;" class="singUpForm" action="">
-                    <input required id="user_name" class="singUpInput" type="text" placeholder="Name">
-                    <input required id="email" class="singUpInput" type="email" placeholder="Email">
-                    <input required id="password" class="singUpInput" type="password" placeholder="Password">
-                    <input required id="repeat_password" class="singUpInput" type="password" placeholder="Confirm Password">
+                <form onsubmit="register(); return false;" class="signUpForm" action="">
+                    <input required id="user_name" class="signUpInput" type="text" placeholder="Name">
+                    <input required id="email" class="signUpInput" type="email" placeholder="Email">
+                    <input required id="password" class="signUpInput" type="password" placeholder="Password">
+                    <input required id="repeat_password" class="signUpInput" type="password" placeholder="Confirm Password">
                     <div id="remember-div">
                         <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox">
                         <label for="acceptCheckBox">I accept the <a class="policy" target=”_blank” href="plain_privacy_policy.html">Privacy policy</a></label>

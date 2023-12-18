@@ -10,13 +10,8 @@ function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
     img.src = 'assets/img/logo_blue.png';
-    //if(window.innerWidth > 800){
         img.style.top = '5%';
         img.style.left = '5%';
-    //} if(window.innerWidth < 500) {
-    //     img.style.top = '37px'; 
-    //     img.style.left = '38px';
-    // }
     img.style.transform = 'unset';
     container.style.zIndex = '8';
     container.style.backgroundColor = "white";

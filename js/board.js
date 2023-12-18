@@ -53,7 +53,7 @@ function updateHTML() {
 }
 
 function updateToDo() {
-    let open = todos.filter(t => t['category'] == 'todoListContainer');
+    let open = todos.filter(t => t['category'] == 'todoListContainer'); //hier muss ja aus dem storage gelesen werden
     container = document.getElementById('todoListContainer');
     container.innerHTML = '';
 
