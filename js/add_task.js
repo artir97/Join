@@ -61,6 +61,7 @@ async function loadTasks() {
         // '...'  to prevent array nesting
         allTasks = [...loadedTasks];
         console.log('allTasks:', allTasks);
+        console.log(allTasks)
     } catch (e) {
         console.error('Error while loading the tasks:', e);
     }
