@@ -182,6 +182,9 @@ function selectedTaskInnerHTML(selectedTask) {
             return 'Technical Task';
         case 'user-story':
             return 'User Story';
+        default: 
+            return 'Select task category';
+            
     }
 }
 
@@ -373,10 +376,16 @@ function getSubtasks(subtasks, i) {
 
 
 function clearForm() {
+    document.querySelector('input[type="date"]').value = '';
     document.getElementById('add-task-title').value = '';
     document.getElementById('add-task-description').value = '';
     document.getElementById('add-task-date').value = '';
-    // document.getElementById('add-task-subtask').value = '';
+    document.getElementById('add-task-subtask-input').value = '';
+    selectedCategory = null;
+    document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML('');
+    // showAndHideCategories();
+    // selectedCategory = selectedTask;
+    // selectedTask();
 }
 
 // these functions probably have to be combined
