@@ -53,12 +53,14 @@ function updateHTML() {
 }
 
 async function updateToDo() {
-     const loadTasks = await getItem('allTasks');
-     const loadedTasks = JSON.parse(loadTasks);
+    // das hier:
+    const loadTasks = await getItem('allTasks');
+    const loadedTasks = JSON.parse(loadTasks);
     let open = loadedTasks.filter(t => t['category'] == 'technical-task');
-
+    // bis hier is neu
 
     //let open = todos.filter(t => t['category'] == 'todoListContainer'); //hier muss ja aus dem storage gelesen werden
+
     container = document.getElementById('todoListContainer');
     container.innerHTML = '';
 
