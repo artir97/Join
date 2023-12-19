@@ -9,13 +9,15 @@ async function init() {
 function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
-    img.src = 'assets/img/logo_blue.png';
-        img.style.top = '5%';
-        img.style.left = '5%';
+    img.style.top = '5%';
+    img.style.left = '5%';
     img.style.transform = 'unset';
     container.style.zIndex = '8';
     container.style.backgroundColor = "white";
     document.getElementById('login-container').style.display = 'flex';
+    if (document.location.pathname.includes("index.html")) {
+        img.src = 'assets/img/logo_blue.png';
+    }
 }
 
 async function includeHTML() {
