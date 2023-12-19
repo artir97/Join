@@ -272,7 +272,20 @@ function openEditAddedSubtask(i){
 }
 
 function confirmEditSubtask(i){
-    alert('confirm');
+    let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
+    let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
+    let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
+    let subtaskList = document.getElementById('add-task-subtask-list');
+
+    subtasks[i] = subtaskInput.value;
+
+    subtaskListItem.classList.remove('d-none');
+    subtaskInput.classList.add('d-none');
+    subtaskEditContainer.classList.add('d-none');
+
+
+    subtaskList.innerHTML = renderSubtasks();
+
 }
 
 function deleteEditSubtask(i){
