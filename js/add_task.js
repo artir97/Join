@@ -335,7 +335,7 @@ function renderSubtasks() {
 
             subtaskList += 
             `
-            <li id="add-task-subtask-list-item${i}" onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
+            <li id="add-task-subtask-list-item${i}" onclick="openEditAddedSubtask(${i})"  onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
                 <span>${subtasks[i]}</span>
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">
                     <img onclick="openEditAddedSubtask(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
