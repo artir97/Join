@@ -197,6 +197,30 @@
     width: 90%;
 }
 
+.subtask-edit-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #005DFF;
+}
+
+.subtask-edit-input-container img:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+    border-radius: 100%;
+}
+
+.subtask-edit-input-container input {
+    width: 90%;
+    border: unset;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.subtask-edit-input-container div {
+    display: flex;
+}
+
 #add-task-priority {
     display: flex;
 }

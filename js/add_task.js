@@ -259,6 +259,27 @@ function deleteAddedSubtask(i){
     subtaskList.innerHTML = renderSubtasks();
 }
 
+function openEditAddedSubtask(i){
+    let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
+    let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
+    let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
+
+    subtaskInput.value = subtasks[i];
+
+    subtaskListItem.classList.add('d-none');
+    subtaskInput.classList.remove('d-none');
+    subtaskEditContainer.classList.remove('d-none');
+}
+
+function confirmEditSubtask(i){
+    alert('confirm');
+}
+
+function deleteEditSubtask(i){
+    deleteAddedSubtask(i);
+}
+
+
 function editAddedSubtsak(i){
     let subtaskList = document.getElementById('add-task-subtask-list');
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
@@ -301,15 +322,22 @@ function renderSubtasks() {
 
             subtaskList += 
             `
-            <li onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
+            <li id="add-task-subtask-list-item${i}" onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
                 <span>${subtasks[i]}</span>
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">
-                    <input id="add-task-subtask-input${i}">
-                    <img onclick="editAddedSubtsak(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
+                    <img onclick="openEditAddedSubtask(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
                     <div class="hr"></div>
                     <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
                 </div>
             </li>
+            <div class="d-none subtask-edit-input-container" id="add-task-edit-input-container${i}">
+                <input class="pointer" type="text" id="add-task-subtask-input${i}">
+                <div>
+                    <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
+                    <div class="hr"></div>
+                    <img onclick="confirmEditSubtask(${i})"src="/assets/img/add-task/subtask-check.png" alt="" height="24px" width="24px">
+                </div>
+          </div>
             `;
         }
     }
