@@ -1230,7 +1230,7 @@ header {
 .pointer {
   cursor: pointer;
 }
-@media(max-width: 820px)  {
+@media (max-width: 820px) {
   #login-container {
     flex-direction: column-reverse;
     gap: 100px;
@@ -1281,8 +1281,14 @@ header {
     position: relative;
     top: 60px;
   }
+  .signUpInputContainer {
+    width: 85% !important;
+  }
+  .signUpForm {
+    width: 100% !important;
+  }
 }
-@media(max-height: 980px){
+@media (max-height: 980px) {
   .frontimage {
     display: inline-flex;
     align-items: flex-start;
@@ -1293,7 +1299,9 @@ header {
     width: 64px;
   }
 }
-@media(max-width: 600px){
+@media (max-width: 720px) {
+}
+@media (max-width: 600px) {
   .frontimage {
     display: inline-flex;
     align-items: flex-start;
@@ -1340,7 +1348,25 @@ header {
     height: unset !important;
     margin-bottom: 0 !important;
   }
-
+  .signUpInput {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    padding: 12px 21px;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--Style, #d1d1d1);
+    background: #fff;
+    width: 75% !important;
+    height: unset !important;
+    margin-bottom: 0 !important;
+  }
+  .signUpHeader{
+    gap: 20% !important;
+  }
   .buttons {
     flex-direction: column;
     /* align-items: flex-start; */
@@ -1355,13 +1381,13 @@ header {
   }
 }
 @media (max-width: 432px) {
-  .loginInput{
+  .loginInput {
     width: 80% !important;
     align-self: unset;
   }
-.login{
-  justify-content: center;
-}
+  .login {
+    justify-content: center;
+  }
   .privacyNotice {
     bottom: 26px;
   }
@@ -1369,7 +1395,7 @@ header {
   .singUpInputContainer {
     width: 95% !important;
   }
-  .signUpImage{
+  .signUpImage {
     height: 78px;
     width: 64px !important;
   }
@@ -1402,9 +1428,12 @@ header {
     font-weight: 400;
     line-height: 120%; /* 19.2px */
   }
+  .signUpHeader h1 {
+    font-size: 40px !important;
+  }
 }
-@media(max-width: 380px){
-  .loginInput{
+@media (max-width: 380px) {
+  .loginInput {
     width: 70% !important;
   }
 }

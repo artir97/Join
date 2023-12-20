@@ -1,199 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="script.js"></script>
     <script src="js/storage.js"></script>
     <script src="singUp.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/img/favicon/site.webmanifest">
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/img/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/img/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/img/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="assets/img/favicon/site.webmanifest" />
     <title>Sign Up</title>
-</head>
-<body onload="init()">
-
+  </head>
+  <body onload="init()">
     <style>
-        .signUpContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #005DFF;
-            height: 100vh;
-            width: 100%;
-        }
+      .signUpContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #005dff;
+        height: 100vh;
+        width: 100%;
+      }
 
-        .signUpHeader{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 80%;
-        }
+      .signUpHeader {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 80%;
+        gap: 25%;
+      }
 
-        .signUpImage{
-            /* height: 100px; */
-            width: 100px;
-            position: absolute;
-            top: 80px;
-            left: 77px;
-        }
+      .signUpImage {
+        /* height: 100px; */
+        width: 100px;
+        position: absolute;
+        top: 80px;
+        left: 77px;
+      }
 
-        .signUpInputContainer{
-            background: white;
-            height: 60%;
-            border-radius: 30px;
-            display: flex;
-            justify-content: center;
-            width: 85%;
-        }
+      .signUpInputContainer {
+        background: white;
+        height: 60%;
+        border-radius: 30px;
+        display: flex;
+        justify-content: center;
+        width: 650px;
+      }
+      .signUpHeader h1 {
+        color: #000;
+        text-align: center;
+        font-family: OpenSans;
+        font-size: 47px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%; /* 56.4px */
+      }
+      .signUp {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%; /*650px*/
+        box-shadow: rgba(149, 157, 165, 0.6) 0px 8px 24px;
+        border-radius: 30px;
+      }
 
-        .signUp{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            flex-direction: column;
-            height: 100%;
-            width: 100%; /*650px*/
-            box-shadow: rgba(149, 157, 165, 0.6) 0px 8px 24px;
-            border-radius: 30px;
-        }
+      .signUp h1 {
+        position: relative;
+        text-decoration: none;
+        font-size: 46px;
+      }
 
-        .signUp h1 {
-            position: relative;
-            text-decoration: none;   
-            font-size: 46px;
-        }
-        
-        .signUpInput{
-            border-top: none;
-            border-left: none;
-            border-right: none;
-            border-color: rgba(149, 157, 165, 0.5);
-            font-size: 18px;
-            padding-left: 20px;
-            padding-right: 200px;
-        }
-
-        .signUpInput::placeholder{
-            color: rgba(149, 157, 165, 0.5);
-        }
-
-        .signUp h1::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 110%;
-            border-bottom: 3px solid #4589ff;
-        }
-
-        .signUpForm{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            flex-direction: column;
-            height: 100%;
-            width: 650px;
-            border-radius: 30px;
-        }
-
-        .arrow{
-            width: 32px;
-            height: 32px;
-        }
-
-        #name{
-            background-image: url(assets/img/person.png);
-            background-repeat: no-repeat;
-            background-position: right;
-        }
-
-        .policy{
-            text-decoration: none;
-            color: var(--Ligth-blue, #005DFF);
-            font-family: Open Sans;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 120%; 
-        }
-
-        .policyButton{
-            text-decoration: none;
-            border: none;
-            background-color: #005DFF;
-            color: var(--white, #FFF);
-            font-family: Open Sans;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 120%;
-        }
-
-        .acceptCheckBox{
-            border-color: #005DFF;
-            border: 1px solid #005DFF;
-        }
-
-        .policys{
-            display: flex;
-            position: absolute;
-            bottom: 50px;
-            gap: 30px;
-        }
-
-        .policy_link{
-            text-decoration: none;            
-            color: var(--white, #FFF);
-            font-family: Open Sans;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 120%;
-        }
-
+      .signUpInput {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-color: rgba(149, 157, 165, 0.5);
+        font-size: 18px;
+        padding-left: 20px;
+        /* padding-right: 200px; */
+        width: 80%;
+      }
+      .signUpInput::placeholder {
+        color: rgba(149, 157, 165, 0.5);
+      }
+      .signUp h1::after {
+        content: "";
+        position: absolute;
+        left: 5%;
+        bottom: -10px;
+        width: 90%;
+        border-bottom: 3px solid #4589ff;
+      }
+      .signUpForm {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 650px;
+        border-radius: 30px;
+      }
+      .arrow {
+        width: 32px;
+        height: 32px;
+      }
+      .policy {
+        text-decoration: none;
+        color: var(--Ligth-blue, #005dff);
+        font-family: OpenSans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+      }
+      .policyButton {
+        text-decoration: none;
+        border: none;
+        background-color: #005dff;
+        color: var(--white, #fff);
+        font-family: OpenSans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+      }
+      .acceptCheckBox {
+        border-color: #005dff;
+        border: 1px solid #005dff;
+      }
+      .policys {
+        display: flex;
+        position: absolute;
+        bottom: 50px;
+        gap: 30px;
+      }
+      .policy_link {
+        text-decoration: none;
+        color: var(--white, #fff);
+        font-family: OpenSans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+      }
+      #user_name {
+        background-image: url(assets/img/person.png);
+        background-repeat: no-repeat;
+        background-position: right;
+      }
+      #email {
+        background-image: url(assets/img/mail.png);
+        background-repeat: no-repeat;
+        background-position: right;
+      }
+      #repeat_password {
+        background-image: url(assets/img/lock.png);
+        background-repeat: no-repeat;
+        background-position: right;
+      }
     </style>
-    
-    
+
     <div class="signUpContainer">
-        <img id="logo-img" class="signUpImage" src="assets/img/Capa2.png" alt="">        
-        <div class="signUpInputContainer">
-            <div class="signUp">
-                <div class="signUpHeader">
-                    <a class="arrow" href="index.html"><img src="assets/img/arrow-left-line.png" alt=""></a>
-                    <h1>Sing Up</h1>
-                    <div style="width: 32px;"></div>
-                </div>
-                <form onsubmit="register(); return false;" class="signUpForm" action="">
-                    <input required id="user_name" class="signUpInput" type="text" placeholder="Name">
-                    <input required id="email" class="signUpInput" type="email" placeholder="Email">
-                    <input required id="password" class="signUpInput" type="password" placeholder="Password">
-                    <input required id="repeat_password" class="signUpInput" type="password" placeholder="Confirm Password">
-                    <div id="remember-div">
-                        <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox">
-                        <label for="acceptCheckBox">I accept the <a class="policy" target=”_blank” href="plain_privacy_policy.html">Privacy policy</a></label>
-                    </div>
-                    
-                    <div class="d-none" id="msgBox">
-                        <p>Du hast erfolgreich registriert!</p>
-                    </div>
-                        
-                    <div class="signUpBtn">
-                        <button id="signUpBtn">Sing Up</button>
-                    </div>
-                </form>
+      <img
+        id="logo-img"
+        class="signUpImage"
+        src="assets/img/Capa2.png"
+        alt=""
+      />
+      <div class="signUpInputContainer">
+        <div class="signUp">
+          <div class="signUpHeader">
+            <a class="arrow" href="index.html"
+              ><img src="assets/img/arrow-left-line.png" alt=""
+            /></a>
+            <h1>Sing Up</h1>
+            <!-- <div style="width: 32px"></div> -->
+          </div>
+          <form onsubmit="register(); return false;" class="signUpForm" action="">
+            <input required id="user_name" class="signUpInput" type="text" placeholder="Name"/>
+            <input required id="email" class="signUpInput" type="email" placeholder="Email"/>
+            <input required id="password" class="signUpInput" type="password" placeholder="Password"/>
+            <input required id="repeat_password" class="signUpInput" type="password" placeholder="Confirm Password"/>
+            <div id="remember-div">
+              <input required type="checkbox" name="acceptCheckBox" id="acceptCheckBox" class="acceptCheckBox"/>
+              <label for="acceptCheckBox">I accept the
+                <a class="policy" target="”_blank”" href="plain_privacy_policy.html">Privacy policy</a>
+                </label>
             </div>
-        </div>
-        <div class="policys">
-            <a class="policy_link" target=”_blank” href="plain_privacy_policy.html">Privacy Policy</a>
-            <a class="policy_link" target=”_blank” href="plain_legal_notice.html">Legal Notice</a>            
-        </div>
-    </div>   
-    
 
+            <div class="d-none" id="msgBox">
+              <p>Du hast erfolgreich registriert!</p>
+            </div>
 
-</body>
+            <div class="signUpBtn">
+              <button id="signUpBtn">Sing Up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="policys">
+        <a class="policy_link" target="”_blank”" href="plain_privacy_policy.html">Privacy Policy</a>
+        <a class="policy_link" target="”_blank”" href="plain_legal_notice.html">Legal Notice</a>
+      </div>
+    </div>
+  </body>
 </html>

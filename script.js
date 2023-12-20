@@ -12,11 +12,11 @@ function loadimg() {
     img.style.top = '5%';
     img.style.left = '5%';
     img.style.transform = 'unset';
-    container.style.zIndex = '8';
-    container.style.backgroundColor = "white";
-    document.getElementById('login-container').style.display = 'flex';
     if (document.location.pathname.includes("index.html")) {
         img.src = 'assets/img/logo_blue.png';
+        container.style.zIndex = '8';
+        container.style.backgroundColor = "white";
+        document.getElementById('login-container').style.display = 'flex';
     }
 }
 
