@@ -40,10 +40,10 @@ async function createTask() {
 
     // Add the newTask directly to the allTasks array
     allTasks.push(newTask);
+    await setItem('allTasks', JSON.stringify(allTasks));
 
     console.log(allTasks);
-    await setItem('allTasks', JSON.stringify(allTasks));
-    console.log(allTasks);
+    
     alert('Task created successfully');
     clearForm();
 }
@@ -192,13 +192,19 @@ function selectedTaskInnerHTML(selectedTask) {
 function showAndHideContacts() {
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
+    let contactDropdown = document.getElementById('add-task-assigne');
+    let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
 
     if (contactBox.classList.contains('d-none')) {
         contactBox.classList.remove('d-none');
+        contactDropdown.classList.add('d-none');
+        contactSearchbarContainer.classList.remove('d-none');
         selectedContactsMini.classList.add('d-none');
 
     } else {
         contactBox.classList.add('d-none');
+        contactSearchbarContainer.classList.add('d-none');
+        contactDropdown.classList.remove('d-none');
         selectedContactsMini.classList.remove('d-none');
         selectedContactsMini.innerHTML = renderSelectedContactsMini();
     }
@@ -283,9 +289,7 @@ function confirmEditSubtask(i){
     subtaskInput.classList.add('d-none');
     subtaskEditContainer.classList.add('d-none');
 
-
     subtaskList.innerHTML = renderSubtasks();
-
 }
 
 function deleteEditSubtask(i){
@@ -293,16 +297,16 @@ function deleteEditSubtask(i){
 }
 
 
-function editAddedSubtsak(i){
-    let subtaskList = document.getElementById('add-task-subtask-list');
-    let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
+// function editAddedSubtsak(i){
+//     let subtaskList = document.getElementById('add-task-subtask-list');
+//     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
 
-    let editedSubtask = subtaskInput.value; 
-    subtasks[i] = editedSubtask;
+//     let editedSubtask = subtaskInput.value; 
+//     subtasks[i] = editedSubtask;
 
-    console.table(editedSubtask);
-    subtaskList.innerHTML = renderSubtasks();
-}
+//     console.table(editedSubtask);
+//     subtaskList.innerHTML = renderSubtasks();
+// }
 
 function addDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
@@ -350,7 +354,7 @@ function renderSubtasks() {
                     <div class="hr"></div>
                     <img onclick="confirmEditSubtask(${i})"src="/assets/img/add-task/subtask-check.png" alt="" height="24px" width="24px">
                 </div>
-          </div>
+            </div>
             `;
         }
     }
