@@ -128,6 +128,11 @@ function selectContact(id) {
 }
 
 
+function searchContactToAdd() {
+    console.log('change');
+}
+
+
 function unselectContact(contact, img) {
     contact.classList.remove('selectedContact');
     img.src = 'assets/img/add-task/checkbox.png';
