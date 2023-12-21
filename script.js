@@ -4,6 +4,19 @@ async function init() {
     await includeHTML();
     //Timeout war 800
     CheckIfLoggedInOrGuest();
+    checkFocusOnSidenav()
+}
+
+function checkFocusOnSidenav(){
+    if (document.location.pathname.includes("contacts.html")){
+        document.getElementById('contactsPage').classList.add('active');
+    } if (document.location.pathname.includes("add_task.html")){
+        document.getElementById('taskPage').classList.add('active');
+    } if (document.location.pathname.includes("board.html")){
+        document.getElementById('boardPage').classList.add('active');
+    } if (document.location.pathname.includes("summary.html")) {
+        document.getElementById('summaryPage').classList.add('active');
+    }
 }
 
 function loadimg() {
@@ -16,7 +29,7 @@ function loadimg() {
         img.src = 'assets/img/logo_blue.png';
         container.style.zIndex = '8';
         container.style.backgroundColor = "white";
-        document.getElementById('login-container').style.display = 'flex';
+        document.getElementById('login-container').style.display = 'flex'; 
     }
 }
 

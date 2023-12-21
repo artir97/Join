@@ -45,11 +45,6 @@ function updateHTML() {
     updateInProgress();
     updateDone();
     updateAwaitFeedback();
-        // document.getElementById('contactsPage').classList.remove('active');
-        // document.getElementById('summaryPage').classList.remove('active');
-        // document.getElementById('taskPage').classList.remove('active');
-        // document.getElementById('boardPage').classList.add('active');
-
 }
 
 async function updateToDo() {

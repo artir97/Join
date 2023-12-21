@@ -47,10 +47,6 @@ let loadedContacts = [];
 async function contactsInit() {
   saveContacts();
   await loadContacts();
-  // document.getElementById('contactsPage').classList.add('active');
-  // document.getElementById('summaryPage').classList.remove('active');
-  // document.getElementById('taskPage').classList.remove('active');
-  // document.getElementById('boardPage').classList.remove('active');
 }
 
 async function saveContacts() {
@@ -358,4 +354,3 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// document.addEventListener("DOMContentLoaded", contactsInit);
