@@ -127,10 +127,41 @@ function selectContact(id) {
     }
 }
 
+// CHAT GPT 'SOLUTION'
+
+function renderAssignableContacts() {
+    let content = '';
+    for (let i = 0; i < allContacts[0].length; i++) {
+        content += assignContactsTemplate(allContacts[0][i].name, i);
+    }
+    return content;
+}
 
 function searchContactToAdd() {
-    console.log('change');
+    const searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
+    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().includes(searchQuery));
+    
+    // Now, you can render the filtered contacts
+    const content = filteredContacts.map((contact, index) => assignContactsTemplate(contact.name, index)).join('');
+    document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
+
+
+
+// only here for reference 
+
+// function renderAssignableContacts() {
+//     let content = '';
+//     for (let i = 0; i < allContacts[0].length; i++) {
+//         content += assignContactsTemplate(allContacts[0][i].name, i);
+//     }
+//     return content;
+// }
+
+
+// function searchContactToAdd() {
+//     console.log('change');
+// }
 
 
 function unselectContact(contact, img) {
@@ -222,6 +253,7 @@ function showAndHideCategories() {
     }
 }
 
+
 function addSubtask() {
     let imgContainer = document.getElementById('add-task-subtask-image-container');
     imgContainer.innerHTML =
@@ -231,6 +263,7 @@ function addSubtask() {
         <img src="/assets/img/add-task/subtask-check.png" alt="" onclick="confirmAddSubtask()">
         `;
 }
+
 
 function cancelAddSubtask() {
     let imgContainer = document.getElementById('add-task-subtask-image-container');
@@ -242,6 +275,7 @@ function cancelAddSubtask() {
          <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
         `;
 }
+
 
 function confirmAddSubtask() {
     let imgContainer = document.getElementById('add-task-subtask-image-container');
@@ -259,12 +293,14 @@ function confirmAddSubtask() {
 
 }
 
+
 function deleteAddedSubtask(i){
     let subtaskList = document.getElementById('add-task-subtask-list');
 
     subtasks.splice(i, 1);
     subtaskList.innerHTML = renderSubtasks();
 }
+
 
 function openEditAddedSubtask(i){
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
@@ -277,6 +313,7 @@ function openEditAddedSubtask(i){
     subtaskInput.classList.remove('d-none');
     subtaskEditContainer.classList.remove('d-none');
 }
+
 
 function confirmEditSubtask(i){
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
@@ -293,34 +330,25 @@ function confirmEditSubtask(i){
     subtaskList.innerHTML = renderSubtasks();
 }
 
+
 function deleteEditSubtask(i){
     deleteAddedSubtask(i);
 }
 
-
-// function editAddedSubtsak(i){
-//     let subtaskList = document.getElementById('add-task-subtask-list');
-//     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
-
-//     let editedSubtask = subtaskInput.value; 
-//     subtasks[i] = editedSubtask;
-
-//     console.table(editedSubtask);
-//     subtaskList.innerHTML = renderSubtasks();
-// }
 
 function addDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.add('d-none');
 }
 
+
 function removeDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.remove('d-none');
 }
 
-// RENDER FUNCTIONs
 
+// RENDER FUNCTIONs
 function renderSelectedContactsMini() {
     let miniContacts = '';
     if (selectedContacts.length > 0) {
