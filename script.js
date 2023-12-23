@@ -103,11 +103,3 @@ function logout() {
     // Redirect to the startpage
     window.location.href = 'index.html';
 }
-
-// document.addEventListener('DOMContentLoaded', function() {
-//     document.getElementById('summaryPage').classList.add('active');
-//     document.getElementById('taskPage').classList.add('active');
-//     document.getElementById('boardPage').classList.add('active');
-//     document.getElementById('contactsPage').classList.add('active');
-    
-// });

@@ -45,7 +45,7 @@ let newContacts = [{
 let loadedContacts = [];
 
 async function contactsInit() {
-  saveContacts();
+  await saveContacts();
   await loadContacts();
 }
 
@@ -58,8 +58,8 @@ async function saveContacts() {
 async function loadContacts() {
     const contactsString = await getItem("kontakte");
     if (contactsString) {
-       loadedContacts = JSON.parse(contactsString);
-            loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+      loadedContacts = JSON.parse(contactsString);
+      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
       contactsListRender(loadedContacts);
     }
 }
@@ -120,7 +120,8 @@ async function openContactView(i) {
       let name = contact["name"];
       let email = contact["email"];
       let phone = contact["phone"];
-      contactView.style = "left: 832px";
+      contactView.style.setProperty('--left-value', '832px')
+      // contactView.style = "left: 832px";
       let uppercaseLetters = (str) => str.split("").filter((char) => /[A-Z]/.test(char));
       const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
       contactView.innerHTML = "";
@@ -353,4 +354,3 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-

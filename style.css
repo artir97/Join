@@ -1230,7 +1230,57 @@ header {
 .pointer {
   cursor: pointer;
 }
+
+:root {
+  --left-value : 100%;
+  /* --left-value2 : 532px;
+  --left-value3 : 0px; */
+}
+
+
+@media(max-width: 1300px){
+   .contact-view{
+    left: 0;
+   }
+   .btnContainer, .contacts-container{
+    
+    left: 0;
+   }
+   .sidenav{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: unset;
+    padding: 0px;
+    flex-direction: row;
+    height: 100px;
+    width: 100%;
+    margin-top: 0;
+    justify-content: space-around;
+    z-index: 50;
+    background-color: white;
+   }
+   .sidenavPanels{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+   .legal{
+    display: none;
+   }
+   .contact-view{
+    left: var(--left-value);
+   }
+}
 @media (max-width: 820px) {
+  .li-display{
+    display: none;
+  }
+  .nav-list{
+    justify-content: flex-end;
+  }
   #login-container {
     flex-direction: column-reverse;
     gap: 100px;
