@@ -1,3 +1,12 @@
+let loadedTasks= [];
+
+
+async function loadedTaskstoBoard() {
+    const loadTasks = await getItem('allTasks');
+    loadedTasks = JSON.parse(loadTasks);
+}
+
+
 function closeAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'none';
 }
@@ -7,55 +16,21 @@ function openAddTaskForm(){
 
 }
 
-
-let todos = [{
-    'id': 0,
-    'title': 'Putzen',
-    'category': 'todoListContainer'
-}, {
-    'id': 1,
-    'title': 'Kochen',
-    'category': 'todoListContainer'
-}, {
-    'id': 2,
-    'title': 'Einkaufen',
-    'category': 'progressListContainer'
-}, {
-    'id': 3,
-    'title': 'Lesen',
-    'category': 'progressListContainer'
-}, {
-    'id': 4,
-    'title': 'Schreiben',
-    'category': 'awaitFeedbackListContainer'
-}, {
-    'id': 5,
-    'title': 'Hausaufgaben',
-    'category': 'awaitFeedbackListContainer'
-}
-];
-
-
-
 let currentDraggedElement;
 
-function updateHTML() {
+async function updateHTML() {
+    await loadedTaskstoBoard();
     initTaskData();
-    updateToDo();
-    updateInProgress();
-    updateDone();
-    updateAwaitFeedback();
+    updateToDo(loadedTasks);
+    updateInProgress(loadedTasks);
+    updateAwaitFeedback(loadedTasks);
+    updateDone(loadedTasks);    
 }
 
-async function updateToDo() {
-    // das hier:
-    const loadTasks = await getItem('allTasks');
-    const loadedTasks = JSON.parse(loadTasks);
-    let open = loadedTasks.filter(t => t['category'] == 'technical-task');
-    // bis hier is neu
 
-    //let open = todos.filter(t => t['category'] == 'todoListContainer'); //hier muss ja aus dem storage gelesen werden
-
+async function updateToDo(loadedTasks) {    
+    let open = loadedTasks.filter(t => t['boardContainer'] == 'toDo');
+        
     container = document.getElementById('todoListContainer');
     container.innerHTML = '';
 
@@ -69,13 +44,16 @@ async function updateToDo() {
     }
 }
 
-function updateInProgress(){
-    let closed = todos.filter(t => t['category'] == 'progressListContainer');
+
+function updateInProgress(loadedTasks){
+    let inProgress = loadedTasks.filter(t => t['boardContainer'] == 'inProgress');
+
     container = document.getElementById('progressListContainer');
     container.innerHTML = '';
-    if (closed.length > 0) {
-        for (let index = 0; index < closed.length; index++) {
-            const element = closed[index];
+
+    if (inProgress.length > 0) {
+        for (let index = 0; index < inProgress.length; index++) {
+            const element = inProgress[index];
             container.innerHTML += generateTodoHTML(element);
         }        
     } else {
@@ -83,8 +61,9 @@ function updateInProgress(){
     }
 }
 
-function updateAwaitFeedback(){
-    let awaitFeedback = todos.filter(t => t['category'] == 'awaitFeedbackListContainer');
+function updateAwaitFeedback(loadedTasks){
+    let awaitFeedback = loadedTasks.filter(t => t['boardContainer'] == 'aweitFeedback');
+
     container = document.getElementById('awaitFeedbackListContainer');
     container.innerHTML = '';
 
@@ -98,11 +77,11 @@ function updateAwaitFeedback(){
     }
 }
 
-function updateDone(){
-    let done = todos.filter(t => t['category'] == 'doneListContainer');
+function updateDone(loadedTasks){
+    let done = loadedTasks.filter(t => t['boardContainer'] == 'done');
+
     container = document.getElementById('doneListContainer');
     container.innerHTML = '';
-
 
     if (done.length > 0) {
         for (let index = 0; index < done.length; index++) {
