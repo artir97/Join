@@ -139,29 +139,12 @@ function renderAssignableContacts() {
 
 function searchContactToAdd() {
     const searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
-    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().includes(searchQuery));
-    
+    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
+
     // Now, you can render the filtered contacts
     const content = filteredContacts.map((contact, index) => assignContactsTemplate(contact.name, index)).join('');
     document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
-
-
-
-// only here for reference 
-
-// function renderAssignableContacts() {
-//     let content = '';
-//     for (let i = 0; i < allContacts[0].length; i++) {
-//         content += assignContactsTemplate(allContacts[0][i].name, i);
-//     }
-//     return content;
-// }
-
-
-// function searchContactToAdd() {
-//     console.log('change');
-// }
 
 
 function unselectContact(contact, img) {
