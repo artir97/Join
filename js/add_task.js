@@ -31,7 +31,8 @@ async function createTask() {
         priority: priority,
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
-        subtask: subtask.slice() // Creates a new array
+        subtask: subtask.slice(), // Creates a new array
+        boardContainer: 'toDo'
     };
 
     // Add the newTask directly to the allTasks array
