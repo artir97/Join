@@ -42,6 +42,8 @@ async function updateToDo(loadedTasks) {
     } else {
         generateEmtyTodoHTML(container);
     }
+
+    console.log(open);
 }
 
 
@@ -96,39 +98,69 @@ function updateDone(loadedTasks){
 }
 
 
-function startDragging(id) {
-    console.log('Ziehen wurde für das Element mit der ID gestartet:', id);
-    currentDraggedElement = id;
-}
-
 function generateTodoHTML(element) {
+    // Funktion zum Extrahieren der Anfangsbuchstaben und Großschreibung für jedes Wort
+    function getFirstLettersUppercase(text) {
+        if (!text) return '';
+
+        // Entferne eventuelles Minuszeichen und setze den Anfangsbuchstaben jedes Worts groß
+        return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    }
+
     return /*html*/`
         <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">
-            <div class="category">Technical task</div>
+            <div class="category">${getFirstLettersUppercase(element['category'])}</div>
             <div class="taskName">${element['title']}</div>
-            <div class="taskInfo">Create reusable HTML base templates...</div>
-            <div class="selectContact">
-                <div class="boardNameBox">CH</div>
-                <div class="boardNameBox">AF</div>
-                <div class="boardNameBox">GT</div>
-            </div>
-            
+            <div class="taskInfo">${element['description']}</div>
+            <div id="selectContact" class="selectContact">
+                ${element.assignedContact ? element.assignedContact.map(contact =>`
+                    <div class="boardNameBox">
+                        ${getInitials(contact.name)}
+                    </div>
+                `).join('') : ''}                
+            </div>            
         </div>`;
 }
 
-function generateEmtyTodoHTML(){
-   
-        container.innerHTML = /*html*/`
-               
-        <div class="emtyTask">
-           <p>No tasks To do</p>
-            
-        </div>`;
-        
-   
-    
-    
+
+// function generateTodoHTML(element) {
+//     return /*html*/`
+//         <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">
+//             <div class="category">${element['category'].charAt(0).toUpperCase()}</div>
+//             <!-- <div class="category">${element['category']}</div> -->
+//             <div class="taskName">${element['title']}</div>
+//             <div class="taskInfo">${element['description']}</div>
+//             <div id="selectContact" class="selectContact">
+//             ${element.assignedContact ? element.assignedContact.map(contact =>`
+//                     <div class="boardNameBox">
+//                         ${getInitials(contact.name)}
+                        
+//                     </div>
+//                 `).join('') : ''}                
+                
+//             </div>            
+//         </div>`;
+// }
+
+
+
+function getInitials(fullName) {
+    // Splitte den Namen in Vor- und Nachnamen
+    const nameParts = fullName.split(' ');
+
+    // Extrahiere den ersten Buchstaben jedes Teils und setze sie zusammen
+    const initials = nameParts.map(part => part.charAt(0)).join('');
+    return initials;
 }
+
+
+function generateEmtyTodoHTML(){   
+        container.innerHTML = /*html*/`               
+        <div class="emtyTask">
+           <p>No tasks To do</p>            
+        </div>`;
+}
+
 
 function allowDrop(ev) {
     ev.preventDefault();
