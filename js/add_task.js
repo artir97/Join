@@ -95,17 +95,20 @@ function getInitials(fullName) {
 }
 
 
-function renderAssignableContacts() {
-    let content = '';
-    for (let i = 0; i < allContacts[0].length; i++) {
-        content += assignContactsTemplate(allContacts[0][i].name, i);
-    }
-    return content;
+let searchQuery = '';
+function searchContactToAdd() {
+    searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
+    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
+
+    // Now, you can render the filtered contacts
+    const content = filteredContacts.map((contact, index) => assignContactsTemplate(contact.name, index)).join('');
+    document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
 
-
 function selectContact(id) {
-    selectedContact = allContacts[0][id];
+    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
+    selectedContact = filteredContacts[id]; // Use the correct index from the filtered list
+
     let contact = document.getElementById(`contact-${id}`);
     let emailToRemoveContact = selectedContact.email;
     let indexToRemoveContact = selectedContacts.findIndex(selectedContact => selectedContact.email === emailToRemoveContact);
@@ -117,9 +120,7 @@ function selectContact(id) {
 
         if (indexToRemoveContact !== -1) {
             selectedContacts.splice(indexToRemoveContact, 1);
-            // console.log('selectedContactsAfterRemovingOne:', selectedContacts);
         }
-
     } else {
         selectedContacts.push(selectedContact);
         contact.classList.add('selectedContact');
@@ -128,7 +129,6 @@ function selectContact(id) {
     }
 }
 
-// CHAT GPT 'SOLUTION'
 
 function renderAssignableContacts() {
     let content = '';
@@ -136,15 +136,6 @@ function renderAssignableContacts() {
         content += assignContactsTemplate(allContacts[0][i].name, i);
     }
     return content;
-}
-
-function searchContactToAdd() {
-    const searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
-    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
-
-    // Now, you can render the filtered contacts
-    const content = filteredContacts.map((contact, index) => assignContactsTemplate(contact.name, index)).join('');
-    document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
 
 
@@ -216,7 +207,6 @@ function showAndHideContacts() {
         contactDropdown.classList.add('d-none');
         contactSearchbarContainer.classList.remove('d-none');
         selectedContactsMini.classList.add('d-none');
-
     } else {
         contactBox.classList.add('d-none');
         contactSearchbarContainer.classList.add('d-none');
@@ -348,8 +338,6 @@ function renderSubtasks() {
 
     if (subtasks.length > 0) {
         for (let i = 0; i < subtasks.length; i++) {
-            // subtaskList += `<li>${subtasks[i]}</li>`;
-
             subtaskList += 
             `
             <li id="add-task-subtask-list-item${i}" onclick="openEditAddedSubtask(${i})"  onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
@@ -360,6 +348,7 @@ function renderSubtasks() {
                     <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
                 </div>
             </li>
+
             <div class="d-none subtask-edit-input-container" id="add-task-edit-input-container${i}">
                 <input class="pointer" type="text" id="add-task-subtask-input${i}">
                 <div>
@@ -373,13 +362,11 @@ function renderSubtasks() {
     }
 
     return subtaskList;
-
 }
 
 
 
 // TEMPLATES
-
 function assignContactsTemplate(name, id) {
     return (
         `         
@@ -403,37 +390,6 @@ function getSubtasks(subtasks, i) {
         `<li>${subtasks[i]}</li>`
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function clearForm() {
