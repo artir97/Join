@@ -321,6 +321,20 @@ button {
   overflow-x: hidden;
   z-index: 9;
 }
+.contacts-container::-webkit-scrollbar{
+  width: 18px;
+  background-color: white;
+  
+}
+.contacts-container::-webkit-scrollbar-track{
+  background-color: white;
+}
+.contacts-container::-webkit-scrollbar-thumb{
+  background-color: #A8A8A8;
+  border-radius: 10px;
+  border: 6px solid white;
+  height: 50px;
+}
 .addContact {
   display: flex;
   width: 352px;
@@ -1273,6 +1287,12 @@ header {
    .contact-view{
     left: var(--left-value);
    }
+   .contacts-container{
+    height: calc(100vh - 96px - 100px);
+   }
+}
+@media(max-width: 950px){
+
 }
 @media (max-width: 820px) {
   .li-display{
