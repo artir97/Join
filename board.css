@@ -403,3 +403,36 @@ transition: background-color 0.3 ease-in-out!important;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     color: var(--icon, #A8A8A8);
 }
+
+.centerDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.editTaskContainerBoard {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(209, 209, 209, 0.7);
+    z-index: 10;
+    opacity: 1.0;
+    display: none;
+}
+
+.editTask{
+    width: 528px;
+    padding: 48px 40px;
+    align-items: flex-start;
+    gap: 24px;
+    flex-direction: column;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    z-index: 500;
+}
+
+
+

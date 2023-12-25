@@ -108,7 +108,7 @@ function generateTodoHTML(element) {
     }
 
     return /*html*/`
-        <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">
+        <div draggable="true" onclick="openTask(element)"  ondragstart="startDragging(${element['id']})" class="todo">
             <div class="category">${getFirstLettersUppercase(element['category'])}</div>
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
@@ -122,25 +122,6 @@ function generateTodoHTML(element) {
         </div>`;
 }
 
-
-// function generateTodoHTML(element) {
-//     return /*html*/`
-//         <div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">
-//             <div class="category">${element['category'].charAt(0).toUpperCase()}</div>
-//             <!-- <div class="category">${element['category']}</div> -->
-//             <div class="taskName">${element['title']}</div>
-//             <div class="taskInfo">${element['description']}</div>
-//             <div id="selectContact" class="selectContact">
-//             ${element.assignedContact ? element.assignedContact.map(contact =>`
-//                     <div class="boardNameBox">
-//                         ${getInitials(contact.name)}
-                        
-//                     </div>
-//                 `).join('') : ''}                
-                
-//             </div>            
-//         </div>`;
-// }
 
 
 
@@ -171,10 +152,42 @@ function moveTo(category) {
     updateHTML();
 }
 
-// function highlight(id) {
-//     document.getElementById(id).classList.add('drag-area-highlight');
-// }
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight');
+}
 
-// function removeHighlight(id) {
-//     document.getElementById(id).classList.remove('drag-area-highlight');
-// }
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+
+
+function openTask(test) {
+
+    let task = JSON.stringify(test)
+    let editTaskContainer = document.getElementById('editTaskContainerBoard');
+    if (editTaskContainer.style.display === 'none' || editTaskContainer.style.display === '') {
+        editTaskContainer.style.display = 'block';
+    } else {
+        editTaskContainer.style.display = 'none';
+    }
+
+    editTaskContainer.innerHTML = /*html*/`
+        <div class="editTask centerDiv">
+            <div class="taskName">${task['title']}</div>
+            <div class="category">Test</div>
+            <div class="taskName">Test</div>
+            <div class="taskInfo">Test</div>
+        </div>
+    `;
+}
+
+
+function closeOpenTask() {
+    let editTaskContainer = document.getElementById('editTaskContainerBoard');
+            if (editTaskContainer.style.display === 'none' || editTaskContainer.style.display === '') {
+                editTaskContainer.style.display = 'block';
+            } else {
+                editTaskContainer.style.display = 'none';
+            }
+}
