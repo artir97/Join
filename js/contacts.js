@@ -109,7 +109,8 @@ function contactInfo(contact, uppercaseLetter, i) {
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
-    contactView.style = "left: 100%";
+    // contactView.style = "left: 100%";
+    contactView.style.setProperty('--left-value', '100%')
     removeWhiteColor();
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {

@@ -324,7 +324,6 @@ button {
 .contacts-container::-webkit-scrollbar{
   width: 18px;
   background-color: white;
-  
 }
 .contacts-container::-webkit-scrollbar-track{
   background-color: white;
@@ -333,8 +332,9 @@ button {
   background-color: #A8A8A8;
   border-radius: 10px;
   border: 6px solid white;
-  height: 50px;
+  height: 53px;
 }
+.contacts-container::-webkit-sc
 .addContact {
   display: flex;
   width: 352px;
@@ -348,17 +348,17 @@ button {
   background: white;
   width: 408px;
   display: flex;
-  padding: 32px 6px 16px 24px;
+  padding: 24px 6px 16px 24px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 10px;
   position: fixed;
   left: 232px;
-  top: 96px;
+  top: 110px;
   height: 56px;
   z-index: 15;
-  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.08);
+  /* box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.08); */
 }
 .addContactBtn {
   display: flex;
@@ -458,7 +458,7 @@ button {
   align-items: flex-start;
   gap: 21px;
   position: relative;
-  left: 100%; /* 832px */
+  left: var(--left-value, 100%);/*100%;  832px */
   top: 68px;
   transition: all 200ms ease-in-out;
 }
@@ -1246,15 +1246,18 @@ header {
 }
 
 :root {
-  --left-value : 100%;
-  /* --left-value2 : 532px;
-  --left-value3 : 0px; */
+  --left-value : 832px;
+  --left-value2 : 532px;
+  --left-value3 : 0px;
+  --left-value4 : 100%;
+  transition: all 200ms ease-in-out;
 }
 
 
 @media(max-width: 1300px){
    .contact-view{
-    left: 0;
+    /* left: 0; */
+    left: var(--left-value2);
    }
    .btnContainer, .contacts-container{
     
@@ -1284,15 +1287,53 @@ header {
    .legal{
     display: none;
    }
-   .contact-view{
-    left: var(--left-value);
-   }
    .contacts-container{
     height: calc(100vh - 96px - 100px);
    }
 }
-@media(max-width: 950px){
-
+@media(max-width: 1000px){
+  .sidenavPanels{
+    height: 100%;
+  }
+  .sidenavPanels a{
+    gap: 10px;
+    width: 15%;
+    flex-direction: column;
+    padding: 0;
+    justify-content: center;
+    font-size: 24px;
+  }
+  .sidenavPanels a img{
+    padding-right: 0;
+  }
+  .contact-view{
+    left: var(--left-value4);
+  }
+  .contacts{
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+  }
+  .firstLetter, .spacer, .contactInfo{
+    width: 100%;
+    display: flex;
+  }
+  .contactList{
+    width: 100%;
+    position: unset;
+    justify-content: center;
+  }
+  .btnContainer{
+    display: none;
+  }
+  .contacts-container{
+    box-shadow: none;
+    width: 100%;
+    display: flex;
+    position: relative;
+    top: 0;
+  }
 }
 @media (max-width: 820px) {
   .li-display{
