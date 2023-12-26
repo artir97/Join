@@ -458,7 +458,7 @@ button {
   align-items: flex-start;
   gap: 21px;
   position: relative;
-  left: var(--left-value, 100%);/*100%;  832px */
+  left: var(--left-value);
   top: 68px;
   transition: all 200ms ease-in-out;
 }
@@ -817,7 +817,7 @@ button {
 }
 .editContact {
   height: 1024px;
-  display: inline-flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   gap: 72px;
@@ -1246,21 +1246,20 @@ header {
 }
 
 :root {
-  --left-value : 832px;
-  --left-value2 : 532px;
+  --left-value : 100%;
+  /* --left-value: 832px; */
+  /* --left-value2 : 532px;
   --left-value3 : 0px;
-  --left-value4 : 100%;
+  --left-value4 : 832px; */
   transition: all 200ms ease-in-out;
 }
 
 
 @media(max-width: 1300px){
-   .contact-view{
-    /* left: 0; */
-    left: var(--left-value2);
-   }
+  :root{
+    --left-value: 532px;
+  }
    .btnContainer, .contacts-container{
-    
     left: 0;
    }
    .sidenav{
@@ -1306,8 +1305,11 @@ header {
   .sidenavPanels a img{
     padding-right: 0;
   }
+  :root {
+    --left-value: 0px
+  }
   .contact-view{
-    left: var(--left-value4);
+    left: var(--left-value);
   }
   .contacts{
     align-items: center;
@@ -1319,8 +1321,12 @@ header {
     width: 100%;
     display: flex;
   }
+  .firstLetter{
+    align-items: unset;
+    padding-left: 16px;
+  }
   .contactList{
-    width: 100%;
+    width: 60%;
     position: unset;
     justify-content: center;
   }

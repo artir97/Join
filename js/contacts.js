@@ -109,8 +109,7 @@ function contactInfo(contact, uppercaseLetter, i) {
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
-    // contactView.style = "left: 100%";
-    contactView.style.setProperty('--left-value', '100%')
+    contactView.style.setProperty('--left-value', '100%');
     removeWhiteColor();
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
@@ -121,8 +120,7 @@ async function openContactView(i) {
       let name = contact["name"];
       let email = contact["email"];
       let phone = contact["phone"];
-      contactView.style.setProperty('--left-value', '832px')
-      // contactView.style = "left: 832px";
+      contactView.style.setProperty('--left-value', '60%');
       let uppercaseLetters = (str) => str.split("").filter((char) => /[A-Z]/.test(char));
       const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
       contactView.innerHTML = "";
@@ -241,7 +239,7 @@ async function addContact(){
     };
     const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === contactName.toLowerCase());
     if (isNameDuplicate) {
-      console.log("Der Name existiert bereits im Adressbuch.");
+      alert("Der Name existiert bereits im Adressbuch.");
       closeAddNewContact();
     } else {
       loadedContacts.push(newContact);
@@ -267,13 +265,14 @@ function addContactSuccessClose(){
 let currentEditIndex; 
 
 async function editContact(i) {
+  let editContact = document.getElementById("editContact");
+  editContact.style.display = 'inline-flex'
   const contactsString = await getItem("kontakte");
   loadedContacts = JSON.parse(contactsString);
   const contact = loadedContacts[i];
   let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   document.getElementById("popup-bg").style.display = "block";
-  let editContact = document.getElementById("editContact");
   editContact.style = "left: 0";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
