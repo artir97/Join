@@ -40,7 +40,7 @@ async function createTask() {
     await setItem('allTasks', JSON.stringify(allTasks));
 
     console.log(allTasks);
-    
+
     alert('Task created successfully');
     clearForm();
 }
@@ -115,7 +115,7 @@ function selectContact(id) {
 
     const checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
-    if (contact.classList.contains('selectedContact')) {
+   if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
 
         if (indexToRemoveContact !== -1) {
@@ -189,9 +189,9 @@ function selectedTaskInnerHTML(selectedTask) {
             return 'Technical Task';
         case 'user-story':
             return 'User Story';
-        default: 
+        default:
             return 'Select task category';
-            
+
     }
 }
 
@@ -268,7 +268,7 @@ function confirmAddSubtask() {
 }
 
 
-function deleteAddedSubtask(i){
+function deleteAddedSubtask(i) {
     let subtaskList = document.getElementById('add-task-subtask-list');
 
     subtasks.splice(i, 1);
@@ -276,7 +276,7 @@ function deleteAddedSubtask(i){
 }
 
 
-function openEditAddedSubtask(i){
+function openEditAddedSubtask(i) {
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
@@ -289,7 +289,7 @@ function openEditAddedSubtask(i){
 }
 
 
-function confirmEditSubtask(i){
+function confirmEditSubtask(i) {
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
@@ -305,7 +305,7 @@ function confirmEditSubtask(i){
 }
 
 
-function deleteEditSubtask(i){
+function deleteEditSubtask(i) {
     deleteAddedSubtask(i);
 }
 
@@ -338,8 +338,8 @@ function renderSubtasks() {
 
     if (subtasks.length > 0) {
         for (let i = 0; i < subtasks.length; i++) {
-            subtaskList += 
-            `
+            subtaskList +=
+                `
             <li id="add-task-subtask-list-item${i}" onclick="openEditAddedSubtask(${i})"  onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
                 <span>${subtasks[i]}</span>
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">

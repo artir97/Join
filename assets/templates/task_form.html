@@ -1,14 +1,14 @@
 <div class="add-task-container">
     <form onsubmit="createTask(); return false;">
         <div class="add-task-container-content">
-            <input class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
+            <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
 
             <label for="add-task-description">Description (optional)</label>
             <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
                 placeholder="Enter a description"></textarea>
 
             <label for="add-task-date">Due date</label>
-            <input class="pointer" type="date" name="add-task-date" id="add-task-date" min="" onclick="updateMinDate()">
+            <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" onclick="updateMinDate()">
 
             <label for="add-task-priority">Priority (optional)</label>
             <div id="add-task-priority">
