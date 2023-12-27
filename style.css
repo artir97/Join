@@ -458,7 +458,7 @@ button {
   align-items: flex-start;
   gap: 21px;
   position: relative;
-  left: var(--left-value);
+  /* left: var(--left-value); */
   top: 68px;
   transition: all 200ms ease-in-out;
 }
@@ -557,7 +557,9 @@ button {
   color: white !important ;
   text-decoration: none !important;
 }
-
+.mobileAddContact{
+  display: none;
+}
 .popupbackground {
   display: none;
   background-color: rgba(255, 255, 255, 0.6);
@@ -566,7 +568,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 18;
 }
 
 .addContact-container {
@@ -1245,19 +1247,16 @@ header {
   cursor: pointer;
 }
 
-:root {
-  --left-value : 100%;
-  /* --left-value: 832px; */
-  /* --left-value2 : 532px;
-  --left-value3 : 0px;
-  --left-value4 : 832px; */
-  transition: all 200ms ease-in-out;
+.contactViewOff{
+  left: 100%;
+}
+.contactViewOn{
+  left: 60%;
 }
 
-
 @media(max-width: 1300px){
-  :root{
-    --left-value: 532px;
+  .contactViewOn{
+    left: 50%;
   }
    .btnContainer, .contacts-container{
     left: 0;
@@ -1318,12 +1317,15 @@ header {
     display: flex;
   }
   .firstLetter, .spacer, .contactInfo{
-    width: 100%;
+    width: 60%;
     display: flex;
   }
   .firstLetter{
     align-items: unset;
-    padding-left: 16px;
+    padding-left: 70px;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-self: unset;
   }
   .contactList{
     width: 60%;
@@ -1339,6 +1341,9 @@ header {
     display: flex;
     position: relative;
     top: 0;
+  }
+  .mobileAddContact{
+    display: flex;
   }
 }
 @media (max-width: 820px) {

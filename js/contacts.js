@@ -109,7 +109,8 @@ function contactInfo(contact, uppercaseLetter, i) {
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
-    contactView.style.setProperty('--left-value', '100%');
+    contactView.classList.add('contactViewOff');
+    contactView.classList.remove('contactViewOn');
     removeWhiteColor();
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
@@ -119,8 +120,9 @@ async function openContactView(i) {
       const contact = loadedContacts[i];
       let name = contact["name"];
       let email = contact["email"];
-      let phone = contact["phone"];
-      contactView.style.setProperty('--left-value', '60%');
+      let phone = contact["phone"]; 
+      contactView.classList.add('contactViewOn');
+      contactView.classList.remove('contactViewOff');
       let uppercaseLetters = (str) => str.split("").filter((char) => /[A-Z]/.test(char));
       const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
       contactView.innerHTML = "";
@@ -239,8 +241,8 @@ async function addContact(){
     };
     const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === contactName.toLowerCase());
     if (isNameDuplicate) {
-      alert("Der Name existiert bereits im Adressbuch.");
       closeAddNewContact();
+      alert('contact exists already');
     } else {
       loadedContacts.push(newContact);
       loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -248,8 +250,12 @@ async function addContact(){
       contactsListRender(loadedContacts);
       closeAddNewContact();
       setTimeout(addContactSuccess, 800);
-      alert('contact exists already')
+      
     }
+}
+
+async function addMobileContact() {  
+  
 }
 
 function addContactSuccess(){
@@ -266,7 +272,7 @@ let currentEditIndex;
 
 async function editContact(i) {
   let editContact = document.getElementById("editContact");
-  editContact.style.display = 'inline-flex'
+  editContact.style.display = 'inline-flex';
   const contactsString = await getItem("kontakte");
   loadedContacts = JSON.parse(contactsString);
   const contact = loadedContacts[i];
