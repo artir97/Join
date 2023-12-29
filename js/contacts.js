@@ -1,3 +1,15 @@
+
+// const contactView = document.getElementById("contactView");
+// const addNewContact = document.getElementById("addContact");
+// const editContactWindow = document.getElementById("editContact");
+// const addContactNameInput = document.getElementById('addContactName');
+// const addContactEmailInput = document.getElementById('addContactEmail');
+// const addContactPhoneInput = document.getElementById('addContactPhone');
+// const editContactNameInput = document.getElementById("editContactName");
+// const editContactEmailInput = document.getElementById("editContactEmail");
+// const editContactPhoneInput = document.getElementById("editContactPhone");
+// const popupBg = document.getElementById("popup-bg");
+
 let allContacts = [
   {
     name: "Anton Mayer",
@@ -49,6 +61,7 @@ async function contactsInit() {
   await loadContacts();
 }
 
+
 async function saveContacts() {
   const existingContactsString = await getItem("kontakte");
   const existingContacts = existingContactsString ? JSON.parse(existingContactsString) : [];
@@ -63,6 +76,7 @@ async function loadContacts() {
       contactsListRender(loadedContacts);
     }
 }
+
 
 
 async function contactsListRender(contacts) {
@@ -216,30 +230,30 @@ function removeWhiteColor(){
 
 function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style.display = "inline-flex";
+  document.addEventListener("DOMContentLoaded", function() {
+    addNewContact.style.display = "inline-flex";
+  });
+  // addNewContact.style.display = "inline-flex";
   addNewContact.style = "right: 0";
   document.getElementById("popup-bg").style.display = "block";
 }
 
 function setContactValue(){
-  let contactName = document.getElementById('addContactName');
-  let contactEmail = document.getElementById('addContactEmail');
-  let contactPhone = document.getElementById('addContactPhone');
-  contactName.value  = newContacts[0]['name'];
-  contactEmail.value = newContacts[0]['email'];
-  contactPhone.value = newContacts[0]['phone'];
+  addContactNameInput.value  = newContacts[0]['name'];
+  addContactEmailInput.value = newContacts[0]['email'];
+  addContactPhoneInput.value = newContacts[0]['phone'];
 }
 
 async function addContact(){
-    let contactName = document.getElementById('addContactName').value;
-    let contactEmail = document.getElementById('addContactEmail').value;
-    let contactPhone = document.getElementById('addContactPhone').value;
+  const addContactNameInput = document.getElementById('addContactName');
+  const addContactEmailInput = document.getElementById('addContactEmail');
+  const addContactPhoneInput = document.getElementById('addContactPhone');
     const newContact = {
-      name: contactName,
-      email: contactEmail,
-      phone: contactPhone
+      name: addContactNameInput.value,
+      email: addContactEmailInput.value,
+      phone: addContactPhoneInput.value
     };
-    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === contactName.toLowerCase());
+    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.toLowerCase());
     if (isNameDuplicate) {
       closeAddNewContact();
       alert('contact exists already');
@@ -250,12 +264,11 @@ async function addContact(){
       contactsListRender(loadedContacts);
       closeAddNewContact();
       setTimeout(addContactSuccess, 800);
-      
     }
 }
 
 async function addMobileContact() {  
-  
+  addNewContactWindow();
 }
 
 function addContactSuccess(){
@@ -271,15 +284,15 @@ function addContactSuccessClose(){
 let currentEditIndex; 
 
 async function editContact(i) {
-  let editContact = document.getElementById("editContact");
-  editContact.style.display = 'inline-flex';
+  let editContactWindow = document.getElementById("editContact");
+  editContactWindow.style.display = 'inline-flex';
   const contactsString = await getItem("kontakte");
   loadedContacts = JSON.parse(contactsString);
   const contact = loadedContacts[i];
   let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   document.getElementById("popup-bg").style.display = "block";
-  editContact.style = "left: 0";
+  editContactWindow.style = "left: 0";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
   document.getElementById("editContactPhone").value = "+" + contact["phone"];
@@ -329,7 +342,7 @@ async function delContact(i) {
 
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style = "left: 100%";
+  addNewContact.style.left = "110%";
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById('addContactName').value = '';
   document.getElementById('addContactEmail').value ='';
@@ -338,25 +351,25 @@ function closeAddNewContact() {
 }
 
 function closeEditContact() {
-  let editContact = document.getElementById("editContact");
-  editContact.style = "left: -100%";
+  let editContactWindow = document.getElementById("editContact");
+  editContactWindow.style = "left: -110%";
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById("editContactName").value = '';
   document.getElementById("editContactEmail").value = '';
   document.getElementById("editContactPhone").value = '';
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
+  let popupBg =  document.getElementById("popup-bg")
+    if (popupBg) {
+      popupBg.addEventListener("click", function (event) {
+        event.stopPropagation();
+        popupBg.style.display = "none";
+        closeAddNewContact();
+        closeEditContact();
+      });
+    }
 
-  var popupBg = document.getElementById("popup-bg");
+  });
 
-  if (popupBg) {
-    popupBg.addEventListener("click", function (event) {
-      event.stopPropagation();
-      popupBg.style.display = "none";
-      closeAddNewContact();
-      closeEditContact();
-    });
-  }
-});
+

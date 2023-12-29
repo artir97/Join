@@ -321,21 +321,20 @@ button {
   overflow-x: hidden;
   z-index: 9;
 }
-.contacts-container::-webkit-scrollbar{
+.contacts-container::-webkit-scrollbar {
   width: 18px;
   background-color: white;
 }
-.contacts-container::-webkit-scrollbar-track{
+.contacts-container::-webkit-scrollbar-track {
   background-color: white;
 }
-.contacts-container::-webkit-scrollbar-thumb{
-  background-color: #A8A8A8;
+.contacts-container::-webkit-scrollbar-thumb {
+  background-color: #a8a8a8;
   border-radius: 10px;
   border: 6px solid white;
   height: 53px;
 }
-.contacts-container::-webkit-sc
-.addContact {
+.contacts-container::-webkit-sc .addContact {
   display: flex;
   width: 352px;
   padding: 32px 24px;
@@ -557,8 +556,21 @@ button {
   color: white !important ;
   text-decoration: none !important;
 }
-.mobileAddContact{
+.mobileAddContact {
   display: none;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--Version-2-main-color, #4589ff);
+  background: var(--Version-2-main-color, #4589ff);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 15;
+  bottom: 100px;
+  right: 5%;
+  cursor: pointer;
 }
 .popupbackground {
   display: none;
@@ -570,11 +582,13 @@ button {
   left: 0;
   z-index: 18;
 }
-
+#addContact {
+  display: none;
+}
 .addContact-container {
   height: 1024px;
   width: 584px;
-  display: inline-flex;
+
   flex-direction: column;
   align-items: center;
   gap: 72px;
@@ -1247,21 +1261,22 @@ header {
   cursor: pointer;
 }
 
-.contactViewOff{
+.contactViewOff {
   left: 100%;
 }
-.contactViewOn{
+.contactViewOn {
   left: 60%;
 }
 
-@media(max-width: 1300px){
-  .contactViewOn{
+@media (max-width: 1300px) {
+  .contactViewOn {
     left: 50%;
   }
-   .btnContainer, .contacts-container{
+  .btnContainer,
+  .contacts-container {
     left: 0;
-   }
-   .sidenav{
+  }
+  .sidenav {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -1275,25 +1290,50 @@ header {
     justify-content: space-around;
     z-index: 50;
     background-color: white;
-   }
-   .sidenavPanels{
+  }
+  .sidenavPanels {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     width: 100%;
   }
-   .legal{
+  .legal {
     display: none;
-   }
-   .contacts-container{
-    height: calc(100vh - 96px - 100px);
-   }
-}
-@media(max-width: 1000px){
-  .sidenavPanels{
-    height: 100%;
   }
-  .sidenavPanels a{
+  .contacts-container {
+    height: calc(100vh - 96px - 100px);
+  }
+}
+@media (max-width: 1000px) {
+  .mobileAddContact{
+    display: inline-flex;
+  }
+  .addContact-container{
+    width: 100%;
+    height: calc(100vh - 76px);
+    left: 0;
+    /* right: 0; */
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  }
+  .addContactBottom{
+    width: 100%;
+    padding: 0;
+    position: relative;
+    bottom: 11%;
+  }
+  .addContactTop{
+    width: 100%;
+    border-radius: 30px 30px 0px 0px;
+    padding-top: 66px;
+    padding-bottom: 66px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .sidenavPanels, .sidenav {
+    height: 76px;
+  }
+  .sidenavPanels a {
     gap: 10px;
     width: 15%;
     flex-direction: column;
@@ -1301,56 +1341,58 @@ header {
     justify-content: center;
     font-size: 24px;
   }
-  .sidenavPanels a img{
+  .sidenavPanels a img {
     padding-right: 0;
   }
-  :root {
-    --left-value: 0px
-  }
-  .contact-view{
+  .contact-view {
     left: var(--left-value);
   }
-  .contacts{
+  .contacts {
     align-items: center;
     flex-direction: column;
     width: 100%;
     display: flex;
   }
-  .firstLetter, .spacer, .contactInfo{
+  .firstLetter,
+  .spacer,
+  .contactInfo {
     width: 60%;
     display: flex;
   }
-  .firstLetter{
+  .firstLetter {
     align-items: unset;
     padding-left: 70px;
     /* flex-wrap: wrap; */
     justify-content: center;
     align-self: unset;
   }
-  .contactList{
+  .contactList {
     width: 60%;
     position: unset;
     justify-content: center;
   }
-  .btnContainer{
+  .btnContainer {
     display: none;
   }
-  .contacts-container{
+  .contacts-container {
     box-shadow: none;
     width: 100%;
     display: flex;
     position: relative;
     top: 0;
   }
-  .mobileAddContact{
-    display: flex;
-  }
 }
 @media (max-width: 820px) {
-  .li-display{
+  .firstLetter,
+  .spacer,
+  .contactInfo {
+    width: 80%;
+    display: flex;
+  }
+  .li-display {
     display: none;
   }
-  .nav-list{
+  .nav-list {
     justify-content: flex-end;
   }
   #login-container {
@@ -1421,21 +1463,61 @@ header {
     width: 64px;
   }
 }
-@media(max-height: 880px) {
-  .frontimage{
+@media (max-height: 880px) {
+  .frontimage {
     top: 6px !important;
     left: 6px !important;
-  }.login{
+  }
+  .login {
     padding: 16px 16px;
     top: 0;
   }
-  #login-container{
+  #login-container {
     gap: 40px;
   }
 }
 @media (max-width: 720px) {
+  .sidenavPanels {
+    display: flex;
+    padding: 0px 16px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sidenavPanels a img {
+    width: 24px;
+    height: 24px;
+  }
+  .sidenavPanels a {
+    border-radius: 8px;
+    display: flex;
+    width: 75px;
+    padding: 15px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    color: var(--menu-color, #42526e);
+    font-family: OpenSans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%; /* 18px */
+  }
 }
 @media (max-width: 600px) {
+  .nav-list {
+    width: 50%;
+  }
+  .firstLetter,
+  .spacer,
+  .contactInfo {
+    width: 100%;
+    display: flex;
+  }
+  .contactList {
+    width: 80%;
+  }
   .frontimage {
     display: inline-flex;
     align-items: flex-start;
@@ -1498,7 +1580,7 @@ header {
     height: unset !important;
     margin-bottom: 0 !important;
   }
-  .signUpHeader{
+  .signUpHeader {
     gap: 20% !important;
   }
   .buttons {
