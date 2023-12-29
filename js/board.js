@@ -274,15 +274,17 @@ function openTaskPopup(index, taskArray) {
 
     const popupContent = /*html*/`
         <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
-            <div class="popup-content editTask">
+            <div class="popup-content editTask" onclick="doNotClose(event)">
                 <div class="category">${getFirstLettersUppercase(element['category'])}</div>
-                <div class="taskName">${element['title']}</div>
-                <div class="taskInfo">${element['description']}</div>
+                <h1 class="popupTaskTitel">${element['title']}</h1>                
+                <p class="popupTaskDescription">${element['description']}</p>
+                <p class="popupTaskDescription">Due date: ${element['date']}</p>
+                <p class="popupTaskDescription">Priority: ${element['priority']}</p>
                 <div id="selectContact" class="selectContact">
                     ${assignedContactHTML}
                 </div>
                 
-                <button onclick="closeTaskPopup()">Schließen</button>
+                
             </div>
         </div>`;
 
@@ -297,5 +299,10 @@ function closeTaskPopup() {
     const popup = document.querySelector('.popup');
     if (popup) {
         popup.remove();
+       
     }
+}
+
+function doNotClose(event) {
+    event.stopPropagation();
 }
