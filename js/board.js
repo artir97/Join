@@ -1,10 +1,31 @@
 let loadedTasks= [];
 
+let toDo = [];
+let inProgress = [];
+let awaitFeedback = [];
+let done = [];
+
 
 async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
+
+
+function getToDoTasks (tasks){
+    toDo = tasks.filter(t => t['boardContainer'] == 'toDo');
+    console.log('ToDo:', toDo);
+
+    inProgress = tasks.filter(t => t['boardContainer'] == 'inProgress');
+    console.log('inProgress:', inProgress);
+
+    awaitFeedback = tasks.filter(t => t['boardContainer'] == 'aweitFeedback');
+    console.log('awaitFeedback:', awaitFeedback);
+
+    done = tasks.filter(t => t['boardContainer'] == 'done');
+    console.log('done:', done);
+}
+
 
 
 function closeAddTaskForm(){
@@ -20,108 +41,192 @@ let currentDraggedElement;
 
 async function updateHTML() {
     await loadedTaskstoBoard();
+    getToDoTasks (loadedTasks)
     initTaskData();
-    updateToDo(loadedTasks);
-    updateInProgress(loadedTasks);
-    updateAwaitFeedback(loadedTasks);
-    updateDone(loadedTasks);    
+    renderToDoTask(toDo);
+    renderInProgressTask(inProgress);
+    renderAwaitFeedbackTask(awaitFeedback);
+    renderDoneTask(done);    
 }
 
 
-async function updateToDo(loadedTasks) {    
-    let open = loadedTasks.filter(t => t['boardContainer'] == 'toDo');
-        
-    container = document.getElementById('todoListContainer');
+async function renderToDoTask() {    
+    // let open = tasks.filter(t => t['boardContainer'] == 'toDo');
+    const container = document.getElementById('todoListContainer');
     container.innerHTML = '';
-
-    if (open.length > 0) {
-        for (let index = 0; index < open.length; index++) {
-            const element = open[index];
-            container.innerHTML += generateTodoHTML(element);
+    
+    if (toDo.length > 0) {
+        for (let index = 0; index < toDo.length; index++) {
+            let element = toDo[index];
+            container.innerHTML += generateTodoHTML(element, index, toDo);
         }        
     } else {
         generateEmtyTodoHTML(container);
     }
 
-    console.log(open);
 }
 
 
-function updateInProgress(loadedTasks){
-    let inProgress = loadedTasks.filter(t => t['boardContainer'] == 'inProgress');
+function generateTodoHTML(element, index) {
+   
+    let assignedContactHTML = '';
+    if (element.assignedContact && element.assignedContact.length > 0) {
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            let contact = element.assignedContact[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
+    }
 
+    return /*html*/`
+        <div draggable="true" onclick="openTaskPopup(${index}, toDo)" ondragstart="startDragging(${element['id']})" class="todo">
+            <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">${element['description']}</div>
+            <div id="selectContact" class="selectContact">
+                ${assignedContactHTML}
+            </div>            
+        </div>`;
+}
+
+
+function renderInProgressTask(){
     container = document.getElementById('progressListContainer');
     container.innerHTML = '';
 
     if (inProgress.length > 0) {
         for (let index = 0; index < inProgress.length; index++) {
-            const element = inProgress[index];
-            container.innerHTML += generateTodoHTML(element);
+            let element = inProgress[index];
+            container.innerHTML += generateInProgressTaskHTML(element, index, inProgress);
         }        
     } else {
         generateEmtyTodoHTML(container);
     }
 }
 
-function updateAwaitFeedback(loadedTasks){
-    let awaitFeedback = loadedTasks.filter(t => t['boardContainer'] == 'aweitFeedback');
+
+function generateInProgressTaskHTML(element, index) {
+   
+    let assignedContactHTML = '';
+    if (element.assignedContact && element.assignedContact.length > 0) {
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            let contact = element.assignedContact[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
+    }
+
+    return /*html*/`
+        <div draggable="true" onclick="openTaskPopup(${index}, inProgress)" ondragstart="startDragging(${element['id']})" class="todo">
+            <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">${element['description']}</div>
+            <div id="selectContact" class="selectContact">
+                ${assignedContactHTML}
+            </div>            
+        </div>`;
+}
+
+
+
+
+
+
+function renderAwaitFeedbackTask(){
+    // let awaitFeedback = tasks.filter(t => t['boardContainer'] == 'aweitFeedback');
 
     container = document.getElementById('awaitFeedbackListContainer');
     container.innerHTML = '';
 
     if (awaitFeedback.length > 0) {
         for (let index = 0; index < awaitFeedback.length; index++) {
-            const element = awaitFeedback[index];
-            document.getElementById('awaitFeedbackListContainer').innerHTML += generateTodoHTML(element);
-        }
+            let element = awaitFeedback[index];
+            document.getElementById('awaitFeedbackListContainer').innerHTML += generateAwaitFeedbackHTML(element, index);
+            }
     } else {
         generateEmtyTodoHTML(container);
     }
 }
 
-function updateDone(loadedTasks){
-    let done = loadedTasks.filter(t => t['boardContainer'] == 'done');
+
+
+function generateAwaitFeedbackHTML(element, index) {
+   
+    let assignedContactHTML = '';
+    if (element.assignedContact && element.assignedContact.length > 0) {
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            let contact = element.assignedContact[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
+    }
+
+    return /*html*/`
+        <div draggable="true" onclick="openTaskPopup(${index}, awaitFeedback)" ondragstart="startDragging(${element['id']})" class="todo">
+            <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">${element['description']}</div>
+            <div id="selectContact" class="selectContact">
+                ${assignedContactHTML}
+            </div>            
+        </div>`;
+}
+
+
+
+
+function renderDoneTask(){
+    // let done = tasks.filter(t => t['boardContainer'] == 'done');
 
     container = document.getElementById('doneListContainer');
     container.innerHTML = '';
 
     if (done.length > 0) {
         for (let index = 0; index < done.length; index++) {
-            const element = done[index];
-            document.getElementById('doneListContainer').innerHTML += generateTodoHTML(element);
-        }
+            let element = done[index];
+            document.getElementById('doneListContainer').innerHTML += generateDoneHTML(element, index);
+            }
     } else {
         generateEmtyTodoHTML(container);
     }
-     
-    
 }
 
 
-function generateTodoHTML(element) {
-    // Funktion zum Extrahieren der Anfangsbuchstaben und Großschreibung für jedes Wort
-    function getFirstLettersUppercase(text) {
-        if (!text) return '';
-
-        // Entferne eventuelles Minuszeichen und setze den Anfangsbuchstaben jedes Worts groß
-        return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+function generateDoneHTML(element, index) {
+   
+    let assignedContactHTML = '';
+    if (element.assignedContact && element.assignedContact.length > 0) {
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            let contact = element.assignedContact[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
     }
 
     return /*html*/`
-        <div draggable="true" onclick="openTask(element)"  ondragstart="startDragging(${element['id']})" class="todo">
+        <div draggable="true" onclick="openTaskPopup(${index}, done)" ondragstart="startDragging(${element['id']})" class="todo">
             <div class="category">${getFirstLettersUppercase(element['category'])}</div>
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
             <div id="selectContact" class="selectContact">
-                ${element.assignedContact ? element.assignedContact.map(contact =>`
-                    <div class="boardNameBox">
-                        ${getInitials(contact.name)}
-                    </div>
-                `).join('') : ''}                
+                ${assignedContactHTML}
             </div>            
         </div>`;
 }
 
+
+function getFirstLettersUppercase(text) {
+    if (!text) return '';
+    return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+}
 
 
 
@@ -132,6 +237,7 @@ function getInitials(fullName) {
     // Extrahiere den ersten Buchstaben jedes Teils und setze sie zusammen
     const initials = nameParts.map(part => part.charAt(0)).join('');
     return initials;
+    
 }
 
 
@@ -152,42 +258,44 @@ function moveTo(category) {
     updateHTML();
 }
 
-function highlight(id) {
-    document.getElementById(id).classList.add('drag-area-highlight');
-}
+function openTaskPopup(index, taskArray) {
+    const element = taskArray[index];
 
-function removeHighlight(id) {
-    document.getElementById(id).classList.remove('drag-area-highlight');
-}
-
-
-
-function openTask(test) {
-
-    let task = JSON.stringify(test)
-    let editTaskContainer = document.getElementById('editTaskContainerBoard');
-    if (editTaskContainer.style.display === 'none' || editTaskContainer.style.display === '') {
-        editTaskContainer.style.display = 'block';
-    } else {
-        editTaskContainer.style.display = 'none';
+    let assignedContactHTML = '';
+    if (element.assignedContact.length > 0) {
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            const contact = element.assignedContact[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
     }
 
-    editTaskContainer.innerHTML = /*html*/`
-        <div class="editTask centerDiv">
-            <div class="taskName">${task['title']}</div>
-            <div class="category">Test</div>
-            <div class="taskName">Test</div>
-            <div class="taskInfo">Test</div>
-        </div>
-    `;
+    const popupContent = /*html*/`
+        <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
+            <div class="popup-content editTask">
+                <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+                <div class="taskName">${element['title']}</div>
+                <div class="taskInfo">${element['description']}</div>
+                <div id="selectContact" class="selectContact">
+                    ${assignedContactHTML}
+                </div>
+                
+                <button onclick="closeTaskPopup()">Schließen</button>
+            </div>
+        </div>`;
+
+    const popupContainer = document.createElement('div');
+    popupContainer.innerHTML = popupContent;
+
+    document.body.appendChild(popupContainer);
 }
 
 
-function closeOpenTask() {
-    let editTaskContainer = document.getElementById('editTaskContainerBoard');
-            if (editTaskContainer.style.display === 'none' || editTaskContainer.style.display === '') {
-                editTaskContainer.style.display = 'block';
-            } else {
-                editTaskContainer.style.display = 'none';
-            }
+function closeTaskPopup() {
+    const popup = document.querySelector('.popup');
+    if (popup) {
+        popup.remove();
+    }
 }

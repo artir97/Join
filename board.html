@@ -27,25 +27,25 @@
             <div class="columnTitles">
                 <div class="toDoContainer">
                     <h1 class="pointer" onclick="openAddTaskForm()">To do<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragleave="removeHighlight('todoListContainer')" ondragover="allowDrop(event); highlight('todoListContainer')">
+                    <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div> 
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm()">In progress<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragleave="removeHighlight('progressListContainer')" ondragover="allowDrop(event); highlight('progressListContainer')">
+                    <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm()">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragleave="removeHighlight('awaitFeedbackListContainer')" ondragover="allowDrop(event); highlight('awaitFeedbackListContainer')">
+                    <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm()">Done<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragleave="removeHighlight('doneListContainer')" ondragover="allowDrop(event); highlight('doneListContainer')">
+                    <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
             </div>
@@ -60,18 +60,6 @@
         <div w3-include-html="assets/templates/task_form.html"></div>
     </div>
 
-
-    <div class="editTaskContainerBoard centerDiv" id="editTaskContainerBoard" onclick="closeOpenTask()">       
-        <div class="editTask centerDiv">
-            
-            <div class="category">Test</div>
-            <div class="taskName">Test</div>
-            <div class="taskInfo">TEst</div>
-            
-        </div>
-    </div>
-
-    
 
 </body>
 </html>
