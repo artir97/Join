@@ -456,3 +456,39 @@ transition: background-color 0.3 ease-in-out!important;
     font-style: normal;
     font-weight: 400;
     line-height: 120%; /* 22.8px */}
+
+.spacebetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectContactPopup{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.singleContactPopup{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.editButtonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.editButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding-right: 4px;
+    cursor: pointer;
+}
+
+.assignedSubtasksContainer{
+    padding-left: 15px;
+}

@@ -266,25 +266,66 @@ function openTaskPopup(index, taskArray) {
         for (let i = 0; i < element.assignedContact.length; i++) {
             const contact = element.assignedContact[i];
             assignedContactHTML += `
-                <div class="boardNameBox">
-                    ${getInitials(contact.name)}
+                <div class="singleContactPopup">
+                    <div class="boardNameBox">${getInitials(contact.name)}</div>
+                    ${contact.name}
                 </div>`;
         }
     }
 
+
+    let subtaskHTML = '';
+    if (element.subtask.length > 0) {
+        for (let i = 0; i < element.subtask.length; i++) {
+            const subtask = element.subtask[i];
+            subtaskHTML += `
+                <div class="singleContactPopup">
+                    ${subtask}
+                </div>`;
+        }
+    }
+
+
+
+
     const popupContent = /*html*/`
         <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
             <div class="popup-content editTask" onclick="doNotClose(event)">
-                <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+                <div class="spacebetween pointer">
+                    <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+                    <div onclick="closeTaskPopup()">
+                        <img src="assets/img/close.png" alt="">
+                    </div>
+                </div>
                 <h1 class="popupTaskTitel">${element['title']}</h1>                
                 <p class="popupTaskDescription">${element['description']}</p>
                 <p class="popupTaskDescription">Due date: ${element['date']}</p>
                 <p class="popupTaskDescription">Priority: ${element['priority']}</p>
-                <div id="selectContact" class="selectContact">
-                    ${assignedContactHTML}
+                <div id="selectContact" class="selectContactPopup">
+                    <p>Assigned To:</p>
+                    <div class="assignedSubtasksContainer">
+                        ${assignedContactHTML}
+                    </div>
                 </div>
-                
-                
+                <div id="selectContact" class="selectContactPopup">
+                <p>Subtasks </p>
+                    <div class="assignedSubtasksContainer">
+                        ${subtaskHTML}
+                    </div>
+                </div>
+
+                <div class="editButtonContainer">
+                    <div class="editButton">
+                        <img src="assets/img/delete.png" alt="">
+                        <p>Delete </p> 
+                    </div> 
+                    <p>|</p>
+                    <div class="editButton">
+                        <img src="assets/img/delete.png" alt="">
+                        <p>Edit</p>
+                    </div>
+                </div>
+
             </div>
         </div>`;
 
