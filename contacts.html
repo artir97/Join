@@ -28,9 +28,10 @@
        
         <div class="contactList" id="contacts"></div>
       </div>
-      <div class="contact-view contactViewOff" id="contactView">
-      
+      <div class="contact-view contactViewOff" id="contactView" onclick="closeMobileOptionsWindow()">
+        
       </div>
+      
       
         <div class="addContact-container" id="addContact">
           <div class="addContactTop">
@@ -65,7 +66,24 @@
         <div class="mobileAddContact" id="mobileAddContact" onclick="addMobileContact()">
           <img src="/assets/img/person_add.png" alt="">
         </div>
-  
+        <div class="mobileOptions" id="mobileOptions" onclick="mobileOptionsWindow()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="33" height="32" viewBox="0 0 33 32" fill="none">
+            <mask id="mask0_32011_2256" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="33" height="32">
+            <rect x="0.21875" width="32" height="32" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_32011_2256)">
+            <path d="M16.2184 26.6666C15.4851 26.6666 14.8573 26.4055 14.3351 25.8833C13.8129 25.361 13.5518 24.7333 13.5518 23.9999C13.5518 23.2666 13.8129 22.6388 14.3351 22.1166C14.8573 21.5944 15.4851 21.3333 16.2184 21.3333C16.9518 21.3333 17.5795 21.5944 18.1018 22.1166C18.624 22.6388 18.8851 23.2666 18.8851 23.9999C18.8851 24.7333 18.624 25.361 18.1018 25.8833C17.5795 26.4055 16.9518 26.6666 16.2184 26.6666ZM16.2184 18.6666C15.4851 18.6666 14.8573 18.4055 14.3351 17.8833C13.8129 17.361 13.5518 16.7333 13.5518 15.9999C13.5518 15.2666 13.8129 14.6388 14.3351 14.1166C14.8573 13.5944 15.4851 13.3333 16.2184 13.3333C16.9518 13.3333 17.5795 13.5944 18.1018 14.1166C18.624 14.6388 18.8851 15.2666 18.8851 15.9999C18.8851 16.7333 18.624 17.361 18.1018 17.8833C17.5795 18.4055 16.9518 18.6666 16.2184 18.6666ZM16.2184 10.6666C15.4851 10.6666 14.8573 10.4055 14.3351 9.88325C13.8129 9.36103 13.5518 8.73325 13.5518 7.99992C13.5518 7.26659 13.8129 6.63881 14.3351 6.11659C14.8573 5.59436 15.4851 5.33325 16.2184 5.33325C16.9518 5.33325 17.5795 5.59436 18.1018 6.11659C18.624 6.63881 18.8851 7.26659 18.8851 7.99992C18.8851 8.73325 18.624 9.36103 18.1018 9.88325C17.5795 10.4055 16.9518 10.6666 16.2184 10.6666Z" fill="white"/>
+            </g>
+            </svg>
+        </div>
+        <div class="mobileOptionsWindow" id="mobileOptionsWindow">
+          <button class="profileEdit" onclick="mobileEditContact()">
+            <img src="assets/img/edit.png" alt=""/> Edit
+          </button>
+          <button class="profileDel" onclick="mobileDelContact()">
+            <img src="assets/img/delete.png" alt=""/> Delete
+          </button>
+        </div>
         <div class="editContact" id="editContact">
           <div class="editContactTop">
             <button onclick="closeEditContact()"></button>

@@ -125,9 +125,11 @@ async function openContactView(i) {
   if (contactView.innerHTML.trim() !== "") {
     contactView.classList.add('contactViewOff');
     contactView.classList.remove('contactViewOn');
+    document.getElementById('mobileOptions').classList.remove("mobileOptionsOn");
     removeWhiteColor();
     setTimeout(() => (contactView.innerHTML = ""), 200);
   } else {
+    document.getElementById('mobileOptions').classList.add("mobileOptionsOn");
       const contactsString = await getItem("kontakte");
       loadedContacts = JSON.parse(contactsString);
       loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
@@ -142,14 +144,20 @@ async function openContactView(i) {
       contactView.innerHTML = "";
       contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter);
       changeContactColor(i);
+      currentEditIndex = i;
   }
 }
 
 function renderContactView(i, name, email, phone, uppercaseLetter) {
   return `
+        <div class="mobileBackArrow" onclick="openContactView(${i})">
+          <img src="assets/img/arrow-left-line.png" alt="">
+        </div>
     <div class="contacts-top">
-    <div class="profileBadge contactViewBadge">
-      <svg
+    <h2>Contact Information</h2>
+    <div class="contactsProfileTop">
+      <div class="profileBadge contactViewBadge">
+        <svg
         xmlns="http://www.w3.org/2000/svg"
         width="120"
         height="120"
@@ -181,14 +189,14 @@ function renderContactView(i, name, email, phone, uppercaseLetter) {
       <h1 id="profileName">${name}</h1>
       <div class="profileActions">
         <button class="profileEdit" onclick="editContact(${i})">
-          <img src="assets/img/edit.png" alt="" /> Edit
+          <img src="assets/img/edit.png" alt=""/> Edit
         </button>
         <button class="profileDel" onclick="delContact(${i})">
-          <img src="assets/img/delete.png" alt="" /> Delete
+          <img src="assets/img/delete.png" alt=""/> Delete
         </button>
       </div>
+      </div>
     </div>
-  
   </div>
   <h2>Contact Information</h2>
     <div class="contactMailPhone">
@@ -230,30 +238,46 @@ function removeWhiteColor(){
 
 function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
-  document.addEventListener("DOMContentLoaded", function() {
-    addNewContact.style.display = "inline-flex";
-  });
+  addNewContact.style.display = "flex";
   // addNewContact.style.display = "inline-flex";
-  addNewContact.style = "right: 0";
+  // addNewContact.style = "right: 0";
+  addNewContact.style.right = "0";
+
   document.getElementById("popup-bg").style.display = "block";
 }
 
-function setContactValue(){
-  addContactNameInput.value  = newContacts[0]['name'];
-  addContactEmailInput.value = newContacts[0]['email'];
-  addContactPhoneInput.value = newContacts[0]['phone'];
+function mobileOptionsWindow(){
+  document.getElementById("popup-bg").style.display = "block";
+  let window = document.getElementById('mobileOptionsWindow');
+  window.style.display = "inline-flex";
 }
 
+async function mobileEditContact(){
+  // currentEditIndex = i;
+  editContact(currentEditIndex);
+}
+
+async function mobileDelContact(){
+  // currentEditIndex = i;
+  delContact(currentEditIndex);
+}
+
+// function setContactValue(){
+//   document.getElementById('addContactName').value  = newContacts[0]['name'];
+//   document.getElementById('addContactEmail').value = newContacts[0]['email'];
+//   document.getElementById('addContactPhone').value = newContacts[0]['phone'];
+// }
+
 async function addContact(){
-  const addContactNameInput = document.getElementById('addContactName');
-  const addContactEmailInput = document.getElementById('addContactEmail');
-  const addContactPhoneInput = document.getElementById('addContactPhone');
+  let addContactNameInput = document.getElementById('addContactName');
+  let addContactEmailInput = document.getElementById('addContactEmail');
+  let addContactPhoneInput = document.getElementById('addContactPhone');
     const newContact = {
       name: addContactNameInput.value,
       email: addContactEmailInput.value,
       phone: addContactPhoneInput.value
     };
-    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.toLowerCase());
+    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase());
     if (isNameDuplicate) {
       closeAddNewContact();
       alert('contact exists already');
@@ -274,7 +298,7 @@ async function addMobileContact() {
 function addContactSuccess(){
   let success = document.getElementById('newContactSuccess');
   success.style.top = '50%';
-  setTimeout(addContactSuccessClose, 1600)
+  setTimeout(addContactSuccessClose, 1600);
 }
 function addContactSuccessClose(){
   let success = document.getElementById('newContactSuccess');
@@ -342,12 +366,11 @@ async function delContact(i) {
 
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style.left = "110%";
+  addNewContact.style.right = "-120%";
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById('addContactName').value = '';
   document.getElementById('addContactEmail').value ='';
   document.getElementById('addContactPhone').value ='';
-  
 }
 
 function closeEditContact() {
@@ -358,6 +381,15 @@ function closeEditContact() {
   document.getElementById("editContactEmail").value = '';
   document.getElementById("editContactPhone").value = '';
 }
+function closeWindow(element){
+  element.style.display = "none";
+}
+
+function closeMobileOptionsWindow(){
+  let window = document.getElementById('mobileOptionsWindow');
+  window.style.display = "none";
+  document.getElementById("popup-bg").style.display = "none";
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   let popupBg =  document.getElementById("popup-bg")
@@ -367,9 +399,14 @@ document.addEventListener("DOMContentLoaded", function () {
         popupBg.style.display = "none";
         closeAddNewContact();
         closeEditContact();
+        closeMobileOptionsWindow();
       });
     }
 
-  });
+});
 
+document.addEventListener("DOMContentLoaded", function (event) {
+    closeMobileOptionsWindow();
+    event.stopPropagation();
+});
 
