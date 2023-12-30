@@ -50,7 +50,7 @@ async function updateHTML() {
 }
 
 
-async function renderToDoTask() {    
+async function renderToDoTask(toDo) {    
     // let open = tasks.filter(t => t['boardContainer'] == 'toDo');
     const container = document.getElementById('todoListContainer');
     container.innerHTML = '';
@@ -92,7 +92,7 @@ function generateTodoHTML(element, index) {
 }
 
 
-function renderInProgressTask(){
+function renderInProgressTask(inProgress){
     container = document.getElementById('progressListContainer');
     container.innerHTML = '';
 
@@ -136,7 +136,7 @@ function generateInProgressTaskHTML(element, index) {
 
 
 
-function renderAwaitFeedbackTask(){
+function renderAwaitFeedbackTask(awaitFeedback){
     // let awaitFeedback = tasks.filter(t => t['boardContainer'] == 'aweitFeedback');
 
     container = document.getElementById('awaitFeedbackListContainer');
@@ -181,7 +181,7 @@ function generateAwaitFeedbackHTML(element, index) {
 
 
 
-function renderDoneTask(){
+function renderDoneTask(done){
     // let done = tasks.filter(t => t['boardContainer'] == 'done');
 
     container = document.getElementById('doneListContainer');
@@ -346,4 +346,65 @@ function closeTaskPopup() {
 
 function doNotClose(event) {
     event.stopPropagation();
+}
+
+
+function filterTasks() {
+    const searchInput = document.getElementById('findTask').value.toLowerCase();    
+
+    const filteredtoDoTasks = toDo.filter(toDo => toDo.title.toLowerCase().includes(searchInput));
+    const filteredInProgressTasks = inProgress.filter(inProgress => inProgress.title.toLowerCase().includes(searchInput));
+    const filteredAwaitFeedbackTasks = awaitFeedback.filter(awaitFeedback => awaitFeedback.title.toLowerCase().includes(searchInput));
+    const filteredDoneTasks = done.filter(done => done.title.toLowerCase().includes(searchInput));
+
+
+    // Lösche die aktuellen Listen im Board
+    document.getElementById('todoListContainer').innerHTML = '';
+    document.getElementById('progressListContainer').innerHTML = '';
+    document.getElementById('awaitFeedbackListContainer').innerHTML = '';
+    document.getElementById('doneListContainer').innerHTML = '';
+
+
+    if (filteredtoDoTasks.length > 0) {
+        for (let index = 0; index < filteredtoDoTasks.length; index++) {            
+            renderToDoTask(filteredtoDoTasks);             
+            }
+    } else {
+        generateEmtyTodoHTML(container);
+    }
+
+    if (filteredInProgressTasks.length > 0) {
+        for (let index = 0; index < filteredInProgressTasks.length; index++) {                
+                renderInProgressTask(filteredInProgressTasks);  
+            }
+    } else {
+        generateEmtyTodoHTML(container);
+    }
+    if (filteredAwaitFeedbackTasks.length > 0) {
+        for (let index = 0; index < filteredAwaitFeedbackTasks.length; index++) {
+            renderAwaitFeedbackTask(filteredAwaitFeedbackTasks);
+            }
+    } else {
+        generateEmtyTodoHTML(container);
+    }
+    if (filteredDoneTasks.length > 0) {
+        for (let index = 0; index < filteredDoneTasks.length; index++) {
+            renderDoneTask(filteredDoneTasks);  
+            }
+    } else {
+        generateEmtyTodoHTML(container);
+    }
+}
+
+
+function filteredtoDoTasks(filteredtoDoTasks){
+
+    if (filteredtoDoTasks.length > 0) {
+        for (let index = 0; index < filteredtoDoTasks.length; index++) {            
+            renderToDoTask(filteredtoDoTasks);             
+            }
+    } else {
+        generateEmtyTodoHTML(container);
+    }
+
 }
