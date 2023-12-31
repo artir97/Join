@@ -56,18 +56,20 @@ let newContacts = [{
 
 let loadedContacts = [];
 
+// Initiat body onload
 async function contactsInit() {
   await saveContacts();
   await loadContacts();
 }
 
-
+// save actual Contacts
 async function saveContacts() {
   const existingContactsString = await getItem("kontakte");
   const existingContacts = existingContactsString ? JSON.parse(existingContactsString) : [];
   await setItem("kontakte", JSON.stringify(existingContacts));
 }
 
+// load contacts from storage
 async function loadContacts() {
     const contactsString = await getItem("kontakte");
     if (contactsString) {
@@ -78,7 +80,7 @@ async function loadContacts() {
 }
 
 
-
+// render ContactList into HTML
 async function contactsListRender(contacts) {
     let contactsList = document.getElementById("contacts");
     contactsList.innerHTML ='';
@@ -88,6 +90,7 @@ async function contactsListRender(contacts) {
     }
 }
 
+// get first uppercase letter from name, aswell from last name, then return HTML
 function contactList(contact, i) {
   let firstLetter = contact["name"].charAt(0).toUpperCase();
   let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
@@ -101,6 +104,7 @@ function contactList(contact, i) {
   }
 }
 
+// contactlist HTML
 function contactInfo(contact, uppercaseLetter, i) {
   return `
         <div class="spacer">
@@ -120,6 +124,7 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
+// Contact Info popup when clicked on a contact
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
@@ -148,6 +153,7 @@ async function openContactView(i) {
   }
 }
 
+// contact info popup
 function renderContactView(i, name, email, phone, uppercaseLetter) {
   return `
         <div class="mobileBackArrow" onclick="openContactView(${i})">
@@ -211,6 +217,7 @@ function renderContactView(i, name, email, phone, uppercaseLetter) {
     </div> `;
 }
 
+// changes color when contactView is opened
 function changeContactColor(i) {
     const contactElement = document.getElementById(`contactInfo${i}`);
     const nameElement = document.getElementById(`contactName${i}`);
@@ -218,12 +225,14 @@ function changeContactColor(i) {
       addWhiteColor(contactElement, nameElement, mailElement);
 }
 
+// adds font color to clicked contactView element
 function addWhiteColor(contactElement, nameElement, mailElement){
   contactElement.classList.add("blueColor");
   nameElement.classList.add("whiteColor");
   mailElement.classList.add("whiteColor");
 }
 
+//removes font color 
 function removeWhiteColor(){
   let info = document.getElementsByClassName('contactInfo');
   for (let i = 0; i < info.length; i++) {
@@ -236,31 +245,32 @@ function removeWhiteColor(){
   }
 }
 
+// opens Add New Contact Window popup
 function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
   addNewContact.style.display = "flex";
-  // addNewContact.style.display = "inline-flex";
-  // addNewContact.style = "right: 0";
   addNewContact.style.right = "0";
-
   document.getElementById("popup-bg").style.display = "block";
 }
 
+// responsive mobile options window for Edit and Delete button
 function mobileOptionsWindow(){
   document.getElementById("popup-bg").style.display = "block";
   let window = document.getElementById('mobileOptionsWindow');
   window.style.display = "inline-flex";
 }
 
+// function for mobile contact editing
 async function mobileEditContact(){
-  // currentEditIndex = i;
   editContact(currentEditIndex);
 }
 
+// function for mobile contact deleting
 async function mobileDelContact(){
-  // currentEditIndex = i;
   delContact(currentEditIndex);
 }
+
+// function for auto setting a new contact for demo purpose
 
 // function setContactValue(){
 //   document.getElementById('addContactName').value  = newContacts[0]['name'];
@@ -268,6 +278,7 @@ async function mobileDelContact(){
 //   document.getElementById('addContactPhone').value = newContacts[0]['phone'];
 // }
 
+// takes the input from add contact window and adds the contact to storage if its not a duplicate name
 async function addContact(){
   let addContactNameInput = document.getElementById('addContactName');
   let addContactEmailInput = document.getElementById('addContactEmail');
@@ -291,15 +302,19 @@ async function addContact(){
     }
 }
 
+// 
 async function addMobileContact() {  
   addNewContactWindow();
 }
 
+// popup to show contact add success
 function addContactSuccess(){
   let success = document.getElementById('newContactSuccess');
   success.style.top = '50%';
   setTimeout(addContactSuccessClose, 1600);
 }
+
+// closes the success popup again
 function addContactSuccessClose(){
   let success = document.getElementById('newContactSuccess');
   success.style.top = '120%';
@@ -307,6 +322,8 @@ function addContactSuccessClose(){
 
 let currentEditIndex; 
 
+
+// edit clicked contact 
 async function editContact(i) {
   let editContactWindow = document.getElementById("editContact");
   editContactWindow.style.display = 'inline-flex';
@@ -324,6 +341,7 @@ async function editContact(i) {
   currentEditIndex = i;
 }
 
+// save edited contact to storage
 async function saveChangeContact() {
   const editedIndex = currentEditIndex;
     const contactsString = await getItem("kontakte");
@@ -342,6 +360,7 @@ async function saveChangeContact() {
     closeEditContact();
 }
 
+// delete edited contact from storage
 async function delEditedContact(){
   const deletedIndex = currentEditIndex;
   const contactsString = await getItem("kontakte");
@@ -354,6 +373,7 @@ async function delEditedContact(){
   closeEditContact();
 }
 
+// delete contact from storage
 async function delContact(i) {
     const contactsString = await getItem("kontakte");
     loadedContacts = JSON.parse(contactsString);
@@ -364,6 +384,7 @@ async function delContact(i) {
     contactView.innerHTML = "";
 }
 
+// close add new contact popup
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
   addNewContact.style.right = "-120%";
@@ -373,6 +394,7 @@ function closeAddNewContact() {
   document.getElementById('addContactPhone').value ='';
 }
 
+// close edit contact popup
 function closeEditContact() {
   let editContactWindow = document.getElementById("editContact");
   editContactWindow.style = "left: -110%";
@@ -381,16 +403,20 @@ function closeEditContact() {
   document.getElementById("editContactEmail").value = '';
   document.getElementById("editContactPhone").value = '';
 }
+
+
 function closeWindow(element){
   element.style.display = "none";
 }
 
+// close mobile options for Edit and Delete
 function closeMobileOptionsWindow(){
   let window = document.getElementById('mobileOptionsWindow');
   window.style.display = "none";
   document.getElementById("popup-bg").style.display = "none";
 }
 
+// adds a listener to popup background to close itself and other functions
 document.addEventListener("DOMContentLoaded", function () {
   let popupBg =  document.getElementById("popup-bg")
     if (popupBg) {
@@ -405,8 +431,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-document.addEventListener("DOMContentLoaded", function (event) {
-    closeMobileOptionsWindow();
-    event.stopPropagation();
-});
+// document.addEventListener("DOMContentLoaded", function (event) {
+//     closeMobileOptionsWindow();
+//     event.stopPropagation();
+// });
 
