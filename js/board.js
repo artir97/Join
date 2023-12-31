@@ -408,3 +408,40 @@ function filteredtoDoTasks(filteredtoDoTasks){
     }
 
 }
+
+
+
+function generateTaskArrayId(loadedTasks) {
+    // Überprüfe, ob das übergebene Array nicht leer ist
+    if (!loadedTasks || loadedTasks.length === 0) {
+      return "Array ist leer";
+    }
+  
+    // Konkateniere die IDs der Aufgaben im Array
+    const concatenatedIds = loadedTasks.map(task => task.id).join('');
+  
+    // Berechne den Hash der konkatenierten IDs
+    const hash = hashCode(concatenatedIds);
+  
+    return `TaskArray_${hash}`;
+  }
+  
+  // Hilfsfunktion zur Berechnung eines einfachen Hashcodes
+  function hashCode(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+    }
+    return hash.toString(16);
+  }
+  
+  // Beispielaufruf
+  const tasks = [
+    { id: 1, description: "Task 1" },
+    { id: 2, description: "Task 2" },
+    // ... weitere Aufgaben
+  ];
+  
+  const taskArrayId = generateTaskArrayId(tasks);
+  console.log(taskArrayId);

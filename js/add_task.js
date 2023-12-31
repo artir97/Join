@@ -14,6 +14,22 @@ async function initTaskData() {
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
 }
 
+function generateTaskID(existingIDs) {
+    let isUnique = false;
+    let newID;
+    
+    // Schleife zum generiren einer ID
+    while (!isUnique) {
+        const timestamp = new Date().getTime();
+        const random = Math.floor(Math.random() * 1000);
+        newID = `${timestamp}-${random}`;
+
+        // Überprüfen, ob die ID bereits vorhanden ist
+        isUnique = !existingIDs.includes(newID);
+    }
+
+    return newID;
+}
 
 async function createTask() {
     const title = document.getElementById('add-task-title');
@@ -23,8 +39,10 @@ async function createTask() {
     const assignedContact = selectedContacts;
     const category = selectedCategory;
     const subtask = subtasks;
+    const newTaskID = generateTaskID(allTasks.map(task => task.taskID));
 
     const newTask = {
+        taskID: newTaskID,
         title: title.value,
         description: description.value,
         date: date.value,
