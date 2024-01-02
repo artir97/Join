@@ -22,7 +22,7 @@ function generateTaskID(existingIDs) {
     while (!isUnique) {
         const timestamp = new Date().getTime();
         const random = Math.floor(Math.random() * 1000);
-        newID = `${timestamp}-${random}`;
+        newID = timestamp+random;
 
         // Überprüfen, ob die ID bereits vorhanden ist
         isUnique = !existingIDs.includes(newID);
