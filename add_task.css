@@ -382,14 +382,14 @@ transition: background-color 0.3 ease-in-out!important;
         display: flex;
         justify-content: center;
         right: 0;
-        bottom: 85px;
+        bottom: 105px;
     }
 
     #add-task-clear-form {
         display: none;
     }
     #add-task-subtask-container {
-        padding-bottom: 130px;
+        padding-bottom: 145px;
     }
 
 
@@ -402,5 +402,17 @@ transition: background-color 0.3 ease-in-out!important;
     #add-task-create-task {
         z-index: 50;
         width: 80%;
+    }
+}
+
+@media(max-width: 1000px){
+    .add-task-form-buttons {
+        bottom: 85px;
+    }
+}
+
+@media(max-width: 400px){
+    .add-task-priority-box {
+        margin-right: 5px;
     }
 }
