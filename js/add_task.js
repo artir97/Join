@@ -237,11 +237,15 @@ function showAndHideContacts() {
 
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
+    let arrowCategories = document.getElementById('arrow-categories');
 
     if (taskBox.classList.contains('d-none')) {
         taskBox.classList.remove('d-none');
+        arrowCategories.style = 'transform: rotate(180deg);';
     } else {
         taskBox.classList.add('d-none');
+        arrowCategories.style = 'transform: rotate(0deg);';
+
     }
 }
 
