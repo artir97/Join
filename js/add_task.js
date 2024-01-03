@@ -417,10 +417,12 @@ function clearForm() {
     document.getElementById('add-task-date').value = '';
     document.getElementById('add-task-subtask-input').value = '';
     selectedCategory = null;
+    resetColorAll();
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML('');
-    // showAndHideCategories();
-    // selectedCategory = selectedTask;
-    // selectedTask();
+    selectedContacts = []; 
+    document.getElementById('add-task-selected-contacts-mini').innerHTML = renderSelectedContactsMini();
+    subtasks = [];
+    document.getElementById('add-task-subtask-list').innerHTML = renderSubtasks();
 }
 
 // these functions probably have to be combined
@@ -458,6 +460,23 @@ function changeColorLow() {
     document.getElementById('add-task-low').style.backgroundColor = '#7AE229';
     document.getElementById('add-task-low').style.color = '#fff';
     document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low white.png'
+
+
+    document.getElementById('add-task-urgent').style.backgroundColor = '#fff';
+    document.getElementById('add-task-urgent').style.color = '#000';
+    document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent.png'
+
+
+    document.getElementById('add-task-medium').style.backgroundColor = '#fff';
+    document.getElementById('add-task-medium').style.color = '#000';
+    document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png'
+}
+
+
+function resetColorAll() {
+    document.getElementById('add-task-low').style.backgroundColor = '#fff';
+    document.getElementById('add-task-low').style.color = '#000';
+    document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png'
 
 
     document.getElementById('add-task-urgent').style.backgroundColor = '#fff';
