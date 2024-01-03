@@ -364,3 +364,44 @@ transition: background-color 0.3 ease-in-out!important;
 #add-task-subtask-list li div {
     display: flex;
 }
+
+
+
+
+
+@media (max-width: 1300px) {
+
+    .add-task-container {
+        margin-left: 0;
+        width: 100%;
+        min-width: 300px;
+    }
+
+    .add-task-form-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        right: 0;
+        bottom: 85px;
+    }
+
+    #add-task-clear-form {
+        display: none;
+    }
+    #add-task-subtask-container {
+        padding-bottom: 130px;
+    }
+
+
+    .add-task-container-content {
+        width: auto;
+        margin-left: 3%;
+        margin-right: 3%;
+        overflow: hidden;
+    }
+
+    #add-task-create-task {
+        z-index: 50;
+        width: 80%;
+    }
+}
