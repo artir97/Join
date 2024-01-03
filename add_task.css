@@ -397,7 +397,6 @@ transition: background-color 0.3 ease-in-out!important;
         width: auto;
         margin-left: 3%;
         margin-right: 3%;
-        overflow: hidden;
     }
 
     #add-task-create-task {
