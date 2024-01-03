@@ -76,8 +76,7 @@ function generateTodoHTML(element, elementID) {
 function renderInProgressTask(tasks){
     let inProgress = tasks.filter(t => t['boardContainer'] == 'inProgress');
     let container = document.getElementById('progressListContainer');
-    container.innerHTML = '';
-    console.log('inProgressarray', inProgress);
+    container.innerHTML = '';   
 
     if (inProgress.length > 0) {
         for (let index = 0; index < inProgress.length; index++) {
@@ -142,7 +141,7 @@ function getInitials(fullName) {
 }
 
 
-function generateEmtyTodoHTML(){   
+function generateEmtyTodoHTML(container){   
         container.innerHTML = /*html*/`               
         <div class="emtyTask">
            <p>No tasks To do</p>            
@@ -176,13 +175,13 @@ function openInfoCard(elementID){
     let element = loadedTasks.filter(id => id['taskID'] == elementID);
     let infoCard = document.getElementById('InfoCard');
     
-    infoCard.innerHTML = generateOpenInfoCardHTML(element);
+    infoCard.innerHTML = generateOpenInfoCardHTML(element, elementID);
 
     renderAssignedContacts(element);
     renderSubtasks(element);
 }
 
-function generateOpenInfoCardHTML(element){
+function generateOpenInfoCardHTML(element, elementID){
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
         <div class="popup-content editTask" onclick="doNotClose(event)">
@@ -208,7 +207,7 @@ function generateOpenInfoCardHTML(element){
             </div>
 
             <div class="editButtonContainer">
-                <div class="editButton">
+                <div class="editButton" onclick="deleteTask(${elementID})">
                     <img src="assets/img/delete.png" alt="">
                     <p>Delete </p> 
                 </div> 
@@ -232,7 +231,7 @@ function generateOpenInfoCardHTML(element){
     if (element[0].assignedContact.length > 0) {
         for (let i = 0; i < element[0].assignedContact.length; i++) {
             const contact = element[0].assignedContact[i].name;
-            console.log('name:', contact)
+            // console.log('name:', contact)
             assignedContactsContainer.innerHTML += /*html*/`
                 <div class="singleContactPopup">
                     <div class="boardNameBox">${getInitials(contact)}</div>
@@ -251,7 +250,7 @@ function generateOpenInfoCardHTML(element){
     if (element[0].subtask.length > 0) {
         for (let i = 0; i < element[0].subtask.length; i++) {
             const subtask = element[0].subtask[i];
-            console.log('subtask:', subtask)
+            // console.log('subtask:', subtask)
             subtaskHTML += /*html*/`
                 <div class="singleContactPopup">
                 <p>${subtask}</p>
@@ -262,3 +261,22 @@ function generateOpenInfoCardHTML(element){
   }
 
 
+async function deleteTask(elementID) {
+    // Finde den Index des Tasks im allTasks-Array anhand der taskID
+    const index = allTasks.findIndex(task => task['taskID']  === elementID);
+   
+    // Überprüfe, ob der Index gültig ist
+    if (index !== -1) {
+        // Entferne den Task aus dem allTasks-Array
+        allTasks.splice(index, 1);
+
+        // Aktualisiere die gespeicherten Daten
+        await setItem('allTasks', JSON.stringify(allTasks));
+        
+        closeTaskPopup();
+        updateHTML();
+
+    } else {
+        alert('Task not found in the array');
+    }
+}
