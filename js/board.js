@@ -1,14 +1,16 @@
 let loadedTasks= [];
 
+lastSatus = saveStatus();
 
+
+function saveStatus(test){
+    lastSatus = test
+};
 
 async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
-
-
-
 
 function closeAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'none';

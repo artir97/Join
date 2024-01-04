@@ -22,29 +22,29 @@
         <div class="addTask-container">
             <div class="boardHeader">
                 <input type="search" name="" id="findTask" placeholder="Find Task" oninput="filterTasks()">
-                <button onclick="openAddTaskForm()" class="addTaskBtn">Add task +</button>
+                <button onclick="openAddTaskForm(), saveStatus('toDo')" class="addTaskBtn">Add task +</button>
             </div>
             <div class="columnTitles">
                 <div class="toDoContainer">
-                    <h1 class="pointer" onclick="openAddTaskForm()">To do<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('toDo')">To do<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div> 
 
                 <div>
-                    <h1 class="pointer" onclick="openAddTaskForm()">In progress<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('inProgress')">In progress<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
-                    <h1 class="pointer" onclick="openAddTaskForm()">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('aweitFeedback')">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
-                    <h1 class="pointer" onclick="openAddTaskForm()">Done<img src="assets/img/plus_button.png" alt=""></h1>
+                    <h1 class="pointer" onclick="openAddTaskForm(),saveStatus('done')">Done<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragover="allowDrop(event)">
                     </div>
                 </div>
