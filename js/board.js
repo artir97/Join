@@ -33,7 +33,7 @@ async function updateHTML() {
 }
 
 async function renderToDoTask(tasks) {    
-    let open = tasks.filter(t => t['boardContainer'] == 'toDo');
+    let open = tasks.filter(t => t['satus'] == 'toDo');
     let container = document.getElementById('todoListContainer');
     container.innerHTML = '';
     
@@ -76,7 +76,7 @@ function generateTodoHTML(element, elementID) {
 
 
 function renderInProgressTask(tasks){
-    let inProgress = tasks.filter(t => t['boardContainer'] == 'inProgress');
+    let inProgress = tasks.filter(t => t['satus'] == 'inProgress');
     let container = document.getElementById('progressListContainer');
     container.innerHTML = '';   
 
@@ -93,7 +93,7 @@ function renderInProgressTask(tasks){
 
 
 function renderAwaitFeedbackTask(tasks){
-    let awaitFeedback = tasks.filter(t => t['boardContainer'] == 'aweitFeedback');
+    let awaitFeedback = tasks.filter(t => t['satus'] == 'aweitFeedback');
     let container = document.getElementById('awaitFeedbackListContainer');
     container.innerHTML = '';
 
@@ -110,7 +110,7 @@ function renderAwaitFeedbackTask(tasks){
 
 
 function renderDoneTask(tasks){
-    let done = tasks.filter(t => t['boardContainer'] == 'done');
+    let done = tasks.filter(t => t['satus'] == 'done');
     let container = document.getElementById('doneListContainer');
     container.innerHTML = '';
 
@@ -184,6 +184,7 @@ function openInfoCard(elementID){
 }
 
 function generateOpenInfoCardHTML(element, elementID){
+    const reversedDate = reverseDate(element[0].date);
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
         <div class="popup-content editTask" onclick="doNotClose(event)">
@@ -195,8 +196,14 @@ function generateOpenInfoCardHTML(element, elementID){
             </div>
             <h1 class="popupTaskTitel">${element[0].title}</h1>                
             <p class="popupTaskDescription">${element[0].description}</p>
-            <p class="popupTaskDescription">Due date: ${element[0].date}</p>
-            <p class="popupTaskDescription">Priority: ${element[0].priority}</p>
+            <div class="popupInfoName">
+                <p>Due date:</p>
+                <p class="popupTaskDescription">${reversedDate}</p>
+            </div>
+            <div>
+                <p>Priority:</p> 
+                <p class="popupTaskDescription">${element[0].priority}</p>
+            </div>
             <div id="selectContact" class="selectContactPopup">
                 <p>Assigned To:</p>
                 <div id="assignedContactsContainer" class="assignedSubtasksContainer">
@@ -224,6 +231,19 @@ function generateOpenInfoCardHTML(element, elementID){
     </div>`;
 }
 
+
+function reverseDate(originalDate) {
+    // Zerlege das Datum in seine Bestandteile
+    const parts = originalDate.split('-');
+
+    // Kehre die Reihenfolge der Teile um
+    const reversedParts = parts.reverse();
+
+    // Setze die Teile wieder zusammen
+    const reversedDate = reversedParts.join('/');
+
+    return reversedDate;
+}
 
  
   function renderAssignedContacts(element){

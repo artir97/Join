@@ -51,13 +51,13 @@ async function createTask() {
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
         subtask: subtask.slice(), // Creates a new array
-        boardContainer: lastSatus
+        satus: lastSatus
     };
 
     // Add the newTask directly to the allTasks array
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
-    updateHTML();
+    
     console.log(allTasks);
 
     // alert('Task created successfully');
