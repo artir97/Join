@@ -27,9 +27,9 @@ function generateTaskID(existingIDs) {
         // Überprüfen, ob die ID bereits vorhanden ist
         isUnique = !existingIDs.includes(newID);
     }
-
     return newID;
 }
+
 
 async function createTask() {
     const title = document.getElementById('add-task-title');
@@ -40,6 +40,7 @@ async function createTask() {
     const category = selectedCategory;
     const subtask = subtasks;
     const newTaskID = generateTaskID(allTasks.map(task => task.taskID));
+    
 
     const newTask = {
         taskID: newTaskID,
@@ -50,17 +51,18 @@ async function createTask() {
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
         subtask: subtask.slice(), // Creates a new array
-        boardContainer: 'toDo'
+        satus: lastSatus
     };
 
     // Add the newTask directly to the allTasks array
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
-
+    
     console.log(allTasks);
 
-    alert('Task created successfully');
+    // alert('Task created successfully');
     clearForm();
+    
 }
 
 async function updateMinDate() {
