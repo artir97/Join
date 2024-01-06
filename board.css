@@ -8,11 +8,11 @@ body {
 .green {
     background-color: green;
 }
-/* FOR Add Task Popup */
+/* FOR Add Task Popup
 @font-face {
     font-family: OpenSans;
     src: url('font/OpenSans-VariableFont_wdth\,wght.ttf');
-}
+} */
 
 * {
     font-family: OpenSans !important;

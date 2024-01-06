@@ -21,8 +21,8 @@ function generateTaskID(existingIDs) {
     // Schleife zum generiren einer ID
     while (!isUnique) {
         const timestamp = new Date().getTime();
-        const random = Math.floor(Math.random() * 1000);
-        newID = timestamp+random;
+        // const random = Math.floor(Math.random() * 1000);
+        newID = timestamp;
 
         // Überprüfen, ob die ID bereits vorhanden ist
         isUnique = !existingIDs.includes(newID);
@@ -51,14 +51,14 @@ async function createTask() {
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
         subtask: subtask.slice(), // Creates a new array
-        satus: lastSatus
+        status: lastSatus
     };
 
     // Add the newTask directly to the allTasks array
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
     
-    console.log(allTasks);
+    console.log('allTasks:', allTasks);
 
     // alert('Task created successfully');
     clearForm();

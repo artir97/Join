@@ -22,6 +22,8 @@ function openAddTaskForm(){
 }
 
 let currentDraggedElement;
+let currentDraggedElementID; 
+
 
 async function updateHTML() {
     await loadedTaskstoBoard();
@@ -33,7 +35,7 @@ async function updateHTML() {
 }
 
 async function renderToDoTask(tasks) {    
-    let open = tasks.filter(t => t['satus'] == 'toDo');
+    let open = tasks.filter(t => t['status'] == 'toDo');
     let container = document.getElementById('todoListContainer');
     container.innerHTML = '';
     
@@ -64,7 +66,7 @@ function generateTodoHTML(element, elementID) {
     }
 
     return /*html*/`
-        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${element['id']})" class="todo">
+        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
             <div class="category">${getFirstLettersUppercase(element['category'])}</div>
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
@@ -76,7 +78,7 @@ function generateTodoHTML(element, elementID) {
 
 
 function renderInProgressTask(tasks){
-    let inProgress = tasks.filter(t => t['satus'] == 'inProgress');
+    let inProgress = tasks.filter(t => t['status'] == 'inProgress');
     let container = document.getElementById('progressListContainer');
     container.innerHTML = '';   
 
@@ -93,7 +95,7 @@ function renderInProgressTask(tasks){
 
 
 function renderAwaitFeedbackTask(tasks){
-    let awaitFeedback = tasks.filter(t => t['satus'] == 'aweitFeedback');
+    let awaitFeedback = tasks.filter(t => t['status'] == 'aweitFeedback');
     let container = document.getElementById('awaitFeedbackListContainer');
     container.innerHTML = '';
 
@@ -110,7 +112,7 @@ function renderAwaitFeedbackTask(tasks){
 
 
 function renderDoneTask(tasks){
-    let done = tasks.filter(t => t['satus'] == 'done');
+    let done = tasks.filter(t => t['status'] == 'done');
     let container = document.getElementById('doneListContainer');
     container.innerHTML = '';
 
@@ -151,14 +153,7 @@ function generateEmtyTodoHTML(container){
 }
 
 
-function allowDrop(ev) {
-    ev.preventDefault();
-}
 
-function moveTo(category) {
-    todos[currentDraggedElement]['category'] = category;
-    updateHTML();
-}
 
 
 function closeTaskPopup() {
@@ -176,6 +171,7 @@ function doNotClose(event) {
 function openInfoCard(elementID){    
     let element = loadedTasks.filter(id => id['taskID'] == elementID);
     let infoCard = document.getElementById('InfoCard');
+    console.log('open Element:', element)
     
     infoCard.innerHTML = generateOpenInfoCardHTML(element, elementID);
 
@@ -302,3 +298,42 @@ async function deleteTask(elementID) {
         alert('Task not found in the array');
     }
 }
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+
+async function moveTo(category) {
+    currentDraggedElement['status'] = category;
+    currentDraggedElement['taskID'] = new Date().getTime();
+
+    allTasks.push(currentDraggedElement);
+
+    await setItem('allTasks', JSON.stringify(allTasks))
+        .then(() => {
+            console.log('moveTo:', category);
+            console.log('moveTo:', currentDraggedElement);
+            updateHTML();
+        })
+        .catch(error => console.error('Error during setItem:', error));
+
+    deleteTask(currentDraggedElementID);
+}
+
+
+ function startDragging(elementID) {
+    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
+    currentDraggedElement = dragElement[0];
+    currentDraggedElementID = dragElement[0].taskID;
+
+    console.log('startDragging', currentDraggedElementID)
+  }
+  
+
+ 
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  

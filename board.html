@@ -27,25 +27,25 @@
             <div class="columnTitles">
                 <div class="toDoContainer">
                     <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('toDo')">To do<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('todoListContainer')" ondragover="allowDrop(event)">
+                    <div class="todoListContainer drag-area" id="todoListContainer" ondrop="moveTo('toDo')" ondragover="allowDrop(event)">
                     </div>
                 </div> 
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('inProgress')">In progress<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="progressListContainer" ondrop="moveTo('progressListContainer')" ondragover="allowDrop(event)">
+                    <div class="drag-area" id="progressListContainer" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('aweitFeedback')">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('awaitFeedbackListContainer')" ondragover="allowDrop(event)">
+                    <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('aweitFeedback')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
                 <div>
                     <h1 class="pointer" onclick="openAddTaskForm(),saveStatus('done')">Done<img src="assets/img/plus_button.png" alt=""></h1>
-                    <div class="drag-area" id="doneListContainer" ondrop="moveTo('doneListContainer')" ondragover="allowDrop(event)">
+                    <div class="drag-area" id="doneListContainer" ondrop="moveTo('done')" ondragover="allowDrop(event)">
                     </div>
                 </div>
             </div>
