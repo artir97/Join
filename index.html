@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,31 +15,32 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon/favicon-16x16.png">
     <link rel="manifest" href="assets/img/favicon/site.webmanifest">
 </head>
+
 <body onload="init(); initUsers();">
     <div id="logo-container" class="imagecontainer">
         <img id="logo-img" class="frontimage" src="assets/img/Capa2.png" alt="">
         <div id="login-container">
-            <div id="sign-up"><p>Not a Join user?</p><a  class="signUpBtn" href="sign_up.html"><button >Sign up</button></a></div>
+            <div id="sign-up">
+                <p>Not a Join user?</p><a class="signUpBtn" href="sign_up.html"><button>Sign up</button></a>
+            </div>
             <!-- <div class="login"> -->
-                    <form class="login" action="">
-                        <h1>Log in</h1>
+            <form class="login" action="">
+                <h1>Log in</h1>
 
-                        <input required id="login" class="loginInput" type="email" placeholder="Email">
-                        <input required id="password" class="loginInput" type="password" placeholder="Password">
-                 
-                        <div id="remember-div">
-                            <input type="checkbox" name="RememberMe" id="remember">
-                            <label for="remember">Remember me</label>
-                        </div>
-                        
-                        <div class="buttons">
-                            <button type="button" id="loginBtn">Log in</button>
-                            <button onclick="guestLogin()" type="submit" id="guest-log-in-btn">Guest Log in</button>
-                        </div>
-                    </form>
+                <input required id="login" class="loginInput" type="email" placeholder="Email">
+                <input required id="password" class="loginInput" type="password" placeholder="Password">
 
-             
-                <!-- </div> -->
+                <div id="remember-div">
+                    <input type="checkbox" name="RememberMe" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+
+                <div class="buttons">
+                    <button type="button" id="loginBtn">Log in</button>
+                    <button onclick="guestLogin()" type="submit" id="guest-log-in-btn">Guest Log in</button>
+                </div>
+            </form>
+            <!-- </div> -->
         </div>
     </div>
     <div class="privacyNotice">
@@ -46,4 +48,5 @@
         <button><a href="../plain_legal_notice.html">Legal Notice</a></button>
     </div>
 </body>
+
 </html>

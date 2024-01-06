@@ -163,9 +163,10 @@
 
 #add-task-subtask-input-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #D1D1D1;
+    padding: 5px;
 }
 
 #add-task-subtask-input-container img {

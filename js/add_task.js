@@ -391,7 +391,7 @@ function renderSubtasks() {
 
 
 // TEMPLATES
-function assignContactsTemplate(name, id) {
+function assignContactsTemplate(name, index) {
     const contactFound = selectedContacts.find(c => c.name == name);
     let selectedClass = '';
     let checkboxImage = `assets/img/add-task/checkbox.png`;
@@ -403,15 +403,15 @@ function assignContactsTemplate(name, id) {
 
     const contactElement = document.createElement('div');
     contactElement.innerHTML = `
-        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
+        <div onclick="selectContact(${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
-            <div class="checkbox"><img id="contact-checkbox-${id}" src="${checkboxImage}" alt="checkbox"></div>
+            <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>
         </div>
     `;
 
     // Access the checkbox image element and set its style
-    const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${id}`);
+    const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
     if (contactFound) {
         checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
     }
