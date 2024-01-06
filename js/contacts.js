@@ -286,7 +286,8 @@ async function addContact(){
     const newContact = {
       name: addContactNameInput.value,
       email: addContactEmailInput.value,
-      phone: addContactPhoneInput.value
+      phone: addContactPhoneInput.value,
+      id: new Date().getTime()
     };
     const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase());
     if (isNameDuplicate) {

@@ -21,8 +21,8 @@ function generateTaskID(existingIDs) {
     // Schleife zum generiren einer ID
     while (!isUnique) {
         const timestamp = new Date().getTime();
-        // const random = Math.floor(Math.random() * 1000);
-        newID = timestamp;
+        const random = Math.floor(Math.random() * 1000);
+        newID = timestamp+random;
 
         // Überprüfen, ob die ID bereits vorhanden ist
         isUnique = !existingIDs.includes(newID);
@@ -392,16 +392,36 @@ function renderSubtasks() {
 
 // TEMPLATES
 function assignContactsTemplate(name, id) {
-    return (
-        `         
-        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item">
+    const contactFound = selectedContacts.find(c => c.name == name);
+    let selectedClass = '';
+    let checkboxImage = `assets/img/add-task/checkbox.png`;
+
+    if (contactFound) {
+        selectedClass = 'selectedContact';
+        checkboxImage = 'assets/img/add-task/checkbox-checked.png';
+    }
+
+    const contactElement = document.createElement('div');
+    contactElement.innerHTML = `
+        <div onclick="selectContact(${id})" id="contact-${id}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
-            <div class="checkbox"><img id="contact-checkbox-${id}" src="assets/img/add-task/checkbox.png" alt="checkbox"></div>
+            <div class="checkbox"><img id="contact-checkbox-${id}" src="${checkboxImage}" alt="checkbox"></div>
         </div>
-        `
-    );
+    `;
+
+    // Access the checkbox image element and set its style
+    const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${id}`);
+    if (contactFound) {
+        checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
+    }
+
+    // Return the HTML string
+    return contactElement.innerHTML;
 }
+
+
+
 
 function selectedContactMiniTemplate(name) {
     return (
