@@ -70,9 +70,15 @@ function generateTodoHTML(element, elementID) {
             <div class="category">${getFirstLettersUppercase(element['category'])}</div>
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
-            <div id="selectContact" class="selectContact">
-                ${assignedContactHTML}
-            </div>            
+            <div class="flex_spaceBetween">
+                <div id="selectContact" class="selectContact">
+                    ${assignedContactHTML}
+                </div>
+                <div class="priorityIcon">
+                    ${selectedTaskInnerHTML(element['priority'])}
+                </div>
+            </div>
+
         </div>`;
 }
 
@@ -181,32 +187,38 @@ function openInfoCard(elementID){
 
 function generateOpenInfoCardHTML(element, elementID){
     const reversedDate = reverseDate(element[0].date);
+    let titleUpperCase = element[0].priority.toUpperCase();
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
         <div class="popup-content editTask" onclick="doNotClose(event)">
             <div class="spacebetween pointer">
-               
+                <div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>               
                 <div onclick="closeTaskPopup()">
                     <img src="assets/img/close.png" alt="">
                 </div>
             </div>
+            
             <h1 class="popupTaskTitel">${element[0].title}</h1>                
-            <p class="popupTaskDescription">${element[0].description}</p>
-            <div class="popupInfoName">
-                <p>Due date:</p>
-                <p class="popupTaskDescription">${reversedDate}</p>
-            </div>
-            <div>
-                <p>Priority:</p> 
-                <p class="popupTaskDescription">${element[0].priority}</p>
-            </div>
-            <div id="selectContact" class="selectContactPopup">
-                <p>Assigned To:</p>
+            <p class="popupTaskDescription">${element[0].description}</p>         
+            <table>
+                <tbody>
+                    <tr class="tableRaw">
+                        <td class="popupTaskInfoTitel">Due date:</td>   
+                        <td class="popupTaskInfoTitel">Priority:</td>
+                    </tr>
+                    <tr class="tableRaw">
+                        <td class="popupTaskDescription">${reversedDate}</td>    
+                        <td class="popupTaskDescription">${element[0].priority} ${selectedTaskInnerHTML(element[0]['priority'])}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="selectContact" class="selectContactPopup">                
+                <p id="assignedTO" class="popupTaskInfoTitel"></p>
                 <div id="assignedContactsContainer" class="assignedSubtasksContainer">
                 </div>
             </div>
             <div id="selectContact" class="selectContactPopup">
-            <p>Subtasks </p>
+                <p id="Subtasks" class="popupTaskInfoTitel"></p>
                 <div id="assignedSubtasksContainer" class="assignedSubtasksContainer">
                 </div>
             </div>
@@ -218,7 +230,7 @@ function generateOpenInfoCardHTML(element, elementID){
                 </div> 
                 <p>|</p>
                 <div class="editButton">
-                    <img src="assets/img/delete.png" alt="">
+                    <img src="assets/img/edit.png" alt="">
                     <p>Edit</p>
                 </div>
             </div>
@@ -247,6 +259,9 @@ function reverseDate(originalDate) {
     assignedContactsContainer.innerHTML = '';
     
     if (element[0].assignedContact.length > 0) {
+        // document.getElementById('assignedTO').innerHTML = <p>Assigned To:</p>;
+        let assignedTO = document.getElementById('assignedTO');
+        assignedTO.innerHTML = 'Assigned To:';
         for (let i = 0; i < element[0].assignedContact.length; i++) {
             const contact = element[0].assignedContact[i].name;
             // console.log('name:', contact)
@@ -260,23 +275,31 @@ function reverseDate(originalDate) {
   }
 
 
-  function renderSubtasks(element){
-    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer')
+
+  function renderSubtasks(element) {
+    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
     assignedSubtasksContainer.innerHTML = '';
 
     let subtaskHTML = '';
     if (element[0].subtask.length > 0) {
+        let Subtasks = document.getElementById('Subtasks');
+        Subtasks.innerHTML = 'Subtasks:';
+
         for (let i = 0; i < element[0].subtask.length; i++) {
             const subtask = element[0].subtask[i];
-            // console.log('subtask:', subtask)
+            const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
+            const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
+
             subtaskHTML += /*html*/`
-                <div class="singleContactPopup">
-                <p>${subtask}</p>
+                <div class="singleContactPopup">                    
+                    <input type="checkbox" id="${checkboxId}">
+                    <label for="${checkboxId}" id="${labelFor}"></label>
+                    <p>${subtask}</p>
                 </div>`;
         }
     }
     assignedSubtasksContainer.innerHTML = subtaskHTML;
-  }
+}
 
 
 async function deleteTask(elementID) {
@@ -313,8 +336,8 @@ async function moveTo(category) {
 
     await setItem('allTasks', JSON.stringify(allTasks))
         .then(() => {
-            console.log('moveTo:', category);
-            console.log('moveTo:', currentDraggedElement);
+            // console.log('moveTo:', category);
+            // console.log('moveTo:', currentDraggedElement);
             updateHTML();
         })
         .catch(error => console.error('Error during setItem:', error));
@@ -328,7 +351,7 @@ async function moveTo(category) {
     currentDraggedElement = dragElement[0];
     currentDraggedElementID = dragElement[0].taskID;
 
-    console.log('startDragging', currentDraggedElementID)
+    // console.log('startDragging', currentDraggedElementID)
   }
   
 
@@ -337,3 +360,28 @@ async function moveTo(category) {
     ev.preventDefault();
   }
   
+
+  function selectedTaskInnerHTML(selectedTask) {    
+    let taskImageSrc = '';
+
+    switch (selectedTask) {
+        case 'urgent':
+            taskText = 'urgent';
+            taskImageSrc = '/assets/img/Prio urgent.png';
+            break;
+        case 'medium':
+            taskText = 'medium';
+            taskImageSrc = '/assets/img/Prio medium.png';
+            break;
+        case 'low':
+            taskText = 'low';
+            taskImageSrc = '/assets/img/Prio low.png';
+            break;
+    }
+
+    // Hier kannst du das Bild und den Text in dein HTML-Element einfügen
+    let resultHTML = `
+        <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
+    `;
+    return resultHTML;
+}
