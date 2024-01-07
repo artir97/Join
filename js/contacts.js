@@ -1,15 +1,3 @@
-
-// const contactView = document.getElementById("contactView");
-// const addNewContact = document.getElementById("addContact");
-// const editContactWindow = document.getElementById("editContact");
-// const addContactNameInput = document.getElementById('addContactName');
-// const addContactEmailInput = document.getElementById('addContactEmail');
-// const addContactPhoneInput = document.getElementById('addContactPhone');
-// const editContactNameInput = document.getElementById("editContactName");
-// const editContactEmailInput = document.getElementById("editContactEmail");
-// const editContactPhoneInput = document.getElementById("editContactPhone");
-// const popupBg = document.getElementById("popup-bg");
-
 let allContacts = [
   {
     name: "Anton Mayer",
@@ -56,7 +44,7 @@ let newContacts = [{
 
 let loadedContacts = [];
 
-// Initiat body onload
+// Initiate body onload
 async function contactsInit() {
   await saveContacts();
   await loadContacts();
@@ -124,7 +112,7 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
-// Contact Info popup when clicked on a contact
+// Contact Info render when clicked on a contact
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
@@ -153,7 +141,7 @@ async function openContactView(i) {
   }
 }
 
-// contact info popup
+// contact info render html
 function renderContactView(i, name, email, phone, uppercaseLetter) {
   return `
         <div class="mobileBackArrow" onclick="openContactView(${i})">
