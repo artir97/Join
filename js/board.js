@@ -66,9 +66,10 @@ async function renderToDoTask(loadedTasks) {
 }
 
 
+
 function generateTodoHTML(element, elementID) {
-   
     let assignedContactHTML = '';
+
     if (element.assignedContact && element.assignedContact.length > 0) {
         for (let i = 0; i < element.assignedContact.length; i++) {
             let contact = element.assignedContact[i];
@@ -79,9 +80,12 @@ function generateTodoHTML(element, elementID) {
         }
     }
 
+    // Überprüfe, ob die Kategorie nicht leer ist, bevor du das HTML generierst
+    const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
+
     return /*html*/`
         <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
-            <div class="category">${getFirstLettersUppercase(element['category'])}</div>
+            ${categoryHTML}
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
             <div class="flex_spaceBetween">
@@ -92,9 +96,9 @@ function generateTodoHTML(element, elementID) {
                     ${selectedTaskInnerHTML(element['priority'])}
                 </div>
             </div>
-
         </div>`;
 }
+
 
 
 function renderInProgressTask(loadedTasks){
@@ -201,12 +205,13 @@ function openInfoCard(elementID){
 
 function generateOpenInfoCardHTML(element, elementID){
     const reversedDate = reverseDate(element[0].date);
-    let titleUpperCase = element[0].priority.toUpperCase();
+    const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
+
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
         <div class="popup-content editTask" onclick="doNotClose(event)">
             <div class="spacebetween pointer">
-                <div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>               
+                ${categoryHTML}                
                 <div onclick="closeTaskPopup()">
                     <img src="assets/img/close.png" alt="">
                 </div>
