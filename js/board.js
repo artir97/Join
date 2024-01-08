@@ -27,15 +27,29 @@ let currentDraggedElementID;
 
 async function updateHTML() {
     await loadedTaskstoBoard();
+    const searchInput = document.getElementById('findTask').value.toLowerCase();
+    const filteredTasks = filterTasksBySearch(loadedTasks, searchInput);
+
     initTaskData();
-    renderToDoTask(loadedTasks);
-    renderInProgressTask(loadedTasks);
-    renderAwaitFeedbackTask(loadedTasks);
-    renderDoneTask(loadedTasks);    
+    renderToDoTask(filteredTasks);
+    renderInProgressTask(filteredTasks);
+    renderAwaitFeedbackTask(filteredTasks);
+    renderDoneTask(filteredTasks);    
 }
 
-async function renderToDoTask(tasks) {    
-    let open = tasks.filter(t => t['status'] == 'toDo');
+function searchTasks() {
+    updateHTML();
+}
+
+function filterTasksBySearch(tasks, searchInput) {
+    return tasks.filter(task =>
+        task.title.toLowerCase().includes(searchInput) ||
+        task.description.toLowerCase().includes(searchInput)
+    );
+}
+
+async function renderToDoTask(loadedTasks) {    
+    let open = loadedTasks.filter(t => t['status'] == 'toDo');
     let container = document.getElementById('todoListContainer');
     container.innerHTML = '';
     
@@ -83,8 +97,8 @@ function generateTodoHTML(element, elementID) {
 }
 
 
-function renderInProgressTask(tasks){
-    let inProgress = tasks.filter(t => t['status'] == 'inProgress');
+function renderInProgressTask(loadedTasks){
+    let inProgress = loadedTasks.filter(t => t['status'] == 'inProgress');
     let container = document.getElementById('progressListContainer');
     container.innerHTML = '';   
 
@@ -100,8 +114,8 @@ function renderInProgressTask(tasks){
 }
 
 
-function renderAwaitFeedbackTask(tasks){
-    let awaitFeedback = tasks.filter(t => t['status'] == 'aweitFeedback');
+function renderAwaitFeedbackTask(loadedTasks){
+    let awaitFeedback = loadedTasks.filter(t => t['status'] == 'aweitFeedback');
     let container = document.getElementById('awaitFeedbackListContainer');
     container.innerHTML = '';
 
@@ -117,8 +131,8 @@ function renderAwaitFeedbackTask(tasks){
 }
 
 
-function renderDoneTask(tasks){
-    let done = tasks.filter(t => t['status'] == 'done');
+function renderDoneTask(loadedTasks){
+    let done = loadedTasks.filter(t => t['status'] == 'done');
     let container = document.getElementById('doneListContainer');
     container.innerHTML = '';
 
@@ -378,8 +392,7 @@ async function moveTo(category) {
             taskImageSrc = '/assets/img/Prio low.png';
             break;
     }
-
-    // Hier kannst du das Bild und den Text in dein HTML-Element einfügen
+    // fügt das Bild  in das HTML-Element ein
     let resultHTML = `
         <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
     `;
