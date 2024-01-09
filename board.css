@@ -58,7 +58,8 @@ body {
 }
 
 
-
+/* ADD TASK STYLING ANFANG (nach slide form)*/
+/* edit scrollbar */
 /* edit scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
@@ -81,18 +82,16 @@ body {
     border-radius: 10px;
 }
 
-
-
 .add-task-container {
     height: calc(100vh - 100px);
-    min-width: 95%;
-    /* background-color: aliceblue; */
+    min-width: 520px;
+    width: 95%;
 }
 
 .add-task-container-content {
     display: flex;
     flex-direction: column;
-    width: 93%;
+    width: 90%;
     margin-left: 5%;
     gap: 10px;
     height: calc(100vh - 100px);
@@ -111,7 +110,7 @@ body {
 #add-task-date,
 #add-task-assigne,
 #add-task-category,
-#add-task-subtask {
+#add-task-subtask-input {
     border: unset;
     height: 30px;
     border-bottom: 1px solid #D1D1D1;
@@ -119,7 +118,12 @@ body {
     padding: 5px;
 }
 
+#add-task-subtask-input  {
+    border-bottom: none;
+}
+
 #add-task-title {
+    margin-top: 20px;
     font-size: 30px;
 }
 
@@ -143,32 +147,32 @@ body {
 
 #add-task-assigne,
 #add-task-category {
-   display: flex;
+    display: flex;
     justify-content: space-between;
 }
 
 #add-task-assigne:hover,
 #add-task-category:hover {
-   border-bottom: 1px solid #005DFF;
+    border-bottom: 1px solid #005DFF;
 }
 
 #add-task-assigne img:hover,
 #add-task-category img:hover {
-   background-color: #D2E3FF;
+    background-color: #D2E3FF;
     border-radius: 100%;
 }
 
-
 .add-task-contacts-to-assigne-list-item,
 .add-task-category-dropdown-task {
-   display: flex;
+    display: flex;
     justify-content: space-between;
     padding: 10px;
+    margin-bottom: 5px;
 }
 
 .add-task-contacts-to-assigne-list-item:hover,
 .add-task-category-dropdown-task:hover {
-   cursor: pointer;
+    cursor: pointer;
     border-radius: 10px;
     background-color: #D2E3FF;
 }
@@ -200,15 +204,86 @@ body {
     width: 80%;
 }
 
-#add-task-subtask {
-    padding-bottom: 50px;
+
+#add-task-subtask-container {
+    padding-bottom:100px;
 }
+
 
 #add-task-title::placeholder,
 #add-task-description::placeholder,
 #add-task-date::placeholder,
-#add-task-subtask::placeholder {
+#add-task-subtask-input::placeholder {
     color: #D1D1D1;
+}
+
+#add-task-subtask-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #D1D1D1;
+    padding: 5px;
+}
+
+#add-task-subtask-input-container img {
+    height: 24px;
+    
+    object-fit: contain;
+}
+
+#add-task-subtask-input-container img:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+    border-radius: 100%;
+}
+
+#add-task-subtask-image-container {
+    display: flex;
+    align-items: center;
+}
+
+.hr {
+    height: 20px;
+    background-color: #c2c2c2;
+    width: 1px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#add-task-subtask-input{
+    width: 90%;
+}
+
+.rotated-image {
+    transform: rotate(180deg);
+}
+
+.subtask-edit-input-container,
+.searchbar-add-contacts-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #005DFF;
+}
+
+.subtask-edit-input-container img:hover,
+.searchbar-add-contacts-input-container img:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+    border-radius: 100%;
+}
+
+.subtask-edit-input-container input,
+.searchbar-add-contacts-input-container input {
+    width: 90%;
+    border: unset;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.subtask-edit-input-container div,
+.searchbar-add-contacts-input-container div {
+    display: flex;
 }
 
 #add-task-priority {
@@ -225,7 +300,7 @@ body {
     /* border: 1px solid black; */
     border-radius: 10px;
     background-color: #fff;
-    margin-right: 5px;
+    margin-right: 20px;
     height: 50px;
     width: 150px;
 
@@ -257,7 +332,6 @@ body {
 }
 
 .add-task-form-buttons button {
-    /* width: Hug (174px); */
     min-width: 100px;
     height: 50px;
     padding: 16px, 10px, 16px, 10px;
@@ -293,6 +367,65 @@ transition: background-color 0.3 ease-in-out!important;
     color: #4589FF;
     border: 1px solid #4589FF;
 }   
+
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.green {
+    background-color: green;
+}
+
+
+
+.selectedContact {
+    background-color: #4589FF;
+    color: #fff;
+
+    border-radius: 10px;
+}
+
+.selectedContact:hover {
+    background-color: #005DFF;
+}
+
+#add-task-selected-contacts-mini {
+    display: flex;
+}
+
+#add-task-subtask-list {
+    padding-inline-start: 0;
+
+}
+
+
+#add-task-subtask-list li {
+    padding: 2px 10px;
+
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#add-task-subtask-list li:hover {
+    cursor: pointer;
+    background-color: #D2E3FF;
+}
+
+#add-task-subtask-list li div {
+    display: flex;
+}
+
+
+
+
+/* ADD TASK STYLING ENDE */
 
 .d-none {
     display: none;
