@@ -281,7 +281,7 @@ function confirmAddSubtask() {
     let subtaskList = document.getElementById('add-task-subtask-list');
 
     subtasks.push(subtaskInput.value);
-    subtaskList.innerHTML = renderSubtasks();
+    subtaskList.innerHTML = renderSubtasksAddTask();
 
     subtaskInput.value = '';
     imgContainer.innerHTML =
@@ -296,7 +296,7 @@ function deleteAddedSubtask(i) {
     let subtaskList = document.getElementById('add-task-subtask-list');
 
     subtasks.splice(i, 1);
-    subtaskList.innerHTML = renderSubtasks();
+    subtaskList.innerHTML = renderSubtasksAddTask();
 }
 
 
@@ -325,7 +325,7 @@ function confirmEditSubtask(i) {
     subtaskInput.classList.add('d-none');
     subtaskEditContainer.classList.add('d-none');
 
-    subtaskList.innerHTML = renderSubtasks();
+    subtaskList.innerHTML = renderSubtasksAddTask();
 }
 
 
@@ -357,7 +357,7 @@ function renderSelectedContactsMini() {
     return miniContacts;
 }
 
-function renderSubtasks() {
+function renderSubtasksAddTask() {
     let subtaskList = '';
 
     if (subtasks.length > 0) {
@@ -448,7 +448,7 @@ function clearForm() {
     selectedContacts = []; 
     document.getElementById('add-task-selected-contacts-mini').innerHTML = renderSelectedContactsMini();
     subtasks = [];
-    document.getElementById('add-task-subtask-list').innerHTML = renderSubtasks();
+    document.getElementById('add-task-subtask-list').innerHTML = renderSubtasksAddTask();
 }
 
 // these functions probably have to be combined
