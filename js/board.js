@@ -1,10 +1,10 @@
 let loadedTasks= [];
 
-lastSatus = saveStatus();
-
+// lastStatus = saveStatus();
+// saveStatus ist kein return - last status wird sowieso überschrieben im der Funktion
 
 function saveStatus(test){
-    lastSatus = test
+    lastStatus = test
 };
 
 async function loadedTaskstoBoard() {

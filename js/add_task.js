@@ -5,7 +5,7 @@ let selectedContact;
 let selectedContacts = [];
 let selectedCategory;
 let subtasks = [];
-
+let lastStatus;
 
 async function initTaskData() {
     await loadContacts();
@@ -51,10 +51,10 @@ async function createTask() {
         assignedContact: assignedContact.slice(), // Creates a new array
         category: category,
         subtask: subtask.slice(), // Creates a new array
-        status: lastSatus
+        status: lastStatus
     };
 
-    // Add the newTask directly to the allTasks array
+    // Add the newTask directly to the allTasks array       
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
     
