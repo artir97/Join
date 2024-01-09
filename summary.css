@@ -8,22 +8,23 @@
   line-height: 120%;
 }
 
+.box-container {}
+
 .summary-top {
+  gap: 44px;
+  padding-bottom: 20px;
+
   display: flex;
-  width: 912px;
-  height: 160px;
   justify-content: center;
   align-items: flex-start;
-  gap: 36px;
 }
 
 .summary-bottom {
+  gap: 32px;
+
   display: flex;
-  width: 912px;
-  height: 219px;
   justify-content: center;
   align-items: flex-start;
-  gap: 32px;
 }
 
 .summary-container {
@@ -52,25 +53,27 @@
   background: var(--version-2-main-color, #4589ff);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
   color: #fff;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .summary-big-box:hover {
-  transform: scale(1.1); /* Scale the entire box on hover */
+  transform: scale(1.1);
+  /* Scale the entire box on hover */
   background-color: #fff;
   color: #4589ff;
-  border-radius: 0px 30px 30px 30px;
+  border-radius: 0px 15px 15px 15px;
 }
 
 .summary-big-box span,
 .summary-big-box .summary-big-box-left,
 .summary-big-box .summary-big-box-right {
-  transition: transform 0.3s ease; /* Apply the same duration and easing to all elements */
-  
+  transition: transform 0.2s ease;
+  /* Apply the same duration and easing to all elements */
+
 }
 
 .summary-big-box span {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .summary-big-box:hover .summary-big-box-left {
@@ -87,20 +90,70 @@
 
 .summary-small-box {
   cursor: pointer;
-  display: flex;
+
   width: 52px;
   height: 48px;
   padding: 40px;
-  justify-content: center;
-  align-items: center;
+
   flex-shrink: 0;
   border-radius: 30px;
+  overflow: hidden;
   background: var(--white, #fff);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.2s ease;
+
+}
+
+#summary-small-box-tasks-in-board {
+  transition: transform 0.2s ease;
+}
+
+#summary-small-box-tasks-in-board:hover {
+  transform: scaleX(1.6) scaleY(1.1);
+  transform-origin: top right;
+  border-radius: 0px 15px 15px 15px;
+}
+
+#summary-small-box-tasks-in-board:hover .summary-small-box-content-top,
+#summary-small-box-tasks-in-board:hover span {
+  transform: scaleX(calc(1/1.6*1.1)) scaleY(calc(1/1.1*1.1));
+}
+
+#summary-small-box-todo {
+  transition: transform 0.2s ease;
+}
+
+#summary-small-box-todo:hover {
+  background-color: #fff;
+  transform: scaleX(1.6) scaleY(0.95);
+  transform-origin: top left;
+  border-radius: 0px 15px 15px 15px;
+}
+
+
+#summary-small-box-todo:hover .summary-small-box-number {
+  color: #005dff;
+}
+
+#summary-small-box-todo:hover span {
+  color: #005dff;
+  transform: scaleX(calc(1/1.6*1.1)) scaleY(calc(1/0.95*1.1));
+}
+#summary-small-box-todo:hover .summary-small-box-content-top {
+  transform: scaleX(calc(1/1.6*1.1)) scaleY(calc(1/0.95*1.1));
 }
 
 .summary-small-box:hover {
   background-color: #005dff;
+  transform: scale(1.1);
+  transform-origin: top;
+  border-radius: 0px 15px 15px 15px;
 }
 
 .summary-small-box:hover .summary-small-box-number,
@@ -134,6 +187,7 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .summary-small-box-content span {
@@ -149,7 +203,7 @@
 }
 
 .summary-big-box span {
-  transition: transform 0.3 ease;
+  transition: transform 0.2 ease;
 }
 
 .summary-big-box:hover .summary-big-box-left {
@@ -177,7 +231,7 @@
 .summary-big-box-hr {
   height: 100px;
   border: 1px solid #fff;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
 .summary-big-box:hover .summary-big-box-hr {
@@ -199,4 +253,5 @@
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
+  margin-bottom: 10px;
 }
