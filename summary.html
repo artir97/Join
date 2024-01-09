@@ -18,7 +18,7 @@
 <body onload="init(), summaryInit()">
     <div w3-include-html="assets/templates/desktop_template.html"></div>
     <div class="summary-container">
-        <div id="summary-headline">Good Morning</div>
+        <div class="mobile-d-none" id="summary-headline">Good Morning</div>
 
         <div class="box-container">
             <div class="summary-top">
@@ -87,6 +87,83 @@
                         <span>Tasks Done</span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="box-container-mobile">
+            <div class="summary-top">
+                <div class="summary-big-box">
+                    <div>
+                        <div>
+                            <div class="summary-big-box-left">
+                                <img class="summary-small-box-content-img" src="/assets/img/Urgent.png" alt="">
+                                <div class="summary-big-box-number">1</div>
+                            </div>
+                            <span>Tasks Urgent</span>
+                        </div>
+                    </div>
+                    <div class="summary-big-box-hr"></div>
+                    <div class="summary-big-box-right">
+                        <div class="date">November 20, 2023</div>
+                        <div>Upcoming Deadline</div>
+                    </div>
+                </div>
+
+                <div class="summary-small-box todo" id="summary-small-box-todo">
+                    <div class="summary-small-box-content">
+                        <div class="summary-small-box-content-top">
+                            <img class="summary-small-box-content-img" src="/assets/img/Urgent (1).png" alt="">
+                            <div class="summary-small-box-number">1</div>
+                        </div>
+                        <span>Tasks To-do</span>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="summary-bottom">
+                <div class="summary-bottom-left">
+                    <div class="summary-small-box" id="summary-small-box-tasks-in-board">
+                        <div class="summary-small-box-content">
+                            <div class="summary-small-box-content-top">
+                                <img class="summary-small-box-content-img" src="/assets/img/Board.png" alt="">
+                                <div class="summary-small-box-number">5</div>
+                            </div>
+                            <span>Tasks in Board</span>
+                        </div>
+                    </div>
+                    <div class="summary-small-box">
+                        <div class="summary-small-box-content">
+                            <div class="summary-small-box-content-top">
+                                <img class="summary-small-box-content-img" src="/assets/img/In Progress.png" alt="">
+                                <div class="summary-small-box-number">2</div>
+                            </div>
+                            <span>Tasks in Progress</span>
+                        </div>
+                    </div>
+                </div>
+  
+                <div class="summary-bottom-right">
+                    <div class="summary-small-box">
+                        <div class="summary-small-box-content">
+                            <div class="summary-small-box-content-top">
+                                <img class="summary-small-box-content-img" src="/assets/img/Awaiting feedback.png" alt="">
+                                <div class="summary-small-box-number">2</div>
+                            </div>
+                            <span>Awaiting Feedback</span>
+                        </div>
+                    </div>
+                    <div class="summary-small-box">
+                        <div class="summary-small-box-content">
+                            <div class="summary-small-box-content-top">
+                                <img class="summary-small-box-content-img" src="/assets/img/Done.png" alt="">
+                                <div class="summary-small-box-number">1</div>
+                            </div>
+                            <span>Tasks Done</span>
+                        </div>
+                    </div>
+                </div>
+      
             </div>
         </div>
     </div>
