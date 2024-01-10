@@ -248,7 +248,7 @@ function generateOpenInfoCardHTML(element, elementID){
                     <p>Delete </p> 
                 </div> 
                 <p>|</p>
-                <div class="editButton">
+                <div class="editButton" onclick="editTask(${elementID})">
                     <img src="assets/img/edit.png" alt="">
                     <p>Edit</p>
                 </div>
@@ -324,6 +324,7 @@ function reverseDate(originalDate) {
 async function deleteTask(elementID) {
     // Finde den Index des Tasks im allTasks-Array anhand der taskID
     const index = allTasks.findIndex(task => task['taskID']  === elementID);
+    // console.log('deleteTask', index)
    
     // Überprüfe, ob der Index gültig ist
     if (index !== -1) {
@@ -402,4 +403,128 @@ async function moveTo(category) {
         <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
     `;
     return resultHTML;
+}
+
+
+
+
+
+
+
+
+
+
+
+function editTask(elementID){
+    const element = allTasks.filter(task => task['taskID']  === elementID);
+    let infoCard = document.getElementById('InfoCard');
+
+    infoCard.innerHTML =  openEditTaskForm(element);
+
+
+
+
+}
+
+
+function openEditTaskForm(element){
+    console.log('openEditTaskForm:', element[0])
+    const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
+    saveStatus(element[0]['status']);
+
+    return /*html*/`
+    <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
+        <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="createTask(), closeAddTaskForm(), updateHTML(); return false;">
+            <div class="add-task-container-content">
+                <div class="spacebetween pointer">
+                    ${categoryHTML}                
+                    <div onclick="closeTaskPopup()">
+                        <img src="assets/img/close.png" alt="">
+                    </div>
+                </div>
+                <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title" value="${element[0].title}">
+
+                <label for="add-task-description">Description (optional)</label>
+                <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
+                    placeholder="Enter a description">${element[0].description}</textarea>
+
+                <label for="add-task-date">Due date</label>
+                <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" onclick="updateMinDate()">
+
+                <label for="add-task-priority">Priority (optional)</label>
+                <div id="add-task-priority">
+                    <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
+                        <div>Urgent</div>
+                        <img src="/assets/img/Prio urgent.png" alt="">
+                    </div>
+                    <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
+                        <div>Medium</div>
+                        <img src="/assets/img/Prio medium.png" alt="">
+                    </div>
+                    <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
+                        <div>Low</div>
+                        <img src="/assets/img/Prio low.png" alt="">
+                    </div>
+                </div>
+
+                <label for="add-task-assigne">Assgigned to (optional)</label>
+                <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
+                    <div>Select contacts to assgin</div>
+                    <img src="/assets/img/arrow_drop_down.png" alt="">
+                </div>
+                <div class="d-none searchbar-add-contacts-input-container" id="searchbar-add-contacts-container">
+                    <input onkeyup="searchContactToAdd()" class="pointer" type="text" id="searchbar-add-contacts">
+                    <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContacts()"> <!-- reverse so that the arrow points upwards-->
+                </div>
+                <div class="d-none" id="add-task-contacts-to-assigne">
+                    <!-- Gets rendered through a function now -->
+                </div>
+                <div class="d-none" id="add-task-selected-contacts-mini">
+                    <!-- Gets rendered through a function now -->
+                </div>
+
+                <!-- change it like above in the add-task-contact -->
+                <label for="add-task-category">Category</label>
+                <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
+                    <div id="add-task-currently-selected-category">Select task category</div>
+                    <img id="arrow-categories" src="/assets/img/arrow_drop_down.png" alt="">
+                </div>
+                <div class="d-none" id="add-task-category-dropdown">
+                    <div class="add-task-category-dropdown-task" onclick="selectedTask('technical-task')">Technical Task
+                    </div>
+                    <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
+                </div>
+
+
+                <!-- <label for="add-task-subtask">Subtask (optional)</label>
+                <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask"> -->
+                <label for="add-task-subtask">Subtask (optional)</label>
+                <div id="add-task-subtask-container">
+                    <div id="add-task-subtask-input-container">
+                        <input class="pointer" type="text" name="subtask" id="add-task-subtask-input"
+                            placeholder="Add new subtask">
+
+                        <div id="add-task-subtask-image-container">
+                            <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+                        </div>
+
+                    </div>
+                    <div>
+                        <ul id="add-task-subtask-list">
+                            <!-- Gets rendered through a function now -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="add-task-form-buttons editTaskButton">
+                    <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
+                    <button id="add-task-create-task" onclick="updateHTML()"> Create Task <img src="/assets/img/check.png" alt=""></button>            
+                </div>
+            </div>
+
+           
+        </form>
+    </div>`;
+
+
 }

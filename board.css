@@ -690,3 +690,10 @@ input[type="checkbox"] {
     height: auto !important;
 
   }
+
+  .editTaskButton{
+    display: flex;
+    justify-content: flex-end !important;    
+    gap: 10px;
+    position: unset !important;
+  }
