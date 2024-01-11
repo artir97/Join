@@ -698,7 +698,7 @@ input[type="checkbox"] {
     position: unset !important;
   }
 
-  .editTask-container-content {
+  .editTask-container-content{
     display: flex;
     flex-direction: column;
     width: 90%;
