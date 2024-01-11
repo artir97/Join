@@ -1,5 +1,6 @@
 setTimeout(loadimg, 1000);
 
+
 async function init() {
     await includeHTML();
     //Timeout war 800
@@ -8,14 +9,19 @@ async function init() {
 }
 
 function checkFocusOnSidenav(){
+    let responsive = window.innerWidth < 1000;
     if (document.location.pathname.includes("contacts.html")){
         document.getElementById('contactsPage').classList.add('active');
+        document.getElementById('contactsImg').src = responsive ? '/assets/img/contacts_blue.png' : "/assets/img/nav-contact-icon.png";
     } if (document.location.pathname.includes("add_task.html")){
         document.getElementById('taskPage').classList.add('active');
+        document.getElementById('taskImg').src = responsive ? '/assets/img/addtask_blue.png' : "/assets/img/nav-add-task-icon.png";
     } if (document.location.pathname.includes("board.html")){
         document.getElementById('boardPage').classList.add('active');
+        document.getElementById('boardImg').src = responsive ? '/assets/img/board_blue.png' : "/assets/img/nav-board-icon.png";
     } if (document.location.pathname.includes("summary.html")) {
         document.getElementById('summaryPage').classList.add('active');
+        document.getElementById('summaryImg').src = responsive ? '/assets/img/summary_blue.png' : "/assets/img/nav-summary-icon.png";
     }
 }
 
@@ -103,3 +109,7 @@ function logout() {
     // Redirect to the startpage
     window.location.href = 'index.html';
 }
+
+window.addEventListener('resize', function () {
+    checkFocusOnSidenav();
+});
