@@ -112,7 +112,7 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
-// Contact Info render when clicked on a contact
+// if Contact Info is open -> close, else render when clicked on a contact
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
@@ -236,8 +236,7 @@ function removeWhiteColor(){
 // opens Add New Contact Window popup
 function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style.display = "flex";
-  addNewContact.style.right = "0";
+  addNewContact.classList.add('addContactOn')
   document.getElementById("popup-bg").style.display = "block";
 }
 
@@ -246,6 +245,7 @@ function mobileOptionsWindow(){
   document.getElementById("popup-bg").style.display = "block";
   let window = document.getElementById('mobileOptionsWindow');
   window.style.display = "inline-flex";
+  window.style.zIndex = 100;
 }
 
 // function for mobile contact editing
@@ -299,14 +299,20 @@ async function addMobileContact() {
 // popup to show contact add success
 function addContactSuccess(){
   let success = document.getElementById('newContactSuccess');
-  success.style.top = '50%';
+  success.style.display = 'inline-flex';
+    setTimeout(function() {
+      success.style.top = '50%';
+  }, 50)
   setTimeout(addContactSuccessClose, 1600);
 }
 
 // closes the success popup again
 function addContactSuccessClose(){
   let success = document.getElementById('newContactSuccess');
-  success.style.top = '120%';
+  success.style.display = 'none';
+  setTimeout(function() {
+    success.style.top = '120%';
+}, 50)
 }
 
 let currentEditIndex; 
@@ -315,14 +321,13 @@ let currentEditIndex;
 // edit clicked contact 
 async function editContact(i) {
   let editContactWindow = document.getElementById("editContact");
-  editContactWindow.style.display = 'inline-flex';
+  editContactWindow.classList.add('editContactOn')
   const contactsString = await getItem("kontakte");
   loadedContacts = JSON.parse(contactsString);
   const contact = loadedContacts[i];
   let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
   const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
   document.getElementById("popup-bg").style.display = "block";
-  editContactWindow.style = "left: 0";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
   document.getElementById("editContactPhone").value = "+" + contact["phone"];
@@ -357,9 +362,9 @@ async function delEditedContact(){
   loadedContacts.splice(deletedIndex, 1)[0];
   await setItem("kontakte", JSON.stringify(loadedContacts));
   contactsListRender(loadedContacts);
-  let contactView = document.getElementById("contactView");
-  contactView.innerHTML = "";
+  openContactView(currentEditIndex)
   closeEditContact();
+  closeMobileOptionsWindow();
 }
 
 // delete contact from storage
@@ -369,14 +374,13 @@ async function delContact(i) {
     loadedContacts.splice(i, 1)[0];
     await setItem("kontakte", JSON.stringify(loadedContacts));
     contactsListRender(loadedContacts);
-    let contactView = document.getElementById("contactView");
-    contactView.innerHTML = "";
+    openContactView(i);
 }
 
 // close add new contact popup
 function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.style.right = "-120%";
+  addNewContact.classList.remove('addContactOn');
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById('addContactName').value = '';
   document.getElementById('addContactEmail').value ='';
@@ -386,7 +390,7 @@ function closeAddNewContact() {
 // close edit contact popup
 function closeEditContact() {
   let editContactWindow = document.getElementById("editContact");
-  editContactWindow.style = "left: -110%";
+  editContactWindow.classList.remove('editContactOn')
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById("editContactName").value = '';
   document.getElementById("editContactEmail").value = '';
