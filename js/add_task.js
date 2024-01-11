@@ -5,7 +5,7 @@ let selectedContact;
 let selectedContacts = [];
 let selectedCategory;
 let subtasks = [];
-let lastStatus;
+let lastStatus = 'toDo';
 
 async function initTaskData() {
     await loadContacts();

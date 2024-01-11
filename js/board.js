@@ -12,8 +12,8 @@ async function loadedTaskstoBoard() {
     loadedTasks = JSON.parse(loadTasks);
 }
 
-function closeAddTaskForm(){
-    document.getElementById('slide-form-add-task').style.display = 'none';
+function closeAddTaskForm(){    
+    document.getElementById('slide-form-add-task').style.display = 'none';    
 }
 
 function openAddTaskForm(){
@@ -34,7 +34,7 @@ async function updateHTML() {
     renderToDoTask(filteredTasks);
     renderInProgressTask(filteredTasks);
     renderAwaitFeedbackTask(filteredTasks);
-    renderDoneTask(filteredTasks);    
+    renderDoneTask(filteredTasks);  
 }
 
 function searchTasks() {
@@ -419,7 +419,7 @@ function editTask(elementID){
     const element = allTasks.filter(task => task['taskID']  === elementID);
     let infoCard = document.getElementById('InfoCard');
 
-    infoCard.innerHTML =  openEditTaskForm(element);
+    infoCard.innerHTML =  openEditTaskForm(element, elementID);
 
 
 
@@ -427,15 +427,15 @@ function editTask(elementID){
 }
 
 
-function openEditTaskForm(element){
+function openEditTaskForm(element, elementID){
     console.log('openEditTaskForm:', element[0])
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
     saveStatus(element[0]['status']);
 
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
-        <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="createTask(), closeAddTaskForm(), updateHTML(); return false;">
-            <div class="add-task-container-content">
+        <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="createTask(), closeAddTaskForm(), deleteTask(${elementID}); return false;">
+            <div class="editTask-container-content">
                 <div class="spacebetween pointer">
                     ${categoryHTML}                
                     <div onclick="closeTaskPopup()">
@@ -518,7 +518,7 @@ function openEditTaskForm(element){
 
                 <div class="add-task-form-buttons editTaskButton">
                     <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-                    <button id="add-task-create-task" onclick="updateHTML()"> Create Task <img src="/assets/img/check.png" alt=""></button>            
+                    <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>            
                 </div>
             </div>
 

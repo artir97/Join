@@ -697,3 +697,13 @@ input[type="checkbox"] {
     gap: 10px;
     position: unset !important;
   }
+
+  .editTask-container-content {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    margin-left: 5%;
+    gap: 10px;    
+    overflow: auto;
+}
