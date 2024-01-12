@@ -83,15 +83,14 @@ body {
 }
 
 .add-task-container {
+    margin: 0;
     height: calc(100vh - 100px);
-    min-width: 520px;
     width: 95%;
 }
 
 .add-task-container-content {
     display: flex;
     flex-direction: column;
-    width: 90%;
     margin-left: 5%;
     gap: 10px;
     height: calc(100vh - 100px);

@@ -406,11 +406,6 @@ transition: background-color 0.3 ease-in-out!important;
     }
 }
 
-@media(max-width: 1000px){
-    .add-task-form-buttons {
-        bottom: 85px;
-    }
-}
 
 @media(max-width: 400px){
     .add-task-priority-box {
