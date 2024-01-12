@@ -1,5 +1,5 @@
 <div class="add-task-container">
-    <form onsubmit="createTask(), closeAddTaskForm(), updateHTML(); return false;">
+    <form onsubmit="createTask(); return false;">
         <div class="add-task-container-content">
             <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
 
@@ -78,7 +78,7 @@
 
         <div class="add-task-form-buttons">
             <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-            <button id="add-task-create-task" onclick="updateHTML()"> Create Task <img src="/assets/img/check.png" alt=""></button>
+            <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
             
         </div>
     </form>
