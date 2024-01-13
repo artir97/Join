@@ -483,6 +483,21 @@ transition: background-color 0.3 ease-in-out!important;
     margin-right: -10px;
 }
 
+.boardNameBoxExtra{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    color: #fff;
+    margin-right: -10px;
+
+
+}
+
 .category{
     display: flex;
     padding: 4px 16px;
