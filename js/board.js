@@ -11,9 +11,7 @@ async function loadedTaskstoBoard() {
     loadedTasks = JSON.parse(loadTasks);
 }
 
-async function closeAddTaskForm(){    
-    await createTask();
-    await updateHTML();
+async function closeAddTaskForm(){       
     document.getElementById('slide-form-add-task').style.display = 'none';    
 }
 
@@ -21,6 +19,17 @@ function openAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'block';
 }
 
+
+async function updateCreatedTask(){
+    await createTask();
+    await updateHTML();
+}
+
+async function updateEditTask(elementID){
+    await createTask();
+    await deleteTask(elementID);
+
+}
 
 
 
@@ -314,19 +323,84 @@ function reverseDate(originalDate) {
 
         for (let i = 0; i < element[0].subtask.length; i++) {
             const subtask = element[0].subtask[i];
-            const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
-            const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
+            const checkboxId = `checkbox_${i}`;
+            const labelFor = `label_${i}`;
+            
+            // Bestimme das Bild basierend auf dem Status
+            const imageSource = subtask.status === 'close'
+                ? 'assets/img/add-task/checkbox-checked.png'
+                : 'assets/img/add-task/checkbox.png';
 
             subtaskHTML += /*html*/`
                 <div class="singleContactPopup">                    
-                    <input type="checkbox" id="${checkboxId}">
-                    <label for="${checkboxId}" id="${labelFor}"></label>
-                    <p>${subtask}</p>
+                    <input type="checkbox" id="${checkboxId}" ${subtask.status === 'close' ? 'checked' : ''} 
+                        onclick="updateSubtaskStatus(${i}, '${checkboxId}')">
+                    <label for="${checkboxId}" id="${labelFor}" style="background-image: url('${imageSource}')"></label>
+                    <p>${subtask.text}</p>
                 </div>`;
         }
     }
     assignedSubtasksContainer.innerHTML = subtaskHTML;
 }
+
+
+// function updateSubtaskStatus(index, checkboxId) {
+//     // Ändere den Status des Subtasks im Array
+//     if (allTasks.length > 0 && index < allTasks[0].subtask.length) {
+//         allTasks[0].subtask[index].status = allTasks[0].subtask[index].status === 'open' ? 'close' : 'open';
+
+//         // Speichere die aktualisierten Daten
+//         setItem('allTasks', JSON.stringify(allTasks));
+
+//         // Rufe die Funktion renderSubtasks erneut auf, um die Ansicht zu aktualisieren
+//         renderSubtasks(allTasks);
+//     }
+// }
+
+
+
+
+
+
+  function renderSubtasks(element) {
+    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
+    assignedSubtasksContainer.innerHTML = '';
+
+    let subtaskHTML = '';
+    if (element[0].subtask.length > 0) {
+        let Subtasks = document.getElementById('Subtasks');
+        Subtasks.innerHTML = 'Subtasks:';
+
+        for (let i = 0; i < element[0].subtask.length; i++) {
+            const subtask = element[0].subtask[i];
+            const subtaskElement = element[0].subtask;
+            const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
+            const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
+            console.log('renderSubtasks:', i, subtask);
+
+
+            subtaskHTML += /*html*/`
+                <div class="singleContactPopup">                    
+                    <input type="checkbox" id="${checkboxId}" onclick="updateSubtaskStatus(${i}, '${subtask}')">
+                    <label for="${checkboxId}" id="${labelFor}"></label>
+                    <p>${subtask.text}</p>
+                </div>`;
+        }
+    }
+    assignedSubtasksContainer.innerHTML = subtaskHTML;
+}
+
+
+
+
+function updateSubtaskStatus(i, subtask){
+    let subtaskText = [i].text;
+
+    console.log('subtasktitle:', i, subtask);
+
+}
+
+
 
 
 async function deleteTask(elementID) {
@@ -442,7 +516,7 @@ function openEditTaskForm(element, elementID){
 
     return /*html*/`
     <div class="popup editTaskContainerBoard" onclick="closeTaskPopup()">
-        <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="createTask(), closeAddTaskForm(), deleteTask(${elementID}); return false;">
+        <form class="popup-content editTask" onclick="doNotClose(event)" onsubmit="updateEditTask(${elementID}); return false;">
             <div class="editTask-container-content">
                 <div class="spacebetween pointer">
                     ${categoryHTML}                
@@ -526,7 +600,7 @@ function openEditTaskForm(element, elementID){
 
                 <div class="add-task-form-buttons editTaskButton">
                     <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-                    <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>            
+                    <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>            
                 </div>
             </div>
 
@@ -542,7 +616,7 @@ function generateEmtyTaskFormHTML(){
 
     taskForm.innerHTML = /*html*/`
     <div class="add-task-container">
-    <form onsubmit="closeAddTaskForm(); return false;">
+    <form onsubmit="updateCreatedTask(); return false;">
         <div class="add-task-container-content">
             <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title">
 
@@ -621,7 +695,7 @@ function generateEmtyTaskFormHTML(){
 
         <div class="add-task-form-buttons">
             <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-            <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
+            <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
             
         </div>
     </form>

@@ -280,7 +280,13 @@ function confirmAddSubtask() {
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
 
-    subtasks.push(subtaskInput.value);
+
+    subtasks.push({
+        text: subtaskInput.value,
+        status: 'open'
+    });
+
+    // subtasks.push(subtaskInput.value);
     subtaskList.innerHTML = renderSubtasksAddTask();
 
     subtaskInput.value = '';
@@ -365,7 +371,7 @@ function renderSubtasksAddTask() {
             subtaskList +=
                 `
             <li id="add-task-subtask-list-item${i}" onclick="openEditAddedSubtask(${i})"  onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
-                <span>${subtasks[i]}</span>
+                <span>${subtasks[i].text}</span>
                 <div id="add-task-subtask-list-buttons${i}" class="d-none">
                     <img onclick="openEditAddedSubtask(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
                     <div class="hr"></div>
