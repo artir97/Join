@@ -217,8 +217,8 @@ function openInfoCard(elementID){
     
     infoCard.innerHTML = generateOpenInfoCardHTML(element, elementID);
 
-    renderAssignedContacts(element);
-    renderSubtasks(element);
+    renderAssignedContacts(element, elementID);
+    renderSubtasks(element, elementID);
 }
 
 function generateOpenInfoCardHTML(element, elementID){
@@ -312,7 +312,9 @@ function reverseDate(originalDate) {
 
 
 
-  function renderSubtasks(element) {
+
+
+  function renderSubtasks(element, elementID) {
     let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
     assignedSubtasksContainer.innerHTML = '';
 
@@ -323,65 +325,12 @@ function reverseDate(originalDate) {
 
         for (let i = 0; i < element[0].subtask.length; i++) {
             const subtask = element[0].subtask[i];
-            const checkboxId = `checkbox_${i}`;
-            const labelFor = `label_${i}`;
-            
-            // Bestimme das Bild basierend auf dem Status
-            const imageSource = subtask.status === 'close'
-                ? 'assets/img/add-task/checkbox-checked.png'
-                : 'assets/img/add-task/checkbox.png';
+            const checkboxId = `checkbox_${elementID}_${i}`; // Eindeutige ID für jede Checkbox
+            const labelFor = `label_${elementID}_${i}`; // Eindeutige ID für jedes Label
 
             subtaskHTML += /*html*/`
-                <div class="singleContactPopup">                    
-                    <input type="checkbox" id="${checkboxId}" ${subtask.status === 'close' ? 'checked' : ''} 
-                        onclick="updateSubtaskStatus(${i}, '${checkboxId}')">
-                    <label for="${checkboxId}" id="${labelFor}" style="background-image: url('${imageSource}')"></label>
-                    <p>${subtask.text}</p>
-                </div>`;
-        }
-    }
-    assignedSubtasksContainer.innerHTML = subtaskHTML;
-}
-
-
-// function updateSubtaskStatus(index, checkboxId) {
-//     // Ändere den Status des Subtasks im Array
-//     if (allTasks.length > 0 && index < allTasks[0].subtask.length) {
-//         allTasks[0].subtask[index].status = allTasks[0].subtask[index].status === 'open' ? 'close' : 'open';
-
-//         // Speichere die aktualisierten Daten
-//         setItem('allTasks', JSON.stringify(allTasks));
-
-//         // Rufe die Funktion renderSubtasks erneut auf, um die Ansicht zu aktualisieren
-//         renderSubtasks(allTasks);
-//     }
-// }
-
-
-
-
-
-
-  function renderSubtasks(element) {
-    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
-    assignedSubtasksContainer.innerHTML = '';
-
-    let subtaskHTML = '';
-    if (element[0].subtask.length > 0) {
-        let Subtasks = document.getElementById('Subtasks');
-        Subtasks.innerHTML = 'Subtasks:';
-
-        for (let i = 0; i < element[0].subtask.length; i++) {
-            const subtask = element[0].subtask[i];
-            const subtaskElement = element[0].subtask;
-            const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
-            const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
-            console.log('renderSubtasks:', i, subtask);
-
-
-            subtaskHTML += /*html*/`
-                <div class="singleContactPopup">                    
-                    <input type="checkbox" id="${checkboxId}" onclick="updateSubtaskStatus(${i}, '${subtask}')">
+                <div class="singleContactPopup">
+                    <input type="checkbox" id="${checkboxId}" ${subtask.status ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
                     <label for="${checkboxId}" id="${labelFor}"></label>
                     <p>${subtask.text}</p>
                 </div>`;
@@ -390,15 +339,56 @@ function reverseDate(originalDate) {
     assignedSubtasksContainer.innerHTML = subtaskHTML;
 }
 
+async function toggleSubtaskStatus(elementID, subtaskIndex) {
+    const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
+    if (taskIndex !== -1 && subtaskIndex < allTasks[taskIndex].subtask.length) {
+        const currentStatus = allTasks[taskIndex].subtask[subtaskIndex].status;
+        const newStatus = currentStatus === 'open' ? 'done' : 'open';
 
+        allTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
 
+        // Speichern Sie das aktualisierte Array mit setItem
+        await setItem('allTasks', JSON.stringify(allTasks));
 
-function updateSubtaskStatus(i, subtask){
-    let subtaskText = [i].text;
-
-    console.log('subtasktitle:', i, subtask);
-
+        // Aktualisieren Sie die Anzeige
+        updateHTML();
+    }
 }
+
+
+
+
+
+
+
+
+//   function renderSubtasks(element) {    
+//     let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
+//     assignedSubtasksContainer.innerHTML = '';    
+
+//     let subtaskHTML = '';
+//     if (element[0].subtask.length > 0) {
+//         let Subtasks = document.getElementById('Subtasks');
+//         Subtasks.innerHTML = 'Subtasks:';
+
+//         for (let i = 0; i < element[0].subtask.length; i++) {
+//             const subtask = element[0].subtask[i];
+//             const subtaskElement = element[0].subtask;
+//             const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
+//             const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
+//             console.log('renderSubtasks:', i, subtask);
+
+
+//             subtaskHTML += /*html*/`
+//                 <div class="singleContactPopup">                    
+//                     <input type="checkbox" id="${checkboxId}">
+//                     <label for="${checkboxId}" id="${labelFor}"></label>
+//                     <p>${subtask.text}</p>
+//                 </div>`;
+//         }
+//     }
+//     assignedSubtasksContainer.innerHTML = subtaskHTML;
+// }
 
 
 
