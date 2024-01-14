@@ -116,7 +116,10 @@ function generateTodoHTML(element, elementID) {
     const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
 
     // Füge die Fortschrittsleiste hinzu
-    const progressBarHTML = `<div class="progressBar" style="width: ${progressPercentage}%;"></div>`;
+    const progressBarHTML = `
+        <div class="progressBar">
+            <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
+        </div>`;
 
     let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
 
@@ -128,8 +131,8 @@ function generateTodoHTML(element, elementID) {
             ${categoryHTML}
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
-            <div class="flex_spaceBetween">
-                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length}</div>
+            <div class="progressBarContainer flex_spaceBetween">
+                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length} Subtasks</div>
             </div>
             <div class="flex_spaceBetween">
                 <div id="selectContact" class="selectContact">

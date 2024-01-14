@@ -730,8 +730,10 @@ input[type="checkbox"] {
 
 .progressBarContainer{
     display: flex;
+    padding-right: 2px;
     justify-content: space-between;
-
+    align-items: center;
+    gap: 11px;  
 }
 
 
@@ -739,7 +741,17 @@ input[type="checkbox"] {
 .progressBar {    
     margin-top: 5px;
     height: 8px;
+    width: 50%;
     align-self: stretch;
     border-radius: 16px;
-    background: var(--Version-2-main-color, #4589FF);
+    background-color: #ddd;
+    /* background: var(--Version-2-main-color, #4589FF); */
+}
+
+
+.progressBarFill {
+    border-radius: 16px;
+    height: 100%;
+    width: 0; /* Der Fortschritt wird durch die Breite gesteuert */
+    background-color: #2196F3; /* Blaue Farbe für den Fortschritt */
 }
