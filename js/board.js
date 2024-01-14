@@ -314,7 +314,7 @@ function reverseDate(originalDate) {
 
 
 
-  function renderSubtasks(element, elementID) {
+function renderSubtasks(element, elementID) {
     let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
     assignedSubtasksContainer.innerHTML = '';
 
@@ -330,7 +330,7 @@ function reverseDate(originalDate) {
 
             subtaskHTML += /*html*/`
                 <div class="singleContactPopup">
-                    <input type="checkbox" id="${checkboxId}" ${subtask.status ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
+                    <input type="checkbox" id="${checkboxId}" ${subtask.isChecked ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
                     <label for="${checkboxId}" id="${labelFor}"></label>
                     <p>${subtask.text}</p>
                 </div>`;
@@ -339,6 +339,9 @@ function reverseDate(originalDate) {
     assignedSubtasksContainer.innerHTML = subtaskHTML;
 }
 
+
+
+
 async function toggleSubtaskStatus(elementID, subtaskIndex) {
     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
     if (taskIndex !== -1 && subtaskIndex < allTasks[taskIndex].subtask.length) {
@@ -346,6 +349,7 @@ async function toggleSubtaskStatus(elementID, subtaskIndex) {
         const newStatus = currentStatus === 'open' ? 'done' : 'open';
 
         allTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
+        allTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === 'done' || false; // Speichern Sie den Status der Checkbox
 
         // Speichern Sie das aktualisierte Array mit setItem
         await setItem('allTasks', JSON.stringify(allTasks));
@@ -354,42 +358,6 @@ async function toggleSubtaskStatus(elementID, subtaskIndex) {
         updateHTML();
     }
 }
-
-
-
-
-
-
-
-
-//   function renderSubtasks(element) {    
-//     let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
-//     assignedSubtasksContainer.innerHTML = '';    
-
-//     let subtaskHTML = '';
-//     if (element[0].subtask.length > 0) {
-//         let Subtasks = document.getElementById('Subtasks');
-//         Subtasks.innerHTML = 'Subtasks:';
-
-//         for (let i = 0; i < element[0].subtask.length; i++) {
-//             const subtask = element[0].subtask[i];
-//             const subtaskElement = element[0].subtask;
-//             const checkboxId = `checkbox_${i}`;  // Eindeutige ID für jede Checkbox
-//             const labelFor = `label_${i}`;      // Eindeutige ID für jedes Label
-//             console.log('renderSubtasks:', i, subtask);
-
-
-//             subtaskHTML += /*html*/`
-//                 <div class="singleContactPopup">                    
-//                     <input type="checkbox" id="${checkboxId}">
-//                     <label for="${checkboxId}" id="${labelFor}"></label>
-//                     <p>${subtask.text}</p>
-//                 </div>`;
-//         }
-//     }
-//     assignedSubtasksContainer.innerHTML = subtaskHTML;
-// }
-
 
 
 

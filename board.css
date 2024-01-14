@@ -671,9 +671,10 @@ tbody{
 
 
 
+
 input[type="checkbox"] {
     display: none;
-  }
+  } 
 
   /* Verwende ein Bild als Hintergrund für das Label */
   input[type="checkbox"] + label {
@@ -691,7 +692,12 @@ input[type="checkbox"] {
   input[type="checkbox"]:checked + label {
     background: url('assets/img/add-task/checkbox-checked.png') no-repeat;
     background-size: contain; /* Oder cover, je nach Bedarf */
-  }
+  } 
+
+  input[type="checkbox"]:not(:checked) + label {
+    background: url('assets/img/add-task/checkbox.png') no-repeat;
+    background-size: contain; /* Oder cover, je nach Bedarf */
+}
 
   .flex_spaceBetween{
     display: flex;
