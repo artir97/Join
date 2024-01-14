@@ -2,35 +2,16 @@ let loadedTasks= [];
 let currentDraggedElement;
 let currentDraggedElementID; 
 
-function saveStatus(test){
-    lastStatus = test
+
+function saveStatus(Elementstatus){
+    lastStatus = Elementstatus
 };
+
 
 async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
-
-async function closeAddTaskForm(){       
-    document.getElementById('slide-form-add-task').style.display = 'none';    
-}
-
-function openAddTaskForm(){
-    document.getElementById('slide-form-add-task').style.display = 'block';
-}
-
-
-async function updateCreatedTask(){
-    await createTask();
-    await updateHTML();
-}
-
-async function updateEditTask(elementID){
-    await createTask();
-    await deleteTask(elementID);
-
-}
-
 
 
 async function updateHTML() {
@@ -46,16 +27,6 @@ async function updateHTML() {
     generateEmtyTaskFormHTML();
 }
 
-function searchTasks() {
-    updateHTML();
-}
-
-function filterTasksBySearch(tasks, searchInput) {
-    return tasks.filter(task =>
-        task.title.toLowerCase().includes(searchInput) ||
-        task.description.toLowerCase().includes(searchInput)
-    );
-}
 
 async function renderToDoTask(loadedTasks) {    
     let open = loadedTasks.filter(t => t['status'] == 'toDo');
@@ -71,81 +42,7 @@ async function renderToDoTask(loadedTasks) {
     } else {
         generateEmtyTodoHTML(container);
     }
-
 }
-
-
-function countOpenSubtasks(element) {
-    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
-
-    if (element.subtask && element.subtask.length > 0) {
-        return subTaskDone
-    } else {
-        return 0;
-    }
-}
-
-
-
-function generateTodoHTML(element, elementID) {
-    let assignedContactHTML = '';
-
-
-    if (element.assignedContact && element.assignedContact.length > 0) {
-        for (let i = 0; i < Math.min(element.assignedContact.length, 3); i++) {
-            let contact = element.assignedContact[i];
-            assignedContactHTML += `
-                <div class="boardNameBox">
-                    ${getInitials(contact.name)}
-                </div>`;
-        }
-    
-        if (element.assignedContact.length > 3) {
-            // Hier wird ein zusätzliches Element für den Rest hinzugefügt
-            assignedContactHTML += `
-                <div class="boardNameBoxExtra">
-                    +${element.assignedContact.length - 3}
-                </div>`;
-        }
-    }
-
-    // Zähle die offenen Subtasks
-    const openSubtasksCount = countOpenSubtasks(element);
-
-    // Berechne den Fortschritt in Prozent
-    const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
-
-    // Füge die Fortschrittsleiste hinzu
-    const progressBarHTML = `
-        <div class="progressBar">
-            <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
-        </div>`;
-
-    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
-
-    // Überprüfe, ob die Kategorie nicht leer ist, bevor du das HTML generierst
-    const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
-
-    return /*html*/`
-        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
-            ${categoryHTML}
-            <div class="taskName">${element['title']}</div>
-            <div class="taskInfo">${element['description']}</div>
-            <div class="progressBarContainer flex_spaceBetween">
-                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length} Subtasks</div>
-            </div>
-            <div class="flex_spaceBetween">
-                <div id="selectContact" class="selectContact">
-                    ${assignedContactHTML}
-                </div>
-                <div class="priorityIcon">
-                    ${selectedTaskInnerHTML(element['priority'])}
-                </div>
-            </div>
-           
-        </div>`;
-}
-
 
 
 function renderInProgressTask(loadedTasks){
@@ -199,11 +96,237 @@ function renderDoneTask(loadedTasks){
 }
 
 
+function generateTodoHTML(element, elementID) {
+    const assignedContactHTML = renderAssignedContactSmallInfoCard(element.assignedContact);
+    const progressBarHTML = progressBarSmallInfoCard(element);
+    const subTaskDone = filterSubTaskDone(element);
+
+    // Überprüfe, ob die Kategorie nicht leer ist, bevor du das HTML generierst
+    const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
+
+    return /*html*/`
+        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
+            ${categoryHTML}
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">${element['description']}</div>
+            <div class="progressBarContainer flex_spaceBetween">
+                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length} Subtasks</div>
+            </div>
+            <div class="flex_spaceBetween">
+                <div id="selectContact" class="selectContact">
+                    ${assignedContactHTML}
+                </div>
+                <div class="priorityIcon">
+                    ${selectedTaskInnerHTML(element['priority'])}
+                </div>
+            </div>           
+        </div>`;        
+}
+
+
+function renderAssignedContactsInfoCard(element){
+    let assignedContactsContainer = document.getElementById('assignedContactsContainer')
+    assignedContactsContainer.innerHTML = '';
+    
+    if (element[0].assignedContact.length > 0) {
+        // document.getElementById('assignedTO').innerHTML = <p>Assigned To:</p>;
+        let assignedTO = document.getElementById('assignedTO');
+        assignedTO.innerHTML = 'Assigned To:';
+        for (let i = 0; i < element[0].assignedContact.length; i++) {
+            const contact = element[0].assignedContact[i].name;
+            assignedContactsContainer.innerHTML += /*html*/`
+                <div class="singleContactPopup">
+                    <div class="boardNameBox">${getInitials(contact)}</div>
+                    <p>${contact}</p>
+                </div>`;
+        }
+    }
+  }
+
+
+function renderSubtasksInfoCard(element, elementID) {
+    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
+    assignedSubtasksContainer.innerHTML = '';
+
+    let subtaskHTML = '';
+    if (element[0].subtask.length > 0) {
+        let Subtasks = document.getElementById('Subtasks');
+        Subtasks.innerHTML = 'Subtasks:';
+
+        for (let i = 0; i < element[0].subtask.length; i++) {
+            const subtask = element[0].subtask[i];
+            const checkboxId = `checkbox_${elementID}_${i}`; // Eindeutige ID für jede Checkbox
+            const labelFor = `label_${elementID}_${i}`; // Eindeutige ID für jedes Label
+
+            subtaskHTML += /*html*/`
+                <div class="singleContactPopup">
+                    <input type="checkbox" id="${checkboxId}" ${subtask.isChecked ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
+                    <label for="${checkboxId}" id="${labelFor}"></label>
+                    <p>${subtask.text}</p>
+                </div>`;
+        }
+    }
+    assignedSubtasksContainer.innerHTML = subtaskHTML;
+}
+
+async function toggleSubtaskStatus(elementID, subtaskIndex) {
+    const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
+    if (taskIndex !== -1 && subtaskIndex < allTasks[taskIndex].subtask.length) {
+        const currentStatus = allTasks[taskIndex].subtask[subtaskIndex].status;
+        const newStatus = currentStatus === 'open' ? 'done' : 'open';
+
+        allTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
+        allTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === 'done' || false; // Speichern Sie den Status der Checkbox
+
+        // Speichern Sie das aktualisierte Array mit setItem
+        await setItem('allTasks', JSON.stringify(allTasks));
+
+        // Aktualisieren Sie die Anzeige
+        updateHTML();
+    }
+}
+
+
+function progressBarSmallInfoCard(element){
+    // Zähle die offenen Subtasks
+    const openSubtasksCount = countOpenSubtasks(element);
+
+    // Berechne den Fortschritt in Prozent
+    const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
+
+    // Füge die Fortschrittsleiste hinzu
+    const progressBarHTML = `
+        <div class="progressBar">
+            <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
+        </div>`;
+
+    return progressBarHTML;
+}
+
+
+function filterSubTaskDone(element){
+    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
+
+    return subTaskDone;
+}
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+
+async function moveTo(category) {
+    currentDraggedElement['status'] = category;
+    currentDraggedElement['taskID'] = new Date().getTime();
+
+    allTasks.push(currentDraggedElement);
+    await setItem('allTasks', JSON.stringify(allTasks))
+        .then(() => {
+            updateHTML();
+        })
+        .catch(error => console.error('Error during setItem:', error));
+
+    deleteTask(currentDraggedElementID);
+}
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+
+  function startDragging(elementID) {
+    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
+    currentDraggedElement = dragElement[0];
+    currentDraggedElementID = dragElement[0].taskID;
+  }
+
+
+  function generateEmtyTodoHTML(container){   
+    container.innerHTML = /*html*/`               
+    <div class="emtyTask">
+       <p>No tasks To do</p>            
+    </div>`;
+}
+
+
+function openInfoCard(elementID){    
+    let element = loadedTasks.filter(id => id['taskID'] == elementID);
+    let infoCard = document.getElementById('InfoCard');   
+    
+    infoCard.innerHTML = generateOpenInfoCardHTML(element, elementID);
+
+    renderAssignedContactsInfoCard(element, elementID);
+    renderSubtasksInfoCard(element, elementID);
+}
+
+
+async function closeAddTaskForm(){       
+    document.getElementById('slide-form-add-task').style.display = 'none';    
+}
+
+
+function openAddTaskForm(){
+    document.getElementById('slide-form-add-task').style.display = 'block';
+}
+
+
+async function updateCreatedTask(){
+    await createTask();
+    await updateHTML();
+}
+
+async function updateEditTask(elementID){
+    await createTask();
+    await deleteTask(elementID);
+}
+
+
+async function deleteTask(elementID) {
+    // Finde den Index des Tasks im allTasks-Array anhand der taskID
+    const index = allTasks.findIndex(task => task['taskID']  === elementID);  
+   
+    // Überprüfe, ob der Index gültig ist
+    if (index !== -1) {
+        // Entferne den Task aus dem allTasks-Array
+        allTasks.splice(index, 1);
+
+        // Aktualisiere die gespeicherten Daten
+        await setItem('allTasks', JSON.stringify(allTasks));
+        
+        closeTaskPopup();
+        updateHTML();
+
+    } else {
+        alert('Task not found in the array');
+    }
+}
+
+
+function editTask(elementID){
+    const element = allTasks.filter(task => task['taskID']  === elementID);
+    let infoCard = document.getElementById('InfoCard');
+
+    infoCard.innerHTML =  openEditTaskForm(element, elementID);
+}
+
+
+function countOpenSubtasks(element) {
+    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
+
+    if (element.subtask && element.subtask.length > 0) {
+        return subTaskDone
+    } else {
+        return 0;
+    }
+}
+
+
 function getFirstLettersUppercase(text) {
     if (!text) return '';
     return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
-
 
 
 function getInitials(fullName) {
@@ -216,15 +339,30 @@ function getInitials(fullName) {
 }
 
 
-function generateEmtyTodoHTML(container){   
-        container.innerHTML = /*html*/`               
-        <div class="emtyTask">
-           <p>No tasks To do</p>            
-        </div>`;
+function reverseDate(originalDate) {
+    // Zerlege das Datum in seine Bestandteile
+    const parts = originalDate.split('-');
+
+    // Kehre die Reihenfolge der Teile um
+    const reversedParts = parts.reverse();
+
+    // Setze die Teile wieder zusammen
+    const reversedDate = reversedParts.join('/');
+
+    return reversedDate;
 }
 
 
+function searchTasks() {
+    updateHTML();
+}
 
+function filterTasksBySearch(tasks, searchInput) {
+    return tasks.filter(task =>
+        task.title.toLowerCase().includes(searchInput) ||
+        task.description.toLowerCase().includes(searchInput)
+    );
+}
 
 
 function closeTaskPopup() {
@@ -239,16 +377,33 @@ function doNotClose(event) {
 }
 
 
-function openInfoCard(elementID){    
-    let element = loadedTasks.filter(id => id['taskID'] == elementID);
-    let infoCard = document.getElementById('InfoCard');
-    console.log('open Element:', element)
-    
-    infoCard.innerHTML = generateOpenInfoCardHTML(element, elementID);
+function selectedTaskInnerHTML(selectedTask) {    
+    let taskImageSrc = '';
 
-    renderAssignedContacts(element, elementID);
-    renderSubtasks(element, elementID);
+    switch (selectedTask) {
+        case 'urgent':
+            taskText = 'urgent';
+            taskImageSrc = '/assets/img/Prio urgent.png';
+            break;
+        case 'medium':
+            taskText = 'medium';
+            taskImageSrc = '/assets/img/Prio medium.png';
+            break;
+        case 'low':
+            taskText = 'low';
+            taskImageSrc = '/assets/img/Prio low.png';
+            break;
+    }
+    // fügt das Bild  in das HTML-Element ein
+    let resultHTML = `
+        <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
+    `;
+    return resultHTML;
 }
+
+
+// generateHTML
+
 
 function generateOpenInfoCardHTML(element, elementID){
     const reversedDate = reverseDate(element[0].date);
@@ -306,198 +461,7 @@ function generateOpenInfoCardHTML(element, elementID){
 }
 
 
-function reverseDate(originalDate) {
-    // Zerlege das Datum in seine Bestandteile
-    const parts = originalDate.split('-');
-
-    // Kehre die Reihenfolge der Teile um
-    const reversedParts = parts.reverse();
-
-    // Setze die Teile wieder zusammen
-    const reversedDate = reversedParts.join('/');
-
-    return reversedDate;
-}
-
-  function renderAssignedContacts(element){
-    let assignedContactsContainer = document.getElementById('assignedContactsContainer')
-    assignedContactsContainer.innerHTML = '';
-    
-    if (element[0].assignedContact.length > 0) {
-        // document.getElementById('assignedTO').innerHTML = <p>Assigned To:</p>;
-        let assignedTO = document.getElementById('assignedTO');
-        assignedTO.innerHTML = 'Assigned To:';
-        for (let i = 0; i < element[0].assignedContact.length; i++) {
-            const contact = element[0].assignedContact[i].name;
-            // console.log('name:', contact)
-            assignedContactsContainer.innerHTML += /*html*/`
-                <div class="singleContactPopup">
-                    <div class="boardNameBox">${getInitials(contact)}</div>
-                    <p>${contact}</p>
-                </div>`;
-        }
-    }
-  }
-
-
-
-
-
-function renderSubtasks(element, elementID) {
-    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
-    assignedSubtasksContainer.innerHTML = '';
-
-    let subtaskHTML = '';
-    if (element[0].subtask.length > 0) {
-        let Subtasks = document.getElementById('Subtasks');
-        Subtasks.innerHTML = 'Subtasks:';
-
-        for (let i = 0; i < element[0].subtask.length; i++) {
-            const subtask = element[0].subtask[i];
-            const checkboxId = `checkbox_${elementID}_${i}`; // Eindeutige ID für jede Checkbox
-            const labelFor = `label_${elementID}_${i}`; // Eindeutige ID für jedes Label
-
-            subtaskHTML += /*html*/`
-                <div class="singleContactPopup">
-                    <input type="checkbox" id="${checkboxId}" ${subtask.isChecked ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
-                    <label for="${checkboxId}" id="${labelFor}"></label>
-                    <p>${subtask.text}</p>
-                </div>`;
-        }
-    }
-    assignedSubtasksContainer.innerHTML = subtaskHTML;
-}
-
-
-
-
-async function toggleSubtaskStatus(elementID, subtaskIndex) {
-    const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
-    if (taskIndex !== -1 && subtaskIndex < allTasks[taskIndex].subtask.length) {
-        const currentStatus = allTasks[taskIndex].subtask[subtaskIndex].status;
-        const newStatus = currentStatus === 'open' ? 'done' : 'open';
-
-        allTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
-        allTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === 'done' || false; // Speichern Sie den Status der Checkbox
-
-        // Speichern Sie das aktualisierte Array mit setItem
-        await setItem('allTasks', JSON.stringify(allTasks));
-
-        // Aktualisieren Sie die Anzeige
-        updateHTML();
-    }
-}
-
-
-
-async function deleteTask(elementID) {
-    // Finde den Index des Tasks im allTasks-Array anhand der taskID
-    const index = allTasks.findIndex(task => task['taskID']  === elementID);
-    // console.log('deleteTask', index)
-   
-    // Überprüfe, ob der Index gültig ist
-    if (index !== -1) {
-        // Entferne den Task aus dem allTasks-Array
-        allTasks.splice(index, 1);
-
-        // Aktualisiere die gespeicherten Daten
-        await setItem('allTasks', JSON.stringify(allTasks));
-        
-        closeTaskPopup();
-        updateHTML();
-
-    } else {
-        alert('Task not found in the array');
-    }
-}
-
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-
-async function moveTo(category) {
-    currentDraggedElement['status'] = category;
-    currentDraggedElement['taskID'] = new Date().getTime();
-
-    allTasks.push(currentDraggedElement);
-
-    await setItem('allTasks', JSON.stringify(allTasks))
-        .then(() => {
-            // console.log('moveTo:', category);
-            // console.log('moveTo:', currentDraggedElement);
-            updateHTML();
-        })
-        .catch(error => console.error('Error during setItem:', error));
-
-    deleteTask(currentDraggedElementID);
-}
-
-
- function startDragging(elementID) {
-    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
-    currentDraggedElement = dragElement[0];
-    currentDraggedElementID = dragElement[0].taskID;
-
-    // console.log('startDragging', currentDraggedElementID)
-  }
-  
-
- 
-  function allowDrop(ev) {
-    ev.preventDefault();
-  }
-  
-
-  function selectedTaskInnerHTML(selectedTask) {    
-    let taskImageSrc = '';
-
-    switch (selectedTask) {
-        case 'urgent':
-            taskText = 'urgent';
-            taskImageSrc = '/assets/img/Prio urgent.png';
-            break;
-        case 'medium':
-            taskText = 'medium';
-            taskImageSrc = '/assets/img/Prio medium.png';
-            break;
-        case 'low':
-            taskText = 'low';
-            taskImageSrc = '/assets/img/Prio low.png';
-            break;
-    }
-    // fügt das Bild  in das HTML-Element ein
-    let resultHTML = `
-        <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
-    `;
-    return resultHTML;
-}
-
-
-
-
-
-
-
-
-
-
-
-function editTask(elementID){
-    const element = allTasks.filter(task => task['taskID']  === elementID);
-    let infoCard = document.getElementById('InfoCard');
-
-    infoCard.innerHTML =  openEditTaskForm(element, elementID);
-
-
-
-
-}
-
-
 function openEditTaskForm(element, elementID){
-    console.log('openEditTaskForm:', element[0])
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
     saveStatus(element[0]['status']);
 
@@ -564,7 +528,6 @@ function openEditTaskForm(element, elementID){
                     <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
                 </div>
 
-
                 <!-- <label for="add-task-subtask">Subtask (optional)</label>
                 <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask"> -->
                 <label for="add-task-subtask">Subtask (optional)</label>
@@ -576,7 +539,6 @@ function openEditTaskForm(element, elementID){
                         <div id="add-task-subtask-image-container">
                             <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
                         </div>
-
                     </div>
                     <div>
                         <ul id="add-task-subtask-list">
@@ -589,14 +551,11 @@ function openEditTaskForm(element, elementID){
                     <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
                     <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>            
                 </div>
-            </div>
-
-           
+            </div>           
         </form>
     </div>`;
-
-
 } 
+
 
 function generateEmtyTaskFormHTML(){
     let taskForm = document.getElementById('task-form');
@@ -658,7 +617,6 @@ function generateEmtyTaskFormHTML(){
                 <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
             </div>
 
-
             <!-- <label for="add-task-subtask">Subtask (optional)</label>
             <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask"> -->
             <label for="add-task-subtask">Subtask (optional)</label>
@@ -670,7 +628,6 @@ function generateEmtyTaskFormHTML(){
                     <div id="add-task-subtask-image-container">
                         <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
                     </div>
-
                 </div>
                 <div>
                     <ul id="add-task-subtask-list">
@@ -683,12 +640,41 @@ function generateEmtyTaskFormHTML(){
         <div class="add-task-form-buttons">
             <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
             <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
-            
         </div>
     </form>
-</div>
-        
-    `
+</div>`;
+}
 
 
+
+
+
+
+
+
+
+
+
+function renderAssignedContactSmallInfoCard(assignedContacts) {
+    let assignedContactHTML = '';
+
+    if (assignedContacts && assignedContacts.length > 0) {
+        for (let i = 0; i < Math.min(assignedContacts.length, 3); i++) {
+            let contact = assignedContacts[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
+
+        if (assignedContacts.length > 3) {
+            // Hier wird ein zusätzliches Element für mehr als 3 Contact hinzugefügt
+            assignedContactHTML += `
+                <div class="boardNameBoxExtra">
+                    +${assignedContacts.length - 3}
+                </div>`;
+        }
+    }
+
+    return assignedContactHTML;
 }
