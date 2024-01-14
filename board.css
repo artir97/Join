@@ -727,3 +727,19 @@ input[type="checkbox"] {
     gap: 10px;    
     overflow: auto;
 }
+
+.progressBarContainer{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+
+.progressBar {    
+    margin-top: 5px;
+    height: 8px;
+    align-self: stretch;
+    border-radius: 16px;
+    background: var(--Version-2-main-color, #4589FF);
+}

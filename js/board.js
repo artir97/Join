@@ -75,6 +75,17 @@ async function renderToDoTask(loadedTasks) {
 }
 
 
+function countOpenSubtasks(element) {
+    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
+
+    if (element.subtask && element.subtask.length > 0) {
+        return subTaskDone
+    } else {
+        return 0;
+    }
+}
+
+
 
 function generateTodoHTML(element, elementID) {
     let assignedContactHTML = '';
@@ -93,10 +104,21 @@ function generateTodoHTML(element, elementID) {
             // Hier wird ein zusätzliches Element für den Rest hinzugefügt
             assignedContactHTML += `
                 <div class="boardNameBoxExtra">
-                    +${element.assignedContact.length - 4}
+                    +${element.assignedContact.length - 3}
                 </div>`;
         }
     }
+
+    // Zähle die offenen Subtasks
+    const openSubtasksCount = countOpenSubtasks(element);
+
+    // Berechne den Fortschritt in Prozent
+    const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
+
+    // Füge die Fortschrittsleiste hinzu
+    const progressBarHTML = `<div class="progressBar" style="width: ${progressPercentage}%;"></div>`;
+
+    let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
 
     // Überprüfe, ob die Kategorie nicht leer ist, bevor du das HTML generierst
     const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
@@ -107,6 +129,9 @@ function generateTodoHTML(element, elementID) {
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
             <div class="flex_spaceBetween">
+                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length}</div>
+            </div>
+            <div class="flex_spaceBetween">
                 <div id="selectContact" class="selectContact">
                     ${assignedContactHTML}
                 </div>
@@ -114,6 +139,7 @@ function generateTodoHTML(element, elementID) {
                     ${selectedTaskInnerHTML(element['priority'])}
                 </div>
             </div>
+           
         </div>`;
 }
 
