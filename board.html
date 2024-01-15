@@ -30,19 +30,19 @@
                     </div>
                 </div> 
 
-                <div>
+                <div class="toDoContainer">
                     <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('inProgress')">In progress<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="progressListContainer" ondrop="moveTo('inProgress')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
-                <div>
+                <div class="toDoContainer">
                     <h1 class="pointer" onclick="openAddTaskForm(), saveStatus('aweitFeedback')">Await feedback<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="awaitFeedbackListContainer" ondrop="moveTo('aweitFeedback')" ondragover="allowDrop(event)">
                     </div>
                 </div>
 
-                <div>
+                <div class="toDoContainer">
                     <h1 class="pointer" onclick="openAddTaskForm(),saveStatus('done')">Done<img src="assets/img/plus_button.png" alt=""></h1>
                     <div class="drag-area" id="doneListContainer" ondrop="moveTo('done')" ondragover="allowDrop(event)">
                     </div>

@@ -755,3 +755,157 @@ input[type="checkbox"] {
     width: 0; /* Der Fortschritt wird durch die Breite gesteuert */
     background-color: #2196F3; /* Blaue Farbe für den Fortschritt */
 }
+
+
+.aboard-container::-webkit-scrollbar {
+    width: 18px;
+    background-color: white;
+  }
+  .board-container::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  .board-containerr::-webkit-scrollbar-thumb {
+    background-color: #a8a8a8;
+    border-radius: 10px;
+    border: 6px solid white;
+    height: 53px;
+  }
+
+
+
+@media (max-width: 1300px) {
+
+.board-container {
+    margin-left: 0px;
+    height: auto;
+    padding: 72px 0px 16px 0px;
+    gap: 48px;
+    display: block;
+}
+
+.boardHeader {
+    display: flex;
+    width: auto;
+    height: 51px;
+    gap: 35px;
+    padding: 0px 16px 0px 16px;
+}
+
+.columnTitles {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;    
+    flex-direction: column;
+}
+
+.drag-area {    
+    height: auto;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+.toDoContainer{
+    overflow: auto;
+
+}
+
+.todoListContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden !important;
+    width: fit-content;
+
+}
+
+.addTaskBtn {
+    display: none !important;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 51px;
+    font-size: 19px;
+    padding: 16px 10px;
+    gap: 10px;
+    border: unset;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid var(--version-2-main-color, #4589ff);
+    background: var(--version-2-main-color, #4589ff);
+}
+
+#findTask {
+    background-image: url(assets/img/searchbuttonimg.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgb(212, 212, 212);
+    padding: 8px 16px 8px 16px;
+    gap: 10px;
+}
+
+.todo {
+    display: flex;
+    width: 252px;
+    height: 232px;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid black;
+    margin: 10px;
+    border-radius: 24px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    border: none;
+}
+
+.editTask {
+    width: 100%;
+    padding: 16px;   
+    align-items: flex-start;
+    gap: 24px;
+    flex-direction: column;
+    border-radius: 0px;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    z-index: 500;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+
+.addTask-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+}
+
+#slide-form-add-task {
+    height: 90%;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-radius: 0px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    box-sizing: border-box;
+    padding: 16px;
+}
+
+
+
+
+
+
+
+
+
+}
+
