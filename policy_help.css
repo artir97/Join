@@ -78,3 +78,66 @@ button:active {
 .policyContent{
     width: 70%;
 }
+
+
+@media (max-width: 1300px) {
+
+
+    .policy {
+        position: unset;
+        padding-bottom: 50px;
+        padding-right: 100px;
+        overflow-y: scroll;
+        width: 92%;
+        height: 85vh;
+        padding: 16px;
+    }
+
+    h1 {
+        color: var(--black, #000);
+        font-family: Inter;
+        font-size: x-large;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+    }
+
+    h2 {
+        width: 346px;
+        color: var(--version-2-main-color, #4589FF);
+        font-family: Open Sans;
+        font-size: large;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+    }
+
+    h3 {
+        color: var(--Ligth-blue, #005DFF);
+        font-family: Open Sans;
+        font-size: medium;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+    }
+
+.singUpHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.plain_sidenav{
+    display: none;
+}
+
+.policyContent {
+    width: 100%;
+}
+
+
+
+
+
+}

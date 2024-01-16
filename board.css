@@ -807,17 +807,13 @@ input[type="checkbox"] {
     flex-direction: column;
 }
 
-.toDoContainer{
-    overflow: auto;
-
-}
 
 .todoListContainer {
-    display: flex;
+    display: -webkit-inline-box;
     flex-direction: row;
-    overflow: hidden !important;
     width: fit-content;
-
+    overflow: auto;
+    width: 100%;
 }
 
 .addTaskBtn {
@@ -886,7 +882,7 @@ input[type="checkbox"] {
 }
 
 #slide-form-add-task {
-    height: 90%;
+    height: 100%;
     width: 100%;
     background-color: #fff;
     position: absolute;
@@ -897,9 +893,45 @@ input[type="checkbox"] {
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     box-sizing: border-box;
     padding: 16px;
+    z-index: 100;
 }
 
+.emtyTask {
+    display: flex;
+    width: 94%;
+    height: 48px;
+    flex-direction: column;
+    justify-content: unset;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    border: 1px dashed var(--icon, #A8A8A8);
+    background: #E7E7E7;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    color: var(--icon, #A8A8A8);
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
 
+.add-task-form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    position: unset;
+}
+
+.taskContainerHeader{
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding-left: 16px;
+    padding-right: 16px;
+    
+
+
+}
 
 
 
