@@ -198,6 +198,15 @@ body {
     color: #fff;
 }
 
+.taskContainerHeader{
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    padding-left: 16px;
+    padding-right: 16px;    
+}
 
 .add-task-contacts-to-assigne-list-item .name {
     width: 80%;
