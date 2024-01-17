@@ -4,6 +4,17 @@ body {
     overflow-y: auto;
     overflow-x: auto;
     font-family: OpenSans !important;
+    scrollbar-width: thin; 
+    scrollbar-color: transparent transparent; 
+    overflow: scroll; 
+}
+
+body::-webkit-scrollbar {
+    width: 0px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 .green {
     background-color: green;
@@ -198,8 +209,7 @@ body {
     color: #fff;
 }
 
-.taskContainerHeader{
-   
+.taskContainerHeader{   
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -787,7 +797,7 @@ input[type="checkbox"] {
 .board-container {
     margin-left: 0px;
     height: auto;
-    padding: 72px 0px 16px 0px;
+    padding: 30px 0px 16px 0px;
     gap: 48px;
     display: block;
 }
@@ -824,6 +834,21 @@ input[type="checkbox"] {
     overflow: auto;
     width: 100%;
 }
+
+.todoListContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+.todoListContainer::-webkit-scrollbar-thumb {
+    background-color: white; 
+}
+
+.todoListContainer::-webkit-scrollbar-track {
+    background-color: white;
+}
+
+
+
 
 .addTaskBtn {
     display: none !important;
