@@ -64,6 +64,14 @@ body {
   transition: all 1s ease-in-out;
   z-index: 15;
 }
+.imgResponsive{
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  transform: unset;
+  transition: all 1s ease-in-out;
+  z-index: 15;
+}
 #login-container {
   transition: all 2s ease-in-out;
   display: none;
@@ -745,13 +753,33 @@ header {
     width: 100% !important;
   }
 } 
+@media (max-height: 1000px){
+  .imgResponsive{
+    top: 37px;
+    left: 38px;
+    width: 64px;
+    height: 78px;
+  }
+}
 @media (max-height: 880px) {
   .login {
     padding: 16px 16px;
     top: 0;
+    height: unset;
+  }
+  .buttons{
+    flex-direction: row !important;
+  }
+  .buttons button{
+    width: 100px;
+  }
+  #guest-log-in-btn{
+    padding: 0;
+    font-size: 22px;
   }
   #login-container {
     gap: 40px;
+    transition: unset;
   }
 }
 

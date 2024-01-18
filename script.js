@@ -28,9 +28,8 @@ function checkFocusOnSidenav(){
 function loadimg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
-    img.style.top = '5%';
-    img.style.left = '5%';
-    img.style.transform = 'unset';
+    img.classList.remove('frontImage');
+    img.classList.add('imgResponsive');
     if (document.location.pathname.includes("index.html")) {
         img.src = 'assets/img/logo_blue.png';
         container.style.zIndex = '8';

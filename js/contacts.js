@@ -112,33 +112,31 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
-// if Contact Info is open -> close, else render when clicked on a contact
+// if Contact Info is open/filled -> close, else render when clicked on a contact
 async function openContactView(i) {
   let contactView = document.getElementById("contactView");
   if (contactView.innerHTML.trim() !== "") {
-    contactView.classList.add('contactViewOff');
-    contactView.classList.remove('contactViewOn');
-    document.getElementById('mobileOptions').classList.remove("mobileOptionsOn");
-    removeWhiteColor();
-    setTimeout(() => (contactView.innerHTML = ""), 200);
+    removeContactView(contactView);
   } else {
-    document.getElementById('mobileOptions').classList.add("mobileOptionsOn");
-      const contactsString = await getItem("kontakte");
-      loadedContacts = JSON.parse(contactsString);
-      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-      const contact = loadedContacts[i];
-      let name = contact["name"];
-      let email = contact["email"];
-      let phone = contact["phone"]; 
-      contactView.classList.add('contactViewOn');
-      contactView.classList.remove('contactViewOff');
-      let uppercaseLetters = (str) => str.split("").filter((char) => /[A-Z]/.test(char));
-      const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
-      contactView.innerHTML = "";
-      contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter);
-      changeContactColor(i);
-      currentEditIndex = i;
+    showContactView(i);
   }
+}
+
+//shows contact window
+async function showContactView(i){
+  document.getElementById('mobileOptions').classList.add("mobileOptionsOn");
+  const contactsString = await getItem("kontakte");
+  loadedContacts = JSON.parse(contactsString);
+  loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+  const contact = loadedContacts[i];
+  const { name, email, phone } = contact;
+  contactView.classList.add('contactViewOn');
+  contactView.classList.remove('contactViewOff');
+  const uppercaseLetter = name.split("").filter((char) => /[A-Z]/.test(char)).join("");
+  contactView.innerHTML = "";
+  contactView.innerHTML += renderContactView(i, name, email, phone, uppercaseLetter);
+  changeContactColor(i);
+  currentEditIndex = i;
 }
 
 // contact info render html
@@ -205,6 +203,14 @@ function renderContactView(i, name, email, phone, uppercaseLetter) {
     </div> `;
 }
 
+function removeContactView(contactView){
+  contactView.classList.add('contactViewOff');
+  contactView.classList.remove('contactViewOn');
+  document.getElementById('mobileOptions').classList.remove("mobileOptionsOn");
+  removeWhiteColor();
+  setTimeout(() => (contactView.innerHTML = ""), 200);
+}
+
 // changes color when contactView is opened
 function changeContactColor(i) {
     const contactElement = document.getElementById(`contactInfo${i}`);
@@ -228,8 +234,8 @@ function removeWhiteColor(){
     const nameElement = document.getElementById(`contactName${i}`);
     const mailElement = document.getElementById(`contactMail${i}`);    3
     contactElement.classList.remove("blueColor");
-  nameElement.classList.remove("whiteColor");
-  mailElement.classList.remove("whiteColor");
+    nameElement.classList.remove("whiteColor");
+    mailElement.classList.remove("whiteColor");
   }
 }
 
@@ -258,6 +264,7 @@ async function mobileDelContact(){
   delContact(currentEditIndex);
 }
 
+//-----------------------------------------------------------------------------------------
 // function for auto setting a new contact for demo purpose
 
 // function setContactValue(){
@@ -265,33 +272,50 @@ async function mobileDelContact(){
 //   document.getElementById('addContactEmail').value = newContacts[0]['email'];
 //   document.getElementById('addContactPhone').value = newContacts[0]['phone'];
 // }
+// ----------------------------------------------------------------------------------------
 
 // takes the input from add contact window and adds the contact to storage if its not a duplicate name
 async function addContact(){
-  let addContactNameInput = document.getElementById('addContactName');
-  let addContactEmailInput = document.getElementById('addContactEmail');
-  let addContactPhoneInput = document.getElementById('addContactPhone');
-    const newContact = {
-      name: addContactNameInput.value,
-      email: addContactEmailInput.value,
-      phone: addContactPhoneInput.value,
-      id: new Date().getTime()
-    };
-    const isNameDuplicate = loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase());
-    if (isNameDuplicate) {
-      closeAddNewContact();
-      alert('contact exists already');
-    } else {
-      loadedContacts.push(newContact);
-      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-      await setItem("kontakte", JSON.stringify(loadedContacts));
-      contactsListRender(loadedContacts);
-      closeAddNewContact();
-      setTimeout(addContactSuccess, 800);
-    }
+  let { addContactNameInput, addContactEmailInput, addContactPhoneInput } = getAddContactInputs();
+  let newContact = createNewContact(addContactNameInput.value, addContactEmailInput.value, addContactPhoneInput.value);
+  if (loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase())) {
+    closeAddNewContact();
+  } else {
+    handleValidContact(newContact);
+  }
 }
 
-// 
+// get the data from input
+function getAddContactInputs() {
+  return {
+    addContactNameInput: document.getElementById('addContactName'),
+    addContactEmailInput: document.getElementById('addContactEmail'),
+    addContactPhoneInput: document.getElementById('addContactPhone')
+  };
+}
+
+//creates a new contact with the input
+function createNewContact(name, email, phone) {
+  return {
+    name,
+    email,
+    phone,
+    id: new Date().getTime()
+  };
+}
+
+// handles contact that does not exist and adds it to storage
+async function handleValidContact(newContact) {
+  loadedContacts.push(newContact);
+  loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+  
+  await setItem("kontakte", JSON.stringify(loadedContacts));
+  contactsListRender(loadedContacts);
+  closeAddNewContact();
+  setTimeout(addContactSuccess, 800);
+}
+
+
 async function addMobileContact() {  
   addNewContactWindow();
 }
@@ -303,7 +327,7 @@ function addContactSuccess(){
     setTimeout(function() {
       success.style.top = '50%';
   }, 50)
-  setTimeout(addContactSuccessClose, 1600);
+  setTimeout(addContactSuccessClose, 2000);
 }
 
 // closes the success popup again
@@ -321,12 +345,11 @@ let currentEditIndex;
 // edit clicked contact 
 async function editContact(i) {
   let editContactWindow = document.getElementById("editContact");
-  editContactWindow.classList.add('editContactOn')
-  const contactsString = await getItem("kontakte");
-  loadedContacts = JSON.parse(contactsString);
-  const contact = loadedContacts[i];
-  let uppercaseLetters = (str) => {return str.split("").filter((char) => /[A-Z]/.test(char));};
-  const uppercaseLetter = uppercaseLetters(contact["name"]).join("");
+  editContactWindow.classList.add('editContactOn');
+
+  const contact = JSON.parse(await getItem("kontakte"))[i];
+  const uppercaseLetter = contact["name"].split("").filter((char) => /[A-Z]/.test(char)).join("");
+
   document.getElementById("popup-bg").style.display = "block";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
@@ -347,11 +370,11 @@ async function saveChangeContact() {
     editedContact['name'] = editedName;
     editedContact['email'] = editedEmail;
     editedContact['phone'] = editedPhone;
-
     setItem("kontakte", JSON.stringify(loadedContacts));
     loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
     contactsListRender(loadedContacts);
     closeEditContact();
+    openContactView(currentEditIndex)
 }
 
 // delete edited contact from storage
@@ -423,9 +446,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
-// document.addEventListener("DOMContentLoaded", function (event) {
-//     closeMobileOptionsWindow();
-//     event.stopPropagation();
-// });
 
