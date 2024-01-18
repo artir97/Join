@@ -6,6 +6,7 @@ async function summaryInit(){
     countAllAwaitFeedback ();
     countAllDone ();
     countTaskUrgent();
+    document.getElementById('currentDateContainer').innerText = getCurrentDate();
 }
 
 
@@ -65,4 +66,11 @@ function countTaskUrgent(){
 
 function redirectToBoard() {
     window.location.href = '/board.html';
+}
+
+function getCurrentDate() {
+    const currentDate = new Date();    
+    const formattedDate = currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    
+    return formattedDate;
 }
