@@ -8,6 +8,8 @@
     <script src="js/login.js"></script>
     <script src="script.js"></script>
     <script src="js/summary.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/board.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="summary.css">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon/apple-touch-icon.png">
@@ -22,12 +24,12 @@
 
         <div class="box-container">
             <div class="summary-top">
-                <div class="summary-big-box">
+                <div class="summary-big-box" onclick="redirectToBoard()">
                     <div>
                         <div>
                             <div class="summary-big-box-left">
                                 <img class="summary-small-box-content-img" src="/assets/img/Urgent.png" alt="">
-                                <div class="summary-big-box-number">1</div>
+                                <div id="urgentInBoard" class="summary-big-box-number">0</div>
                             </div>
                             <span>Tasks Urgent</span>
                         </div>
@@ -39,11 +41,11 @@
                     </div>
                 </div>
 
-                <div class="summary-small-box" id="summary-small-box-tasks-in-board">
+                <div class="summary-small-box" id="summary-small-box-tasks-in-board" onclick="redirectToBoard()">
                     <div class="summary-small-box-content">
                         <div class="summary-small-box-content-top">
                             <img class="summary-small-box-content-img" src="/assets/img/Board.png" alt="">
-                            <div class="summary-small-box-number">5</div>
+                            <div id="taskInBoard" class="summary-small-box-number">0</div>
                         </div>
                         <span>Tasks in Board</span>
                     </div>
@@ -51,38 +53,38 @@
                 
             </div>
             <div class="summary-bottom">
-                <div class="summary-small-box todo" id="summary-small-box-todo">
+                <div class="summary-small-box todo" id="summary-small-box-todo" onclick="redirectToBoard()">
                     <div class="summary-small-box-content">
                         <div class="summary-small-box-content-top">
                             <img class="summary-small-box-content-img" src="/assets/img/Urgent (1).png" alt="">
-                            <div class="summary-small-box-number">1</div>
+                            <div id="toDoInBoard" class="summary-small-box-number">0</div>
                         </div>
                         <span>Tasks To-do</span>
                     </div>
                 </div>
-                <div class="summary-small-box">
+                <div class="summary-small-box" onclick="redirectToBoard()">
                     <div class="summary-small-box-content">
                         <div class="summary-small-box-content-top">
                             <img class="summary-small-box-content-img" src="/assets/img/In Progress.png" alt="">
-                            <div class="summary-small-box-number">2</div>
+                            <div id="inProgressInBoard" class="summary-small-box-number">0</div>
                         </div>
                         <span>Tasks in Progress</span>
                     </div>
                 </div>
-                <div class="summary-small-box">
+                <div class="summary-small-box" onclick="redirectToBoard()">
                     <div class="summary-small-box-content">
                         <div class="summary-small-box-content-top">
                             <img class="summary-small-box-content-img" src="/assets/img/Awaiting feedback.png" alt="">
-                            <div class="summary-small-box-number">2</div>
+                            <div id="awaitFeedbackInBoard" class="summary-small-box-number">0</div>
                         </div>
                         <span>Awaiting Feedback</span>
                     </div>
                 </div>
-                <div class="summary-small-box">
+                <div class="summary-small-box" onclick="redirectToBoard()">
                     <div class="summary-small-box-content">
                         <div class="summary-small-box-content-top">
                             <img class="summary-small-box-content-img" src="/assets/img/Done.png" alt="">
-                            <div class="summary-small-box-number">1</div>
+                            <div id="doneInBoard" class="summary-small-box-number">0</div>
                         </div>
                         <span>Tasks Done</span>
                     </div>

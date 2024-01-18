@@ -18,7 +18,7 @@ async function updateHTML() {
     await loadedTaskstoBoard();
     const searchInput = document.getElementById('findTask').value.toLowerCase();
     const filteredTasks = filterTasksBySearch(loadedTasks, searchInput);
-
+    
     initTaskData();
     renderToDoTask(filteredTasks);
     renderInProgressTask(filteredTasks);
@@ -201,6 +201,31 @@ function progressBarSmallInfoCard(element){
         </div>`;
 
     return progressBarHTML;
+}
+
+
+function renderAssignedContactSmallInfoCard(assignedContacts) {
+    let assignedContactHTML = '';
+
+    if (assignedContacts && assignedContacts.length > 0) {
+        for (let i = 0; i < Math.min(assignedContacts.length, 3); i++) {
+            let contact = assignedContacts[i];
+            assignedContactHTML += `
+                <div class="boardNameBox">
+                    ${getInitials(contact.name)}
+                </div>`;
+        }
+
+        if (assignedContacts.length > 3) {
+            // Hier wird ein zusätzliches Element für mehr als 3 Contact hinzugefügt
+            assignedContactHTML += `
+                <div class="boardNameBoxExtra">
+                    +${assignedContacts.length - 3}
+                </div>`;
+        }
+    }
+
+    return assignedContactHTML;
 }
 
 
@@ -649,36 +674,3 @@ function generateEmtyTaskFormHTML(){
 </div>`;
 }
 
-
-
-
-
-
-
-
-
-
-
-function renderAssignedContactSmallInfoCard(assignedContacts) {
-    let assignedContactHTML = '';
-
-    if (assignedContacts && assignedContacts.length > 0) {
-        for (let i = 0; i < Math.min(assignedContacts.length, 3); i++) {
-            let contact = assignedContacts[i];
-            assignedContactHTML += `
-                <div class="boardNameBox">
-                    ${getInitials(contact.name)}
-                </div>`;
-        }
-
-        if (assignedContacts.length > 3) {
-            // Hier wird ein zusätzliches Element für mehr als 3 Contact hinzugefügt
-            assignedContactHTML += `
-                <div class="boardNameBoxExtra">
-                    +${assignedContacts.length - 3}
-                </div>`;
-        }
-    }
-
-    return assignedContactHTML;
-}
