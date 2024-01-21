@@ -294,7 +294,8 @@
     transition: all 200ms ease-in-out;
   }
   .addContactOn{
-    height: 1024px;
+    /* height: 1024px; */
+    height: 100%;
     width: 584px;
     display: flex;
     flex-direction: column;
@@ -362,13 +363,22 @@
     line-height: 120%; /* 32.4px */
   }
   .addContactBottom,
-  .editContactBottom {
+  .editContactBottom,
+  .addContactBottom form,
+  .editContactBottom form  {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 32px;
     border-radius: 0 0 30px 30px;
     /* width: 100%; */
+  }
+  .addContactBottom form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    border-radius: 0 0 30px 30px;
   }
   .addContactImage,
   .editContactImage {
@@ -553,7 +563,8 @@
     transition: all 200ms ease-in-out;
   }
   .editContactOn{
-    height: 1024px;
+    height: 100%;
+    /* height: 1024px; */
     flex-direction: column;
     align-items: center;
     gap: 72px;
@@ -669,6 +680,7 @@
     }
     .contact-view {
       transition: none;
+      top: 96px;
     }
     .contact-view h2 {
       display: none;

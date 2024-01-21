@@ -7,7 +7,6 @@ async function summaryInit(){
     countAllDone ();
     countTaskUrgent();
     getCurrentDate();
-    // document.getElementById('currentDateContainer').innerText = getCurrentDate();
 }
 
 
@@ -100,5 +99,4 @@ function getCurrentDate() {
     const formattedDate = currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     document.getElementById('currentDateContainerMobile').innerText = formattedDate;
     document.getElementById('currentDateContainer').innerText = formattedDate;
-    // return formattedDate;
 }

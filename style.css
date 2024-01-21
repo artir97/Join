@@ -10,9 +10,8 @@
 .d-none {
   display: none !important;
 }
-
-.m-96{
-  margin-top: 96px;
+.m96 {
+  margin: 96px 0 0 0;
 }
 
 h1,
@@ -25,8 +24,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  /* margin-top: 96px; */
-  margin: 96px 0 0 0;
+  margin: 0;
   font-style: normal;
   overflow-y: hidden;
   overflow-x: hidden;

@@ -247,11 +247,7 @@ async function moveTo(category) {
 
     allTasks.push(currentDraggedElement);
     await setItem('allTasks', JSON.stringify(allTasks))
-        .then(() => {
-            updateHTML();
-        })
-        .catch(error => console.error('Error during setItem:', error));
-
+    updateHTML();
     deleteTask(currentDraggedElementID);
 }
 

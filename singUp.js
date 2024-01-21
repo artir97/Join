@@ -9,26 +9,28 @@ async function init(){
 }
 
 async function loadUsers(){
-    try {
-        users = JSON.parse(await getItem('users'));
-    } catch(e) {
-        console.error('Loading error:', e);
-    }
-    
+        users = JSON.parse(await getItem('users'));    
 }
 
 //Set users
 async function register(){
+    const signUpBtn = document.getElementById('signUpBtn');
+    const user_name = document.getElementById('user_name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const repeat_password = document.getElementById('repeat_password');
     signUpBtn.disabled = true;
-    console.log('in function regsiter()');
 
-    users.push({
-        user_name: user_name.value,
-        email: email.value,
-        password: password.value
-    });
-
-    await setItem('users', JSON.stringify(users));
+    if (password.value !== repeat_password.value) {
+        alert('password is not the same');
+        return;
+    } else {
+        users.push({
+            user_name: user_name.value,
+            email: email.value,
+            password: password.value
+        });
+        await setItem('users', JSON.stringify(users));
     document.getElementById('msgBox').classList.remove('d-none');
     resetForm();
 
@@ -36,8 +38,7 @@ async function register(){
     setTimeout(() => {
         window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
     }, 3000);
-
-
+    }
 }
 
 function resetForm(){

@@ -1,47 +1,4 @@
-let allContacts = [
-  {
-    name: "Anton Mayer",
-    email: "anton@gmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "Anja Schulz",
-    email: "schulz@hotmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "Benedikt Ziegler",
-    email: "benedikt@gmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "David Eisenberg",
-    email: "davidberg@gmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "Eva Fischer",
-    email: "eva@gmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "Emmanuel Mauer",
-    email: "emmanuelma@gmail.com",
-    phone: 49111111111,
-  },
-  {
-    name: "Marcel Bauer",
-    email: "bauer@gmail.com",
-    phone: 49111111111,
-  },
-];
-
-let newContacts = [{
-  name: 'Tatjana Wolf',
-  email: 'wolf@gmail.com',
-  phone: 4922222222}
- ];
-
+let allContacts = [];
 let loadedContacts = [];
 
 // Initiate body onload
@@ -112,14 +69,21 @@ function contactInfo(contact, uppercaseLetter, i) {
     `;
 }
 
-// if Contact Info is open/filled -> close, else render when clicked on a contact
+// close if contact is open, else open clicked contact
+let lastClickedContact = null;
+
 async function openContactView(i) {
+  let contactInfoId = "contactInfo" + i;
   let contactView = document.getElementById("contactView");
-  if (contactView.innerHTML.trim() !== "") {
+  if (lastClickedContact === contactInfoId) {
     removeContactView(contactView);
-  } else {
-    showContactView(i);
+    return;
   }
+  lastClickedContact = contactInfoId;
+  removeContactView(contactView);
+  setTimeout(() => {
+    showContactView(i);
+  }, 150);
 }
 
 //shows contact window
@@ -208,7 +172,7 @@ function removeContactView(contactView){
   contactView.classList.remove('contactViewOn');
   document.getElementById('mobileOptions').classList.remove("mobileOptionsOn");
   removeWhiteColor();
-  setTimeout(() => (contactView.innerHTML = ""), 200);
+  setTimeout(() => (contactView.innerHTML = ""), 100);
 }
 
 // changes color when contactView is opened
@@ -264,25 +228,22 @@ async function mobileDelContact(){
   delContact(currentEditIndex);
 }
 
-//-----------------------------------------------------------------------------------------
-// function for auto setting a new contact for demo purpose
-
-// function setContactValue(){
-//   document.getElementById('addContactName').value  = newContacts[0]['name'];
-//   document.getElementById('addContactEmail').value = newContacts[0]['email'];
-//   document.getElementById('addContactPhone').value = newContacts[0]['phone'];
-// }
-// ----------------------------------------------------------------------------------------
 
 // takes the input from add contact window and adds the contact to storage if its not a duplicate name
 async function addContact(){
-  let { addContactNameInput, addContactEmailInput, addContactPhoneInput } = getAddContactInputs();
-  let newContact = createNewContact(addContactNameInput.value, addContactEmailInput.value, addContactPhoneInput.value);
-  if (loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase())) {
-    closeAddNewContact();
-  } else {
-    handleValidContact(newContact);
+  try{
+    let { addContactNameInput, addContactEmailInput, addContactPhoneInput } = getAddContactInputs();
+    let newContact = createNewContact(addContactNameInput.value, addContactEmailInput.value, addContactPhoneInput.value);
+    if (loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase())) {
+      closeAddNewContact();
+    } else {
+      await handleValidContact(newContact);
+      return true;
+    }
+  } catch (error) {
+    return false;
   }
+
 }
 
 // get the data from input
@@ -356,6 +317,7 @@ async function editContact(i) {
   document.getElementById("editContactPhone").value = "+" + contact["phone"];
   document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
   currentEditIndex = i;
+  closeMobileOptionsWindow();
 }
 
 // save edited contact to storage
@@ -398,6 +360,7 @@ async function delContact(i) {
     await setItem("kontakte", JSON.stringify(loadedContacts));
     contactsListRender(loadedContacts);
     openContactView(i);
+    closeMobileOptionsWindow();
 }
 
 // close add new contact popup

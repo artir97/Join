@@ -9,7 +9,6 @@ let lastStatus = 'toDo';
 
 async function initTaskData() {
     await loadContacts();
-    // await clearAllTasks();
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
 }
@@ -18,13 +17,10 @@ function generateTaskID(existingIDs) {
     let isUnique = false;
     let newID;
     
-    // Schleife zum generiren einer ID
     while (!isUnique) {
         const timestamp = new Date().getTime();
         const random = Math.floor(Math.random() * 1000);
         newID = timestamp+random;
-
-        // Überprüfen, ob die ID bereits vorhanden ist
         isUnique = !existingIDs.includes(newID);
     }
     return newID;
@@ -58,18 +54,11 @@ async function createTask() {
         status: lastStatus
     };
 
-    // Add the newTask directly to the allTasks array       
+
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
-    
-    // console.log('allTasks:', allTasks);
-
     taskAddedPopup()
-
-    // alert('Task created successfully');
     clearForm();
-    
-    // goes to board after creating the task
     setTimeout(function() {
         window.location.href = 'board.html'; 
     }, 800)
@@ -82,16 +71,9 @@ async function updateMinDate() {
 
 
 async function loadTasks() {
-    try {
         const tasksString = await getItem('allTasks');
         const loadedTasks = JSON.parse(tasksString);
-        // '...'  to prevent array nesting
         allTasks = [...loadedTasks];
-        // console.log('allTasks:', allTasks);
-        // console.log(allTasks)
-    } catch (e) {
-        console.error('Error while loading the tasks:', e);
-    }
 }
 
 // was there to empty the storage 
@@ -102,15 +84,10 @@ async function clearAllTasks() {
 
 
 async function loadContacts() {
-    try {
         const contactsString = await getItem("kontakte");
         const loadedContacts = JSON.parse(contactsString);
 
         allContacts.push(loadedContacts);
-        // console.log(allContacts);
-    } catch (e) {
-        console.error("Error while loading the contacts:", e);
-    }
 }
 
 

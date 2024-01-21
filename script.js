@@ -1,13 +1,16 @@
-setTimeout(loadimg, 1000);
+// handles the image only on index and sign up page
+if(document.location.pathname.includes("index.html") || document.location.pathname.includes("sign_up.html")){
+    setTimeout(loadImg, 1000);
+}
 
-
+//initializes the code on load
 async function init() {
     await includeHTML();
-    //Timeout war 800
     CheckIfLoggedInOrGuest();
     checkFocusOnSidenav()
 }
 
+// check which page is active and sets corresponding class and image
 function checkFocusOnSidenav(){
     let responsive = window.innerWidth < 1000;
     if (document.location.pathname.includes("contacts.html")){
@@ -25,7 +28,8 @@ function checkFocusOnSidenav(){
     }
 }
 
-function loadimg() {
+// loads the animated image 
+function loadImg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
     img.classList.remove('frontImage');
@@ -38,6 +42,7 @@ function loadimg() {
     }
 }
 
+// include html function for usage of templates
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
@@ -52,6 +57,7 @@ async function includeHTML() {
     }
 }
 
+// desktop template, shows options on logged in user/guest
 function showNavDropDown(){
     let dropdown = document.getElementById('navbar-dropdown');
     
@@ -63,22 +69,24 @@ function showNavDropDown(){
     
 }
 
+// checks if a user is logged in or else as guest
 async function CheckIfLoggedInOrGuest() {
     let cookies = document.cookie.split(';');
     let loggedInUserCookie = cookies.find(cookie => cookie.trim().startsWith('loggedInUser='));
 
     if (loggedInUserCookie) {
         loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
-        // User is logged in, update UI accordingly
         document.getElementById('user-initials').innerHTML = `<div>${returnInitials(loggedInUser.user_name)}</div>`;
         document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}, ${loggedInUser.user_name}`;
     } else {
-        // No user is logged in
         document.getElementById('user-initials').innerHTML = '<div>G</div>';
-        document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}`;
+        if (document.location.pathname.includes("summary.html")){
+            document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}`;
+        }
     }
 }
 
+// gets current time and day and answers to it
 function checkTimeOfDay() {
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
@@ -92,6 +100,7 @@ function checkTimeOfDay() {
     }
 }
 
+// gets the initials of a name
 function returnInitials(name){
     let names = name.split(' ');
     let initials = '';
@@ -102,10 +111,9 @@ function returnInitials(name){
     return initials;
 }
 
+// logs out user and returns to index
 function logout() {
-    // Set the expiration date of the cookie to a date in the past
     document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-    // Redirect to the startpage
     window.location.href = 'index.html';
 }
 
