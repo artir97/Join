@@ -12,8 +12,12 @@ async function summaryInit(){
 
 function countAllTasks (){
     let summaryAllTasks = document.getElementById('taskInBoard');   
+    let summaryAllTasksMobile = document.getElementById('summaryAllTasksMobile');   
     summaryAllTasks.innerHTML = /*html*/`
         ${loadedTasks.length}
+    `;
+    summaryAllTasksMobile.innerHTML = /*html*/`
+    ${loadedTasks.length}
     `;
 }
 
@@ -21,16 +25,26 @@ function countAllTasks (){
 function countAllToDOs (){
     let toDO = loadedTasks.filter(t => t['status'] == 'toDo'); 
     let summarytoDos = document.getElementById('toDoInBoard'); 
+    let summarytoDosMobile = document.getElementById('toDoInBoardMobile'); 
     summarytoDos.innerHTML = /*html*/`
         ${toDO.length}
     `;
+
+    summarytoDosMobile.innerHTML = /*html*/`
+        ${toDO.length}
+    `;
+
 }
 
 
 function countAllInProgress (){
     let inProgress = loadedTasks.filter(t => t['status'] == 'inProgress'); 
     let summaryinProgress = document.getElementById('inProgressInBoard'); 
+    let summaryinProgressMoblie = document.getElementById('summaryinProgressMoblie'); 
     summaryinProgress.innerHTML = /*html*/`
+        ${inProgress.length}
+    `;
+    summaryinProgressMoblie.innerHTML = /*html*/`
         ${inProgress.length}
     `;
 }
@@ -39,7 +53,11 @@ function countAllInProgress (){
 function countAllAwaitFeedback (){
     let awaitFeedback = loadedTasks.filter(t => t['status'] == 'aweitFeedback'); 
     let summaryawaitFeedback = document.getElementById('awaitFeedbackInBoard'); 
+    let summaryawaitFeedbackMoblie = document.getElementById('summaryawaitFeedbackMoblie'); 
     summaryawaitFeedback.innerHTML = /*html*/`
+        ${awaitFeedback.length}
+    `;
+    summaryawaitFeedbackMoblie.innerHTML = /*html*/`
         ${awaitFeedback.length}
     `;
 }
@@ -48,9 +66,13 @@ function countAllAwaitFeedback (){
 function countAllDone (){
     let done = loadedTasks.filter(t => t['status'] == 'done');
     let summaryDone = document.getElementById('doneInBoard'); 
+    let summaryDoneMoblie = document.getElementById('summaryDoneMoblie'); 
     summaryDone.innerHTML = /*html*/`
         ${done.length}
     `;
+    summaryDoneMoblie.innerHTML = /*html*/`
+    ${done.length}
+`;
 }
 
 
@@ -58,7 +80,11 @@ function countAllDone (){
 function countTaskUrgent(){
     let tasksUrgent = loadedTasks.filter(t => t['priority'] == 'urgent'); 
     let summaryTasksUrgent = document.getElementById('urgentInBoard'); 
+    let summaryTasksUrgentMobile = document.getElementById('summaryTasksUrgentMobile'); 
     summaryTasksUrgent.innerHTML = /*html*/`
+        ${tasksUrgent.length}
+    `;
+    summaryTasksUrgentMobile.innerHTML = /*html*/`
         ${tasksUrgent.length}
     `;
 }
