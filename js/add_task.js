@@ -35,6 +35,10 @@ async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
+    if (!selectedPriority) {
+        alert('Bitte wählen Sie eine Priorität aus.');
+        return;
+    }
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
     const category = selectedCategory;
@@ -64,7 +68,7 @@ async function createTask() {
 
     // alert('Task created successfully');
     clearForm();
-     
+    
     // goes to board after creating the task
     setTimeout(function() {
         window.location.href = 'board.html'; 
@@ -186,7 +190,8 @@ function assignPriority(priority) {
             changeColorLow();
             return 'low';
         default:
-            return 'none'
+            // changeColorNone();
+            return 'none';
             // return null;
     }
 }
