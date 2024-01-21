@@ -789,10 +789,22 @@ input[type="checkbox"] {
     height: 53px;
   }
 
-
+  .toDoContainer {
+    width: 252px;
+}
+@media(max-width: 1400px) {
+    .toDoContainer {
+        width: 23%;
+    }
+    .todo {
+        width: 200px;
+    }
+}
 
 @media (max-width: 1300px) {
-
+.toDoContainer{
+    width: unset;
+}
 .board-container {
     margin-left: 0px;
     height: auto;
@@ -912,6 +924,7 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     height: 70vh;
+    width: 100%;
 }
 
 #slide-form-add-task {

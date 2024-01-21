@@ -250,11 +250,10 @@ button {
 
 /* Board Styling */
 .board-container {
-  margin-left: 240px;
+  /* margin-left: 200px; */
   height: 215px;
-  padding: 72px 0px 16px 0px;
+  padding: 72px 0px 16px 200px;
   gap: 48px;
-  display: block;
 }
 .boardHeader {
   display: flex;
@@ -266,6 +265,7 @@ button {
 .addTask-container {
   display: flex;
   flex-direction: column;
+  width: calc(100% - 100px);
 }
 #findTask {
   background-image: url(assets/img/searchbuttonimg.png);
@@ -294,8 +294,10 @@ button {
 }
 .columnTitles {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 0px 64px 0px 64px;
+  width: 100%;
+  gap: 24px;
 }
 .columnTitles img {
   width: 24px;
@@ -640,7 +642,7 @@ header {
     padding-left: 14px !important;
   }
   .sidenav {
-    position: absolute;
+    position: fixed;
     bottom: 0px;
     right: 0;
     left: 0;
