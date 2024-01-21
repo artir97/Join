@@ -6,7 +6,8 @@ async function summaryInit(){
     countAllAwaitFeedback ();
     countAllDone ();
     countTaskUrgent();
-    document.getElementById('currentDateContainer').innerText = getCurrentDate();
+    getCurrentDate();
+    // document.getElementById('currentDateContainer').innerText = getCurrentDate();
 }
 
 
@@ -51,7 +52,7 @@ function countAllInProgress (){
 
 
 function countAllAwaitFeedback (){
-    let awaitFeedback = loadedTasks.filter(t => t['status'] == 'aweitFeedback'); 
+    let awaitFeedback = loadedTasks.filter(t => t['status'] == 'awaitFeedback'); 
     let summaryawaitFeedback = document.getElementById('awaitFeedbackInBoard'); 
     let summaryawaitFeedbackMoblie = document.getElementById('summaryawaitFeedbackMoblie'); 
     summaryawaitFeedback.innerHTML = /*html*/`
@@ -97,6 +98,7 @@ function redirectToBoard() {
 function getCurrentDate() {
     const currentDate = new Date();    
     const formattedDate = currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-    
-    return formattedDate;
+    document.getElementById('currentDateContainerMobile').innerText = formattedDate;
+    document.getElementById('currentDateContainer').innerText = formattedDate;
+    // return formattedDate;
 }
