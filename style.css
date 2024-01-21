@@ -11,6 +11,10 @@
   display: none !important;
 }
 
+.m-96{
+  margin-top: 96px;
+}
+
 h1,
 h2,
 h3,
@@ -21,7 +25,8 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  margin: 0;
+  /* margin-top: 96px; */
+  margin: 96px 0 0 0;
   font-style: normal;
   overflow-y: hidden;
   overflow-x: hidden;
@@ -328,6 +333,10 @@ header {
   color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
 }
 
 .navbar {

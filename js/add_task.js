@@ -58,11 +58,17 @@ async function createTask() {
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
     
-    console.log('allTasks:', allTasks);
+    // console.log('allTasks:', allTasks);
+
+    taskAddedPopup()
 
     // alert('Task created successfully');
     clearForm();
-    
+     
+    // goes to board after creating the task
+    setTimeout(function() {
+        window.location.href = 'board.html'; 
+    }, 800)
 }
 
 async function updateMinDate() {
@@ -77,8 +83,8 @@ async function loadTasks() {
         const loadedTasks = JSON.parse(tasksString);
         // '...'  to prevent array nesting
         allTasks = [...loadedTasks];
-        console.log('allTasks:', allTasks);
-        console.log(allTasks)
+        // console.log('allTasks:', allTasks);
+        // console.log(allTasks)
     } catch (e) {
         console.error('Error while loading the tasks:', e);
     }
@@ -97,7 +103,7 @@ async function loadContacts() {
         const loadedContacts = JSON.parse(contactsString);
 
         allContacts.push(loadedContacts);
-        console.log(allContacts);
+        // console.log(allContacts);
     } catch (e) {
         console.error("Error while loading the contacts:", e);
     }
@@ -180,7 +186,8 @@ function assignPriority(priority) {
             changeColorLow();
             return 'low';
         default:
-            return null;
+            return 'none'
+            // return null;
     }
 }
 
@@ -520,3 +527,20 @@ function resetColorAll() {
     document.getElementById('add-task-medium').style.color = '#000';
     document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png'
 }
+
+function taskAddedPopup(){
+    let success = document.getElementById('successTask');
+    success.style.display = 'flex';
+    setTimeout(function() {
+        success.style.top = '50%';
+    }, 50 )
+    // setTimeout(closeTaskAddedPopup, 400)
+}
+
+// function closeTaskAddedPopup() {
+//     let success = document.getElementById('successTask');
+//     success.style.top = '120%';
+//     setTimeout(function() {
+//         success.style.display = 'none';
+//     }, 50 )
+// }

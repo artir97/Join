@@ -1,7 +1,6 @@
 * {
     font-family: OpenSans!important;
 }
-
 /* edit scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
@@ -366,7 +365,37 @@ transition: background-color 0.3 ease-in-out!important;
     display: flex;
 }
 
-
+.addedTaskSuccess{
+    display: none;
+    width: 326px;
+    height: 74px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: var(--version-2-main-color, #4589ff);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    left: 50%;
+    top: 120%;
+    transform: translate(-50%, -50%);
+    transition: all 400ms ease-in-out;
+    z-index: 20;
+    gap: 20px;
+}
+.addedTaskSuccess p{
+    color: #fff;
+    font-family: OpenSans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+.addedTaskSuccess img{
+    width: 22px;
+    height: 26px;
+    transform: rotate(-90deg);
+    flex-shrink: 0;
+}
 
 
 

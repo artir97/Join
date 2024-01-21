@@ -333,9 +333,9 @@ function addContactSuccess(){
 // closes the success popup again
 function addContactSuccessClose(){
   let success = document.getElementById('newContactSuccess');
-  success.style.display = 'none';
+  success.style.top = '120%';
   setTimeout(function() {
-    success.style.top = '120%';
+    success.style.display = 'none';  
 }, 50)
 }
 
