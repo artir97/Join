@@ -11,6 +11,7 @@ async function initTaskData() {
     await loadContacts();
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
+    changePriority('medium');
 }
 
 function generateTaskID(existingIDs) {
@@ -31,12 +32,12 @@ async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
-    if (!selectedPriority) {
-        alert('Bitte wählen Sie eine Priorität aus.');
-        return;
-    }
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
+        if (!selectedCategory) {
+        alert('Please choose a category.');
+        return;
+    }
     const category = selectedCategory;
     const subtask = subtasks;
     const newTaskID = generateTaskID(allTasks.map(task => task.taskID));
@@ -167,9 +168,7 @@ function assignPriority(priority) {
             changeColorLow();
             return 'low';
         default:
-            // changeColorNone();
             return 'none';
-            // return null;
     }
 }
 
