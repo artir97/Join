@@ -17,11 +17,11 @@ async function initTaskData() {
 function generateTaskID(existingIDs) {
     let isUnique = false;
     let newID;
-    
+
     while (!isUnique) {
         const timestamp = new Date().getTime();
         const random = Math.floor(Math.random() * 1000);
-        newID = timestamp+random;
+        newID = timestamp + random;
         isUnique = !existingIDs.includes(newID);
     }
     return newID;
@@ -32,16 +32,20 @@ async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
+    if (!selectedPriority) {
+        alert('Please choose a priority.');
+        return;
+    }
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
-        if (!selectedCategory) {
+    if (!selectedCategory) {
         alert('Please choose a category.');
         return;
     }
     const category = selectedCategory;
     const subtask = subtasks;
     const newTaskID = generateTaskID(allTasks.map(task => task.taskID));
-    
+
 
     const newTask = {
         taskID: newTaskID,
@@ -60,8 +64,8 @@ async function createTask() {
     await setItem('allTasks', JSON.stringify(allTasks));
     taskAddedPopup()
     clearForm();
-    setTimeout(function() {
-        window.location.href = 'board.html'; 
+    setTimeout(function () {
+        window.location.href = 'board.html';
     }, 800)
 }
 
@@ -72,9 +76,9 @@ async function updateMinDate() {
 
 
 async function loadTasks() {
-        const tasksString = await getItem('allTasks');
-        const loadedTasks = JSON.parse(tasksString);
-        allTasks = [...loadedTasks];
+    const tasksString = await getItem('allTasks');
+    const loadedTasks = JSON.parse(tasksString);
+    allTasks = [...loadedTasks];
 }
 
 // was there to empty the storage 
@@ -85,10 +89,10 @@ async function clearAllTasks() {
 
 
 async function loadContacts() {
-        const contactsString = await getItem("kontakte");
-        const loadedContacts = JSON.parse(contactsString);
+    const contactsString = await getItem("kontakte");
+    const loadedContacts = JSON.parse(contactsString);
 
-        allContacts.push(loadedContacts);
+    allContacts.push(loadedContacts);
 }
 
 
@@ -123,7 +127,7 @@ function selectContact(id) {
 
     const checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
-   if (contact.classList.contains('selectedContact')) {
+    if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
 
         if (indexToRemoveContact !== -1) {
@@ -199,7 +203,6 @@ function selectedTaskInnerHTML(selectedTask) {
             return 'User Story';
         default:
             return 'Select task category';
-
     }
 }
 
@@ -299,9 +302,9 @@ function openEditAddedSubtask(i) {
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
 
-    subtaskInput.value = subtasks[i];
+    subtaskInput.value = subtasks[i].text;
 
-    subtaskListItem.classList.add('d-none');
+    subtaskListItem.classList.add('d-none');    
     subtaskInput.classList.remove('d-none');
     subtaskEditContainer.classList.remove('d-none');
 }
@@ -313,7 +316,7 @@ function confirmEditSubtask(i) {
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
     let subtaskList = document.getElementById('add-task-subtask-list');
 
-    subtasks[i] = subtaskInput.value;
+    subtasks[i].text = subtaskInput.value;
 
     subtaskListItem.classList.remove('d-none');
     subtaskInput.classList.add('d-none');
@@ -439,7 +442,7 @@ function clearForm() {
     selectedCategory = null;
     resetColorAll();
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML('');
-    selectedContacts = []; 
+    selectedContacts = [];
     document.getElementById('add-task-selected-contacts-mini').innerHTML = renderSelectedContactsMini();
     subtasks = [];
     document.getElementById('add-task-subtask-list').innerHTML = renderSubtasksAddTask();
@@ -509,12 +512,12 @@ function resetColorAll() {
     document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png'
 }
 
-function taskAddedPopup(){
+function taskAddedPopup() {
     let success = document.getElementById('successTask');
     success.style.display = 'flex';
-    setTimeout(function() {
+    setTimeout(function () {
         success.style.top = '50%';
-    }, 50 )
+    }, 50)
     // setTimeout(closeTaskAddedPopup, 400)
 }
 
