@@ -1,19 +1,46 @@
+/**
+ * Array to store loaded tasks.
+ * @type {Array}
+ */
 let loadedTasks= [];
+
+
+/**
+ * Variable to store the currently dragged element.
+ * @type {HTMLElement}
+ */
 let currentDraggedElement;
+
+
+/**
+ * Variable to store the ID of the currently dragged element.
+ * @type {number}
+ */
 let currentDraggedElementID; 
 
 
+/**
+ * Saves the status of an element.
+ * @param {string} Elementstatus - The status to be saved.
+ */
 function saveStatus(Elementstatus){
     lastStatus = Elementstatus
 };
 
 
+/**
+ * Loads tasks from storage to the board asynchronously.
+ */
 async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
 
 
+/**
+ * Updates the HTML content of the board.
+ * @async
+ */
 async function updateHTML() {
     await loadedTaskstoBoard();
     const searchInput = document.getElementById('findTask').value.toLowerCase();
@@ -28,6 +55,10 @@ async function updateHTML() {
 }
 
 
+/**
+ * Renders the "To Do" tasks on the board.
+ * @param {Array} loadedTasks - The array of tasks to filte the toDo Tasks.
+ */
 async function renderToDoTask(loadedTasks) {    
     let open = loadedTasks.filter(t => t['status'] == 'toDo');
     let container = document.getElementById('todoListContainer');
@@ -45,6 +76,10 @@ async function renderToDoTask(loadedTasks) {
 }
 
 
+/**
+ * Renders the "In Progress" tasks on the board.
+ * @param {Array} loadedTasks - The array of tasks to filte the inProgress Tasks.
+ */
 function renderInProgressTask(loadedTasks){
     let inProgress = loadedTasks.filter(t => t['status'] == 'inProgress');
     let container = document.getElementById('progressListContainer');
@@ -62,6 +97,10 @@ function renderInProgressTask(loadedTasks){
 }
 
 
+/**
+ * Renders the "Await Feedback" tasks on the board.
+ * @param {Array} loadedTasks - The array of tasks to filte the aweitFeedback Tasks.
+ */
 function renderAwaitFeedbackTask(loadedTasks){
     let awaitFeedback = loadedTasks.filter(t => t['status'] == 'aweitFeedback');
     let container = document.getElementById('awaitFeedbackListContainer');
@@ -79,6 +118,10 @@ function renderAwaitFeedbackTask(loadedTasks){
 }
 
 
+/**
+ * Renders the "Done" tasks on the board.
+ * @param {Array} loadedTasks - The array of tasks to filte the done Tasks.
+ */
 function renderDoneTask(loadedTasks){
     let done = loadedTasks.filter(t => t['status'] == 'done');
     let container = document.getElementById('doneListContainer');
@@ -95,13 +138,16 @@ function renderDoneTask(loadedTasks){
     }
 }
 
-
+/**
+ * Generates the HTML for a tasks.
+ * @param {Object} element - The task object.
+ * @param {number} elementID - The ID of the task.
+ * @returns {string} - The HTML representation of the task.
+ */
 function generateTodoHTML(element, elementID) {
     const assignedContactHTML = renderAssignedContactSmallInfoCard(element.assignedContact);
     const progressBarHTML = progressBarSmallInfoCard(element);
     const subTaskDone = filterSubTaskDone(element);
-
-    // Überprüfe, ob die Kategorie nicht leer ist, bevor du das HTML generierst
     const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
 
     return /*html*/`
@@ -124,12 +170,15 @@ function generateTodoHTML(element, elementID) {
 }
 
 
+/**
+ * Renders the assigned contacts information card. 
+ * @param {Array} element - The element containing task information.
+ */
 function renderAssignedContactsInfoCard(element){
     let assignedContactsContainer = document.getElementById('assignedContactsContainer')
     assignedContactsContainer.innerHTML = '';
     
     if (element[0].assignedContact.length > 0) {
-        // document.getElementById('assignedTO').innerHTML = <p>Assigned To:</p>;
         let assignedTO = document.getElementById('assignedTO');
         assignedTO.innerHTML = 'Assigned To:';
         for (let i = 0; i < element[0].assignedContact.length; i++) {
@@ -144,6 +193,11 @@ function renderAssignedContactsInfoCard(element){
   }
 
 
+  /**
+ * Renders the subtasks information card.
+ * @param {Array} element - The element containing task information.
+ * @param {number} elementID - The ID of the element.
+ */
 function renderSubtasksInfoCard(element, elementID) {
     let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
     assignedSubtasksContainer.innerHTML = '';
@@ -155,8 +209,8 @@ function renderSubtasksInfoCard(element, elementID) {
 
         for (let i = 0; i < element[0].subtask.length; i++) {
             const subtask = element[0].subtask[i];
-            const checkboxId = `checkbox_${elementID}_${i}`; // Eindeutige ID für jede Checkbox
-            const labelFor = `label_${elementID}_${i}`; // Eindeutige ID für jedes Label
+            const checkboxId = `checkbox_${elementID}_${i}`; 
+            const labelFor = `label_${elementID}_${i}`; 
 
             subtaskHTML += /*html*/`
                 <div class="singleContactPopup">
@@ -169,6 +223,12 @@ function renderSubtasksInfoCard(element, elementID) {
     assignedSubtasksContainer.innerHTML = subtaskHTML;
 }
 
+
+/**
+ * Toggles the status of a subtask. 
+ * @param {number} elementID - The ID of the element.
+ * @param {number} subtaskIndex - The index of the subtask.
+ */
 async function toggleSubtaskStatus(elementID, subtaskIndex) {
     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
     if (taskIndex !== -1 && subtaskIndex < allTasks[taskIndex].subtask.length) {
@@ -176,25 +236,20 @@ async function toggleSubtaskStatus(elementID, subtaskIndex) {
         const newStatus = currentStatus === 'open' ? 'done' : 'open';
 
         allTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
-        allTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === 'done' || false; // Speichern Sie den Status der Checkbox
-
-        // Speichern Sie das aktualisierte Array mit setItem
-        await setItem('allTasks', JSON.stringify(allTasks));
-
-        // Aktualisieren Sie die Anzeige
+        allTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === 'done' || false; 
         updateHTML();
     }
 }
 
 
+/**
+ * Generates HTML for a small progress bar based on open subtasks.
+ * @param {Array} element - The element containing task information.
+ * @returns {string} - The HTML for the progress bar.
+ */
 function progressBarSmallInfoCard(element){
-    // Zähle die offenen Subtasks
     const openSubtasksCount = countOpenSubtasks(element);
-
-    // Berechne den Fortschritt in Prozent
     const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
-
-    // Füge die Fortschrittsleiste hinzu
     const progressBarHTML = `
         <div class="progressBar">
             <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
@@ -204,6 +259,11 @@ function progressBarSmallInfoCard(element){
 }
 
 
+/**
+ * Renders assigned contacts as small info cards.
+ * @param {Array} assignedContacts - The array of assigned contacts.
+ * @returns {string} - The HTML for assigned contact small info cards.
+ */
 function renderAssignedContactSmallInfoCard(assignedContacts) {
     let assignedContactHTML = '';
 
@@ -217,18 +277,21 @@ function renderAssignedContactSmallInfoCard(assignedContacts) {
         }
 
         if (assignedContacts.length > 3) {
-            // Hier wird ein zusätzliches Element für mehr als 3 Contact hinzugefügt
             assignedContactHTML += `
                 <div class="boardNameBoxExtra">
                     +${assignedContacts.length - 3}
                 </div>`;
         }
     }
-
     return assignedContactHTML;
 }
 
 
+/**
+ * Filters the number of subtasks that are done.
+ * @param {Array} element - The element containing task information.
+ * @returns {number} - The count of subtasks that are done.
+ */
 function filterSubTaskDone(element){
     let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
 
@@ -236,35 +299,45 @@ function filterSubTaskDone(element){
 }
 
 
+/**
+ * Allows dropping of an element.
+ * @param {Event} ev - The drop event.
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
 
+/**
+ * Moves a task to a specified category.
+ * @param {string} category - The target category.
+ */
 async function moveTo(category) {
     currentDraggedElement['status'] = category;
     currentDraggedElement['taskID'] = new Date().getTime();
 
-    allTasks.push(currentDraggedElement);
+    await allTasks.push(currentDraggedElement);
     await setItem('allTasks', JSON.stringify(allTasks))
-    updateHTML();
-    deleteTask(currentDraggedElementID);
+    await updateHTML();
+    await deleteTask(currentDraggedElementID);
 }
 
-
-function allowDrop(ev) {
-    ev.preventDefault();
-  }
-
-
-  function startDragging(elementID) {
+/**
+ * Initiates dragging of an element.
+ * @param {number} elementID - The ID of the element being dragged.
+ */
+function startDragging(elementID) {
     dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
     currentDraggedElement = dragElement[0];
     currentDraggedElementID = dragElement[0].taskID;
   }
 
 
-  function generateEmtyTodoHTML(container){   
+  /**
+ * Generates HTML for an empty todo task.
+ * @param {HTMLElement} container - The container element.
+ */
+function generateEmtyTodoHTML(container){   
     container.innerHTML = /*html*/`               
     <div class="emtyTask">
        <p>No tasks To do</p>            
@@ -272,6 +345,10 @@ function allowDrop(ev) {
 }
 
 
+/**
+ * Opens the information card for a specific task.
+ * @param {number} elementID - The ID of the element.
+ */
 function openInfoCard(elementID){    
     let element = loadedTasks.filter(id => id['taskID'] == elementID);
     let infoCard = document.getElementById('InfoCard');   
@@ -283,37 +360,50 @@ function openInfoCard(elementID){
 }
 
 
+/**
+ * Closes the add task form.
+ */
 async function closeAddTaskForm(){       
     document.getElementById('slide-form-add-task').style.display = 'none';    
 }
 
 
+/**
+ * Opens the add task form.
+ */
 function openAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'block';
 }
 
 
+/**
+ * Updates the created task.
+ */
 async function updateCreatedTask(){
     await createTask();
     await updateHTML();
 }
 
+
+/**
+ * Updates the edited task.
+ * @param {number} elementID - The ID of the element being edited.
+ */
 async function updateEditTask(elementID){
     await createTask();
     await deleteTask(elementID);
 }
 
 
+/**
+ * Deletes a task.
+ * @param {number} elementID - The ID of the element being deleted.
+ */
 async function deleteTask(elementID) {
-    // Finde den Index des Tasks im allTasks-Array anhand der taskID
     const index = allTasks.findIndex(task => task['taskID']  === elementID);  
    
-    // Überprüfe, ob der Index gültig ist
     if (index !== -1) {
-        // Entferne den Task aus dem allTasks-Array
         allTasks.splice(index, 1);
-
-        // Aktualisiere die gespeicherten Daten
         await setItem('allTasks', JSON.stringify(allTasks));
         
         closeTaskPopup();
@@ -325,6 +415,10 @@ async function deleteTask(elementID) {
 }
 
 
+/**
+ * Opens the edit task form for a specific task.
+ * @param {number} elementID - The ID of the element being edited.
+ */
 function editTask(elementID){
     const element = allTasks.filter(task => task['taskID']  === elementID);
     let infoCard = document.getElementById('InfoCard');
@@ -333,6 +427,11 @@ function editTask(elementID){
 }
 
 
+/**
+ * Counts the number of open subtasks.
+ * @param {Array} element - The element containing task information.
+ * @returns {number} - The count of open subtasks.
+ */
 function countOpenSubtasks(element) {
     let subTaskDone =  element.subtask.filter(subtask => subtask.status === 'done').length;
 
@@ -344,40 +443,56 @@ function countOpenSubtasks(element) {
 }
 
 
+/**
+ * Capitalizes the first letter of each word in a text.
+ * @param {string} text - The input text.
+ * @returns {string} - The text with first letters capitalized.
+ */
 function getFirstLettersUppercase(text) {
     if (!text) return '';
     return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
 
 
+/**
+ * Gets the initials from a full name.
+ * @param {string} fullName - The full name.
+ * @returns {string} - The initials.
+ */
 function getInitials(fullName) {
-    // Splitte den Namen in Vor- und Nachnamen
     const nameParts = fullName.split(' ');
-
-    // Extrahiere den ersten Buchstaben jedes Teils und setze sie zusammen
     const initials = nameParts.map(part => part.charAt(0)).join('');
     return initials;
 }
 
 
+/**
+ * Reverses the date format.
+ * @param {string} originalDate - The original date.
+ * @returns {string} - The reversed date.
+ */
 function reverseDate(originalDate) {
-    // Zerlege das Datum in seine Bestandteile
     const parts = originalDate.split('-');
-
-    // Kehre die Reihenfolge der Teile um
     const reversedParts = parts.reverse();
-
-    // Setze die Teile wieder zusammen
     const reversedDate = reversedParts.join('/');
-
     return reversedDate;
 }
 
 
+/**
+ * Searches for tasks.
+ */
 function searchTasks() {
     updateHTML();
 }
 
+
+/**
+ * Filters tasks based on a search input.
+ * @param {Array} tasks - The array of tasks.
+ * @param {string} searchInput - The search input.
+ * @returns {Array} - The filtered tasks.
+ */
 function filterTasksBySearch(tasks, searchInput) {
     return tasks.filter(task =>
         task.title.toLowerCase().includes(searchInput) ||
@@ -386,6 +501,9 @@ function filterTasksBySearch(tasks, searchInput) {
 }
 
 
+/**
+ * Closes the task popup.
+ */
 function closeTaskPopup() {
     const popup = document.querySelector('.popup');
     if (popup) {
@@ -393,11 +511,21 @@ function closeTaskPopup() {
     }
 }
 
+
+/**
+ * Prevents closing of open infocard div.
+ * @param {Event} event - The event.
+ */
 function doNotClose(event) {
     event.stopPropagation();
 }
 
 
+/**
+ * Generates the inner HTML for a selected task.
+ * @param {string} selectedTask - The selected task.
+ * @returns {string} - The inner HTML.
+ */
 function selectedTaskInnerHTML(selectedTask) {    
     let taskImageSrc = '';
 
@@ -415,7 +543,6 @@ function selectedTaskInnerHTML(selectedTask) {
             taskImageSrc = '/assets/img/Prio low.png';
             break;
     }
-    // fügt das Bild  in das HTML-Element ein
     let resultHTML = `
         <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
     `;
@@ -426,6 +553,13 @@ function selectedTaskInnerHTML(selectedTask) {
 // generateHTML
 
 
+
+/**
+ * Generates the HTML for an open information card.
+ * @param {Array} element - The element containing task information.
+ * @param {number} elementID - The ID of the element.
+ * @returns {string} - The HTML for the information card.
+ */
 function generateOpenInfoCardHTML(element, elementID){
     const reversedDate = reverseDate(element[0].date);
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
@@ -482,6 +616,12 @@ function generateOpenInfoCardHTML(element, elementID){
 }
 
 
+/**
+ * Opens the edit task form.
+ * @param {Array} element - The element containing task information.
+ * @param {number} elementID - The ID of the element.
+ * @returns {string} - The HTML for the edit task form.
+ */
 function openEditTaskForm(element, elementID){
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
     saveStatus(element[0]['status']);
@@ -531,13 +671,10 @@ function openEditTaskForm(element, elementID){
                     <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContacts()"> <!-- reverse so that the arrow points upwards-->
                 </div>
                 <div class="d-none" id="add-task-contacts-to-assigne">
-                    <!-- Gets rendered through a function now -->
                 </div>
                 <div class="d-none" id="add-task-selected-contacts-mini">
-                    <!-- Gets rendered through a function now -->
                 </div>
 
-                <!-- change it like above in the add-task-contact -->
                 <label for="add-task-category">Category</label>
                 <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
                     <div id="add-task-currently-selected-category">Select task category</div>
@@ -549,8 +686,6 @@ function openEditTaskForm(element, elementID){
                     <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
                 </div>
 
-                <!-- <label for="add-task-subtask">Subtask (optional)</label>
-                <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask"> -->
                 <label for="add-task-subtask">Subtask (optional)</label>
                 <div id="add-task-subtask-container">
                     <div id="add-task-subtask-input-container">
@@ -563,7 +698,6 @@ function openEditTaskForm(element, elementID){
                     </div>
                     <div>
                         <ul id="add-task-subtask-list">
-                            <!-- Gets rendered through a function now -->
                         </ul>
                     </div>
                 </div>
@@ -578,6 +712,9 @@ function openEditTaskForm(element, elementID){
 } 
 
 
+/**
+ * Generates the HTML for an empty task form.
+ */
 function generateEmtyTaskFormHTML(){
     let taskForm = document.getElementById('task-form');
 
@@ -620,13 +757,10 @@ function generateEmtyTaskFormHTML(){
                 <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContacts()"> <!-- reverse so that the arrow points upwards-->
             </div>
             <div class="d-none" id="add-task-contacts-to-assigne">
-                <!-- Gets rendered through a function now -->
             </div>
             <div class="d-none" id="add-task-selected-contacts-mini">
-                <!-- Gets rendered through a function now -->
-            </div>
-
-            <!-- change it like above in the add-task-contact -->
+            </div>            
+            
             <label for="add-task-category">Category</label>
             <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
                 <div id="add-task-currently-selected-category">Select task category</div>
@@ -637,9 +771,7 @@ function generateEmtyTaskFormHTML(){
                 </div>
                 <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
             </div>
-
-            <!-- <label for="add-task-subtask">Subtask (optional)</label>
-            <input class="pointer" type="text" name="subtask" id="add-task-subtask" placeholder="Add new subtask"> -->
+        
             <label for="add-task-subtask">Subtask (optional)</label>
             <div id="add-task-subtask-container">
                 <div id="add-task-subtask-input-container">
@@ -651,8 +783,7 @@ function generateEmtyTaskFormHTML(){
                     </div>
                 </div>
                 <div>
-                    <ul id="add-task-subtask-list">
-                        <!-- Gets rendered through a function now -->
+                    <ul id="add-task-subtask-list">                        
                     </ul>
                 </div>
             </div>
@@ -660,13 +791,7 @@ function generateEmtyTaskFormHTML(){
                 <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
                 <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
             </div>
-        </div>
-
-        <!-- <div class="add-task-form-buttons">
-            <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-            <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
-        </div> -->
-    </form>
+        </div>       
 </div>`;
 }
 
