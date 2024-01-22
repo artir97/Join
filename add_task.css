@@ -147,6 +147,11 @@
     width: 80%;
 }
 
+#add-task-contacts-to-assigne {
+    height: 200px;
+    overflow-x: auto;
+}
+
 
 #add-task-subtask-container {
     padding-bottom:100px;
