@@ -1,3 +1,4 @@
+//intialize all dynamic functions
 async function summaryInit(){
     await loadedTaskstoBoard();
     countAllTasks ();
@@ -9,7 +10,7 @@ async function summaryInit(){
     getCurrentDate();
 }
 
-
+// summary of all tasks
 function countAllTasks (){
     let summaryAllTasks = document.getElementById('taskInBoard');   
     let summaryAllTasksMobile = document.getElementById('summaryAllTasksMobile');   
@@ -21,7 +22,7 @@ function countAllTasks (){
     `;
 }
 
-
+// summary of To Do tasks
 function countAllToDOs (){
     let toDO = loadedTasks.filter(t => t['status'] == 'toDo'); 
     let summarytoDos = document.getElementById('toDoInBoard'); 
@@ -36,7 +37,7 @@ function countAllToDOs (){
 
 }
 
-
+//summary of In Progress tasks
 function countAllInProgress (){
     let inProgress = loadedTasks.filter(t => t['status'] == 'inProgress'); 
     let summaryinProgress = document.getElementById('inProgressInBoard'); 
@@ -49,7 +50,7 @@ function countAllInProgress (){
     `;
 }
 
-
+// summary of Await Feedback tasks
 function countAllAwaitFeedback (){
     let awaitFeedback = loadedTasks.filter(t => t['status'] == 'awaitFeedback'); 
     let summaryawaitFeedback = document.getElementById('awaitFeedbackInBoard'); 
@@ -62,7 +63,7 @@ function countAllAwaitFeedback (){
     `;
 }
 
-
+//summary of Done tasks
 function countAllDone (){
     let done = loadedTasks.filter(t => t['status'] == 'done');
     let summaryDone = document.getElementById('doneInBoard'); 
@@ -76,7 +77,7 @@ function countAllDone (){
 }
 
 
-
+// summary of Urgent tasks
 function countTaskUrgent(){
     let tasksUrgent = loadedTasks.filter(t => t['priority'] == 'urgent'); 
     let summaryTasksUrgent = document.getElementById('urgentInBoard'); 
@@ -89,11 +90,12 @@ function countTaskUrgent(){
     `;
 }
 
-
+// directs user to give html
 function redirectToBoard() {
     window.location.href = '/board.html';
 }
 
+// get current Date and shows on summary
 function getCurrentDate() {
     const currentDate = new Date();    
     const formattedDate = currentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });

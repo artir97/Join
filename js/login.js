@@ -1,12 +1,14 @@
 let users = [];
 let loggedInUser = null;
 
+// listens to a loginbutton to click perform login function
 document.addEventListener('DOMContentLoaded', function () {
-    if (document.location.pathname.includes("")){
+    if (document.location.pathname.includes("index.html")){
         document.getElementById('loginBtn').addEventListener('click', login);
     }
 });
 
+//intitalize onload
 async function initUsers() {
     await loadUsers();
 }
@@ -16,6 +18,7 @@ async function loadUsers() {
         users = JSON.parse(await getItem('users'));
 }
 
+// logs in user with given inputs
 function login(event) {
     event.preventDefault();
 
@@ -39,6 +42,7 @@ function login(event) {
 
 }
 
+// gets guest access to login
 function guestLogin() {
     location.href = "summary.html";
 }
