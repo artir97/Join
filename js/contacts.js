@@ -231,27 +231,34 @@ async function mobileDelContact(){
 
 // takes the input from add contact window and adds the contact to storage if its not a duplicate name
 async function addContact(){
-  try{
+  try {
     let { addContactNameInput, addContactEmailInput, addContactPhoneInput } = getAddContactInputs();
     let newContact = createNewContact(addContactNameInput.value, addContactEmailInput.value, addContactPhoneInput.value);
+
     if (loadedContacts.some(contact => contact.name.toLowerCase() === addContactNameInput.value.toLowerCase())) {
       closeAddNewContact();
     } else {
       await handleValidContact(newContact);
-      return true;
+      return false;
     }
   } catch (error) {
     return false;
   }
-
 }
 
 // get the data from input
 function getAddContactInputs() {
+  const addContactNameInput = document.getElementById('addContactName');
+  const addContactEmailInput = document.getElementById('addContactEmail');
+  const addContactPhoneInput = document.getElementById('addContactPhone');
+  if (!addContactNameInput.value.trim() || !addContactEmailInput.value.trim() || !addContactPhoneInput.value.trim()) {
+    alert("Bitte füllen Sie alle Felder aus.");
+    return null;
+  }
   return {
-    addContactNameInput: document.getElementById('addContactName'),
-    addContactEmailInput: document.getElementById('addContactEmail'),
-    addContactPhoneInput: document.getElementById('addContactPhone')
+    addContactNameInput,
+    addContactEmailInput,
+    addContactPhoneInput
   };
 }
 
@@ -271,7 +278,7 @@ async function handleValidContact(newContact) {
   loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
   
   await setItem("kontakte", JSON.stringify(loadedContacts));
-  contactsListRender(loadedContacts);
+  await contactsListRender(loadedContacts);
   closeAddNewContact();
   setTimeout(addContactSuccess, 800);
 }
