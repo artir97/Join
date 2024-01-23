@@ -214,48 +214,81 @@ function showAndHideContacts() {
     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
 
     if (contactBox.classList.contains('d-none')) {
-        contactBox.classList.remove('d-none');
-        contactDropdown.classList.add('d-none');
-        contactSearchbarContainer.classList.remove('d-none');
-        selectedContactsMini.classList.add('d-none');
+        showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
     } else {
-        contactBox.classList.add('d-none');
-        contactSearchbarContainer.classList.add('d-none');
-        contactDropdown.classList.remove('d-none');
-        selectedContactsMini.classList.remove('d-none');
-        selectedContactsMini.innerHTML = renderSelectedContactsMini();
+        hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
     }
 }
 
+function showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer){
+    contactBox.classList.remove('d-none');
+    contactDropdown.classList.add('d-none');
+    contactSearchbarContainer.classList.remove('d-none');
+    selectedContactsMini.classList.add('d-none');
+}
+
+function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer){
+    contactBox.classList.add('d-none');
+    contactSearchbarContainer.classList.add('d-none');
+    contactDropdown.classList.remove('d-none');
+    selectedContactsMini.classList.remove('d-none');
+    selectedContactsMini.innerHTML = renderSelectedContactsMini();
+}
 
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
     let arrowCategories = document.getElementById('arrow-categories');
 
     if (taskBox.classList.contains('d-none')) {
-        taskBox.classList.remove('d-none');
-        arrowCategories.style = 'transform: rotate(180deg);';
+        showCategories(taskBox, arrowCategories);
     } else {
-        taskBox.classList.add('d-none');
-        arrowCategories.style = 'transform: rotate(0deg);';
-
+        hideCategories(taskBox, arrowCategories);
     }
 }
+
+function showCategories(taskBox, arrowCategories){
+    taskBox.classList.remove('d-none');
+    arrowCategories.style = 'transform: rotate(180deg);';
+}
+
+function hideCategories(taskBox, arrowCategories){
+    taskBox.classList.add('d-none');
+    arrowCategories.style = 'transform: rotate(0deg);';
+}
+
+function handleClick(event) {
+    let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
+    let contactBox = document.getElementById('add-task-contacts-to-assigne');
+    let contactDropdown = document.getElementById('add-task-assigne');
+    let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
+
+    let taskBox = document.getElementById('add-task-category-dropdown');
+    let arrowCategories = document.getElementById('arrow-categories');
+
+    if (getComputedStyle(event.target).cursor !== 'pointer') {
+            hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
+            hideCategories(taskBox, arrowCategories);
+    }
+  }
+
+  document.addEventListener('click', handleClick);
 
 function confirmAddSubtask() {
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
-
-
-    subtasks.push({
-        text: subtaskInput.value,
-        status: 'open'
-    });
-
-    // subtasks.push(subtaskInput.value);
-    subtaskList.innerHTML = renderSubtasksAddTask();
-
-    subtaskInput.value = '';
+    if(subtaskInput.value.trim() == ''){
+        alert("you can't add an empty subtask")
+    }else {
+        subtasks.push({
+            text: subtaskInput.value,
+            status: 'open'
+        });
+    
+        // subtasks.push(subtaskInput.value);
+        subtaskList.innerHTML = renderSubtasksAddTask();
+    
+        subtaskInput.value = '';
+    }
 }
 
 
@@ -274,7 +307,7 @@ function openEditAddedSubtask(i) {
 
     subtaskInput.value = subtasks[i].text;
 
-    subtaskListItem.classList.add('d-none');    
+    subtaskListItem.classList.add('d-none');
     subtaskInput.classList.remove('d-none');
     subtaskEditContainer.classList.remove('d-none');
 }

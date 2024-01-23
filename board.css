@@ -552,6 +552,7 @@ transition: background-color 0.3 ease-in-out!important;
     font-weight: 400;
     line-height: 120%; /* 19.2px */
     padding-bottom: 15px;
+    overflow-y: auto;
 }
 
 .emtyTask{
