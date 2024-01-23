@@ -242,32 +242,7 @@ function showAndHideCategories() {
     }
 }
 
-
-function addSubtask() {
-    let imgContainer = document.getElementById('add-task-subtask-image-container');
-    imgContainer.innerHTML =
-        `
-        <img src="/assets/img/add-task/subtask-close.png" alt="" onclick="cancelAddSubtask()">
-        <div class="hr"></div>
-        <img src="/assets/img/add-task/subtask-check.png" alt="" onclick="confirmAddSubtask()">
-        `;
-}
-
-
-function cancelAddSubtask() {
-    let imgContainer = document.getElementById('add-task-subtask-image-container');
-    let subtaskInput = document.getElementById('add-task-subtask-input');
-
-    subtaskInput.value = '';
-    imgContainer.innerHTML =
-        `
-         <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
-        `;
-}
-
-
 function confirmAddSubtask() {
-    let imgContainer = document.getElementById('add-task-subtask-image-container');
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
 
@@ -281,11 +256,6 @@ function confirmAddSubtask() {
     subtaskList.innerHTML = renderSubtasksAddTask();
 
     subtaskInput.value = '';
-    imgContainer.innerHTML =
-        `
-        <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
-        `;
-
 }
 
 
