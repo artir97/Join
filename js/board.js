@@ -85,6 +85,7 @@ async function renderToDoTask(loadedTasks) {
         let element = tasks[index];
         let elementID = tasks[index].taskID;
         container.innerHTML += generateTodoHTML(element, elementID);
+       
       }
     } else {
       generateEmtyTodoHTML(container);
@@ -129,13 +130,13 @@ function generateTodoHTML(element, elementID) {
  */
 function renderAssignedContactsInfoCard(element){
     let assignedContactsContainer = document.getElementById('assignedContactsContainer')
-    assignedContactsContainer.innerHTML = '';
+    // assignedContactsContainer.innerHTML = '';
     
-    if (element[0].assignedContact.length > 0) {
+    if (element.assignedContact.length > 0) {
         let assignedTO = document.getElementById('assignedTO');
         assignedTO.innerHTML = 'Assigned To:';
-        for (let i = 0; i < element[0].assignedContact.length; i++) {
-            const contact = element[0].assignedContact[i].name;
+        for (let i = 0; i < element.assignedContact.length; i++) {
+            const contact = element.assignedContact[i].name;
             assignedContactsContainer.innerHTML += /*html*/`
                 <div class="singleContactPopup">
                     <div class="boardNameBox">${getInitials(contact)}</div>
@@ -156,12 +157,12 @@ function renderSubtasksInfoCard(element, elementID) {
     assignedSubtasksContainer.innerHTML = '';
 
     let subtaskHTML = '';
-    if (element[0].subtask.length > 0) {
+    if (element.subtask.length > 0) {
         let Subtasks = document.getElementById('Subtasks');
         Subtasks.innerHTML = 'Subtasks:';
 
-        for (let i = 0; i < element[0].subtask.length; i++) {
-            const subtask = element[0].subtask[i];
+        for (let i = 0; i < element.subtask.length; i++) {
+            const subtask = element.subtask[i];
             const checkboxId = `checkbox_${elementID}_${i}`; 
             const labelFor = `label_${elementID}_${i}`; 
 
