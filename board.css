@@ -38,6 +38,7 @@ body::-webkit-scrollbar-thumb {
     top: 0;
     right: 0;
     bottom: 0;
+    z-index: 100;
 
     border-radius: 30px 0px 0px 30px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
@@ -595,6 +596,7 @@ transition: background-color 0.3 ease-in-out!important;
 
 .editTask{
     width: 528px;
+    height: 100%;
     padding: 48px 40px;
     align-items: flex-start;
     gap: 24px;
@@ -603,6 +605,7 @@ transition: background-color 0.3 ease-in-out!important;
     background: #FFF;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     z-index: 500;
+    box-sizing: border-box;
 }
 
 
@@ -674,6 +677,8 @@ transition: background-color 0.3 ease-in-out!important;
 
 .assignedSubtasksContainer{
     padding-left: 15px;
+    height: 28vh;
+    overflow: scroll;
 }
 
 

@@ -109,8 +109,8 @@ function generateTodoHTML(element, elementID) {
             ${categoryHTML}
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
-            <div class="progressBarContainer flex_spaceBetween">
-                ${progressBarHTML}   <div>${subTaskDone}/${element.subtask.length} Subtasks</div>
+            <div class="progressBarContainer flex_spaceBetween" id="progressBarContainer">
+                ${progressBarHTML}   
             </div>
             <div class="flex_spaceBetween">
                 <div id="selectContact" class="selectContact">
@@ -201,15 +201,23 @@ async function toggleSubtaskStatus(elementID, subtaskIndex) {
  * @param {Array} element - The element containing task information.
  * @returns {string} - The HTML for the progress bar.
  */
-function progressBarSmallInfoCard(element){
-    const openSubtasksCount = countOpenSubtasks(element);
-    const progressPercentage = openSubtasksCount > 0 ? Math.round((openSubtasksCount / element.subtask.length) * 100) : 0;
-    const progressBarHTML = `
-        <div class="progressBar">
-            <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
-        </div>`;
-
-    return progressBarHTML;
+function progressBarSmallInfoCard(element) {
+    if (element.subtask.length > 0) {
+        const openSubtasksCount = countOpenSubtasks(element);
+        const progressPercentage = Math.round((openSubtasksCount / element.subtask.length) * 100);
+        const subTaskCountContainerStyle = element.subtask.length === 0 ? 'display: none;' : '';
+        const progressBarHTML = `
+            <div class="progressBar">
+                <div class="progressBarFill" style="width: ${progressPercentage}%;"></div>
+            </div>
+            <div id="subTaskCount" style="${subTaskCountContainerStyle}">
+                ${openSubtasksCount}/${element.subtask.length} Subtasks
+            </div>`;
+        
+        return progressBarHTML;
+    } else {        
+        return '';
+    }
 }
 
 
