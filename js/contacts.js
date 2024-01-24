@@ -324,26 +324,41 @@ async function editContact(i) {
   document.getElementById("editContactPhone").value = "+" + contact["phone"];
   document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
   currentEditIndex = i;
-  closeMobileOptionsWindow();
+  
 }
 
 // save edited contact to storage
 async function saveChangeContact() {
   const editedIndex = currentEditIndex;
-    const contactsString = await getItem("kontakte");
-    loadedContacts = JSON.parse(contactsString);
-    const editedContact = loadedContacts[editedIndex];
-    const editedName = document.getElementById("editContactName").value;
-    const editedEmail = document.getElementById("editContactEmail").value;
-    const editedPhone = document.getElementById("editContactPhone").value;
-    editedContact['name'] = editedName;
-    editedContact['email'] = editedEmail;
-    editedContact['phone'] = editedPhone;
-    setItem("kontakte", JSON.stringify(loadedContacts));
-    loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-    contactsListRender(loadedContacts);
-    closeEditContact();
-    openContactView(currentEditIndex)
+  const contactsString = await getItem("kontakte");
+  loadedContacts = JSON.parse(contactsString);
+  const editedContact = loadedContacts[editedIndex];
+  let { editedName, editedEmail, editedPhone } = getChangedEdits();
+  editedContact['name'] = editedName;
+  editedContact['email'] = editedEmail;
+  editedContact['phone'] = editedPhone;
+  setItem("kontakte", JSON.stringify(loadedContacts));
+  loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+  contactsListRender(loadedContacts);
+  closeEditContact();
+  openContactView(currentEditIndex);
+  closeMobileOptionsWindow();
+}
+
+// gets the input from the changed contact
+function getChangedEdits(){
+  const editedName = document.getElementById("editContactName").value;
+  const editedEmail = document.getElementById("editContactEmail").value;
+  const editedPhone = document.getElementById("editContactPhone").value;
+  if (!editedName.trim() || !editedEmail.trim() || !editedPhone.trim()) {
+    alert("Bitte füllen Sie alle Felder aus.");
+    return null;
+  }
+  return {
+    editedName,
+    editedEmail,
+    editedPhone
+  };
 }
 
 // delete edited contact from storage

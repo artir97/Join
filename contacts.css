@@ -642,10 +642,10 @@
   
   
 .contactViewOff {
-    left: 100%;
+    left: 110%;
   }
   .contactViewOn {
-    left: 60%;
+    left: 832px;
   }
   /* Contacts Styling End  */
   
@@ -740,9 +740,11 @@
       /* right: -120%; */
       border-radius: 30px;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+      transition: all 300ms ease-in-out;
     }
     .addContactOn{
         right: 2.5%;
+        transition: all 300ms ease-in-out;
     }
     .addContactBottom {
       width: 100%;
@@ -766,9 +768,11 @@
       /* left: -120%; */
       border-radius: 30px;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+      transition: all 300ms ease-in-out;
     }
     .editContactOn{
         left: 2.5%;
+        transition: all 300ms ease-in-out;
     }
     .editContactTop {
       width: 100%;

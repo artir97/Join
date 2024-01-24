@@ -107,14 +107,12 @@
                 dy=".3em"></text>
               </svg>
             </div>
-              <form onsubmit="return saveChangeContact()">
               <div class="editContactInput"><input class="editName" required type="name" id="editContactName" placeholder="Name" autocomplete="off"></div>
               <div class="editContactInput"><input class="editEmail" required type="email" id="editContactEmail" placeholder="Email" autocomplete="off"></div>
               <div class="editContactInput"><input class="editPhone" required type="text" id="editContactPhone" placeholder="Phone" autocomplete="off"></div>
-              </form>
               <div class="editContactBtns">
               <button type="button" onclick="delEditedContact()" class="delEditContact"><p>Delete</p></button>
-              <button type="submit" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>
+              <button type="button" onclick="saveChangeContact()" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>
           </div>
         </div>
         </div>
