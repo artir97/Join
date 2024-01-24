@@ -294,10 +294,9 @@
     transition: all 200ms ease-in-out;
   }
   .addContactOn{
-    /* height: 1024px; */
     height: 100%;
     width: 584px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     gap: 72px;
@@ -307,7 +306,7 @@
     position: absolute;
     right: 0; 
     top: 0;
-    transition: all 200ms ease-in-out;
+    transition: right 200ms ease-in-out;
     z-index: 100;
   }
   #addContact {
@@ -572,7 +571,7 @@
     background: #fff;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     position: absolute;
-    display: inline-flex;
+    /* display: inline-flex; */
     left: 0;
     transition: all 200ms ease-in-out;
     z-index: 100;

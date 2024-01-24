@@ -206,7 +206,10 @@ function removeWhiteColor(){
 // opens Add New Contact Window popup
 function addNewContactWindow() {
   let addNewContact = document.getElementById("addContact");
-  addNewContact.classList.add('addContactOn')
+  addNewContact.style.display = 'flex';
+  setTimeout(() => {
+    addNewContact.classList.add('addContactOn');
+  }, 1);
   document.getElementById("popup-bg").style.display = "block";
 }
 
@@ -313,8 +316,10 @@ let currentEditIndex;
 // edit clicked contact 
 async function editContact(i) {
   let editContactWindow = document.getElementById("editContact");
-  editContactWindow.classList.add('editContactOn');
-
+  editContactWindow.style.display = 'inline-flex';
+  setTimeout(() => {
+    editContactWindow.classList.add('editContactOn');
+  }, 1);
   const contact = JSON.parse(await getItem("kontakte"))[i];
   const uppercaseLetter = contact["name"].split("").filter((char) => /[A-Z]/.test(char)).join("");
 
@@ -390,6 +395,7 @@ function closeAddNewContact() {
   let addNewContact = document.getElementById("addContact");
   addNewContact.classList.remove('addContactOn');
   document.getElementById("popup-bg").style.display = "none";
+  addNewContact.style.display = 'none';
   document.getElementById('addContactName').value = '';
   document.getElementById('addContactEmail').value ='';
   document.getElementById('addContactPhone').value ='';
@@ -398,7 +404,8 @@ function closeAddNewContact() {
 // close edit contact popup
 function closeEditContact() {
   let editContactWindow = document.getElementById("editContact");
-  editContactWindow.classList.remove('editContactOn')
+  editContactWindow.classList.remove('editContactOn');
+  editContactWindow.style.display = 'none'
   document.getElementById("popup-bg").style.display = "none";
   document.getElementById("editContactName").value = '';
   document.getElementById("editContactEmail").value = '';
