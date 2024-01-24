@@ -265,15 +265,30 @@ function allowDrop(ev) {
 /**
  * Moves a task to a specified category.
  * @param {string} category - The target category.
+ * checks if ID is already there, if so refreshes, if not it adds to it
  */
 async function moveTo(category) {
-    currentDraggedElement["status"] = category;
-    currentDraggedElement["taskID"] = new Date().getTime();
+    if (currentDraggedElement) {
+        const elementID = currentDraggedElement.taskID;
+        currentDraggedElement["status"] = category;
+        const existingIndex = allTasks.findIndex(task => task.taskID === elementID);
+
+        if (existingIndex !== -1) {
+            allTasks[existingIndex] = currentDraggedElement;
+        } else {
+            allTasks.push(currentDraggedElement);
+        }
+        await setItem("allTasks", JSON.stringify(allTasks));
+        await updateHTML();
+    }
+    
+    // currentDraggedElement["status"] = category;
+    // currentDraggedElement["taskID"] = new Date().getTime();
   
-    loadedTasks.push(currentDraggedElement);
-    await setItem("allTasks", JSON.stringify(loadedTasks));
-    updateHTML();
-    deleteTask(currentDraggedElementID);
+    // allTasks.push(currentDraggedElement);
+    // await setItem("allTasks", JSON.stringify(allTasks));
+    // await updateHTML();
+    // await deleteTask(currentDraggedElementID);
 }
 
 /**
