@@ -6,7 +6,14 @@ let selectedContacts = [];
 let selectedCategory;
 let subtasks = [];
 let lastStatus = 'toDo';
+let searchQuery = '';
 
+
+/**
+ * Initializes task data by loading contacts, tasks, and setting up the user interface. *
+ * @async
+ * @function
+ */
 async function initTaskData() {
     await loadContacts();
     await loadTasks();
@@ -14,6 +21,13 @@ async function initTaskData() {
     changePriority('medium');
 }
 
+
+/**
+ * Generates a unique task ID based on the current timestamp and a random number.
+ * @param {Array<number>} existingIDs - An array of existing task IDs to check for uniqueness.
+ * @returns {number} - A unique task ID.
+ * @function
+ */
 function generateTaskID(existingIDs) {
     let isUnique = false;
     let newID;
@@ -28,6 +42,12 @@ function generateTaskID(existingIDs) {
 }
 
 
+/**
+ * Creates a new task with the provided details and adds it to the task list.
+ * @async
+ * @function
+ * @throws {Alert} - Displays alerts for missing priority or category selections.
+ */
 async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
@@ -69,25 +89,35 @@ async function createTask() {
     }, 800)
 }
 
+
+/**
+ * Updates the minimum date of the task input to the current date.
+ * @async
+ * @function
+ */
 async function updateMinDate() {
     let today = new Date().toISOString().split('T')[0];
     document.getElementById('add-task-date').min = today;
 }
 
 
+/**
+ * Loads tasks from local storage and populates the 'allTasks' array.f
+ * @async
+ * @function
+ */
 async function loadTasks() {
     const tasksString = await getItem('allTasks');
     const loadedTasks = JSON.parse(tasksString);
     allTasks = [...loadedTasks];
 }
 
-// was there to empty the storage 
-async function clearAllTasks() {
-    allTasks = [];
-    await setItem('allTasks', JSON.stringify(allTasks));
-}
 
-
+/**
+ * Loads contacts from local storage and populates the 'allContacts' array.
+ * @async
+ * @function
+ */
 async function loadContacts() {
     const contactsString = await getItem("kontakte");
     const loadedContacts = JSON.parse(contactsString);
@@ -96,6 +126,12 @@ async function loadContacts() {
 }
 
 
+/**
+ * Generates initials from a full name. *
+ * @param {string} fullName - The full name from which initials are generated.
+ * @returns {string} - The generated initials.
+ * @function
+ */
 function getInitials(fullName) {
     if (!fullName) {
         return '';
@@ -107,7 +143,10 @@ function getInitials(fullName) {
 }
 
 
-let searchQuery = '';
+/**
+ * Searches for contacts to add based on the input search query. *
+ * @function
+ */
 function searchContactToAdd() {
     searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
     const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
@@ -117,6 +156,12 @@ function searchContactToAdd() {
     document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
 
+
+/**
+ * Selects or unselects a contact based on the provided ID and updates the selected contacts array.
+ * @param {number} id - The ID of the contact to be selected or unselected.
+ * @function
+ */
 function selectContact(id) {
     const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
     selectedContact = filteredContacts[id]; // Use the correct index from the filtered list
@@ -142,6 +187,11 @@ function selectContact(id) {
 }
 
 
+/**
+ * Renders the HTML content for assignable contacts based on the 'allContacts' array.
+ * @returns {string} - The HTML content for assignable contacts.
+ * @function
+ */
 function renderAssignableContacts() {
     let content = '';
     for (let i = 0; i < allContacts[0].length; i++) {
@@ -151,6 +201,12 @@ function renderAssignableContacts() {
 }
 
 
+/**
+ * Unselects a contact by removing the 'selectedContact' class and resetting the checkbox appearance.
+ * @param {HTMLElement} contact - The DOM element representing the contact to be unselected.
+ * @param {HTMLImageElement} img - The checkbox image element associated with the contact.
+ * @function
+ */
 function unselectContact(contact, img) {
     contact.classList.remove('selectedContact');
     img.src = 'assets/img/add-task/checkbox.png';
@@ -160,6 +216,12 @@ function unselectContact(contact, img) {
 }
 
 
+/**
+ * Assigns a priority level and updates the UI based on the provided priority.
+ * @param {string} priority - The priority level to be assigned ('urgent', 'medium', 'low', or other).
+ * @returns {string} - The assigned priority value.
+ * @function
+ */
 function assignPriority(priority) {
     switch (priority) {
         case 'urgent':
@@ -177,6 +239,11 @@ function assignPriority(priority) {
 }
 
 
+/**
+ * Changes the priority level for a task, updates the UI, and assigns the new priority.
+ * @param {string} priority - The new priority level to be set ('urgent', 'medium', 'low', or other).
+ * @function
+ */
 function changePriority(priority) {
     if (selectedPriority) {
         document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
@@ -187,6 +254,12 @@ function changePriority(priority) {
 }
 
 
+/**
+ * Handles the selection of a task category, updates the UI, and sets the selected category.
+ * @param {string} selectedTask - The selected task category ('technical-task', 'user-story', or other).
+ * @returns {string} - The selected task category.
+ * @function
+ */
 function selectedTask(selectedTask) {
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML(selectedTask);
     showAndHideCategories();
@@ -195,6 +268,12 @@ function selectedTask(selectedTask) {
 }
 
 
+/**
+ * Generates innerHTML content for the currently selected task category based on the provided category.
+ * @param {string} selectedTask - The selected task category ('technical-task', 'user-story', or other).
+ * @returns {string} - The innerHTML content for the currently selected task category.
+ * @function
+ */
 function selectedTaskInnerHTML(selectedTask) {
     switch (selectedTask) {
         case 'technical-task':
@@ -207,6 +286,10 @@ function selectedTaskInnerHTML(selectedTask) {
 }
 
 
+/**
+ * Toggles the visibility of the contacts section in the task creation form.
+ * @function
+ */
 function showAndHideContacts() {
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
@@ -220,14 +303,32 @@ function showAndHideContacts() {
     }
 }
 
-function showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer){
+
+/**
+ * Displays the contacts section in the task creation form and updates related UI elements.
+ * @param {HTMLElement} selectedContactsMini - The DOM element representing the mini contacts display.
+ * @param {HTMLElement} contactBox - The DOM element representing the contacts box to be shown.
+ * @param {HTMLElement} contactDropdown - The DOM element representing the contacts dropdown to be hidden.
+ * @param {HTMLElement} contactSearchbarContainer - The DOM element representing the container of the contacts search bar.
+ * @function
+ */
+function showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
     contactBox.classList.remove('d-none');
     contactDropdown.classList.add('d-none');
     contactSearchbarContainer.classList.remove('d-none');
     selectedContactsMini.classList.add('d-none');
 }
 
-function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer){
+
+/**
+ * Hides the contacts section in the task creation form and updates related UI elements.
+ * @param {HTMLElement} selectedContactsMini - The DOM element representing the mini contacts display.
+ * @param {HTMLElement} contactBox - The DOM element representing the contacts box to be hidden.
+ * @param {HTMLElement} contactDropdown - The DOM element representing the contacts dropdown to be shown.
+ * @param {HTMLElement} contactSearchbarContainer - The DOM element representing the container of the contacts search bar.
+ * @function
+ */
+function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
     contactBox.classList.add('d-none');
     contactSearchbarContainer.classList.add('d-none');
     contactDropdown.classList.remove('d-none');
@@ -235,6 +336,11 @@ function hideContacts(selectedContactsMini, contactBox, contactDropdown, contact
     selectedContactsMini.innerHTML = renderSelectedContactsMini();
 }
 
+
+/**
+ * Toggles the visibility of the task categories dropdown and updates the arrow indicator.
+ * @function
+ */
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
     let arrowCategories = document.getElementById('arrow-categories');
@@ -246,16 +352,36 @@ function showAndHideCategories() {
     }
 }
 
-function showCategories(taskBox, arrowCategories){
+
+/**
+ * Displays the task categories dropdown and rotates the arrow indicator.
+ * @param {HTMLElement} taskBox - The DOM element representing the task categories dropdown to be shown.
+ * @param {HTMLElement} arrowCategories - The DOM element representing the arrow indicator for task categories.
+ * @function
+ */
+function showCategories(taskBox, arrowCategories) {
     taskBox.classList.remove('d-none');
     arrowCategories.style = 'transform: rotate(180deg);';
 }
 
-function hideCategories(taskBox, arrowCategories){
+
+/**
+ * Hides the task categories dropdown and resets the arrow indicator rotation.
+ * @param {HTMLElement} taskBox - The DOM element representing the task categories dropdown to be hidden.
+ * @param {HTMLElement} arrowCategories - The DOM element representing the arrow indicator for task categories.
+ * @function
+ */
+function hideCategories(taskBox, arrowCategories) {
     taskBox.classList.add('d-none');
     arrowCategories.style = 'transform: rotate(0deg);';
 }
 
+
+/**
+ * Handles the click event on the document and hides contacts and categories dropdowns.
+ * @param {Event} event - The click event object.
+ * @function
+ */
 function handleClick(event) {
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
@@ -266,32 +392,41 @@ function handleClick(event) {
     let arrowCategories = document.getElementById('arrow-categories');
 
     if (getComputedStyle(event.target).cursor !== 'pointer') {
-            hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
-            hideCategories(taskBox, arrowCategories);
+        hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
+        hideCategories(taskBox, arrowCategories);
     }
-  }
+}
 
-  document.addEventListener('click', handleClick);
+// Add the 'click' event listener to the document, calling the 'handleClick' function
+document.addEventListener('click', handleClick);
 
+
+/**
+ * Confirms the addition of a subtask to the list.
+ * @function
+ */
 function confirmAddSubtask() {
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
-    if(subtaskInput.value.trim() == ''){
+    if (subtaskInput.value.trim() == '') {
         alert("you can't add an empty subtask")
-    }else {
+    } else {
         subtasks.push({
             text: subtaskInput.value,
             status: 'open'
         });
-    
-        // subtasks.push(subtaskInput.value);
+
         subtaskList.innerHTML = renderSubtasksAddTask();
-    
         subtaskInput.value = '';
     }
 }
 
 
+/**
+ * Deletes the added subtask at the specified index.
+ * @param {number} i - The index of the subtask to be deleted.
+ * @function
+ */
 function deleteAddedSubtask(i) {
     let subtaskList = document.getElementById('add-task-subtask-list');
 
@@ -300,6 +435,11 @@ function deleteAddedSubtask(i) {
 }
 
 
+/**
+ * Opens the editing mode for the added subtask at the specified index.
+ * @param {number} i - The index of the subtask to be edited.
+ * @function
+ */
 function openEditAddedSubtask(i) {
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
@@ -313,6 +453,11 @@ function openEditAddedSubtask(i) {
 }
 
 
+/**
+ * Confirms the edit for the subtask at the specified index.
+ * @param {number} i - The index of the edited subtask.
+ * @function
+ */
 function confirmEditSubtask(i) {
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
@@ -329,17 +474,32 @@ function confirmEditSubtask(i) {
 }
 
 
+/**
+ * Deletes the subtask at the specified index during the editing process.
+ * @param {number} i - The index of the subtask to be deleted.
+ * @function
+ */
 function deleteEditSubtask(i) {
     deleteAddedSubtask(i);
 }
 
 
+/**
+ * Hides the action buttons for a specific subtask list element.
+ * @param {number} i - The index of the subtask for which the action buttons should be hidden.
+ * @function
+ */
 function addDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.add('d-none');
 }
 
 
+/**
+ * Reveals the action buttons for a specific subtask list element.
+ * @param {number} i - The index of the subtask for which the action buttons should be revealed.
+ * @function
+ */
 function removeDisplayNone(i) {
     let subtaskListElementButtons = document.getElementById(`add-task-subtask-list-buttons${i}`);
     subtaskListElementButtons.classList.remove('d-none');
@@ -347,6 +507,11 @@ function removeDisplayNone(i) {
 
 
 // RENDER FUNCTIONs
+/**
+ * Renders the HTML content for the mini display of selected contacts.
+ * @returns {string} - The HTML content for the mini display of selected contacts.
+ * @function
+ */
 function renderSelectedContactsMini() {
     let miniContacts = '';
     if (selectedContacts.length > 0) {
@@ -357,6 +522,12 @@ function renderSelectedContactsMini() {
     return miniContacts;
 }
 
+
+/**
+ * Renders the HTML content for the list of subtasks in the "Add Task" form.
+ * @returns {string} - The HTML content for the list of subtasks.
+ * @function
+ */
 function renderSubtasksAddTask() {
     let subtaskList = '';
 
@@ -389,8 +560,14 @@ function renderSubtasksAddTask() {
 }
 
 
-
 // TEMPLATES
+/**
+ * Generates the HTML template for a contact in the "Add Task" form.
+ * @param {string} name - The full name of the contact.
+ * @param {number} index - The index of the contact in the list.
+ * @returns {string} - The HTML template for the contact.
+ * @function
+ */
 function assignContactsTemplate(name, index) {
     const contactFound = selectedContacts.find(c => c.name == name);
     let selectedClass = '';
@@ -410,25 +587,35 @@ function assignContactsTemplate(name, index) {
         </div>
     `;
 
-    // Access the checkbox image element and set its style
     const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
     if (contactFound) {
         checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
     }
 
-    // Return the HTML string
     return contactElement.innerHTML;
 }
 
 
-
-
+/**
+ * Generates the HTML template for a mini version of a selected contact.
+ * @param {string} name - The initials of the selected contact.
+ * @returns {string} - The HTML template for the mini version of the selected contact.
+ * @function
+ */
 function selectedContactMiniTemplate(name) {
     return (
         `<div class="name-box">${name}</div>`
     );
 }
 
+
+/**
+ * Generates the HTML template for displaying a subtask.
+ * @param {string[]} subtasks - An array of subtasks.
+ * @param {number} i - The index of the subtask to display.
+ * @returns {string} - The HTML template for displaying the specified subtask.
+ * @function
+ */
 function getSubtasks(subtasks, i) {
     return (
         `<li>${subtasks[i]}</li>`
@@ -436,6 +623,10 @@ function getSubtasks(subtasks, i) {
 }
 
 
+/**
+ * Clears the input form for adding a new task.
+ * @function
+ */
 function clearForm() {
     document.querySelector('input[type="date"]').value = '';
     document.getElementById('add-task-title').value = '';
@@ -451,7 +642,11 @@ function clearForm() {
     document.getElementById('add-task-subtask-list').innerHTML = renderSubtasksAddTask();
 }
 
-// these functions probably have to be combined
+
+/**
+ * Changes the color scheme for the 'Urgent' priority category.
+ * @function
+ */
 function changeColorUrgent() {
     document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
     document.getElementById('add-task-urgent').style.color = '#fff';
@@ -467,6 +662,10 @@ function changeColorUrgent() {
 }
 
 
+/**
+ * Changes the color scheme for the 'Medium' priority category.
+ * @function
+ */
 function changeColorMedium() {
     document.getElementById('add-task-medium').style.backgroundColor = '#FFA800';
     document.getElementById('add-task-medium').style.color = '#fff';
@@ -482,6 +681,10 @@ function changeColorMedium() {
 }
 
 
+/**
+ * Changes the color scheme for the 'Low' priority category.
+ * @function
+ */
 function changeColorLow() {
     document.getElementById('add-task-low').style.backgroundColor = '#7AE229';
     document.getElementById('add-task-low').style.color = '#fff';
@@ -499,6 +702,10 @@ function changeColorLow() {
 }
 
 
+/**
+ * Resets the color scheme for all priority categories.
+ * @function
+ */
 function resetColorAll() {
     document.getElementById('add-task-low').style.backgroundColor = '#fff';
     document.getElementById('add-task-low').style.color = '#000';
@@ -515,19 +722,15 @@ function resetColorAll() {
     document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png'
 }
 
+
+/**
+ * Displays a success popup for the added task.
+ * @function
+ */
 function taskAddedPopup() {
     let success = document.getElementById('successTask');
     success.style.display = 'flex';
     setTimeout(function () {
         success.style.top = '50%';
     }, 50)
-    // setTimeout(closeTaskAddedPopup, 400)
 }
-
-// function closeTaskAddedPopup() {
-//     let success = document.getElementById('successTask');
-//     success.style.top = '120%';
-//     setTimeout(function() {
-//         success.style.display = 'none';
-//     }, 50 )
-// }
