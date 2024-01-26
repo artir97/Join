@@ -995,14 +995,14 @@ input[type="checkbox"] {
 .dropdown{
     display: flex;
 }
-.priority{
+.baseline{
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
 
-.priorityDropdown{
+.statusDropdown{
     width: 75px;
     height: 25px;
     color: var(--version-2-main-color, #4589FF);
