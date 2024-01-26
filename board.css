@@ -596,7 +596,7 @@ transition: background-color 0.3 ease-in-out!important;
 
 .editTask{
     width: 528px;
-    height: 100%;
+    height: auto;
     padding: 48px 40px;
     align-items: flex-start;
     gap: 24px;
@@ -677,7 +677,7 @@ transition: background-color 0.3 ease-in-out!important;
 
 .assignedSubtasksContainer{
     padding-left: 15px;
-    height: 28vh;
+    height: 20vh;
     overflow: scroll;
 }
 
@@ -693,6 +693,10 @@ tbody{
     gap: 25px;
 }
 
+
+.dropdown{
+    display: none;
+}
 
 
 
@@ -980,6 +984,34 @@ input[type="checkbox"] {
     padding-left: 16px;
     padding-right: 16px;
 }
+
+.assignedSubtasksContainer{
+    padding-left: 15px;
+    height: fit-content;
+    overflow: scroll;
+}
+
+
+.dropdown{
+    display: flex;
+}
+.priority{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+
+.priorityDropdown{
+    width: 75px;
+    height: 25px;
+    color: var(--version-2-main-color, #4589FF);
+    border-color: var(--version-2-main-color, #4589FF);
+    border-radius: 5px;
+    
+}
+
+
 }
 @media(max-width: 800px) {
     .taskContainerHeader{

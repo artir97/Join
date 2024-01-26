@@ -104,9 +104,25 @@ function generateTodoHTML(element, elementID) {
     const subTaskDone = filterSubTaskDone(element);
     const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
 
+    const dropdownMenuHTML = /*html*/`
+        <select class="priorityDropdown" id="priorityDropdown${elementID}" onchange="updatePriority(${elementID}, this.value)">
+                <option value="" disabled selected>Priority</option>
+                <option value="toDo">To do</option>
+                <option value="inProgress">In progress</option>
+                <option value="awaitFeedback">Await feedback</option>
+                <option value="done">Done</option>
+        </select>
+    `;
+
     return /*html*/`
+    <div class="todo-container">
         <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
-            ${categoryHTML}
+            <div class="priority"> 
+                ${categoryHTML} 
+                <div class="dropdown" onclick="doNotClose(event)">
+                    ${dropdownMenuHTML}
+                </div>
+            </div>
             <div class="taskName">${element['title']}</div>
             <div class="taskInfo">${element['description']}</div>
             <div class="progressBarContainer flex_spaceBetween" id="progressBarContainer">
@@ -120,7 +136,43 @@ function generateTodoHTML(element, elementID) {
                     ${selectedTaskInnerHTML(element['priority'])}
                 </div>
             </div>           
-        </div>`;        
+        </div>
+    </div>`;     
+}
+
+
+/**
+ * Returns the category based on the priority.
+ * @param {string} priority - The priority for which the category needs to be determined.
+ * @returns {string} - The corresponding category.
+ */
+function getCategoryFromPriority(priority) {
+    if (priority === 'toDo') {
+        return 'toDo';
+    } else if (priority === 'inProgress') {
+        return 'inProgress';
+    } else if (priority === 'awaitFeedback') {
+        return 'awaitFeedback';
+    } else if (priority === 'done') {
+        return 'done';
+    } else {        
+        return 'DefaultCategory';
+    }
+}
+
+
+/**
+ * Updates the priority of an element and executes the moveTo function.
+ * @param {number} elementID - The ID of the element whose priority is to be updated.
+ * @param {string} priority - The new priority of the element.
+ */
+async function updatePriority(elementID, priority) {
+    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
+    currentDraggedElement = dragElement[0];
+    currentDraggedElementID = dragElement[0].taskID;
+
+    const category = getCategoryFromPriority(priority);
+    await moveTo(category);
 }
 
 
