@@ -227,7 +227,7 @@ function generateEmtyTaskFormHTML(){
                         placeholder="Add new subtask">
 
                     <div id="add-task-subtask-image-container">
-                        <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+                        <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="confirmAddSubtask()">
                     </div>
                 </div>
                 <div>

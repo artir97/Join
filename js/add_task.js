@@ -52,10 +52,6 @@ async function createTask() {
     const title = document.getElementById('add-task-title');
     const description = document.getElementById('add-task-description');
     const date = document.getElementById('add-task-date');
-    if (!selectedPriority) {
-        alert('Please choose a priority.');
-        return;
-    }
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
     if (!selectedCategory) {
@@ -73,20 +69,24 @@ async function createTask() {
         description: description.value,
         date: date.value,
         priority: priority,
-        assignedContact: assignedContact.slice(), // Creates a new array
+        assignedContact: assignedContact.slice(),
         category: category,
-        subtask: subtask.slice(), // Creates a new array
+        subtask: subtask.slice(),
         status: lastStatus
     };
 
-
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
-    taskAddedPopup()
+    
+    if (window.location.href.endsWith('add_task.html')) {
+        taskAddedPopup();
+        setTimeout(function () {
+            window.location.href = 'board.html';
+        }, 800);
+    }
+    
     clearForm();
-    setTimeout(function () {
-        window.location.href = 'board.html';
-    }, 800)
+    
 }
 
 
