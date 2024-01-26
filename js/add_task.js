@@ -225,6 +225,23 @@ function unselectContact(contact, img) {
 function assignPriority(priority) {
     switch (priority) {
         case 'urgent':
+            changeColorUrgent();
+            return 'urgent';
+        case 'medium':
+            changeColorMedium();
+            return 'medium';
+        case 'low':
+            changeColorLow();
+            return 'low';
+        default:
+            return 'none';
+    }
+}
+
+
+function assignPriorityClick(priority) {
+    switch (priority) {
+        case 'urgent':
             let urgentColor = changeColorUrgent();
             if(urgentColor == 'none'){
                 return 'none';
@@ -250,7 +267,6 @@ function assignPriority(priority) {
     }
 }
 
-
 /**
  * Changes the priority level for a task, updates the UI, and assigns the new priority.
  * @param {string} priority - The new priority level to be set ('urgent', 'medium', 'low', or other).
@@ -262,7 +278,7 @@ function changePriority(priority) {
     }
     selectedPriority = priority;
     document.getElementById(`add-task-${priority}`).classList.add('selected');
-    assignPriority(priority);
+    assignPriorityClick(priority);
 }
 
 

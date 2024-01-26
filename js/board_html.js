@@ -91,7 +91,7 @@ function openEditTaskForm(element, elementID){
                     placeholder="Enter a description">${element[0].description}</textarea>
 
                 <label for="add-task-date">Due date</label>
-                <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" onclick="updateMinDate()">
+                <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" value="${element[0].date}" onclick="updateMinDate()">
 
                 <label for="add-task-priority">Priority (optional)</label>
                 <div id="add-task-priority">
@@ -151,8 +151,7 @@ function openEditTaskForm(element, elementID){
                 </div>
 
                 <div class="add-task-form-buttons editTaskButton">
-                    <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-                    <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>            
+                    <button id="add-task-create-task" onclick="closeAddTaskForm()"> OK <img src="/assets/img/check.png" alt=""></button>            
                 </div>
             </div>           
         </form>
