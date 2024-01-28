@@ -225,13 +225,10 @@ function unselectContact(contact, img) {
 function assignPriority(priority) {
     switch (priority) {
         case 'urgent':
-            changeColorUrgent();
             return 'urgent';
         case 'medium':
-            changeColorMedium();
             return 'medium';
         case 'low':
-            changeColorLow();
             return 'low';
         default:
             return 'none';
@@ -244,6 +241,7 @@ function assignPriorityClick(priority) {
         case 'urgent':
             let urgentColor = changeColorUrgent();
             if(urgentColor == 'none'){
+                selectedPriority = 'none';
                 return 'none';
             }else{
                 return 'urgent';
@@ -251,6 +249,7 @@ function assignPriorityClick(priority) {
         case 'medium':
             let mediumColor = changeColorMedium();
             if(mediumColor == 'none'){
+                selectedPriority = 'none';
                 return 'none';
             }else{
                 return 'medium';
@@ -258,6 +257,7 @@ function assignPriorityClick(priority) {
         case 'low':
             let lowColor = changeColorLow();
             if(lowColor == 'none'){
+                selectedPriority = 'none';
                 return 'none';
             }else{
                 return 'low';
@@ -273,9 +273,10 @@ function assignPriorityClick(priority) {
  * @function
  */
 function changePriority(priority) {
-    if (selectedPriority) {
+    if (selectedPriority && selectedPriority !== 'none') {
         document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
     }
+    
     selectedPriority = priority;
     document.getElementById(`add-task-${priority}`).classList.add('selected');
     assignPriorityClick(priority);
@@ -354,7 +355,7 @@ function showContacts(selectedContactsMini, contactBox, contactDropdown, contact
  * @param {HTMLElement} contactBox - The DOM element representing the contacts box to be hidden.
  * @param {HTMLElement} contactDropdown - The DOM element representing the contacts dropdown to be shown.
  * @param {HTMLElement} contactSearchbarContainer - The DOM element representing the container of the contacts search bar.
- * @function
+ * @function 
  */
 function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
     contactBox.classList.add('d-none');
