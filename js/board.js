@@ -571,6 +571,9 @@ function selectedTaskInnerHTML(selectedTask) {
             taskText = 'low';
             taskImageSrc = '/assets/img/Prio low.png';
             break;
+        default: 
+            taskText = 'no priority'
+            taskImageSrc = '/assets/img/white-block.png';
     }
     let resultHTML = `
         <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
