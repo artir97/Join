@@ -455,8 +455,9 @@ document.addEventListener('click', handleClick);
 function confirmAddSubtask() {
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
+    let subtaskAlert =  document.getElementById('add-task-subtask-alert');
     if (subtaskInput.value.trim() == '') {
-        alert("you can't add an empty subtask")
+        subtaskAlert.classList.remove('d-none');
     } else {
         subtasks.push({
             text: subtaskInput.value,
@@ -465,7 +466,13 @@ function confirmAddSubtask() {
 
         subtaskList.innerHTML = renderSubtasksAddTask();
         subtaskInput.value = '';
+        removeAlertSubtask();
     }
+}
+
+function removeAlertSubtask() {
+    let subtask = document.getElementById('add-task-subtask-alert');
+    subtask.classList.add('d-none');
 }
 
 

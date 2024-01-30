@@ -100,7 +100,8 @@
     border-radius: 100%;
 }
 
-#add-task-category-alert {
+#add-task-category-alert,
+#add-task-subtask-alert {
     color: red;
 }
 
