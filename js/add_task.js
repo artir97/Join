@@ -54,10 +54,6 @@ async function createTask() {
     const date = document.getElementById('add-task-date');
     const priority = assignPriority(selectedPriority);
     const assignedContact = selectedContacts;
-    if (!selectedCategory) {
-        alert('Please choose a category.');
-        return;
-    }
     const category = selectedCategory;
     const subtask = subtasks;
     const newTaskID = generateTaskID(allTasks.map(task => task.taskID));
@@ -75,6 +71,11 @@ async function createTask() {
         status: lastStatus
     };
 
+    if (!selectedCategory) {
+        alertCategory(selectedCategory);
+        return;
+    }
+
     allTasks.push(newTask);
     await setItem('allTasks', JSON.stringify(allTasks));
     
@@ -87,6 +88,20 @@ async function createTask() {
     
     clearForm();
     
+}
+
+function alertCategory(selectedCategory) {
+    let category = document.getElementById('add-task-category-alert');
+    if(selectedCategory){
+        removeAlertCategory();
+    }else{
+        category.classList.remove('d-none');
+    }
+}
+
+function removeAlertCategory(){
+    let category = document.getElementById('add-task-category-alert');
+    category.classList.add('d-none');
 }
 
 
@@ -306,8 +321,10 @@ function selectedTask(selectedTask) {
 function selectedTaskInnerHTML(selectedTask) {
     switch (selectedTask) {
         case 'technical-task':
+            removeAlertCategory();
             return 'Technical Task';
         case 'user-story':
+            removeAlertCategory();
             return 'User Story';
         default:
             return 'Select task category';
@@ -379,6 +396,8 @@ function showAndHideCategories() {
     } else {
         hideCategories(taskBox, arrowCategories);
     }
+
+ 
 }
 
 

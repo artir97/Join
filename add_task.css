@@ -100,6 +100,10 @@
     border-radius: 100%;
 }
 
+#add-task-category-alert {
+    color: red;
+}
+
 .add-task-contacts-to-assigne-list-item,
 .add-task-category-dropdown-task {
     display: flex;
