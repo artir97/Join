@@ -517,14 +517,19 @@ function confirmEditSubtask(i) {
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
     let subtaskList = document.getElementById('add-task-subtask-list');
+    let subtaskEditEmptyAlert = document.getElementById(`add-task-subtask-edit-${i}`);
 
-    subtasks[i].text = subtaskInput.value;
-
-    subtaskListItem.classList.remove('d-none');
-    subtaskInput.classList.add('d-none');
-    subtaskEditContainer.classList.add('d-none');
-
-    subtaskList.innerHTML = renderSubtasksAddTask();
+    if(subtaskInput.value.trim() == ''){
+        subtaskEditEmptyAlert.classList.remove('d-none');
+    }else{
+        subtasks[i].text = subtaskInput.value;
+        subtaskEditEmptyAlert.classList.add('d-none');
+        subtaskListItem.classList.remove('d-none');
+        subtaskInput.classList.add('d-none');
+        subtaskEditContainer.classList.add('d-none');
+    
+        subtaskList.innerHTML = renderSubtasksAddTask();
+    }
 }
 
 
@@ -605,6 +610,10 @@ function renderSubtasksAddTask() {
                     <div class="hr"></div>
                     <img onclick="confirmEditSubtask(${i})"src="/assets/img/add-task/subtask-check.png" alt="" height="24px" width="24px">
                 </div>
+            </div>
+
+            <div class="d-none" id="add-task-subtask-edit-${i}">
+                <span style="color: red;">You can't add an empty subtask</span>
             </div>
             `;
         }
