@@ -107,6 +107,7 @@ body {
   border-top: none;
   border-left: none;
   border-right: none;
+  outline: none;
   border-color: rgba(149, 157, 165, 0.5);
   font-size: 18px;
   padding-left: 20px;
@@ -549,6 +550,7 @@ header {
   border-top: none;
   border-left: none;
   border-right: none;
+  outline: none;
   border-color: rgba(149, 157, 165, 0.5);
   font-size: 18px;
   padding-left: 20px;

@@ -8,7 +8,7 @@
  * @param {number} elementID - The ID of the element.
  * @returns {string} - The HTML for the information card.
  */
-function generateOpenInfoCardHTML(element, elementID){
+function generateOpenInfoCardHTML(element, elementID) {
     const reversedDate = reverseDate(element[0].date);
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
 
@@ -70,7 +70,7 @@ function generateOpenInfoCardHTML(element, elementID){
  * @param {number} elementID - The ID of the element.
  * @returns {string} - The HTML for the edit task form.
  */
-function openEditTaskForm(element, elementID){
+function openEditTaskForm(element, elementID) {
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
     saveStatus(element[0]['status']);
 
@@ -94,6 +94,7 @@ function openEditTaskForm(element, elementID){
                 <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" value="${element[0].date}" onclick="updateMinDate()">
 
                 <label for="add-task-priority">Priority (optional)</label>
+
                 <div id="add-task-priority">
                     <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
                         <div>Urgent</div>
@@ -141,7 +142,7 @@ function openEditTaskForm(element, elementID){
                             placeholder="Add new subtask">
 
                         <div id="add-task-subtask-image-container">
-                            <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="addSubtask()">
+                            <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="confirmAddSubtask()">
                         </div>
                     </div>
                     <div>
@@ -156,13 +157,13 @@ function openEditTaskForm(element, elementID){
             </div>           
         </form>
     </div>`;
-} 
+}
 
 
 /**
  * Generates the HTML for an empty task form.
  */
-function generateEmtyTaskFormHTML(){
+function generateEmtyTaskFormHTML() {
     let taskForm = document.getElementById('task-form');
 
     taskForm.innerHTML = /*html*/`
