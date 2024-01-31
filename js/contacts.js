@@ -16,14 +16,34 @@ async function saveContacts() {
 
 // load contacts from storage
 async function loadContacts() {
-    const contactsString = await getItem("kontakte");
-    if (contactsString) {
-      loadedContacts = JSON.parse(contactsString);
-      loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
-      contactsListRender(loadedContacts);
-    }
+  try {
+      const contactsString = await getItem("kontakte");
+      if (contactsString) {
+          loadedContacts = JSON.parse(contactsString);
+          loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
+          contactsListRender(loadedContacts);
+      }
+  } catch (error) {
+      await removeErrorContacts();
+  }
 }
 
+
+//removes contact, if it causes an error to load
+async function removeErrorContacts() {
+  const contactsToRemove = [];
+  for (let i = 0; i < loadedContacts.length; i++) {
+      const contact = loadedContacts[i];
+      if (!contact.name || !contact.email || !contact.phone) {
+          contactsToRemove.push(i);
+      }
+  }
+  for (let i = contactsToRemove.length - 1; i >= 0; i--) {
+      loadedContacts.splice(contactsToRemove[i], 1);
+  }
+  await setItem("kontakte", JSON.stringify(loadedContacts));
+  contactsListRender(loadedContacts);
+}
 
 // render ContactList into HTML
 async function contactsListRender(contacts) {
@@ -211,6 +231,7 @@ function addNewContactWindow() {
     addNewContact.classList.add('addContactOn');
   }, 1);
   document.getElementById("popup-bg").style.display = "block";
+
 }
 
 // responsive mobile options window for Edit and Delete button
@@ -254,8 +275,12 @@ function getAddContactInputs() {
   const addContactNameInput = document.getElementById('addContactName');
   const addContactEmailInput = document.getElementById('addContactEmail');
   const addContactPhoneInput = document.getElementById('addContactPhone');
-  if (!addContactNameInput.value.trim() || !addContactEmailInput.value.trim() || !addContactPhoneInput.value.trim()) {
-    alert("Bitte füllen Sie alle Felder aus.");
+
+  const nameError = errorMessages(addContactNameInput, 'nameError');
+  const emailError = errorMessages(addContactEmailInput, 'emailError');
+  const phoneError = errorMessages(addContactPhoneInput, 'phoneError');
+  
+  if (nameError || emailError || phoneError) {
     return null;
   }
   return {
@@ -263,6 +288,29 @@ function getAddContactInputs() {
     addContactEmailInput,
     addContactPhoneInput
   };
+}
+
+//check input for wrong input
+function errorMessages(input, errorId) {
+  let numbers = /^[0-9]+$/;
+  
+  if (!input.value.trim()) {
+    document.getElementById(errorId).style.display = 'block';
+    return true;
+  }
+  if (input.id === 'addContactEmail' && !input.value.includes('@')) {
+    document.getElementById(errorId).style.display = 'block';
+    return true;
+  }
+  if (input.id === 'addContactPhone' && !input.value.match(numbers)) {
+    document.getElementById(errorId).style.display = 'block';
+    return true;
+  }
+  else {
+   
+  document.getElementById(errorId).style.display = 'none';
+    return 
+  }
 }
 
 //creates a new contact with the input
@@ -326,7 +374,7 @@ async function editContact(i) {
   document.getElementById("popup-bg").style.display = "block";
   document.getElementById("editContactName").value = contact["name"];
   document.getElementById("editContactEmail").value = contact["email"];
-  document.getElementById("editContactPhone").value = "+" + contact["phone"];
+  document.getElementById("editContactPhone").value =  contact["phone"];
   document.getElementById("contactEditImage").innerHTML = uppercaseLetter;
   currentEditIndex = i;
   
@@ -342,21 +390,28 @@ async function saveChangeContact() {
   editedContact['name'] = editedName;
   editedContact['email'] = editedEmail;
   editedContact['phone'] = editedPhone;
-  setItem("kontakte", JSON.stringify(loadedContacts));
+  await setItem("kontakte", JSON.stringify(loadedContacts));
   loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
   contactsListRender(loadedContacts);
   closeEditContact();
-  openContactView(currentEditIndex);
+  // showContactView()
+  // openContactView(editedIndex);
   closeMobileOptionsWindow();
 }
 
 // gets the input from the changed contact
 function getChangedEdits(){
-  const editedName = document.getElementById("editContactName").value;
-  const editedEmail = document.getElementById("editContactEmail").value;
-  const editedPhone = document.getElementById("editContactPhone").value;
-  if (!editedName.trim() || !editedEmail.trim() || !editedPhone.trim()) {
-    alert("Bitte füllen Sie alle Felder aus.");
+  const name = document.getElementById("editContactName");
+  const email = document.getElementById("editContactEmail");
+  const phone = document.getElementById("editContactPhone");
+  const nameError = errorMessages(name, 'editNameError');
+  const emailError = errorMessages(email, 'editEmailError');
+  const phoneError = errorMessages(phone, 'editPhoneError');
+  const editedName = name.value;
+  const editedEmail = email.value;
+  const editedPhone = phone.value;
+  
+  if (nameError || emailError || phoneError) {
     return null;
   }
   return {
@@ -399,6 +454,7 @@ function closeAddNewContact() {
   document.getElementById('addContactName').value = '';
   document.getElementById('addContactEmail').value ='';
   document.getElementById('addContactPhone').value ='';
+  resetError()
 }
 
 // close edit contact popup
@@ -410,6 +466,17 @@ function closeEditContact() {
   document.getElementById("editContactName").value = '';
   document.getElementById("editContactEmail").value = '';
   document.getElementById("editContactPhone").value = '';
+  resetError()
+}
+
+// changes display of errors back to none
+function resetError() {
+  document.getElementById('nameError').style.display = 'none';
+  document.getElementById('emailError').style.display = 'none';
+  document.getElementById('phoneError').style.display = 'none';
+  document.getElementById('editNameError').style.display = 'none';
+  document.getElementById('editEmailError').style.display = 'none';
+  document.getElementById('editPhoneError').style.display = 'none';
 }
 
 

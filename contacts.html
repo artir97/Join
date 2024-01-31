@@ -56,9 +56,9 @@
               </svg>
             </div>
               <form action="">
-                <div class="addContactInput"><input class="addName" required type="text" id="addContactName" placeholder="Name" autocomplete="off"></div>
-                <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"></div>
-                <div class="addContactInput"><input class="addPhone" required type="tel" id="addContactPhone" placeholder="Phone" autocomplete="off"></div>
+                <div class="addContactInput"><input class="addName" required type="text" id="addContactName" placeholder="Name" autocomplete="off"><span id="nameError">please use a real name</span></div>
+                <div class="addContactInput"><input class="addEmail" required type="email" id="addContactEmail" placeholder="Email" autocomplete="off"><span id="emailError">please enter an active email</span></div>
+                <div class="addContactInput"><input class="addPhone" required type="tel" id="addContactPhone" placeholder="Phone" autocomplete="off"><span id="phoneError">please enter a correct phone number</span></div>
               <div class="addContactBtns">
               <button type="button" onclick="closeAddNewContact()" class="cancelAddContact"><p>Cancel</p> <img src="assets/img/iconoir_cancel.png" alt=""></button>
               <button type="button" onclick="addContact()" class="createAddContact"><p>Create contact</p> <img src="assets/img/check.png" alt=""></button>
@@ -107,9 +107,9 @@
                 dy=".3em"></text>
               </svg>
             </div>
-              <div class="editContactInput"><input class="editName" required type="name" id="editContactName" placeholder="Name" autocomplete="off"></div>
-              <div class="editContactInput"><input class="editEmail" required type="email" id="editContactEmail" placeholder="Email" autocomplete="off"></div>
-              <div class="editContactInput"><input class="editPhone" required type="text" id="editContactPhone" placeholder="Phone" autocomplete="off"></div>
+              <div class="editContactInput"><input class="editName" required type="name" id="editContactName" placeholder="Name" autocomplete="off"><span id="editNameError">please enter a real name</span></div>
+              <div class="editContactInput"><input class="editEmail" required type="email" id="editContactEmail" placeholder="Email" autocomplete="off"><span id="editEmailError">please enter a correct email</span></div>
+              <div class="editContactInput"><input class="editPhone" required type="text" id="editContactPhone" placeholder="Phone" autocomplete="off"><span id="editPhoneError">please enter a correct phone number</span></div>
               <div class="editContactBtns">
               <button type="button" onclick="delEditedContact()" class="delEditContact"><p>Delete</p></button>
               <button type="button" onclick="saveChangeContact()" class="saveEditContact"><p>Save</p> <img src="assets/img/check.png" alt=""></button>

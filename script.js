@@ -73,17 +73,19 @@ function showNavDropDown(){
 async function CheckIfLoggedInOrGuest() {
     let cookies = document.cookie.split(';');
     let loggedInUserCookie = cookies.find(cookie => cookie.trim().startsWith('loggedInUser='));
-
-    if (loggedInUserCookie) {
-        loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
-        document.getElementById('user-initials').innerHTML = `<div>${returnInitials(loggedInUser.user_name)}</div>`;
-        document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}, ${loggedInUser.user_name}`;
-    } else {
-        document.getElementById('user-initials').innerHTML = '<div>G</div>';
-        if (document.location.pathname.includes("summary.html")){
-            document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}`;
+    if(document.location.pathname.includes("add_task.html") || document.location.pathname.includes("board.html") || document.location.pathname.includes("contacts.html") || document.location.pathname.includes("summary.html")){
+        if (loggedInUserCookie) {
+            loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
+            document.getElementById('user-initials').innerHTML = `<div>${returnInitials(loggedInUser.user_name)}</div>`;
+            document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}, ${loggedInUser.user_name}`;
+        } else {
+            document.getElementById('user-initials').innerHTML = '<div>G</div>';
+            if (document.location.pathname.includes("summary.html")){
+                document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}`;
+            }
         }
     }
+    
 }
 
 // gets current time and day and answers to it

@@ -411,6 +411,16 @@
     align-items: center;
     flex-shrink: 0;
   }
+  .addContactInput span,
+  .editContactInput span {
+    display: none;
+    position: absolute;
+    margin-top: 50px;
+    color: white;
+    background-color: red;
+    padding: 0px 6px;
+
+  }
   .addContactInput input,
   .editContactInput input {
     width: 100%;
@@ -439,6 +449,7 @@
     font-weight: 400;
     line-height: 120%; /* 22.8px */
   }
+
   .addName::placeholder,
   .addEmail::placeholder,
   .addPhone::placeholder {

@@ -374,11 +374,13 @@ function showContacts(selectedContactsMini, contactBox, contactDropdown, contact
  * @function 
  */
 function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
+    if (document.location.pathname.includes("add_task.html")) {
     contactBox.classList.add('d-none');
     contactSearchbarContainer.classList.add('d-none');
     contactDropdown.classList.remove('d-none');
     selectedContactsMini.classList.remove('d-none');
     selectedContactsMini.innerHTML = renderSelectedContactsMini();
+    }
 }
 
 
@@ -419,8 +421,10 @@ function showCategories(taskBox, arrowCategories) {
  * @function
  */
 function hideCategories(taskBox, arrowCategories) {
+    if (document.location.pathname.includes("add_task.html")) {
     taskBox.classList.add('d-none');
     arrowCategories.style = 'transform: rotate(0deg);';
+    }
 }
 
 
