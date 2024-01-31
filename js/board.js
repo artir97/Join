@@ -1,21 +1,5 @@
-/**
- * Array to store loaded tasks.
- * @type {Array}
- */
 let loadedTasks= [];
-
-
-/**
- * Variable to store the currently dragged element.
- * @type {HTMLElement}
- */
 let currentDraggedElement;
-
-
-/**
- * Variable to store the ID of the currently dragged element.
- * @type {number}
- */
 let currentDraggedElementID; 
 
 
@@ -27,7 +11,6 @@ function saveStatus(Elementstatus){
     lastStatus = Elementstatus
 };
 
-
 /**
  * Loads tasks from storage to the board asynchronously.
  */
@@ -35,7 +18,6 @@ async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
-
 
 /**
  * Updates the HTML content of the board.
@@ -54,28 +36,22 @@ async function updateHTML() {
     generateEmtyTaskFormHTML();
 }
 
-
+// renders the different tasks
 async function renderToDoTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "toDo", "todoListContainer");
-  }
-  
-  // Änderungen in der renderInProgressTask-Funktion
-  function renderInProgressTask(loadedTasks) {
+  } 
+function renderInProgressTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "inProgress", "progressListContainer");
-  }
-  
-  // Änderungen in der renderAwaitFeedbackTask-Funktion
-  function renderAwaitFeedbackTask(loadedTasks) {
+}
+function renderAwaitFeedbackTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "awaitFeedback", "awaitFeedbackListContainer");
-  }
-  
-  // Änderungen in der renderDoneTask-Funktion
-  function renderDoneTask(loadedTasks) {
+}
+function renderDoneTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "done", "doneListContainer");
-  }
+}
   
-  // Neuer allgemeiner Status renderTasksByStatus
-  function renderTasksByStatus(loadedTasks, status, containerId) {
+//renders tasks by their different status
+function renderTasksByStatus(loadedTasks, status, containerId) {
     let tasks = loadedTasks.filter((t) => t["status"] === status);
     let container = document.getElementById(containerId);
     container.innerHTML = "";
@@ -105,14 +81,15 @@ function generateTodoHTML(element, elementID) {
     const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
 
     const dropdownMenuHTML = /*html*/`
-        <select class="statusDropdown" id="statusDropdown${elementID}" onchange="updateStatusMobile(${elementID}, this.value)">
-                <option value="" disabled selected>Status</option>
-                <option value="toDo">To do</option>
-                <option value="inProgress">In progress</option>
-                <option value="awaitFeedback">Await feedback</option>
-                <option value="done">Done</option>
-        </select>
+    <select class="statusDropdown" id="statusDropdown${elementID}" onchange="updateStatusMobile(${elementID}, this.value)">
+            <option value="" disabled selected>Status</option>
+            <option value="toDo" ${element.status === 'toDo' ? 'disabled' : ''}>To do</option>
+            <option value="inProgress" ${element.status === 'inProgress' ? 'disabled' : ''}>In progress</option>
+            <option value="awaitFeedback" ${element.status === 'awaitFeedback' ? 'disabled' : ''}>Await feedback</option>
+            <option value="done" ${element.status === 'done' ? 'disabled' : ''}>Done</option>
+    </select>
     `;
+
 
     return /*html*/`
     <div class="todo-container">
@@ -140,7 +117,6 @@ function generateTodoHTML(element, elementID) {
     </div>`;     
 }
 
-
 /**
  * Returns the category based on the priority.
  * @param {string} status - The priority for which the category needs to be determined.
@@ -160,7 +136,6 @@ function getStatusFromTask(status) {
     }
 }
 
-
 /**
  * Updates the priority of an element and executes the moveTo function.
  * @param {number} elementID - The ID of the element whose priority is to be updated.
@@ -174,7 +149,6 @@ async function updateStatusMobile(elementID, status) {
     const category = getStatusFromTask(status);
     await moveTo(category);
 }
-
 
 /**
  * Renders the assigned contacts information card. 
@@ -196,8 +170,7 @@ function renderAssignedContactsInfoCard(element){
                 </div>`;
         }
     }
-  }
-
+}
 
   /**
  * Renders the subtasks information card.
@@ -228,7 +201,6 @@ function renderSubtasksInfoCard(element, elementID) {
     }
     assignedSubtasksContainer.innerHTML = subtaskHTML;
 }
-
 
 /**
  * Toggles the status of a subtask. 
@@ -272,7 +244,6 @@ function progressBarSmallInfoCard(element) {
     }
 }
 
-
 /**
  * Renders assigned contacts as small info cards.
  * @param {Array} assignedContacts - The array of assigned contacts.
@@ -300,7 +271,6 @@ function renderAssignedContactSmallInfoCard(assignedContacts) {
     return assignedContactHTML;
 }
 
-
 /**
  * Filters the number of subtasks that are done.
  * @param {Array} element - The element containing task information.
@@ -321,7 +291,6 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-
 /**
  * Moves a task to a specified category.
  * @param {string} category - The target category.
@@ -341,15 +310,41 @@ async function moveTo(category) {
         await setItem("allTasks", JSON.stringify(allTasks));
         await updateHTML();
     }
-    
-    // currentDraggedElement["status"] = category;
-    // currentDraggedElement["taskID"] = new Date().getTime();
-  
-    // allTasks.push(currentDraggedElement);
-    // await setItem("allTasks", JSON.stringify(allTasks));
-    // await updateHTML();
-    // await deleteTask(currentDraggedElementID);
 }
+
+/**
+ * Toggles the visibility of the contacts section in the task creation form.
+ * @function
+ */
+// function showAndHideContacts() {
+//     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
+//     let contactBox = document.getElementById('add-task-contacts-to-assigne');
+//     let contactDropdown = document.getElementById('add-task-assigne');
+//     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
+
+//     if (contactBox.classList.contains('d-none')) {
+//         showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
+//     } else {
+//         hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
+//     }
+// }
+
+// function showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
+//     contactBox.classList.remove('d-none');
+//     contactDropdown.classList.add('d-none');
+//     contactSearchbarContainer.classList.remove('d-none');
+//     selectedContactsMini.classList.add('d-none');
+// }
+
+// function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
+//     if (document.location.pathname.includes("add_task.html")) {
+//     contactBox.classList.add('d-none');
+//     contactSearchbarContainer.classList.add('d-none');
+//     contactDropdown.classList.remove('d-none');
+//     selectedContactsMini.classList.remove('d-none');
+//     selectedContactsMini.innerHTML = renderSelectedContactsMini();
+//     }
+// }
 
 /**
  * Initiates dragging of an element.
@@ -359,10 +354,9 @@ function startDragging(elementID) {
     dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
     currentDraggedElement = dragElement[0];
     currentDraggedElementID = dragElement[0].taskID;
-  }
+}
 
-
-  /**
+/**
  * Generates HTML for an empty todo task.
  * @param {HTMLElement} container - The container element.
  */
@@ -372,7 +366,6 @@ function generateEmtyTodoHTML(container){
        <p>No tasks To do</p>            
     </div>`;
 }
-
 
 /**
  * Opens the information card for a specific task.
@@ -388,7 +381,6 @@ function openInfoCard(elementID){
     renderSubtasksInfoCard(element[0], elementID);
 }
 
-
 /**
  * Closes the add task form.
  */
@@ -396,14 +388,12 @@ async function closeAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'none';    
 }
 
-
 /**
  * Opens the add task form.
  */
 function openAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'block';
 }
-
 
 /**
  * Updates the created task.
@@ -413,7 +403,6 @@ async function updateCreatedTask(){
     await updateHTML();
 }
 
-
 /**
  * Updates the edited task.
  * @param {number} elementID - The ID of the element being edited.
@@ -422,7 +411,6 @@ async function updateEditTask(elementID){
     await createTask();
     await deleteTask(elementID);
 }
-
 
 /**
  * Deletes a task.
@@ -443,7 +431,6 @@ async function deleteTask(elementID) {
     }
 }
 
-
 /**
  * Opens the edit task form for a specific task.
  * @param {number} elementID - The ID of the element being edited.
@@ -454,7 +441,6 @@ function editTask(elementID){
 
     infoCard.innerHTML =  openEditTaskForm(element, elementID);
 }
-
 
 /**
  * Counts the number of open subtasks.
@@ -471,7 +457,6 @@ function countOpenSubtasks(element) {
     }
 }
 
-
 /**
  * Capitalizes the first letter of each word in a text.
  * @param {string} text - The input text.
@@ -481,7 +466,6 @@ function getFirstLettersUppercase(text) {
     if (!text) return '';
     return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
-
 
 /**
  * Gets the initials from a full name.
@@ -493,7 +477,6 @@ function getInitials(fullName) {
     const initials = nameParts.map(part => part.charAt(0)).join('');
     return initials;
 }
-
 
 /**
  * Reverses the date format.
@@ -507,14 +490,12 @@ function reverseDate(originalDate) {
     return reversedDate;
 }
 
-
 /**
  * Searches for tasks.
  */
 function searchTasks() {
     updateHTML();
 }
-
 
 /**
  * Filters tasks based on a search input.
@@ -529,7 +510,6 @@ function filterTasksBySearch(tasks, searchInput) {
     );
 }
 
-
 /**
  * Closes the task popup.
  */
@@ -540,7 +520,6 @@ function closeTaskPopup() {
     }
 }
 
-
 /**
  * Prevents closing of open infocard div.
  * @param {Event} event - The event.
@@ -548,7 +527,6 @@ function closeTaskPopup() {
 function doNotClose(event) {
     event.stopPropagation();
 }
-
 
 /**
  * Generates the inner HTML for a selected task.
