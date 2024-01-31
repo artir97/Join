@@ -20,9 +20,9 @@ async function register(){
     const password = document.getElementById('password');
     const repeat_password = document.getElementById('repeat_password');
     signUpBtn.disabled = true;
-
     if (password.value !== repeat_password.value) {
-        alert('password is not the same');
+        
+        document.getElementById('signUpPassword').style.display = 'block';
         return;
     } else {
         users.push({

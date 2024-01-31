@@ -577,6 +577,11 @@ header {
   width: 650px;
   border-radius: 30px;
 }
+.signUpForm span{
+  display: none;
+  color: white;
+  background-color: red;
+}
 .arrow {
   width: 32px;
   height: 32px;
@@ -824,6 +829,9 @@ header {
   }
 }
 @media (max-width: 600px) {
+  /* .signUpForm span{
+    top: -40px;
+  } */
   .nav-list {
     width: 50%;
   }

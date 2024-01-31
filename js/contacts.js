@@ -394,8 +394,6 @@ async function saveChangeContact() {
   loadedContacts.sort((a, b) => a.name.localeCompare(b.name));
   contactsListRender(loadedContacts);
   closeEditContact();
-  // showContactView()
-  // openContactView(editedIndex);
   closeMobileOptionsWindow();
 }
 
