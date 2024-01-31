@@ -1,16 +1,24 @@
-// handles the image only on index and sign up page
+/**
+ * Handles the image only on index and sign up page.
+ */
 if(document.location.pathname.includes("index.html") || document.location.pathname.includes("sign_up.html")){
     setTimeout(loadImg, 1000);
 }
 
-//initializes the code on load
+
+/**
+ * Initializes the code on load.
+ * @returns {Promise<void>}
+ */
 async function init() {
     await includeHTML();
     CheckIfLoggedInOrGuest();
     checkFocusOnSidenav()
 }
 
-// check which page is active and sets corresponding class and image
+/**
+ * Check which page is active and sets corresponding class and image.
+ */
 function checkFocusOnSidenav(){
     let responsive = window.innerWidth < 1000;
     if (document.location.pathname.includes("contacts.html")){
@@ -28,7 +36,10 @@ function checkFocusOnSidenav(){
     }
 }
 
-// loads the animated image 
+
+/**
+ * Loads the animated image.
+ */
 function loadImg() {
     let container = document.getElementById('logo-container');
     let img = document.getElementById('logo-img');
@@ -42,7 +53,11 @@ function loadImg() {
     }
 }
 
-// include html function for usage of templates
+
+/**
+ * Include HTML function for usage of templates.
+ * @returns {Promise<void>}
+ */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');
     for (let i = 0; i < includeElements.length; i++) {
@@ -57,7 +72,10 @@ async function includeHTML() {
     }
 }
 
-// desktop template, shows options on logged in user/guest
+
+/**
+ * Desktop template, shows options on logged-in user/guest.
+ */
 function showNavDropDown(){
     let dropdown = document.getElementById('navbar-dropdown');
     
@@ -69,7 +87,10 @@ function showNavDropDown(){
     
 }
 
-// checks if a user is logged in or else as guest
+
+/**
+ * Checks if a user is logged in or else as a guest.
+ */
 async function CheckIfLoggedInOrGuest() {
     let cookies = document.cookie.split(';');
     let loggedInUserCookie = cookies.find(cookie => cookie.trim().startsWith('loggedInUser='));
@@ -88,7 +109,11 @@ async function CheckIfLoggedInOrGuest() {
     
 }
 
-// gets current time and day and answers to it
+
+/**
+ * Gets current time and day and answers to it.
+ * @returns {string} Greeting based on the time of day.
+ */
 function checkTimeOfDay() {
     let currentDate = new Date();
     let currentHour = currentDate.getHours();
@@ -102,7 +127,12 @@ function checkTimeOfDay() {
     }
 }
 
-// gets the initials of a name
+
+/**
+ * Gets the initials of a name.
+ * @param {string} name - The full name from which initials are extracted.
+ * @returns {string} Initials of the given name.
+ */
 function returnInitials(name){
     let names = name.split(' ');
     let initials = '';
@@ -113,12 +143,19 @@ function returnInitials(name){
     return initials;
 }
 
-// logs out user and returns to index
+
+/**
+ * Logs out user and returns to index.
+ */
 function logout() {
     document.cookie = 'loggedInUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     window.location.href = 'index.html';
 }
 
+
+/**
+ * Event listener for window resize, calls checkFocusOnSidenav.
+ */
 window.addEventListener('resize', function () {
     checkFocusOnSidenav();
 });
