@@ -608,7 +608,9 @@ transition: background-color 0.3 ease-in-out!important;
     box-sizing: border-box;
 }
 
-
+.rotate-15 {
+    transform: rotate(15deg) !important;
+}
 
 .popupTaskTitel{
     color: var(--black, #000);

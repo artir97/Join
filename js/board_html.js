@@ -3,6 +3,18 @@
 
 
 /**
+ * Generates HTML for an empty todo task.
+ * @param {HTMLElement} container - The container element.
+ */
+function generateEmtyTodoHTML(container){   
+    container.innerHTML = /*html*/`               
+    <div class="emtyTask">
+       <p>No tasks To do</p>            
+    </div>`;
+}
+
+
+/**
  * Generates the HTML for an open information card.
  * @param {Array} element - The element containing task information.
  * @param {number} elementID - The ID of the element.
@@ -241,4 +253,36 @@ function generateEmtyTaskFormHTML() {
             </div>
         </div>       
 </div>`;
+}
+
+
+/**
+ * Generates the inner HTML for a selected task.
+ * @param {string} selectedTask - The selected task.
+ * @returns {string} - The inner HTML.
+ */
+function selectedTaskInnerHTML(selectedTask) {    
+    let taskImageSrc = '';
+
+    switch (selectedTask) {
+        case 'urgent':
+            taskText = 'urgent';
+            taskImageSrc = '/assets/img/Prio urgent.png';
+            break;
+        case 'medium':
+            taskText = 'medium';
+            taskImageSrc = '/assets/img/Prio medium.png';
+            break;
+        case 'low':
+            taskText = 'low';
+            taskImageSrc = '/assets/img/Prio low.png';
+            break;
+        default: 
+            taskText = 'no priority'
+            taskImageSrc = '/assets/img/white-block.png';
+    }
+    let resultHTML = `
+        <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
+    `;
+    return resultHTML;
 }

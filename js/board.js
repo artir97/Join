@@ -11,6 +11,7 @@ function saveStatus(Elementstatus){
     lastStatus = Elementstatus
 };
 
+
 /**
  * Loads tasks from storage to the board asynchronously.
  */
@@ -18,6 +19,7 @@ async function loadedTaskstoBoard() {
     const loadTasks = await getItem('allTasks');
     loadedTasks = JSON.parse(loadTasks);
 }
+
 
 /**
  * Updates the HTML content of the board.
@@ -36,6 +38,7 @@ async function updateHTML() {
     generateEmtyTaskFormHTML();
 }
 
+
 // renders the different tasks
 async function renderToDoTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "toDo", "todoListContainer");
@@ -50,6 +53,7 @@ function renderDoneTask(loadedTasks) {
     renderTasksByStatus(loadedTasks, "done", "doneListContainer");
 }
   
+
 //renders tasks by their different status
 function renderTasksByStatus(loadedTasks, status, containerId) {
     let tasks = loadedTasks.filter((t) => t["status"] === status);
@@ -68,6 +72,7 @@ function renderTasksByStatus(loadedTasks, status, containerId) {
     }
   }
 
+
 /**
  * Generates the HTML for a tasks.
  * @param {Object} element - The task object.
@@ -76,8 +81,7 @@ function renderTasksByStatus(loadedTasks, status, containerId) {
  */
 function generateTodoHTML(element, elementID) {
     const assignedContactHTML = renderAssignedContactSmallInfoCard(element.assignedContact);
-    const progressBarHTML = progressBarSmallInfoCard(element);
-    const subTaskDone = filterSubTaskDone(element);
+    const progressBarHTML = progressBarSmallInfoCard(element);    
     const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
 
     const dropdownMenuHTML = /*html*/`
@@ -90,10 +94,9 @@ function generateTodoHTML(element, elementID) {
     </select>
     `;
 
-
     return /*html*/`
     <div class="todo-container">
-        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo">
+        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo" id="${elementID}">
             <div class="baseline"> 
                 ${categoryHTML} 
                 <div class="dropdown" onclick="doNotClose(event)">
@@ -117,6 +120,7 @@ function generateTodoHTML(element, elementID) {
     </div>`;     
 }
 
+
 /**
  * Returns the category based on the priority.
  * @param {string} status - The priority for which the category needs to be determined.
@@ -136,6 +140,7 @@ function getStatusFromTask(status) {
     }
 }
 
+
 /**
  * Updates the priority of an element and executes the moveTo function.
  * @param {number} elementID - The ID of the element whose priority is to be updated.
@@ -150,75 +155,6 @@ async function updateStatusMobile(elementID, status) {
     await moveTo(category);
 }
 
-/**
- * Renders the assigned contacts information card. 
- * @param {Array} element - The element containing task information.
- */
-function renderAssignedContactsInfoCard(element){
-    let assignedContactsContainer = document.getElementById('assignedContactsContainer')
-    // assignedContactsContainer.innerHTML = '';
-    
-    if (element.assignedContact.length > 0) {
-        let assignedTO = document.getElementById('assignedTO');
-        assignedTO.innerHTML = 'Assigned To:';
-        for (let i = 0; i < element.assignedContact.length; i++) {
-            const contact = element.assignedContact[i].name;
-            assignedContactsContainer.innerHTML += /*html*/`
-                <div class="singleContactPopup">
-                    <div class="boardNameBox">${getInitials(contact)}</div>
-                    <p>${contact}</p>
-                </div>`;
-        }
-    }
-}
-
-  /**
- * Renders the subtasks information card.
- * @param {Array} element - The element containing task information.
- * @param {number} elementID - The ID of the element.
- */
-function renderSubtasksInfoCard(element, elementID) {
-    let assignedSubtasksContainer = document.getElementById('assignedSubtasksContainer');
-    assignedSubtasksContainer.innerHTML = '';
-
-    let subtaskHTML = '';
-    if (element.subtask.length > 0) {
-        let Subtasks = document.getElementById('Subtasks');
-        Subtasks.innerHTML = 'Subtasks:';
-
-        for (let i = 0; i < element.subtask.length; i++) {
-            const subtask = element.subtask[i];
-            const checkboxId = `checkbox_${elementID}_${i}`; 
-            const labelFor = `label_${elementID}_${i}`; 
-
-            subtaskHTML += /*html*/`
-                <div class="singleContactPopup">
-                    <input type="checkbox" id="${checkboxId}" ${subtask.isChecked ? 'checked' : ''} onchange="toggleSubtaskStatus(${elementID}, ${i})">
-                    <label for="${checkboxId}" id="${labelFor}"></label>
-                    <p>${subtask.text}</p>
-                </div>`;
-        }
-    }
-    assignedSubtasksContainer.innerHTML = subtaskHTML;
-}
-
-/**
- * Toggles the status of a subtask. 
- * @param {number} elementID - The ID of the element.
- * @param {number} subtaskIndex - The index of the subtask.
- */
-async function toggleSubtaskStatus(elementID, subtaskIndex) {
-    const taskIndex = loadedTasks.findIndex((task) => task.taskID === elementID);
-    if (taskIndex !== -1 && subtaskIndex < loadedTasks[taskIndex].subtask.length) {
-      const currentStatus = loadedTasks[taskIndex].subtask[subtaskIndex].status;
-      const newStatus = currentStatus === "open" ? "done" : "open";
-  
-      loadedTasks[taskIndex].subtask[subtaskIndex].status = newStatus;
-      loadedTasks[taskIndex].subtask[subtaskIndex].isChecked = newStatus === "done" || false;
-      await setItem("allTasks", JSON.stringify(loadedTasks));
-      updateHTML();
-    }
-}
 
 /**
  * Generates HTML for a small progress bar based on open subtasks.
@@ -244,32 +180,6 @@ function progressBarSmallInfoCard(element) {
     }
 }
 
-/**
- * Renders assigned contacts as small info cards.
- * @param {Array} assignedContacts - The array of assigned contacts.
- * @returns {string} - The HTML for assigned contact small info cards.
- */
-function renderAssignedContactSmallInfoCard(assignedContacts) {
-    let assignedContactHTML = '';
-
-    if (assignedContacts && assignedContacts.length > 0) {
-        for (let i = 0; i < Math.min(assignedContacts.length, 3); i++) {
-            let contact = assignedContacts[i];
-            assignedContactHTML += `
-                <div class="boardNameBox">
-                    ${getInitials(contact.name)}
-                </div>`;
-        }
-
-        if (assignedContacts.length > 3) {
-            assignedContactHTML += `
-                <div class="boardNameBoxExtra">
-                    +${assignedContacts.length - 3}
-                </div>`;
-        }
-    }
-    return assignedContactHTML;
-}
 
 /**
  * Filters the number of subtasks that are done.
@@ -282,35 +192,6 @@ function filterSubTaskDone(element){
     return subTaskDone;
 }
 
-
-/**
- * Allows dropping of an element.
- * @param {Event} ev - The drop event.
- */
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-/**
- * Moves a task to a specified category.
- * @param {string} category - The target category.
- * checks if ID is already there, if so refreshes, if not it adds to it
- */
-async function moveTo(category) {
-    if (currentDraggedElement) {
-        const elementID = currentDraggedElement.taskID;
-        currentDraggedElement["status"] = category;
-        const existingIndex = allTasks.findIndex(task => task.taskID === elementID);
-
-        if (existingIndex !== -1) {
-            allTasks[existingIndex] = currentDraggedElement;
-        } else {
-            allTasks.push(currentDraggedElement);
-        }
-        await setItem("allTasks", JSON.stringify(allTasks));
-        await updateHTML();
-    }
-}
 
 /**
  * Toggles the visibility of the contacts section in the task creation form.
@@ -346,26 +227,6 @@ async function moveTo(category) {
 //     }
 // }
 
-/**
- * Initiates dragging of an element.
- * @param {number} elementID - The ID of the element being dragged.
- */
-function startDragging(elementID) {
-    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
-    currentDraggedElement = dragElement[0];
-    currentDraggedElementID = dragElement[0].taskID;
-}
-
-/**
- * Generates HTML for an empty todo task.
- * @param {HTMLElement} container - The container element.
- */
-function generateEmtyTodoHTML(container){   
-    container.innerHTML = /*html*/`               
-    <div class="emtyTask">
-       <p>No tasks To do</p>            
-    </div>`;
-}
 
 /**
  * Opens the information card for a specific task.
@@ -381,6 +242,7 @@ function openInfoCard(elementID){
     renderSubtasksInfoCard(element[0], elementID);
 }
 
+
 /**
  * Closes the add task form.
  */
@@ -388,12 +250,14 @@ async function closeAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'none';    
 }
 
+
 /**
  * Opens the add task form.
  */
 function openAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'block';
 }
+
 
 /**
  * Updates the created task.
@@ -403,6 +267,7 @@ async function updateCreatedTask(){
     await updateHTML();
 }
 
+
 /**
  * Updates the edited task.
  * @param {number} elementID - The ID of the element being edited.
@@ -411,6 +276,7 @@ async function updateEditTask(elementID){
     await createTask();
     await deleteTask(elementID);
 }
+
 
 /**
  * Deletes a task.
@@ -431,6 +297,7 @@ async function deleteTask(elementID) {
     }
 }
 
+
 /**
  * Opens the edit task form for a specific task.
  * @param {number} elementID - The ID of the element being edited.
@@ -441,6 +308,7 @@ function editTask(elementID){
 
     infoCard.innerHTML =  openEditTaskForm(element, elementID);
 }
+
 
 /**
  * Counts the number of open subtasks.
@@ -457,6 +325,7 @@ function countOpenSubtasks(element) {
     }
 }
 
+
 /**
  * Capitalizes the first letter of each word in a text.
  * @param {string} text - The input text.
@@ -466,6 +335,7 @@ function getFirstLettersUppercase(text) {
     if (!text) return '';
     return text.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 }
+
 
 /**
  * Gets the initials from a full name.
@@ -477,6 +347,7 @@ function getInitials(fullName) {
     const initials = nameParts.map(part => part.charAt(0)).join('');
     return initials;
 }
+
 
 /**
  * Reverses the date format.
@@ -497,6 +368,7 @@ function searchTasks() {
     updateHTML();
 }
 
+
 /**
  * Filters tasks based on a search input.
  * @param {Array} tasks - The array of tasks.
@@ -510,6 +382,7 @@ function filterTasksBySearch(tasks, searchInput) {
     );
 }
 
+
 /**
  * Closes the task popup.
  */
@@ -520,6 +393,7 @@ function closeTaskPopup() {
     }
 }
 
+
 /**
  * Prevents closing of open infocard div.
  * @param {Event} event - The event.
@@ -528,33 +402,50 @@ function doNotClose(event) {
     event.stopPropagation();
 }
 
-/**
- * Generates the inner HTML for a selected task.
- * @param {string} selectedTask - The selected task.
- * @returns {string} - The inner HTML.
- */
-function selectedTaskInnerHTML(selectedTask) {    
-    let taskImageSrc = '';
 
-    switch (selectedTask) {
-        case 'urgent':
-            taskText = 'urgent';
-            taskImageSrc = '/assets/img/Prio urgent.png';
-            break;
-        case 'medium':
-            taskText = 'medium';
-            taskImageSrc = '/assets/img/Prio medium.png';
-            break;
-        case 'low':
-            taskText = 'low';
-            taskImageSrc = '/assets/img/Prio low.png';
-            break;
-        default: 
-            taskText = 'no priority'
-            taskImageSrc = '/assets/img/white-block.png';
+/**
+ * Initiates dragging of an element.
+ * @param {number} elementID - The ID of the element being dragged.
+ */
+function startDragging(elementID) {
+    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
+    currentDraggedElement = dragElement[0];
+    currentDraggedElementID = dragElement[0].taskID;
+
+    let currentDraggedElementRotate = document.getElementById(elementID);
+    
+    if (currentDraggedElementRotate) {
+        currentDraggedElementRotate.classList.add('rotate-15');
     }
-    let resultHTML = `
-        <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
-    `;
-    return resultHTML;
+}
+
+
+/**
+ * Moves a task to a specified category.
+ * @param {string} category - The target category.
+ * checks if ID is already there, if so refreshes, if not it adds to it
+ */
+async function moveTo(category) {
+    if (currentDraggedElement) {
+        const elementID = currentDraggedElement.taskID;
+        currentDraggedElement["status"] = category;
+        const existingIndex = allTasks.findIndex(task => task.taskID === elementID);
+
+        if (existingIndex !== -1) {
+            allTasks[existingIndex] = currentDraggedElement;
+        } else {
+            allTasks.push(currentDraggedElement);
+        }
+        await setItem("allTasks", JSON.stringify(allTasks));
+        await updateHTML();
+    }
+}
+
+
+/**
+ * Allows dropping of an element.
+ * @param {Event} ev - The drop event.
+ */
+function allowDrop(ev) {
+    ev.preventDefault();
 }
