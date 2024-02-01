@@ -3,6 +3,7 @@ let originalElement = null;
 
 /**
  * Initiates dragging of an element.
+ *  Clone original element for dragging
  * @param {number} elementID - The ID of the element being dragged.
  */
 function startDragging(elementID) {
@@ -13,25 +14,26 @@ function startDragging(elementID) {
     let currentDraggedElementRotate = document.getElementById(elementID);
     
     if (currentDraggedElementRotate) {
-        currentDraggedElementRotate.classList.add('dragging'); // Add dragging class
-        originalContainer = currentDraggedElementRotate.parentElement; // Save original container
-        originalElement = currentDraggedElementRotate.cloneNode(true); // Clone original element
-        originalElement.classList.remove('dragging'); // Remove dragging class from clone
-        originalContainer.appendChild(originalElement); // Append clone to original container
+        currentDraggedElementRotate.classList.add('dragging'); 
+        originalContainer = currentDraggedElementRotate.parentElement; 
+        originalElement = currentDraggedElementRotate.cloneNode(true); 
+        originalElement.classList.remove('dragging'); 
+        originalContainer.appendChild(originalElement);
         originalElement.classList.add('rotate-15');
     }
 }
 
 /**
  * Ends dragging of an element.
+ * Remove original element from original container
  */
 function endDragging() {
     if (currentDraggedElementID) {
         let currentDraggedElementRotate = document.getElementById(currentDraggedElementID);
         if (currentDraggedElementRotate) {
-            currentDraggedElementRotate.classList.remove('dragging'); // Remove dragging class
+            currentDraggedElementRotate.classList.remove('dragging');
             if (originalElement && originalElement.parentNode === originalContainer) {
-                originalContainer.removeChild(originalElement); // Remove original element from original container
+                originalContainer.removeChild(originalElement);
             }
         }
     }

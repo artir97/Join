@@ -84,7 +84,7 @@ function generateOpenInfoCardHTML(element, elementID) {
  */
 function openEditTaskForm(element, elementID) {
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
-   
+    
     saveStatus(element[0]['status']);
 
     return /*html*/`
@@ -153,7 +153,7 @@ function openEditTaskForm(element, elementID) {
                         <span style="color: red;">You can't add an empty subtask</span>
                     </div>
                     <div>
-                        <ul id="add-task-subtask-list">
+                        <ul id="add-task-subtask-list">                            
                         </ul>
                     </div>
                 </div>
@@ -295,7 +295,8 @@ function loadPriorityLow(priority){
            return (
             `
             <div id="add-task-low" class="add-task-priority-box pointer selected" onclick="changePriority('low')" style="background-color: rgb(122, 226, 41); color: rgb(255, 255, 255);">
-                <div>Low</div>                    <img src="/assets/img/Prio low white.png" alt="">
+                <div>Low</div>                    
+                <img src="/assets/img/Prio low white.png" alt="">
             </div>
             `
            );
