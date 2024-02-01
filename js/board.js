@@ -340,13 +340,19 @@ function searchTasks() {
  * @param {string} searchInput - The search input.
  * @returns {Array} - The filtered tasks.
  */
+// function filterTasksBySearch(tasks, searchInput) {
+//     return tasks.filter(task =>
+//         task.title.toLowerCase().includes(searchInput) ||
+//         task.description.toLowerCase().includes(searchInput)
+//     );
+// }
+
 function filterTasksBySearch(tasks, searchInput) {
     return tasks.filter(task =>
-        task.title.toLowerCase().includes(searchInput) ||
-        task.description.toLowerCase().includes(searchInput)
+        (task.title && task.title.toLowerCase().includes(searchInput)) ||
+        (task.description && task.description.toLowerCase().includes(searchInput))
     );
 }
-
 
 /**
  * Closes the task popup.
@@ -365,52 +371,4 @@ function closeTaskPopup() {
  */
 function doNotClose(event) {
     event.stopPropagation();
-}
-
-
-/**
- * Initiates dragging of an element.
- * @param {number} elementID - The ID of the element being dragged.
- */
-function startDragging(elementID) {
-    dragElement = loadedTasks.filter(id => id['taskID'] == elementID);
-    currentDraggedElement = dragElement[0];
-    currentDraggedElementID = dragElement[0].taskID;
-
-    let currentDraggedElementRotate = document.getElementById(elementID);
-    
-    if (currentDraggedElementRotate) {
-        currentDraggedElementRotate.classList.add('rotate-15');
-    }
-}
-
-
-/**
- * Moves a task to a specified category.
- * @param {string} category - The target category.
- * checks if ID is already there, if so refreshes, if not it adds to it
- */
-async function moveTo(category) {
-    if (currentDraggedElement) {
-        const elementID = currentDraggedElement.taskID;
-        currentDraggedElement["status"] = category;
-        const existingIndex = allTasks.findIndex(task => task.taskID === elementID);
-
-        if (existingIndex !== -1) {
-            allTasks[existingIndex] = currentDraggedElement;
-        } else {
-            allTasks.push(currentDraggedElement);
-        }
-        await setItem("allTasks", JSON.stringify(allTasks));
-        await updateHTML();
-    }
-}
-
-
-/**
- * Allows dropping of an element.
- * @param {Event} ev - The drop event.
- */
-function allowDrop(ev) {
-    ev.preventDefault();
 }
