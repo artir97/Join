@@ -374,12 +374,12 @@ function showContacts(selectedContactsMini, contactBox, contactDropdown, contact
  * @function 
  */
 function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
-    if (document.location.pathname.includes("add_task.html")) {
-    contactBox.classList.add('d-none');
-    contactSearchbarContainer.classList.add('d-none');
-    contactDropdown.classList.remove('d-none');
-    selectedContactsMini.classList.remove('d-none');
-    selectedContactsMini.innerHTML = renderSelectedContactsMini();
+    if (document.location.pathname.includes('add_task.html') || document.location.pathname.includes('board.html')) {
+        contactBox.classList.add('d-none');
+        contactSearchbarContainer.classList.add('d-none');
+        contactDropdown.classList.remove('d-none');
+        selectedContactsMini.classList.remove('d-none');
+        selectedContactsMini.innerHTML = renderSelectedContactsMini();
     }
 }
 
@@ -421,9 +421,9 @@ function showCategories(taskBox, arrowCategories) {
  * @function
  */
 function hideCategories(taskBox, arrowCategories) {
-    if (document.location.pathname.includes("add_task.html")) {
-    taskBox.classList.add('d-none');
-    arrowCategories.style = 'transform: rotate(0deg);';
+    if (document.location.pathname.includes('add_task.html') || document.location.pathname.includes('board.html')) {
+        taskBox.classList.add('d-none');
+        arrowCategories.style = 'transform: rotate(0deg);';
     }
 }
 
@@ -459,7 +459,7 @@ document.addEventListener('click', handleClick);
 function confirmAddSubtask() {
     let subtaskInput = document.getElementById('add-task-subtask-input');
     let subtaskList = document.getElementById('add-task-subtask-list');
-    let subtaskAlert =  document.getElementById('add-task-subtask-alert');
+    let subtaskAlert = document.getElementById('add-task-subtask-alert');
     if (subtaskInput.value.trim() == '') {
         subtaskAlert.classList.remove('d-none');
     } else {
@@ -523,15 +523,15 @@ function confirmEditSubtask(i) {
     let subtaskList = document.getElementById('add-task-subtask-list');
     let subtaskEditEmptyAlert = document.getElementById(`add-task-subtask-edit-${i}`);
 
-    if(subtaskInput.value.trim() == ''){
+    if (subtaskInput.value.trim() == '') {
         subtaskEditEmptyAlert.classList.remove('d-none');
-    }else{
+    } else {
         subtasks[i].text = subtaskInput.value;
         subtaskEditEmptyAlert.classList.add('d-none');
         subtaskListItem.classList.remove('d-none');
         subtaskInput.classList.add('d-none');
         subtaskEditContainer.classList.add('d-none');
-    
+
         subtaskList.innerHTML = renderSubtasksAddTask();
     }
 }
@@ -710,13 +710,13 @@ function clearForm() {
     clearContacts();
 }
 
-function clearContacts(){
-    for(let i = 0; i < allContacts[0].length; i++){
+function clearContacts() {
+    for (let i = 0; i < allContacts[0].length; i++) {
         clearContact(i);
     }
 }
 
-function clearContact(id){
+function clearContact(id) {
     let contact = document.getElementById(`contact-${id}`);
     let checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
