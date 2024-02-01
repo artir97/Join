@@ -44,7 +44,7 @@ function generateOpenInfoCardHTML(element, elementID) {
                     </tr>
                     <tr class="tableRaw">
                         <td class="popupTaskDescription">${reversedDate}</td>    
-                        <td class="popupTaskDescription">${element[0].priority} ${selectedTaskInnerHTML(element[0]['priority'])}</td>
+                        <td class="popupTaskDescription">${element[0].priority} ${selectedTaskPriorityInnerHTML(element[0]['priority'])}</td>
                     </tr>
                 </tbody>
             </table>
@@ -146,7 +146,9 @@ function openEditTaskForm(element, elementID) {
                     </div>
                     <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
                 </div>
-
+                <div class="d-none" id="add-task-category-alert">
+                    <span>Please choose a category</span>
+                </div>
                 <label for="add-task-subtask">Subtask (optional)</label>
                 <div id="add-task-subtask-container">
                     <div id="add-task-subtask-input-container">
@@ -156,6 +158,9 @@ function openEditTaskForm(element, elementID) {
                         <div id="add-task-subtask-image-container">
                             <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="confirmAddSubtask()">
                         </div>
+                    </div>
+                    <div class="d-none" id="add-task-subtask-alert">
+                        <span style="color: red;">You can't add an empty subtask</span>
                     </div>
                     <div>
                         <ul id="add-task-subtask-list">
@@ -231,7 +236,9 @@ function generateEmtyTaskFormHTML() {
                 </div>
                 <div class="add-task-category-dropdown-task" onclick="selectedTask('user-story')">User Story</div>
             </div>
-        
+            <div class="d-none" id="add-task-category-alert">
+                <span>Please choose a category</span>
+            </div>
             <label for="add-task-subtask">Subtask (optional)</label>
             <div id="add-task-subtask-container">
                 <div id="add-task-subtask-input-container">
@@ -241,6 +248,9 @@ function generateEmtyTaskFormHTML() {
                     <div id="add-task-subtask-image-container">
                         <img src="/assets/img/add-task/subtask-add.png" alt="" onclick="confirmAddSubtask()">
                     </div>
+                </div>
+                <div class="d-none" id="add-task-subtask-alert">
+                    <span style="color: red;">You can't add an empty subtask</span>
                 </div>
                 <div>
                     <ul id="add-task-subtask-list">                        
@@ -261,7 +271,7 @@ function generateEmtyTaskFormHTML() {
  * @param {string} selectedTask - The selected task.
  * @returns {string} - The inner HTML.
  */
-function selectedTaskInnerHTML(selectedTask) {    
+function selectedTaskPriorityInnerHTML(selectedTask) {    
     let taskImageSrc = '';
 
     switch (selectedTask) {

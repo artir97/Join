@@ -305,6 +305,7 @@ function changePriority(priority) {
  */
 function selectedTask(selectedTask) {
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML(selectedTask);
+
     showAndHideCategories();
     selectedCategory = selectedTask;
     return selectedTask;

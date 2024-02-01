@@ -113,7 +113,7 @@ function generateTodoHTML(element, elementID) {
                     ${assignedContactHTML}
                 </div>
                 <div class="priorityIcon">
-                    ${selectedTaskInnerHTML(element['priority'])}
+                    ${selectedTaskPriorityInnerHTML(element['priority'])}
                 </div>
             </div>           
         </div>
