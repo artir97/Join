@@ -194,41 +194,6 @@ function filterSubTaskDone(element){
 
 
 /**
- * Toggles the visibility of the contacts section in the task creation form.
- * @function
- */
-// function showAndHideContacts() {
-//     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
-//     let contactBox = document.getElementById('add-task-contacts-to-assigne');
-//     let contactDropdown = document.getElementById('add-task-assigne');
-//     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
-
-//     if (contactBox.classList.contains('d-none')) {
-//         showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
-//     } else {
-//         hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
-//     }
-// }
-
-// function showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
-//     contactBox.classList.remove('d-none');
-//     contactDropdown.classList.add('d-none');
-//     contactSearchbarContainer.classList.remove('d-none');
-//     selectedContactsMini.classList.add('d-none');
-// }
-
-// function hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer) {
-//     if (document.location.pathname.includes("add_task.html")) {
-//     contactBox.classList.add('d-none');
-//     contactSearchbarContainer.classList.add('d-none');
-//     contactDropdown.classList.remove('d-none');
-//     selectedContactsMini.classList.remove('d-none');
-//     selectedContactsMini.innerHTML = renderSelectedContactsMini();
-//     }
-// }
-
-
-/**
  * Opens the information card for a specific task.
  * @param {number} elementID - The ID of the element.
  */

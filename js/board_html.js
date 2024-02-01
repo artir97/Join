@@ -84,6 +84,7 @@ function generateOpenInfoCardHTML(element, elementID) {
  */
 function openEditTaskForm(element, elementID) {
     const categoryHTML = element[0]['category'] ? `<div class="category">${getFirstLettersUppercase(element[0]['category'])}</div>` : '';
+   
     saveStatus(element[0]['status']);
 
     return /*html*/`
@@ -97,7 +98,6 @@ function openEditTaskForm(element, elementID) {
                     </div>
                 </div>
                 <input required class="pointer" type="text" placeholder="Enter a title" id="add-task-title" value="${element[0].title}">
-
                 <label for="add-task-description">Description (optional)</label>
                 <textarea class="pointer" type="text" name="add-task-description" id="add-task-description"
                     placeholder="Enter a description">${element[0].description}</textarea>
@@ -106,20 +106,10 @@ function openEditTaskForm(element, elementID) {
                 <input required class="pointer" type="date" name="add-task-date" id="add-task-date" min="" value="${element[0].date}" onclick="updateMinDate()">
 
                 <label for="add-task-priority">Priority (optional)</label>
-
                 <div id="add-task-priority">
-                    <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
-                        <div>Urgent</div>
-                        <img src="/assets/img/Prio urgent.png" alt="">
-                    </div>
-                    <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
-                        <div>Medium</div>
-                        <img src="/assets/img/Prio medium.png" alt="">
-                    </div>
-                    <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
-                        <div>Low</div>
-                        <img src="/assets/img/Prio low.png" alt="">
-                    </div>
+                    ${loadPriorityUrgent(element[0]['priority'])}
+                    ${loadPriorityMedium(element[0]['priority'])}
+                    ${loadPriorityLow(element[0]['priority'])}
                 </div>
 
                 <label for="add-task-assigne">Assgigned to (optional)</label>
@@ -295,4 +285,74 @@ function selectedTaskPriorityInnerHTML(selectedTask) {
         <img src="${taskImageSrc}" alt="${selectedTask}" class="priorityIcon">
     `;
     return resultHTML;
+}
+
+
+function loadPriorityLow(priority){
+    
+    switch(priority){
+        case 'low':
+           return (
+            `
+            <div id="add-task-low" class="add-task-priority-box pointer selected" onclick="changePriority('low')" style="background-color: rgb(122, 226, 41); color: rgb(255, 255, 255);">
+                <div>Low</div>                    <img src="/assets/img/Prio low white.png" alt="">
+            </div>
+            `
+           );
+        default:
+            return (
+                `
+                <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
+                    <div>Low</div>
+                    <img src="/assets/img/Prio low.png" alt="">
+                </div>
+                `
+            );
+    }
+}
+
+function loadPriorityMedium(priority){
+    switch(priority){
+        case 'medium':
+            return (
+                `
+                <div id="add-task-medium" class="add-task-priority-box pointer selected" onclick="changePriority('medium')" style="background-color: rgb(255, 168, 0); color: rgb(255, 255, 255);">
+                    <div>Medium</div>
+                    <img src="/assets/img/Prio medium white.png" alt="">
+                 </div>
+                `
+            );
+        default: 
+            return (
+                `
+                <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
+                    <div>Medium</div>
+                    <img src="/assets/img/Prio medium.png" alt="">
+                </div>
+                `
+            );
+    }
+}
+
+function loadPriorityUrgent(priority){
+    switch(priority){
+        case 'urgent':
+            return (
+                `
+                <div id="add-task-urgent" class="add-task-priority-box pointer selected" onclick="changePriority('urgent')" style="background-color: rgb(255, 61, 0); color: rgb(255, 255, 255);">
+                    <div>Urgent</div>
+                    <img src="/assets/img/Prio urgent white.png" alt="">
+                </div>
+                `
+            );
+        default: 
+            return (
+                `
+                <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
+                    <div>Urgent</div>
+                    <img src="/assets/img/Prio urgent.png" alt="">
+                </div>
+                `
+            );
+    }
 }
