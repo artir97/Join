@@ -117,6 +117,7 @@ function openEditTaskForm(element, elementID) {
                     <div>Select contacts to assgin</div>
                     <img src="/assets/img/arrow_drop_down.png" alt="">
                 </div>
+                <div class="" id="add-task-selected-contacts-mini">${renderSelectedContactsMiniEdit(element[0]['assignedContact'])}</div>
                 <div class="d-none searchbar-add-contacts-input-container" id="searchbar-add-contacts-container">
                     <input onkeyup="searchContactToAdd()" class="pointer" type="text" id="searchbar-add-contacts">
                     <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContacts()"> <!-- reverse so that the arrow points upwards-->
@@ -356,4 +357,14 @@ function loadPriorityUrgent(priority){
                 `
             );
     }
+}
+
+function renderSelectedContactsMiniEdit(selectedContactsEdit) {
+    let miniContacts = '';
+    if (selectedContactsEdit.length > 0) {
+        for (let i = 0; i < selectedContactsEdit.length; i++) {
+            miniContacts += selectedContactMiniTemplate(getInitials(selectedContactsEdit[i].name));
+        }
+    }
+    return miniContacts;
 }
