@@ -128,7 +128,7 @@ function openEditTaskForm(element, elementID) {
 
                 <label for="add-task-category">Category</label>
                 <div class="pointer" id="add-task-category" onclick="showAndHideCategories()">
-                    <div id="add-task-currently-selected-category">Select task category</div>
+                    <div id="add-task-currently-selected-category">${selectedTaskInnerHTML(element[0]['category'])}</div>
                     <img id="arrow-categories" src="/assets/img/arrow_drop_down.png" alt="">
                 </div>
                 <div class="d-none" id="add-task-category-dropdown">

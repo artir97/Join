@@ -295,7 +295,7 @@ button {
   display: flex;
   /* justify-content: space-between; */
   padding: 0px 64px 0px 64px;
-  width: 100%;
+  /* width: 100%; */
   gap: 24px;
 }
 .columnTitles img {
