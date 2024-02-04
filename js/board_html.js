@@ -123,7 +123,8 @@ function openEditTaskForm(element, elementID) {
                     <input onkeyup="searchContactToAdd()" class="pointer" type="text" id="searchbar-add-contacts">
                     <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContactsEdit(${elementID})"> <!-- reverse so that the arrow points upwards-->
                 </div>
-                <div class="d-none" id="add-task-contacts-to-assigne">
+                <div class="d-none" id="add-task-contacts-to-assigne-edit">
+                    ${renderAssignableContactsEdit(elementID)}
                 </div>
                 <div class="d-none" id="add-task-selected-contacts-mini">
                 </div>
@@ -374,7 +375,7 @@ function renderSelectedContactsMiniEdit(selectedContactsEdit) {
 function showAndHideContactsEdit(elementID) {
     const element = allTasks.filter(task => task['taskID']  === elementID);
     let selectedContactsMini = document.getElementById('add-task-selected-contacts-mini');
-    let contactBox = document.getElementById('add-task-contacts-to-assigne');
+    let contactBox = document.getElementById('add-task-contacts-to-assigne-edit');
     let contactDropdown = document.getElementById('add-task-assigne');
     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
     let selectedContactsEdit = element[0]['assignedContact'];
@@ -406,43 +407,40 @@ function hideContactsEdit(selectedContactsMini, contactBox, contactDropdown, con
     }
 }
 
+function renderAssignableContactsEdit(elementID){
+    const element = allTasks.filter(task => task['taskID']  === elementID);
 
+    let content = '';
+    for (let i = 0; i < allContacts[0].length; i++) {
+        content += assignContactsTemplateEdit(allContacts[0][i].name, i, element);
+    }
+    return content;
+}
 
+// =============
+function assignContactsTemplateEdit(name, index, element) {
+    const contactFound = element[0].assignedContact.find(c => c.name == name);
+    let selectedClass = '';
+    let checkboxImage = `assets/img/add-task/checkbox.png`;
 
-// function renderAssignableContactsEdit() {
-//     const element = allTasks.filter(task => task['taskID']  === elementID);
+    if (contactFound) {
+        selectedClass = 'selectedContact';
+        checkboxImage = 'assets/img/add-task/checkbox-checked.png';
+    }
 
+    const contactElement = document.createElement('div');
+    contactElement.innerHTML = `
+        <div onclick="selectContact(${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
+            <div class="name-box">${getInitials(name)}</div>
+            <div class="name">${name}</div>
+            <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>
+        </div>
+    `;
 
-//     let content = '';
-//     for (let i = 0; i < allContacts[0].length; i++) {
-//         content += assignContactsTemplateEdit(allContacts[0][i].name, i);
-//     }
-//     return content;
-// }
+    const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
+    if (contactFound) {
+        checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
+    }
 
-// function assignContactsTemplateEdit(name, index) {
-//     const contactFound = selectedContacts.find(c => c.name == name);
-//     let selectedClass = '';
-//     let checkboxImage = `assets/img/add-task/checkbox.png`;
-
-//     if (contactFound) {
-//         selectedClass = 'selectedContact';
-//         checkboxImage = 'assets/img/add-task/checkbox-checked.png';
-//     }
-
-//     const contactElement = document.createElement('div');
-//     contactElement.innerHTML = `
-//         <div onclick="selectContact(${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
-//             <div class="name-box">${getInitials(name)}</div>
-//             <div class="name">${name}</div>
-//             <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>
-//         </div>
-//     `;
-
-//     const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
-//     if (contactFound) {
-//         checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
-//     }
-
-//     return contactElement.innerHTML;
-// }
+    return contactElement.innerHTML;
+}
