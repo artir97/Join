@@ -412,13 +412,13 @@ function renderAssignableContactsEdit(elementID){
 
     let content = '';
     for (let i = 0; i < allContacts[0].length; i++) {
-        content += assignContactsTemplateEdit(allContacts[0][i].name, i, element);
+        content += assignContactsTemplateEdit(allContacts[0][i].name, i, element, elementID);
     }
     return content;
 }
 
 // =============
-function assignContactsTemplateEdit(name, index, element) {
+function assignContactsTemplateEdit(name, index, element, elementID) {
     const contactFound = element[0].assignedContact.find(c => c.name == name);
     let selectedClass = '';
     let checkboxImage = `assets/img/add-task/checkbox.png`;
@@ -430,7 +430,7 @@ function assignContactsTemplateEdit(name, index, element) {
 
     const contactElement = document.createElement('div');
     contactElement.innerHTML = `
-        <div onclick="selectContact(${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
+        <div onclick="selectContact(${index}), updateAssignedContacts(${elementID})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
             <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>

@@ -277,6 +277,18 @@ async function updateEditedTask(elementID){
     location.reload();
 }
 
+
+function updateAssignedContacts(elementID){
+    const assignedContact = selectedContacts;
+    const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
+    if (taskIndex === -1) {
+        return;
+    }
+    allTasks[taskIndex].assignedContact = assignedContact.slice();
+    setItem('allTasks', JSON.stringify(allTasks));
+    renderAssignableContactsEdit(elementID)
+}
+
 /**
  * Deletes a task.
  * @param {number} elementID - The ID of the element being deleted.
