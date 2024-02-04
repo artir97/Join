@@ -198,6 +198,8 @@ function filterSubTaskDone(element){
  * @param {number} elementID - The ID of the element.
  */
 function openInfoCard(elementID){    
+    closeAddTaskForm();
+
     let element = loadedTasks.filter((id) => id["taskID"] == elementID);
     let infoCard = document.getElementById("InfoCard");
   
@@ -242,6 +244,36 @@ async function updateEditTask(elementID){
     await deleteTask(elementID);
 }
 
+/**
+ * Updates the edited task.
+ * @param {number} elementID - The ID of the element being edited.
+ */
+async function updateEditedTask(elementID){
+    const title = document.getElementById('add-task-title').value;
+    const description = document.getElementById('add-task-description').value;
+    const date = document.getElementById('add-task-date').value;
+    const priority = assignPriority(selectedPriority);
+    const assignedContact = selectedContacts;
+    const category = selectedCategory;
+    const subtask = subtasks;
+
+    const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
+    if (taskIndex === -1) {
+        return;
+    }
+
+    allTasks[taskIndex].title = title;
+    allTasks[taskIndex].description = description;
+    allTasks[taskIndex].date = date;
+    allTasks[taskIndex].priority = priority;
+    allTasks[taskIndex].assignedContact = assignedContact.slice();
+    allTasks[taskIndex].category = category;
+    allTasks[taskIndex].subtask = subtask.slice();
+
+    setItem('allTasks', JSON.stringify(allTasks))
+    await updateHTML();
+    location.reload();
+}
 
 /**
  * Deletes a task.
@@ -272,6 +304,11 @@ function editTask(elementID){
     let infoCard = document.getElementById('InfoCard');
 
     infoCard.innerHTML =  openEditTaskForm(element, elementID);
+    const subtaskE = allTasks.find(task => task.taskID === elementID);
+    if (subtaskE) {
+        subtasks = subtaskE.subtask || [];
+        document.getElementById('add-task-subtask-list').innerHTML = renderSubtasksAddTask();
+    }
 }
 
 
