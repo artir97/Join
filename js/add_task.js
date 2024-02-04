@@ -90,6 +90,7 @@ async function createTask() {
 
 }
 
+
 function alertCategory(selectedCategory) {
     let category = document.getElementById('add-task-category-alert');
     if (selectedCategory) {
