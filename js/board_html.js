@@ -114,13 +114,13 @@ function openEditTaskForm(element, elementID) {
                 </div>
 
                 <label for="add-task-assigne">Assgigned to (optional)</label>
-                <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID}), searchContactToAdd()">
+                <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID})">
                     <div>Select contacts to assgin</div>
                     <img src="/assets/img/arrow_drop_down.png" alt="">
                 </div>
                 <div class="" id="add-task-selected-contacts-mini">${renderSelectedContactsMiniEdit(element[0]['assignedContact'])}</div>
                 <div class="d-none searchbar-add-contacts-input-container" id="searchbar-add-contacts-container">
-                    <input onkeyup="searchContactToAdd()" class="pointer" type="text" id="searchbar-add-contacts">
+                    <input onkeyup="searchContactToAddEdit(${elementID})" class="pointer" type="text" id="searchbar-add-contacts">
                     <img class="rotated-image" src="/assets/img/arrow_drop_down.png" alt="" onclick="showAndHideContactsEdit(${elementID})"> <!-- reverse so that the arrow points upwards-->
                 </div>
                 <div class="d-none" id="add-task-contacts-to-assigne-edit">
@@ -443,4 +443,15 @@ function assignContactsTemplateEdit(name, index, element) {
     }
 
     return contactElement.innerHTML;
+}
+
+function searchContactToAddEdit(elementID) {
+    const element = allTasks.filter(task => task['taskID']  === elementID);
+
+    searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
+    const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
+
+    // Now, you can render the filtered contacts
+    const content = filteredContacts.map((contact, index) => assignContactsTemplateEdit(contact.name, index, element)).join('');
+    document.getElementById('add-task-contacts-to-assigne-edit').innerHTML = content;
 }
