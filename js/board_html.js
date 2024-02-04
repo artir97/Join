@@ -114,7 +114,7 @@ function openEditTaskForm(element, elementID) {
                 </div>
 
                 <label for="add-task-assigne">Assgigned to (optional)</label>
-                <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID})">
+                <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID}), searchContactToAdd()">
                     <div>Select contacts to assgin</div>
                     <img src="/assets/img/arrow_drop_down.png" alt="">
                 </div>
