@@ -8,7 +8,6 @@ let subtasks = [];
 let lastStatus = 'toDo';
 let searchQuery = '';
 
-
 /**
  * Initializes task data by loading contacts, tasks, and setting up the user interface. *
  * @async

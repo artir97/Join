@@ -1,6 +1,7 @@
-let loadedTasks= [];
+let loadedTasks = [];
 let currentDraggedElement;
 let currentDraggedElementID; 
+
 
 
 /**
@@ -36,6 +37,7 @@ async function updateHTML() {
     renderTasksByStatus(filteredTasks, "awaitFeedback", "awaitFeedbackListContainer");
     renderTasksByStatus(filteredTasks, "done", "doneListContainer");
     generateEmtyTaskFormHTML();
+
 }
 
 
@@ -270,7 +272,7 @@ async function updateEditedTask(elementID){
     allTasks[taskIndex].category = category;
     allTasks[taskIndex].subtask = subtask.slice();
 
-    setItem('allTasks', JSON.stringify(allTasks))
+    setItem('allTasks', JSON.stringify(allTasks));
     await updateHTML();
     location.reload();
 }
