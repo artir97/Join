@@ -285,24 +285,12 @@ async function updateEditedTask(elementID){
 }
 
 
-// function updateAssignedContacts(elementID){
-
-//     const assignedContact = selectedContacts;
-//     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
-//     if (taskIndex === -1) {
-//         return;
-//     }
-//     // if (assignedContact = allTasks[taskIndex].assignedContact){
-//         console.log(allTasks[taskIndex].assignedContact);
-//     // }
-//     const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
-//     const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
-
-//     allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
-    
-//     setItem('allTasks', JSON.stringify(allTasks));
-//     renderAssignableContactsEdit(elementID);
-// }
+/**
+ * Handles the selection/deselection of an assigned contact for a specific task.
+ * @param {string} elementID - The unique identifier of the task element.
+ * @param {number} index - The index of the contact.
+ * @returns {void} - The function does not return a value.
+ */
 function selectAssignedContact(elementID, index){
     let contact = document.getElementById(`contact-${index}`);
     const assignedContact = selectedContacts;
@@ -422,18 +410,11 @@ function searchTasks() {
 
 
 /**
- * Filters tasks based on a search input.
- * @param {Array} tasks - The array of tasks.
- * @param {string} searchInput - The search input.
- * @returns {Array} - The filtered tasks.
+ * Filters an array of tasks based on a search input by matching against task titles and descriptions.
+ * @param {Array} tasks - The array of tasks to be filtered.
+ * @param {string} searchInput - The search input to match against task titles and descriptions.
+ * @returns {Array} - The filtered array of tasks that match the search input.
  */
-// function filterTasksBySearch(tasks, searchInput) {
-//     return tasks.filter(task =>
-//         task.title.toLowerCase().includes(searchInput) ||
-//         task.description.toLowerCase().includes(searchInput)
-//     );
-// }
-
 function filterTasksBySearch(tasks, searchInput) {
     return tasks.filter(task =>
         (task.title && task.title.toLowerCase().includes(searchInput)) ||

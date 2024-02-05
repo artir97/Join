@@ -8,6 +8,7 @@ let subtasks = [];
 let lastStatus = 'toDo';
 let searchQuery = '';
 
+
 /**
  * Initializes task data by loading contacts, tasks, and setting up the user interface. *
  * @async
@@ -30,7 +31,6 @@ async function initTaskData() {
 function generateTaskID(existingIDs) {
     let isUnique = false;
     let newID;
-
     while (!isUnique) {
         const timestamp = new Date().getTime();
         const random = Math.floor(Math.random() * 1000);
@@ -84,12 +84,16 @@ async function createTask() {
             window.location.href = 'board.html';
         }, 800);
     }
-
     clearForm();
 
 }
 
 
+/**
+ * Displays or hides an alert for the task category based on the provided selection.
+ * @param {boolean} selectedCategory - Indicates whether a category is selected or not.
+ * @returns {void} - The function does not return a value.
+ */
 function alertCategory(selectedCategory) {
     let category = document.getElementById('add-task-category-alert');
     if (selectedCategory) {
@@ -99,6 +103,11 @@ function alertCategory(selectedCategory) {
     }
 }
 
+
+/**
+ * Removes the alert for the task category by hiding the corresponding DOM element.
+ * @returns {void} - The function does not return a value.
+ */
 function removeAlertCategory() {
     let category = document.getElementById('add-task-category-alert');
     category.classList.add('d-none');
@@ -136,7 +145,6 @@ async function loadTasks() {
 async function loadContacts() {
     const contactsString = await getItem("kontakte");
     const loadedContacts = JSON.parse(contactsString);
-
     allContacts.push(loadedContacts);
 }
 
@@ -165,8 +173,6 @@ function getInitials(fullName) {
 function searchContactToAdd() {
     searchQuery = document.getElementById('searchbar-add-contacts').value.toLowerCase();
     const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
-
-    // Now, you can render the filtered contacts
     const content = filteredContacts.map((contact, index) => assignContactsTemplate(contact.name, index)).join('');
     document.getElementById('add-task-contacts-to-assigne').innerHTML = content;
 }
@@ -179,17 +185,14 @@ function searchContactToAdd() {
  */
 function selectContact(id) {
     const filteredContacts = allContacts[0].filter(contact => contact.name.toLowerCase().startsWith(searchQuery));
-    selectedContact = filteredContacts[id]; // Use the correct index from the filtered list
-
+    selectedContact = filteredContacts[id];
     let contact = document.getElementById(`contact-${id}`);
     let emailToRemoveContact = selectedContact.email;
     let indexToRemoveContact = selectedContacts.findIndex(selectedContact => selectedContact.email === emailToRemoveContact);
-
     const checkboxImage = document.getElementById(`contact-checkbox-${id}`);
 
     if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
-
         if (indexToRemoveContact !== -1) {
             selectedContacts.splice(indexToRemoveContact, 1);
         }
@@ -231,73 +234,6 @@ function unselectContact(contact, img) {
 
 
 /**
- * Assigns a priority level and updates the UI based on the provided priority.
- * @param {string} priority - The priority level to be assigned ('urgent', 'medium', 'low', or other).
- * @returns {string} - The assigned priority value.
- * @function
- */
-function assignPriority(priority) {
-    switch (priority) {
-        case 'urgent':
-            return 'urgent';
-        case 'medium':
-            return 'medium';
-        case 'low':
-            return 'low';
-        default:
-            return 'none';
-    }
-}
-
-
-function assignPriorityClick(priority) {
-    switch (priority) {
-        case 'urgent':
-            let urgentColor = changeColorUrgent();
-            if (urgentColor == 'none') {
-                selectedPriority = 'none';
-                return 'none';
-            } else {
-                return 'urgent';
-            }
-        case 'medium':
-            let mediumColor = changeColorMedium();
-            if (mediumColor == 'none') {
-                selectedPriority = 'none';
-                return 'none';
-            } else {
-                return 'medium';
-            }
-        case 'low':
-            let lowColor = changeColorLow();
-            if (lowColor == 'none') {
-                selectedPriority = 'none';
-                return 'none';
-            } else {
-                return 'low';
-            }
-        default:
-            return 'none';
-    }
-}
-
-/**
- * Changes the priority level for a task, updates the UI, and assigns the new priority.
- * @param {string} priority - The new priority level to be set ('urgent', 'medium', 'low', or other).
- * @function
- */
-function changePriority(priority) {
-    if (selectedPriority && selectedPriority !== 'none') {
-        document.getElementById(`add-task-${selectedPriority}`).classList.remove('selected');
-    }
-
-    selectedPriority = priority;
-    document.getElementById(`add-task-${priority}`).classList.add('selected');
-    assignPriorityClick(priority);
-}
-
-
-/**
  * Handles the selection of a task category, updates the UI, and sets the selected category.
  * @param {string} selectedTask - The selected task category ('technical-task', 'user-story', or other).
  * @returns {string} - The selected task category.
@@ -305,30 +241,9 @@ function changePriority(priority) {
  */
 function selectedTask(selectedTask) {
     document.getElementById('add-task-currently-selected-category').innerHTML = selectedTaskInnerHTML(selectedTask);
-
     showAndHideCategories();
     selectedCategory = selectedTask;
     return selectedTask;
-}
-
-
-/**
- * Generates innerHTML content for the currently selected task category based on the provided category.
- * @param {string} selectedTask - The selected task category ('technical-task', 'user-story', or other).
- * @returns {string} - The innerHTML content for the currently selected task category.
- * @function
- */
-function selectedTaskInnerHTML(selectedTask) {
-    switch (selectedTask) {
-        case 'technical-task':
-            removeAlertCategory();
-            return 'Technical Task';
-        case 'user-story':
-            removeAlertCategory();
-            return 'User Story';
-        default:
-            return 'Select task category';
-    }
 }
 
 
@@ -341,7 +256,6 @@ function showAndHideContacts() {
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
     let contactDropdown = document.getElementById('add-task-assigne');
     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
-
     if (contactBox.classList.contains('d-none')) {
         showContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
     } else {
@@ -392,14 +306,11 @@ function hideContacts(selectedContactsMini, contactBox, contactDropdown, contact
 function showAndHideCategories() {
     let taskBox = document.getElementById('add-task-category-dropdown');
     let arrowCategories = document.getElementById('arrow-categories');
-
     if (taskBox.classList.contains('d-none')) {
         showCategories(taskBox, arrowCategories);
     } else {
         hideCategories(taskBox, arrowCategories);
     }
-
-
 }
 
 
@@ -439,16 +350,13 @@ function handleClick(event) {
     let contactBox = document.getElementById('add-task-contacts-to-assigne');
     let contactDropdown = document.getElementById('add-task-assigne');
     let contactSearchbarContainer = document.getElementById('searchbar-add-contacts-container');
-
     let taskBox = document.getElementById('add-task-category-dropdown');
     let arrowCategories = document.getElementById('arrow-categories');
-
     if (getComputedStyle(event.target).cursor !== 'pointer') {
         hideContacts(selectedContactsMini, contactBox, contactDropdown, contactSearchbarContainer);
         hideCategories(taskBox, arrowCategories);
     }
 }
-
 // Add the 'click' event listener to the document, calling the 'handleClick' function
 document.addEventListener('click', handleClick);
 
@@ -468,13 +376,17 @@ function confirmAddSubtask() {
             text: subtaskInput.value,
             status: 'open'
         });
-
         subtaskList.innerHTML = renderSubtasksAddTask();
         subtaskInput.value = '';
         removeAlertSubtask();
     }
 }
 
+
+/**
+ * Removes the alert for adding subtasks by hiding the corresponding DOM element.
+ * @returns {void} - The function does not return a value.
+ */
 function removeAlertSubtask() {
     let subtask = document.getElementById('add-task-subtask-alert');
     subtask.classList.add('d-none');
@@ -488,7 +400,6 @@ function removeAlertSubtask() {
  */
 function deleteAddedSubtask(i) {
     let subtaskList = document.getElementById('add-task-subtask-list');
-
     subtasks.splice(i, 1);
     subtaskList.innerHTML = renderSubtasksAddTask();
 }
@@ -503,9 +414,7 @@ function openEditAddedSubtask(i) {
     let subtaskInput = document.getElementById(`add-task-subtask-input${i}`);
     let subtaskListItem = document.getElementById(`add-task-subtask-list-item${i}`);
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
-
     subtaskInput.value = subtasks[i].text;
-
     subtaskListItem.classList.add('d-none');
     subtaskInput.classList.remove('d-none');
     subtaskEditContainer.classList.remove('d-none');
@@ -523,7 +432,6 @@ function confirmEditSubtask(i) {
     let subtaskEditContainer = document.getElementById(`add-task-edit-input-container${i}`);
     let subtaskList = document.getElementById('add-task-subtask-list');
     let subtaskEditEmptyAlert = document.getElementById(`add-task-subtask-edit-${i}`);
-
     if (subtaskInput.value.trim() == '') {
         subtaskEditEmptyAlert.classList.remove('d-none');
     } else {
@@ -532,7 +440,6 @@ function confirmEditSubtask(i) {
         subtaskListItem.classList.remove('d-none');
         subtaskInput.classList.add('d-none');
         subtaskEditContainer.classList.add('d-none');
-
         subtaskList.innerHTML = renderSubtasksAddTask();
     }
 }
@@ -570,7 +477,6 @@ function removeDisplayNone(i) {
 }
 
 
-// RENDER FUNCTIONs
 /**
  * Renders the HTML content for the mini display of selected contacts.
  * @returns {string} - The HTML content for the mini display of selected contacts.
@@ -594,41 +500,15 @@ function renderSelectedContactsMini() {
  */
 function renderSubtasksAddTask() {
     let subtaskList = '';
-
     if (subtasks.length > 0) {
         for (let i = 0; i < subtasks.length; i++) {
-            subtaskList +=
-                `
-            <li id="add-task-subtask-list-item${i}" onclick="openEditAddedSubtask(${i})"  onmouseenter="removeDisplayNone(${i})" onmouseleave="addDisplayNone(${i})">
-                <span>${subtasks[i].text}</span>
-                <div id="add-task-subtask-list-buttons${i}" class="d-none">
-                    <img onclick="openEditAddedSubtask(${i})" src="/assets/img/add-task/subtask-edit.png" alt="" height="24px" width="24px">
-                    <div class="hr"></div>
-                    <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
-                </div>
-            </li>
-
-            <div class="d-none subtask-edit-input-container" id="add-task-edit-input-container${i}">
-                <input class="pointer" type="text" id="add-task-subtask-input${i}">
-                <div>
-                    <img onclick="deleteAddedSubtask(${i})" src="/assets/img/add-task/subtask-delete.png" alt="" height="24px" width="24px">
-                    <div class="hr"></div>
-                    <img onclick="confirmEditSubtask(${i})"src="/assets/img/add-task/subtask-check.png" alt="" height="24px" width="24px">
-                </div>
-            </div>
-
-            <div class="d-none" id="add-task-subtask-edit-${i}">
-                <span style="color: red;">You can't add an empty subtask</span>
-            </div>
-            `;
+            subtaskList += subtaskListInnerHTML(i, subtasks);
         }
     }
-
     return subtaskList;
 }
 
 
-// TEMPLATES
 /**
  * Generates the HTML template for a contact in the "Add Task" form.
  * @param {string} name - The full name of the contact.
@@ -640,54 +520,18 @@ function assignContactsTemplate(name, index) {
     const contactFound = selectedContacts.find(c => c.name == name);
     let selectedClass = '';
     let checkboxImage = `assets/img/add-task/checkbox.png`;
-
     if (contactFound) {
         selectedClass = 'selectedContact';
         checkboxImage = 'assets/img/add-task/checkbox-checked.png';
     }
 
     const contactElement = document.createElement('div');
-    contactElement.innerHTML = `
-        <div onclick="selectContact(${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
-            <div class="name-box">${getInitials(name)}</div>
-            <div class="name">${name}</div>
-            <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>
-        </div>
-    `;
-
+    contactElement.innerHTML = contactElementInnerHTML(index, selectedClass, name, checkboxImage);
     const checkboxImgElement = contactElement.querySelector(`#contact-checkbox-${index}`);
     if (contactFound) {
         checkboxImgElement.style.filter = 'brightness(0) saturate(100%) invert(87%) sepia(14%) saturate(5010%) hue-rotate(541deg) brightness(250%) contrast(155%)';
     }
-
     return contactElement.innerHTML;
-}
-
-
-/**
- * Generates the HTML template for a mini version of a selected contact.
- * @param {string} name - The initials of the selected contact.
- * @returns {string} - The HTML template for the mini version of the selected contact.
- * @function
- */
-function selectedContactMiniTemplate(name) {
-    return (
-        `<div class="name-box">${name}</div>`
-    );
-}
-
-
-/**
- * Generates the HTML template for displaying a subtask.
- * @param {string[]} subtasks - An array of subtasks.
- * @param {number} i - The index of the subtask to display.
- * @returns {string} - The HTML template for displaying the specified subtask.
- * @function
- */
-function getSubtasks(subtasks, i) {
-    return (
-        `<li>${subtasks[i]}</li>`
-    );
 }
 
 
@@ -711,116 +555,29 @@ function clearForm() {
     clearContacts();
 }
 
+
+/**
+ * Clears the selected state of all contacts.
+ * @returns {void} - The function does not return a value.
+ */
 function clearContacts() {
     for (let i = 0; i < allContacts[0].length; i++) {
         clearContact(i);
     }
 }
 
+
+/**
+ * Clears the selected state of a contact by its ID.
+ * @param {string} id - The unique identifier of the contact to be cleared.
+ * @returns {void} - The function does not return a value.
+ */
 function clearContact(id) {
     let contact = document.getElementById(`contact-${id}`);
     let checkboxImage = document.getElementById(`contact-checkbox-${id}`);
-
     if (contact.classList.contains('selectedContact')) {
         unselectContact(contact, checkboxImage);
     }
-}
-
-/**
- * Changes the color scheme for the 'Urgent' priority category.
- * @function
- */
-function changeColorUrgent() {
-    if (document.getElementById('add-task-urgent').style.backgroundColor == 'rgb(255, 61, 0)') {
-        resetColorAll();
-        return 'none';
-    } else {
-        document.getElementById('add-task-urgent').style.backgroundColor = '#FF3D00';
-        document.getElementById('add-task-urgent').style.color = '#fff';
-        document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent white.png';
-
-        document.getElementById('add-task-medium').style.backgroundColor = '#fff';
-        document.getElementById('add-task-medium').style.color = '#000';
-        document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png';
-
-        document.getElementById('add-task-low').style.backgroundColor = '#fff';
-        document.getElementById('add-task-low').style.color = '#000';
-        document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png';
-    }
-
-}
-
-
-/**
- * Changes the color scheme for the 'Medium' priority category.
- * @function
- */
-function changeColorMedium() {
-    if (document.getElementById('add-task-medium').style.backgroundColor == 'rgb(255, 168, 0)') {
-        resetColorAll();
-        return 'none';
-    } else {
-        document.getElementById('add-task-medium').style.backgroundColor = '#FFA800';
-        document.getElementById('add-task-medium').style.color = '#fff';
-        document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium white.png';
-
-        document.getElementById('add-task-urgent').style.backgroundColor = '#fff';
-        document.getElementById('add-task-urgent').style.color = '#000';
-        document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent.png';
-
-        document.getElementById('add-task-low').style.backgroundColor = '#fff';
-        document.getElementById('add-task-low').style.color = '#000';
-        document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png';
-    }
-
-}
-
-
-/**
- * Changes the color scheme for the 'Low' priority category.
- * @function
- */
-function changeColorLow() {
-    if (document.getElementById('add-task-low').style.backgroundColor == 'rgb(122, 226, 41)') {
-        resetColorAll();
-        return 'none';
-    } else {
-        document.getElementById('add-task-low').style.backgroundColor = '#7AE229';
-        document.getElementById('add-task-low').style.color = '#fff';
-        document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low white.png';
-
-
-        document.getElementById('add-task-urgent').style.backgroundColor = '#fff';
-        document.getElementById('add-task-urgent').style.color = '#000';
-        document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent.png';
-
-
-        document.getElementById('add-task-medium').style.backgroundColor = '#fff';
-        document.getElementById('add-task-medium').style.color = '#000';
-        document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png';
-    }
-
-}
-
-
-/**
- * Resets the color scheme for all priority categories.
- * @function
- */
-function resetColorAll() {
-    document.getElementById('add-task-low').style.backgroundColor = '#fff';
-    document.getElementById('add-task-low').style.color = '#000';
-    document.getElementById('add-task-low').querySelector('img').src = '/assets/img/Prio low.png';
-
-
-    document.getElementById('add-task-urgent').style.backgroundColor = '#fff';
-    document.getElementById('add-task-urgent').style.color = '#000';
-    document.getElementById('add-task-urgent').querySelector('img').src = '/assets/img/Prio urgent.png';
-
-
-    document.getElementById('add-task-medium').style.backgroundColor = '#fff';
-    document.getElementById('add-task-medium').style.color = '#000';
-    document.getElementById('add-task-medium').querySelector('img').src = '/assets/img/Prio medium.png';
 }
 
 
