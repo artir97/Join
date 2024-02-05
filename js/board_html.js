@@ -1,5 +1,49 @@
-// generateHTML
+/**
+ * Generates the HTML for a tasks.
+ * @param {Object} element - The task object.
+ * @param {number} elementID - The ID of the task.
+ * @returns {string} - The HTML representation of the task.
+ */
+function generateTodoHTML(element, elementID) {
+    const assignedContactHTML = renderAssignedContactSmallInfoCard(element.assignedContact);
+    const progressBarHTML = progressBarSmallInfoCard(element);    
+    const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
 
+    const dropdownMenuHTML = /*html*/`
+    <select class="statusDropdown" id="statusDropdown${elementID}" onchange="updateStatusMobile(${elementID}, this.value)">
+            <option value="" disabled selected>Status</option>
+            <option value="toDo" ${element.status === 'toDo' ? 'disabled' : ''}>To do</option>
+            <option value="inProgress" ${element.status === 'inProgress' ? 'disabled' : ''}>In progress</option>
+            <option value="awaitFeedback" ${element.status === 'awaitFeedback' ? 'disabled' : ''}>Await feedback</option>
+            <option value="done" ${element.status === 'done' ? 'disabled' : ''}>Done</option>
+    </select>
+    `;
+
+    return /*html*/`
+    <div class="todo-container">
+        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo" id="${elementID}">
+            <div class="baseline"> 
+                ${categoryHTML} 
+                <div class="dropdown" onclick="doNotClose(event)">
+                    ${dropdownMenuHTML}
+                </div>
+            </div>
+            <div class="taskName">${element['title']}</div>
+            <div class="taskInfo">${element['description']}</div>
+            <div class="progressBarContainer flex_spaceBetween" id="progressBarContainer">
+                ${progressBarHTML}   
+            </div>
+            <div class="flex_spaceBetween">
+                <div id="selectContact" class="selectContact">
+                    ${assignedContactHTML}
+                </div>
+                <div class="priorityIcon">
+                    ${selectedTaskPriorityInnerHTML(element['priority'])}
+                </div>
+            </div>           
+        </div>
+    </div>`;     
+}
 
 
 /**
@@ -113,7 +157,7 @@ function openEditTaskForm(element, elementID) {
                     ${loadPriorityLow(element[0]['priority'])}
                 </div>
 
-                <label for="add-task-assigne">Assgigned to (optional)</label>
+                <label for="add-task-assigne">Assigned to (optional)</label>
                 <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID})">
                     <div>Select contacts to assgin</div>
                     <img src="/assets/img/arrow_drop_down.png" alt="">
@@ -205,7 +249,7 @@ function generateEmtyTaskFormHTML() {
                 </div>
             </div>
 
-            <label for="add-task-assigne">Assgigned to (optional)</label>
+            <label for="add-task-assigne">Assigned to (optional)</label>
             <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
                 <div>Select contacts to assgin</div>
                 <img src="/assets/img/arrow_drop_down.png" alt="">
@@ -298,22 +342,18 @@ function selectedTaskPriorityInnerHTML(selectedTask) {
 function loadPriorityLow(priority){   
     switch(priority){
         case 'low':
-           return (
-            `
+           return (`
             <div id="add-task-low" class="add-task-priority-box pointer selected" onclick="changePriority('low')" style="background-color: rgb(122, 226, 41); color: rgb(255, 255, 255);">
                 <div>Low</div>                    
                 <img src="/assets/img/Prio low white.png" alt="">
-            </div>
-            `
+            </div>`
            );
         default:
-            return (
-                `
+            return (`
                 <div id="add-task-low" class="add-task-priority-box pointer" onclick="changePriority('low')">
                     <div>Low</div>
                     <img src="/assets/img/Prio low.png" alt="">
-                </div>
-                `
+                </div>`
             );
     }
 }
@@ -327,22 +367,18 @@ function loadPriorityLow(priority){
 function loadPriorityMedium(priority){
     switch(priority){
         case 'medium':
-            return (
-                `
+            return (`
                 <div id="add-task-medium" class="add-task-priority-box pointer selected" onclick="changePriority('medium')" style="background-color: rgb(255, 168, 0); color: rgb(255, 255, 255);">
                     <div>Medium</div>
                     <img src="/assets/img/Prio medium white.png" alt="">
-                 </div>
-                `
+                 </div>`
             );
         default: 
-            return (
-                `
+            return (`
                 <div id="add-task-medium" class="add-task-priority-box pointer" onclick="changePriority('medium')">
                     <div>Medium</div>
                     <img src="/assets/img/Prio medium.png" alt="">
-                </div>
-                `
+                </div>`
             );
     }
 }
@@ -356,22 +392,18 @@ function loadPriorityMedium(priority){
 function loadPriorityUrgent(priority){
     switch(priority){
         case 'urgent':
-            return (
-                `
+            return (`
                 <div id="add-task-urgent" class="add-task-priority-box pointer selected" onclick="changePriority('urgent')" style="background-color: rgb(255, 61, 0); color: rgb(255, 255, 255);">
                     <div>Urgent</div>
                     <img src="/assets/img/Prio urgent white.png" alt="">
-                </div>
-                `
+                </div>`
             );
         default: 
-            return (
-                `
+            return (`
                 <div id="add-task-urgent" class="add-task-priority-box pointer" onclick="changePriority('urgent')">
                     <div>Urgent</div>
                     <img src="/assets/img/Prio urgent.png" alt="">
-                </div>
-                `
+                </div>`
             );
     }
 }

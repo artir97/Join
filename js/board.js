@@ -3,7 +3,6 @@ let currentDraggedElement;
 let currentDraggedElementID; 
 
 
-
 /**
  * Saves the status of an element.
  * @param {string} Elementstatus - The status to be saved.
@@ -73,54 +72,6 @@ function renderTasksByStatus(loadedTasks, status, containerId) {
       generateEmtyTodoHTML(container);
     }
   }
-
-
-/**
- * Generates the HTML for a tasks.
- * @param {Object} element - The task object.
- * @param {number} elementID - The ID of the task.
- * @returns {string} - The HTML representation of the task.
- */
-function generateTodoHTML(element, elementID) {
-    const assignedContactHTML = renderAssignedContactSmallInfoCard(element.assignedContact);
-    const progressBarHTML = progressBarSmallInfoCard(element);    
-    const categoryHTML = element['category'] ? `<div class="category">${getFirstLettersUppercase(element['category'])}</div>` : '';
-
-    const dropdownMenuHTML = /*html*/`
-    <select class="statusDropdown" id="statusDropdown${elementID}" onchange="updateStatusMobile(${elementID}, this.value)">
-            <option value="" disabled selected>Status</option>
-            <option value="toDo" ${element.status === 'toDo' ? 'disabled' : ''}>To do</option>
-            <option value="inProgress" ${element.status === 'inProgress' ? 'disabled' : ''}>In progress</option>
-            <option value="awaitFeedback" ${element.status === 'awaitFeedback' ? 'disabled' : ''}>Await feedback</option>
-            <option value="done" ${element.status === 'done' ? 'disabled' : ''}>Done</option>
-    </select>
-    `;
-
-    return /*html*/`
-    <div class="todo-container">
-        <div draggable="true" onclick="openInfoCard(${elementID})" ondragstart="startDragging(${elementID})" class="todo" id="${elementID}">
-            <div class="baseline"> 
-                ${categoryHTML} 
-                <div class="dropdown" onclick="doNotClose(event)">
-                    ${dropdownMenuHTML}
-                </div>
-            </div>
-            <div class="taskName">${element['title']}</div>
-            <div class="taskInfo">${element['description']}</div>
-            <div class="progressBarContainer flex_spaceBetween" id="progressBarContainer">
-                ${progressBarHTML}   
-            </div>
-            <div class="flex_spaceBetween">
-                <div id="selectContact" class="selectContact">
-                    ${assignedContactHTML}
-                </div>
-                <div class="priorityIcon">
-                    ${selectedTaskPriorityInnerHTML(element['priority'])}
-                </div>
-            </div>           
-        </div>
-    </div>`;     
-}
 
 
 /**
