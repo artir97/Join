@@ -113,7 +113,7 @@ function openEditTaskForm(element, elementID) {
                     ${loadPriorityLow(element[0]['priority'])}
                 </div>
 
-                <label for="add-task-assigne">Assgigned to (optional)</label>
+                <label for="add-task-assigne">Assigned to (optional)</label>
                 <div class="pointer" id="add-task-assigne" onclick="showAndHideContactsEdit(${elementID})">
                     <div>Select contacts to assgin</div>
                     <img src="/assets/img/arrow_drop_down.png" alt="">
@@ -205,7 +205,7 @@ function generateEmtyTaskFormHTML() {
                 </div>
             </div>
 
-            <label for="add-task-assigne">Assgigned to (optional)</label>
+            <label for="add-task-assigne">Assigned to (optional)</label>
             <div class="pointer" id="add-task-assigne" onclick="showAndHideContacts()">
                 <div>Select contacts to assgin</div>
                 <img src="/assets/img/arrow_drop_down.png" alt="">
