@@ -264,30 +264,46 @@ async function updateEditedTask(elementID){
         return;
     }
 
+    const currentAssignedContacts = allTasks[taskIndex].assignedContact;
+    const combinedAssignedContacts = [...currentAssignedContacts, ...assignedContact];
+    const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
+
+
     allTasks[taskIndex].title = title;
     allTasks[taskIndex].description = description;
     allTasks[taskIndex].date = date;
     allTasks[taskIndex].priority = priority;
-    allTasks[taskIndex].assignedContact = assignedContact.slice();
+    allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
     allTasks[taskIndex].category = category;
     allTasks[taskIndex].subtask = subtask.slice();
 
     setItem('allTasks', JSON.stringify(allTasks));
+    renderAssignableContactsEdit(elementID);
+    
     await updateHTML();
     location.reload();
 }
 
 
 function updateAssignedContacts(elementID){
+
     const assignedContact = selectedContacts;
     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
     if (taskIndex === -1) {
         return;
     }
-    allTasks[taskIndex].assignedContact = assignedContact.slice();
+    // if (assignedContact = allTasks[taskIndex].assignedContact){
+        console.log(allTasks[taskIndex].assignedContact);
+    // }
+    const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
+    const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
+
+    allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+    
     setItem('allTasks', JSON.stringify(allTasks));
-    renderAssignableContactsEdit(elementID)
+    renderAssignableContactsEdit(elementID);
 }
+
 
 /**
  * Deletes a task.
