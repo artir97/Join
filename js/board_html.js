@@ -430,7 +430,7 @@ function assignContactsTemplateEdit(name, index, element, elementID) {
 
     const contactElement = document.createElement('div');
     contactElement.innerHTML = `
-        <div onclick="selectContact(${index}), updateAssignedContacts(${elementID})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
+        <div onclick="selectContact(${index}), selectAssignedContact(${elementID}, ${index})" id="contact-${index}" class="add-task-contacts-to-assigne-list-item ${selectedClass}">
             <div class="name-box">${getInitials(name)}</div>
             <div class="name">${name}</div>
             <div class="checkbox"><img id="contact-checkbox-${index}" src="${checkboxImage}" alt="checkbox"></div>

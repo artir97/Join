@@ -285,25 +285,45 @@ async function updateEditedTask(elementID){
 }
 
 
-function updateAssignedContacts(elementID){
+// function updateAssignedContacts(elementID){
 
+//     const assignedContact = selectedContacts;
+//     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
+//     if (taskIndex === -1) {
+//         return;
+//     }
+//     // if (assignedContact = allTasks[taskIndex].assignedContact){
+//         console.log(allTasks[taskIndex].assignedContact);
+//     // }
+//     const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
+//     const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
+
+//     allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+    
+//     setItem('allTasks', JSON.stringify(allTasks));
+//     renderAssignableContactsEdit(elementID);
+// }
+function selectAssignedContact(elementID, index){
+    let contact = document.getElementById(`contact-${index}`);
     const assignedContact = selectedContacts;
     const taskIndex = allTasks.findIndex(task => task.taskID === elementID);
     if (taskIndex === -1) {
         return;
     }
-    // if (assignedContact = allTasks[taskIndex].assignedContact){
-        console.log(allTasks[taskIndex].assignedContact);
-    // }
-    const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
-    const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
+    if (contact.classList.contains('selectedContact')) {
+        const combinedAssignedContacts = [...allTasks[taskIndex].assignedContact, ...assignedContact];
+        const uniqueAssignedContacts = [...new Set(combinedAssignedContacts)];
 
-    allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+        allTasks[taskIndex].assignedContact = uniqueAssignedContacts;
+    } 
+    else {
+        const existingContactIndex = allTasks[taskIndex].assignedContact.indexOf(assignedContact);
+        allTasks[taskIndex].assignedContact.splice(existingContactIndex, 1);
+    }  
     
     setItem('allTasks', JSON.stringify(allTasks));
     renderAssignableContactsEdit(elementID);
 }
-
 
 /**
  * Deletes a task.
