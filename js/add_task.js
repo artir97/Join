@@ -553,6 +553,7 @@ function clearForm() {
     subtasks = [];
     document.getElementById('add-task-subtask-list').innerHTML = renderSubtasksAddTask();
     clearContacts();
+    changePriority('medium');
 }
 
 

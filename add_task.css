@@ -429,9 +429,9 @@
         bottom: 105px;
     }
 
-    #add-task-clear-form {
+    /* #add-task-clear-form {
         display: none;
-    }
+    } */
 
     #add-task-subtask-container {
         padding-bottom: 145px;

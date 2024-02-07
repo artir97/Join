@@ -94,3 +94,40 @@ function getDragAfterElement(container, y) {
         }
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
+
+
+/**
+ * Event listener for the DOMContentLoaded event.
+ * Once the DOM is fully loaded, it gets the containers by their ids,
+ * then adds dragenter, dragleave, and drop event listeners to each container.
+ */
+document.addEventListener("DOMContentLoaded", function() {
+    const containers = [
+        'todoListContainer',
+        'progressListContainer',
+        'awaitFeedbackListContainer',
+        'doneListContainer'
+    ].map(id => document.getElementById(id))
+    .filter(el => el !== null);
+
+    containers.forEach(container => {
+        let counter = 0; // Add a counter
+        container.addEventListener('dragenter', function(e) {
+            e.preventDefault();
+            counter++;
+            this.classList.add('highlight');
+        });
+        container.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            counter--;
+            if (counter === 0) {
+                this.classList.remove('highlight');
+            }
+        });
+        container.addEventListener('drop', function(e) {
+            e.preventDefault();
+            counter = 0;
+            this.classList.remove('highlight');
+        });
+    });
+});

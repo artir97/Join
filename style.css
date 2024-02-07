@@ -23,6 +23,9 @@ h4 {
 html {
   scroll-behavior: smooth;
 }
+.highlight {
+  background-color: yellow;
+}
 body {
   margin: 0;
   font-style: normal;

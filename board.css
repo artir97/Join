@@ -805,6 +805,10 @@ input[type="checkbox"] {
   .toDoContainer {
     width: 252px;
 }
+
+.highlight {
+    background-color: rgb(243, 243, 243);
+}
 @media(max-width: 1400px) {
     .toDoContainer {
         width: 23%;
