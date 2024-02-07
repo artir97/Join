@@ -122,6 +122,7 @@ function removeAlertCategory() {
 async function updateMinDate() {
     let today = new Date().toISOString().split('T')[0];
     document.getElementById('add-task-date').min = today;
+    document.getElementById('add-task-date').value = today;
 }
 
 
