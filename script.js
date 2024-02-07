@@ -19,21 +19,22 @@ async function init() {
 /**
  * Check which page is active and sets corresponding class and image.
  */
-function checkFocusOnSidenav(){
+function setActivePage(pageName, pageId, imgId, imgPathBlue, imgPathDefault){
     let responsive = window.innerWidth < 1000;
-    if (document.location.pathname.includes("contacts.html")){
-        document.getElementById('contactsPage').classList.add('active');
-        document.getElementById('contactsImg').src = responsive ? '/assets/img/contacts_blue.png' : "/assets/img/nav-contact-icon.png";
-    } if (document.location.pathname.includes("add_task.html")){
-        document.getElementById('taskPage').classList.add('active');
-        document.getElementById('taskImg').src = responsive ? '/assets/img/addtask_blue.png' : "/assets/img/nav-add-task-icon.png";
-    } if (document.location.pathname.includes("board.html")){
-        document.getElementById('boardPage').classList.add('active');
-        document.getElementById('boardImg').src = responsive ? '/assets/img/board_blue.png' : "/assets/img/nav-board-icon.png";
-    } if (document.location.pathname.includes("summary.html")) {
-        document.getElementById('summaryPage').classList.add('active');
-        document.getElementById('summaryImg').src = responsive ? '/assets/img/summary_blue.png' : "/assets/img/nav-summary-icon.png";
+    if (document.location.pathname.includes(pageName)){
+        let pageElement = document.getElementById(pageId);
+        let imgElement = document.getElementById(imgId);
+        if (pageElement && imgElement) {
+            pageElement.classList.add('active');
+            imgElement.src = responsive ? imgPathBlue : imgPathDefault;
+        }
     }
+}
+function checkFocusOnSidenav(){
+    setActivePage("contacts.html", 'contactsPage', 'contactsImg', '/assets/img/contacts_blue.png', "/assets/img/nav-contact-icon.png");
+    setActivePage("add_task.html", 'taskPage', 'taskImg', '/assets/img/addtask_blue.png', "/assets/img/nav-add-task-icon.png");
+    setActivePage("board.html", 'boardPage', 'boardImg', '/assets/img/board_blue.png', "/assets/img/nav-board-icon.png");
+    setActivePage("summary.html", 'summaryPage', 'summaryImg', '/assets/img/summary_blue.png', "/assets/img/nav-summary-icon.png");
 }
 
 
@@ -98,7 +99,9 @@ async function CheckIfLoggedInOrGuest() {
         if (loggedInUserCookie) {
             loggedInUser = JSON.parse(decodeURIComponent(loggedInUserCookie.split('=')[1]));
             document.getElementById('user-initials').innerHTML = `<div>${returnInitials(loggedInUser.user_name)}</div>`;
+            if (document.location.pathname.includes("summary.html")){
             document.getElementById('summary-headline').innerHTML = `${checkTimeOfDay()}, ${loggedInUser.user_name}`;
+            }
         } else {
             document.getElementById('user-initials').innerHTML = '<div>G</div>';
             if (document.location.pathname.includes("summary.html")){

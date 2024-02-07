@@ -21,23 +21,24 @@ async function register(){
     const repeat_password = document.getElementById('repeat_password');
     signUpBtn.disabled = true;
     if (password.value !== repeat_password.value) {
-        
         document.getElementById('signUpPassword').style.display = 'block';
+        signUpBtn.disabled = false;
         return;
     } else {
+        document.getElementById('signUpPassword').style.display = 'none';
         users.push({
             user_name: user_name.value,
             email: email.value,
             password: password.value
         });
         await setItem('users', JSON.stringify(users));
-    document.getElementById('msgBox').classList.remove('d-none');
-    resetForm();
+        document.getElementById('msgBox').classList.remove('d-none');
+        resetForm();
 
 
-    setTimeout(() => {
-        window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
-    }, 3000);
+        setTimeout(() => {
+            window.location.href = 'index.html?msg=Du hast dich erfolgreich registriert';
+        }, 3000);
     }
 }
 

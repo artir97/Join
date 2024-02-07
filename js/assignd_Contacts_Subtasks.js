@@ -88,7 +88,7 @@ function renderAssignedContactSmallInfoCard(assignedContacts) {
                 </div>`;
         }
 
-        if (assignedContacts.length > 3) {
+        if (assignedContacts.length > 3) {console
             assignedContactHTML += `
                 <div class="boardNameBoxExtra">
                     +${assignedContacts.length - 3}

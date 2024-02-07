@@ -596,7 +596,8 @@ transition: background-color 0.3 ease-in-out!important;
 
 .editTask{
     width: 528px;
-    height: auto;
+    height: 100vh;
+    overflow: auto;
     padding: 48px 40px;
     align-items: flex-start;
     gap: 24px;
