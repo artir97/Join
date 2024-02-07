@@ -186,6 +186,7 @@ function openAddTaskForm(){
 async function updateCreatedTask(){
     await createTask();
     await updateHTML();
+    closeAddTaskForm();
 }
 
 

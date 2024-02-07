@@ -296,7 +296,7 @@ function generateEmtyTaskFormHTML() {
             </div>
             <div class="add-task-form-buttons">
                 <button type="button" id="add-task-clear-form" onclick="clearForm()" formnovalidate>Clear X</button>
-                <button id="add-task-create-task" onclick="closeAddTaskForm()"> Create Task <img src="/assets/img/check.png" alt=""></button>
+                <button id="add-task-create-task"> Create Task <img src="/assets/img/check.png" alt=""></button>
             </div>
         </div>       
 </div>`;
