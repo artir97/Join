@@ -176,6 +176,7 @@ async function closeAddTaskForm(){
  */
 function openAddTaskForm(){
     document.getElementById('slide-form-add-task').style.display = 'block';
+    updateMinDate();
 }
 
 

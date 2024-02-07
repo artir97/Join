@@ -19,6 +19,7 @@ async function initTaskData() {
     await loadTasks();
     document.getElementById('add-task-contacts-to-assigne').innerHTML = renderAssignableContacts();
     changePriority('medium');
+    updateMinDate();
 }
 
 
